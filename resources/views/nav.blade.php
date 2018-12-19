@@ -13,10 +13,10 @@
                         Proveedores
                     </a>
                     <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                        <a class="dropdown-item" href="#">Action</a>
-                        <a class="dropdown-item" href="#">Another action</a>
+                        <a class="dropdown-item" href="{{ url('/provedores/create')}}">Alta<i class="fa fa-user-plus float-right"></i></a>
+                        <a class="dropdown-item" href="{{ url('/provedores') }}">Búsqueda<i class="fa fa-search float-right"></i></a>
                         <div class="dropdown-divider"></div>
-                        <a class="dropdown-item" href="#">Something else here</a>
+                        <a class="dropdown-item" href="#">Giros<i class="fas fa-sync-alt float-right"></i></i></a>
                     </div>
                 </li>
                 <li class="nav-item dropdown">
