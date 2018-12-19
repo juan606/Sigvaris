@@ -5,7 +5,7 @@ Route::resource('provedores.direccionfisica','Proveedor\ProveedorDireccionFisica
 Route::resource('provedores.datosgenerales','Proveedor\ProveedorDatosGeneralesController');
 Route::resource('provedores.contacto','Proveedor\ProveedorContactoController');
 Route::resource('provedores.datosbancarios','Proveedor\ProveedorDatosBancariosController');
-
+Route::resource('doctores','Doctor\DoctorController');
 Route::get('/', function () {
     return view('index');
 });
