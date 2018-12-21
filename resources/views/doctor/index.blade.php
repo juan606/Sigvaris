@@ -1,5 +1,8 @@
 @extends('principal')
 @section('content')
+<div class="col-12">
+  <h4>Doctores</h4>
+</div>
 <div class="container p-5">
 <table class="table">
   <thead>
@@ -18,6 +21,7 @@
       <td>{{$doctor->nombre}}</td>
       <td>{{$doctor->apellidopaterno}}</td>
       <td>{{$doctor->apellidomaterno}}</td>
+      <td>{{$doctor->especialidad}}</td>
     </tr>
     @endforeach
   </tbody>

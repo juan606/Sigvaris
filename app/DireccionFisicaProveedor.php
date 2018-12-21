@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class DireccionFisicaProveedor extends Model
 {
     protected $table='direccion_fisica_provedor';
+    public $timestamps = false;
 
     protected $fillable=[
         'id',

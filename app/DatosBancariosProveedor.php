@@ -6,7 +6,8 @@ use Illuminate\Database\Eloquent\Model;
 
 class DatosBancariosProveedor extends Model
 {
-    protected $table = 'datos_bancarios_proveedor';
+	protected $table = 'datos_bancarios_proveedor';
+	public $timestamps = false;
 
     protected $fillable = [
     	'id',

@@ -4,6 +4,11 @@
     <form role="form" id="form-cliente" method="POST" action="{{ route('doctores.store') }}" name="form">
         {{ csrf_field() }}
         <div class="row">
+            <div class="col-7">
+                <h4>Doctores</h4>
+            </div>
+        </div>
+        <div class="row">
             <div class="col-4">
                 <div class="input-group mb-3">
                     <div class="input-group-prepend">

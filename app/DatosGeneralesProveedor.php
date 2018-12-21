@@ -6,7 +6,8 @@ use Illuminate\Database\Eloquent\Model;
 
 class DatosGeneralesProveedor extends Model
 {
-    protected $table = 'datos_generales_proveedor';
+	protected $table = 'datos_generales_proveedor';
+	public $timestamps = false;
 
     protected $fillable=[
 		'id',

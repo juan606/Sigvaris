@@ -1,13 +1,13 @@
 <?php
 
-namespace App\Http\Controllers\Doctor;
+namespace App\Http\Controllers\Prospecto;
 
-use App\Doctor;
-use UxWeb\SweetAlert\SweetAlert as Alert;
+use App\Prospecto;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use UxWeb\SweetAlert\SweetAlert as Alert;
 
-class DoctorController extends Controller
+class ProspectoController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -16,8 +16,8 @@ class DoctorController extends Controller
      */
     public function index()
     {
-        $doctores = Doctor::get();
-        return view('doctor.index', ['doctores'=> $doctores]);
+        $prospectos = Prospecto::get();
+        return view('prospecto.index', ['prospectos'=> $prospectos]);
     }
 
     /**
@@ -27,7 +27,7 @@ class DoctorController extends Controller
      */
     public function create()
     {
-        return view('doctor.create');
+        return view('prospecto.create');
     }
 
     /**
@@ -38,19 +38,19 @@ class DoctorController extends Controller
      */
     public function store(Request $request)
     {
-        $doctor = Doctor::create($request->all());
-        Alert::success('Doctor creado con éxito');
+        $prospecto = Prospecto::create($request->all());
+        Alert::success('Prospecto creado con éxito');
 
-        return redirect()->route('doctor.index');
+        return redirect()->route('prospecto.index');
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  \App\Doctor  $doctor
+     * @param  \App\Prospecto  $prospecto
      * @return \Illuminate\Http\Response
      */
-    public function show(Doctor $doctor)
+    public function show(Prospecto $prospecto)
     {
         //
     }
@@ -58,10 +58,10 @@ class DoctorController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Doctor  $doctor
+     * @param  \App\Prospecto  $prospecto
      * @return \Illuminate\Http\Response
      */
-    public function edit(Doctor $doctor)
+    public function edit(Prospecto $prospecto)
     {
         //
     }
@@ -70,10 +70,10 @@ class DoctorController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Doctor  $doctor
+     * @param  \App\Prospecto  $prospecto
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Doctor $doctor)
+    public function update(Request $request, Prospecto $prospecto)
     {
         //
     }
@@ -81,10 +81,10 @@ class DoctorController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Doctor  $doctor
+     * @param  \App\Prospecto  $prospecto
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Doctor $doctor)
+    public function destroy(Prospecto $prospecto)
     {
         //
     }
