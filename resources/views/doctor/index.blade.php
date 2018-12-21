@@ -1,30 +1,43 @@
 @extends('principal')
 @section('content')
-<div class="col-12">
-  <h4>Doctores</h4>
+
+<div class="card">
+	<div class="card-header">
+		<div class="row">
+			<div class="col-4">
+				<h4>Doctores</h4>
+			</div>
+			<div class="col-4 text-center">
+				<a href="{{ route('doctores.create') }}" class="btn btn-success">
+					<i class="fa fa-plus"></i><strong> Agregar Doctor</strong>
+				</a>
+			</div>
+		</div>
+	</div>
+	<div class="card-body">
+		<div class="row">
+			<div class="col-12">
+				<table class="table table-striped table-bordered table-hover" style="margin-bottom: 0px">
+					<tr class="info">
+						<th>Identificador</th>
+						<th>Nobre</th>
+						<th>Apellido Paterno</th>
+						<th>Apellido Materno</th>
+						<th>Especialidad</th>
+					</tr>
+					@foreach($doctores as $doctor)
+						<tr>
+							<td>{{ $doctor->id }}</td>
+							<td>{{ $doctor->nombre }}</td>
+							<td>{{ $doctor->apellidopaterno }}</td>
+							<td>{{ $doctor->apellidomaterno }}</td>
+							<td>{{ $doctor->especialidad }}</td>
+						</tr>
+					@endforeach
+				</table>
+			</div>
+		</div>
+	</div>
 </div>
-<div class="container p-5">
-<table class="table">
-  <thead>
-    <tr>
-      <th scope="col">#</th>
-      <th scope="col">Nobre</th>
-      <th scope="col">Paterno</th>
-      <th scope="col">Materno</th>
-      <th scope="col">Especialidad</th>
-    </tr>
-  </thead>
-  <tbody>
-    @foreach($doctores as $doctor)
-    <tr>
-      <th scope="row">{{$loop->index}}</th>
-      <td>{{$doctor->nombre}}</td>
-      <td>{{$doctor->apellidopaterno}}</td>
-      <td>{{$doctor->apellidomaterno}}</td>
-      <td>{{$doctor->especialidad}}</td>
-    </tr>
-    @endforeach
-  </tbody>
-</table>
-</div>
+
 @endsection

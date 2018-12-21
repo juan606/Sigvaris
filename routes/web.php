@@ -1,12 +1,12 @@
 <?php
 
-Route::resource('provedores','Proveedor\ProveedorController');
-Route::resource('provedores.direccionfisica','Proveedor\ProveedorDireccionFisicaController');
-Route::resource('provedores.datosgenerales','Proveedor\ProveedorDatosGeneralesController');
-Route::resource('provedores.contacto','Proveedor\ProveedorContactoController');
-Route::resource('provedores.datosbancarios','Proveedor\ProveedorDatosBancariosController');
+Route::resource('proveedores','Proveedor\ProveedorController');
+Route::resource('proveedores.direccionFiscal','Proveedor\ProveedorDireccionFiscalController');
+Route::resource('proveedores.datosGenerales','Proveedor\ProveedorDatosGeneralesController');
+Route::resource('proveedores.contacto','Proveedor\ProveedorContactoController');
+Route::resource('proveedores.datosBancarios','Proveedor\ProveedorDatosBancariosController');
 Route::resource('doctores','Doctor\DoctorController');
-Route::resource('prospecto','Prospecto\ProspectoController');
+Route::resource('prospectos','Prospecto\ProspectoController');
 Route::get('/', function () {
     return view('index');
 });

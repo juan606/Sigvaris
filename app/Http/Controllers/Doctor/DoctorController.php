@@ -39,9 +39,7 @@ class DoctorController extends Controller
     public function store(Request $request)
     {
         $doctor = Doctor::create($request->all());
-        Alert::success('Doctor creado con éxito');
-
-        return redirect()->route('doctor.index');
+        return redirect()->route('doctores.index');
     }
 
     /**

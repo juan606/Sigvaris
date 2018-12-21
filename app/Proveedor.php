@@ -33,7 +33,7 @@ class Proveedor extends Model
     ];
 
     public function direccionFisicaProvedor(){
-        return $this->hasOne('App\DireccionFisicaProvedor');
+        return $this->hasOne('App\DireccionFisicaProveedor');
     }
 
     public function contactosProvedor(){
