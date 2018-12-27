@@ -40,8 +40,8 @@ class ProspectoController extends Controller
     {
         $prospecto = Prospecto::create($request->all());
         Alert::success('Prospecto creado con éxito');
-
-        return redirect()->route('prospecto.index');
+        $prospectos = Prospecto::get();
+        return view('prospecto.index', ['prospectos' => $prospectos]);
     }
 
     /**
