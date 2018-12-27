@@ -1,7 +1,7 @@
 @extends('principal')
 @section('content')
 
-<div class="card">
+<div class="card mb-5">
 	<div class="card-header">
 		<div class="row">
 			<div class="col-4">
@@ -20,7 +20,8 @@
 			<div class="row">
 				<div class="form-group col-4">
 					<label class="control-label" for="tipopersona">Tipo de Persona:</label>
-					<select type="select" name="tipopersona" class="form-control" id="tipopersona" onchange="persona(this)">
+					<select required type="select" name="tipopersona" class="form-control" id="tipopersona" onchange="persona(this)">
+						<option value="">Seleccionar</option>
 						<option id="Fisica" value="Fisica">Fisica</option>
 						<option id="Moral" value="Moral">Moral</option>
 					</select>
@@ -55,18 +56,6 @@
 				</div>
 			</div>
 		</div>
-		<div class="card-footer">
-			<div class="row">
-				<div class="col-4">
-					<h4>Datos del Proveedor:</h4>
-				</div>
-				<div class="col-4 text-center">
-					<a class="btn btn-primary" href="{{ route('proveedores.index') }}">
-						<i class="fa fa-bars"></i><strong> Lista de Proveedores</strong>
-					</a>
-				</div>
-			</div>
-		</div>
 		<div class="card-body"></div>
 	    <div class="card-footer">
 	        <div class="row">
@@ -89,7 +78,7 @@
 		<div role="application" class="panel panel-group" >
 			<div class="panel-default">
 				<div class="panel-heading"><h4>Datos del Proveedor:
-					&nbsp;&nbsp;&nbsp;&nbsp; Campos Requeridos</h4>
+					</h4>
 				</div>
 				<div class="panel-body">
 					<div class="col-xs-4 col-xs-offset-8">
@@ -103,13 +92,13 @@
 
 			</div>
 		</div>
-
-		<ul class="nav nav-tabs">
-			<li class="active"><a href="">Dirección Fisica:</a></li>
-			<li role="presentation" class="disabled"><a>Dirección Fiscal:</a></li>
-			<li role="presentation" class="disabled"><a>Contacto:</a></li>
-			<li role="presentation" class="disabled"><a>Datos Generales:</a></li>
-			<li role="presentation" class="disabled"><a>Datos Bancarios:</a></li>
+		
+		<ul class="nav nav-pills">
+			<li class="nav-item"><a class="nav-link active" href="#/">Dirección Fisica:</a></li>
+			<li class="nav-item"><a class="nav-link disabled" href="#/">Dirección Fiscal:</a></li>
+			<li class="nav-item"><a class="nav-link disabled" href="#/">Contacto:</a></li>
+			<li class="nav-item"><a class="nav-link disabled" href="#/">Datos Generales:</a></li>
+			<li class="nav-item"><a class="nav-link disabled" href="#/">Datos Bancarios:</a></li>
 		</ul>
 
 		<div class="panel panel-default">
@@ -173,5 +162,46 @@
 	</div>
 </form>
 </div>
+<script>
+// $(document).ready(function(){
+// 	$('#tipopersona').change(function(){
+// 		if($(this).val() == 'Fisica'){
+
+// 		}
+// 		if($(this).val() == 'Moral'){
+
+// 		}
+// 	});
+// });
+function persona(elemento) {
+	$("#idnombre").prop('required', false);
+	$("#apellidopaterno").prop('required', false);
+	$("#razonsocial").prop('required', false);
+	$("#idnombre").val('');
+	$("#apellidopaterno").val('');
+	$("#apellidomaterno").val('');
+	$("#razonsocial").val('');
+	if(elemento.value == "Fisica") {
+		$('#perfisica').show();
+		$('#permoral').hide();
+		document.getElementById('varrfc').pattern = "^[A-Za-z]{4}[0-9]{6}[A-Za-z0-9]{3}";
+		document.getElementById('varrfc').placeholder = "Ingrese 13 caracteres";
+		document.getElementById('varrfc').title = "Siga el formato 4 letras seguidas por 6 digitos y 3 caracteres";
+		$("#idnombre").prop('required', true);
+		$("#apellidopaterno").prop('required', true);
+	} else if(elemento.value == "Moral") {
+		
+		$('#perfisica').hide();
+		$('#permoral').show();
+		document.getElementById('varrfc').pattern = "^[A-Za-z]{3}[0-9]{6}[A-Za-z0-9]{3}";
+		document.getElementById('varrfc').placeholder = "Ingrese 12 caracteres";
+		document.getElementById('varrfc').title = "Siga el formato 3 letras seguidas por 6 digitos y 3 caracteres";
+		$("#razonsocial").prop('required', true);
+		$("#idnombre").prop('required', false);
+		$("#apellidopaterno").prop('required', false);
+	}
+}
+
+</script>
 @endsection
 

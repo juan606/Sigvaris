@@ -7,12 +7,12 @@ use Illuminate\Database\Eloquent\Model;
 class ContactoProveedor extends Model
 {
 
-	protected $table = 'contactos_provedor';
+	protected $table = 'contactos_proveedor';
 	public $timestamps = false;
 
     protected $fillable = [
     	'id',
-    	'provedor_id',
+    	'proveedor_id',
     	'nombre',
     	'apater',
     	'amater',
@@ -29,7 +29,7 @@ class ContactoProveedor extends Model
     	'email2'
     ];
 
-    public function provedores() {
-    	return $this->belongsTo(Provedor::class,'provedor_id');
+    public function proveedores() {
+    	return $this->belongsTo(Proveedor::class,'proveedor_id');
     }
 }

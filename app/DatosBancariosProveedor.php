@@ -11,7 +11,7 @@ class DatosBancariosProveedor extends Model
 
     protected $fillable = [
     	'id',
-    	'provedor_id',
+    	'proveedor_id',
     	'banco_id',
     	'cuenta',
     	'clabe',

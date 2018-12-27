@@ -32,15 +32,15 @@ class Proveedor extends Model
         'referencia'
     ];
 
-    public function direccionFisicaProvedor(){
+    public function direccionFisicaProveedor(){
         return $this->hasOne('App\DireccionFisicaProveedor');
     }
 
-    public function contactosProvedor(){
-        return $this->hasMany('App\ContactoProvedor');
+    public function contactosProveedor(){
+        return $this->hasMany('App\ContactoProveedor');
     }
 
-    public function datosGeneralesProvedor(){
+    public function datosGeneralesProveedor(){
         return $this->hasOne('App\DatosGeneralesProveedor');
     }
 

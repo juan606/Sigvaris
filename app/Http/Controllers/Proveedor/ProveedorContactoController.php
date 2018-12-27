@@ -2,9 +2,9 @@
 
 namespace App\Http\Controllers\Proveedor;
 
-use App\Provedor;
+use App\Proveedor;
 use UxWeb\SweetAlert\SweetAlert as Alert;
-use App\ContactoProvedor;
+use App\ContactoProveedor;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
@@ -15,19 +15,19 @@ class ProveedorContactoController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index(Provedor $provedore)
+    public function index(Proveedor $proveedore)
     {
         //
-        $contactos = $provedore->contactosProvedor;
+        $contactos = $proveedore->contactosProveedor;
         // dd($contactos);
-        return view('provedores.contacto.index', ['provedore'=>$provedore, 'contactos'=>$contactos]);
+        return view('proveedores.contacto.index', ['proveedore'=>$proveedore, 'contactos'=>$contactos]);
 
     }
 
     public function busqueda(){
-        $contactos = $provedore->contactosProvedor;
+        $contactos = $proveedore->contactosProveedor;
         // dd($contactos);
-        return view('provedores.contacto.busqueda', ['provedore'=>$provedore, 'contactos'=>$contactos]);
+        return view('proveedores.contacto.busqueda', ['proveedore'=>$proveedore, 'contactos'=>$contactos]);
     }
 
     /**
@@ -35,10 +35,10 @@ class ProveedorContactoController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create(Provedor $provedore)
+    public function create(Proveedor $proveedore)
     {
         //
-        return view('provedores.contacto.create',['provedore'=>$provedore]);
+        return view('proveedores.contacto.create',['proveedore'=>$proveedore]);
     }
 
     /**
@@ -47,13 +47,13 @@ class ProveedorContactoController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request, Provedor $provedore)
+    public function store(Request $request, Proveedor $proveedore)
     {
         //
-        $contacto = ContactoProvedor::create($request->all());
+        $contacto = ContactoProveedor::create($request->all());
         Alert::success('Contacto creado con éxito');
 
-        return redirect()->route('provedores.contacto.index', ['provedore'=>$provedore]);
+        return redirect()->route('proveedores.contacto.index', ['proveedore'=>$proveedore]);
     }
 
     /**
@@ -62,11 +62,11 @@ class ProveedorContactoController extends Controller
      * @param  \App\Personal  $personal
      * @return \Illuminate\Http\Response
      */
-    public function show(Provedor $provedore,$contacto)
+    public function show(Proveedor $proveedore,$contacto)
     {
         //
-        $contacto = ContactoProvedor::findOrFail($contacto);
-        return view('provedores.contacto.view',['provedore'=>$provedore, 'contacto'=>$contacto]);
+        $contacto = ContactoProveedor::findOrFail($contacto);
+        return view('proveedores.contacto.view',['proveedore'=>$proveedore, 'contacto'=>$contacto]);
     }
 
     /**
@@ -75,11 +75,11 @@ class ProveedorContactoController extends Controller
      * @param  \App\Personal  $personal
      * @return \Illuminate\Http\Response
      */
-    public function edit(Provedor $provedore, $contacto)
+    public function edit(Proveedor $proveedore, $contacto)
     {
         //
-        $contacto = ContactoProvedor::findOrFail($contacto);
-        return view('provedores.contacto.edit',['provedore'=>$provedore, 'contacto'=>$contacto]);
+        $contacto = ContactoProveedor::findOrFail($contacto);
+        return view('proveedores.contacto.edit',['proveedore'=>$proveedore, 'contacto'=>$contacto]);
     }
 
     /**
@@ -89,13 +89,13 @@ class ProveedorContactoController extends Controller
      * @param  \App\Personal  $personal
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Provedor $provedore, $contacto)
+    public function update(Request $request, Proveedor $proveedore, $contacto)
     {
         //
-        $contacto = ContactoProvedor::findOrFail($contacto);
+        $contacto = ContactoProveedor::findOrFail($contacto);
         $contacto->update($request->all());
         Alert::success('Contacto actualizado con éxito');
-        return redirect()->route('provedores.contacto.index',['provedore'=>$provedore]);
+        return redirect()->route('proveedores.contacto.index',['proveedore'=>$proveedore]);
     }
 
     /**
@@ -104,7 +104,7 @@ class ProveedorContactoController extends Controller
      * @param  \App\Personal  $personal
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Provedor $provedor)
+    public function destroy(Proveedor $proveedor)
     {
         //
     }

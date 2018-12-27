@@ -15,16 +15,16 @@ class ProveedorDireccionFisicaController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index(Proveedor $provedore)
+    public function index(Proveedor $proveedore)
     {
         //
-        $direccion = $provedore->direccionFisicaProveedor;
+        $direccion = $proveedore->direccionFisicaProveedor;
         if ($direccion ==null) {
             # code...
-            return redirect()->route('provedores.direccionfisica.create',['provedore'=>$provedore]);
+            return redirect()->route('proveedores.direccionfisica.create',['proveedore'=>$proveedore]);
         }
         else{
-            return view('provedores.direccion.view',['direccion'=>$direccion,'provedore'=>$provedore]);
+            return view('proveedores.direccion.view',['direccion'=>$direccion,'proveedore'=>$proveedore]);
         }
 
 
@@ -35,10 +35,10 @@ class ProveedorDireccionFisicaController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create(Proveedor $provedore)
+    public function create(Proveedor $proveedore)
     {
         //
-        return view('provedores.direccion.create',['provedore'=>$provedore]);
+        return view('proveedores.direccion.create',['proveedore'=>$proveedore]);
     }
 
     /**
@@ -47,14 +47,14 @@ class ProveedorDireccionFisicaController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request, Proveedor $provedore)
+    public function store(Request $request, Proveedor $proveedore)
     {
         //
         // dd($request->all());
         $direccion = DireccionFisicaProveedor::create($request->all());
 
         Alert::success('Direcciòn Fìsica del Proveedor Actualizada')->persistent("Cerrar");
-        return redirect()->route('provedores.contacto.index',['provedore'=>$provedore]);
+        return redirect()->route('proveedores.contacto.index',['proveedore'=>$proveedore]);
         // return view('d}ireccion.view',['direccion'=>$direccion,'personal'=>$cliente]);
 
     }
@@ -65,11 +65,11 @@ class ProveedorDireccionFisicaController extends Controller
      * @param  \App\Personal  $personal
      * @return \Illuminate\Http\Response
      */
-    public function show(Proveedor $provedore)
+    public function show(Proveedor $proveedore)
     {
         //
-        $direccion = $provedore->direccionFisicaProveedor;
-        return view('provedores.direccion.view',['direccion'=>$direccion,'provedore'=>$provedore]);
+        $direccion = $proveedore->direccionFisicaProveedor;
+        return view('proveedores.direccion.view',['direccion'=>$direccion,'proveedore'=>$proveedore]);
 
     }
 
@@ -79,11 +79,11 @@ class ProveedorDireccionFisicaController extends Controller
      * @param  \App\Personal  $personal
      * @return \Illuminate\Http\Response
      */
-    public function edit(Proveedor $provedore)
+    public function edit(Proveedor $proveedore)
     {
         //
-        $direccion = $provedore->direccionFisicaProveedor;
-        return view('provedores.direccion.edit',['provedore'=>$provedore, 'direccion'=>$direccion]);
+        $direccion = $proveedore->direccionFisicaProveedor;
+        return view('proveedores.direccion.edit',['proveedore'=>$proveedore, 'direccion'=>$direccion]);
     }
 
     /**
@@ -93,13 +93,13 @@ class ProveedorDireccionFisicaController extends Controller
      * @param  \App\Personal  $personal
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Proveedor $provedore, DireccionFisicaProveedor $direccionFisicaProveedor )
+    public function update(Request $request, Proveedor $proveedore, DireccionFisicaProveedor $direccionFisicaProveedor )
     {
         //
         // dd($DireccionFiscal);
-        $provedore->direccionFisicaProveedor->update($request->all());
+        $proveedore->direccionFisicaProveedor->update($request->all());
         Alert::success('Direcciòn Fisical del Proveedor Actializada')->persistent("Cerrar");
-        return redirect()->route('provedores.direccionfisica.index',['provedore'=>$provedore]);
+        return redirect()->route('proveedores.direccionfisica.index',['proveedore'=>$proveedore]);
     }
 
     /**
@@ -108,11 +108,11 @@ class ProveedorDireccionFisicaController extends Controller
      * @param  \App\Personal  $personal
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Proveedor $provedore)
+    public function destroy(Proveedor $proveedore)
     {
         //
     }
     public function prueba(){
-        return view('provedores.direccion.view');
+        return view('proveedores.direccion.view');
     }
 }

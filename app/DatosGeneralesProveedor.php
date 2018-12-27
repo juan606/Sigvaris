@@ -11,7 +11,7 @@ class DatosGeneralesProveedor extends Model
 
     protected $fillable=[
 		'id',
-		'provedor_id',
+		'proveedor_id',
 		'giro_id',
 		'tamano', 
 		'forma_contacto_id', 

@@ -28,7 +28,7 @@
 				</tr>
 			</thead>
 
-			@foreach($provedores as $personal)
+			@foreach($proveedores as $personal)
 
 				<tr class="active">
 					<td>{{$personal->id}}</td>
@@ -53,16 +53,16 @@
 			@endforeach
 		</table>
 	</div>
-	{{ $provedores->links()}}
+	{{ $proveedores->links()}}
 </div>
-@foreach ($provedores as $personal)
+@foreach ($proveedores as $personal)
 	{{-- expr --}}
 	<div class="container" id="tab">
 				<div role="application" class="panel panel-group" >
 					<div class="panel-default">
 						<div class="panel-heading"><h4>Datos del cliente:</h4></div>
 						<div class="panel-body">
-							<div class="col-md-12 offset-md-2 mt-3">
+							<div class="row">
 			  					<div class="form-group col-lg-3 col-md-3 col-sm-6 col-xs-12">
 			    					<label class="control-label" for="tipopersona">Tipo de Persona:</label>
 			    					<dd>{{ $personal->tipopersona }}</dd>
@@ -82,7 +82,7 @@
 							</div>
 						@if ($personal->tipopersona == "Fisica")
 								{{-- true expr --}}
-							<div class="col-md-12 offset-md-2 mt-3" id="perfisica">
+							<div class="row" id="perfisica">
 								<div class="form-group col-lg-3 col-md-3 col-sm-6 col-xs-12">
 			  						<label class="control-label" for="nombre">Nombre(s):</label>
 			  						<dd>{{ $personal->nombre }}</dd>
@@ -98,7 +98,7 @@
 							</div>
 						@else
 								{{-- false expr --}}
-							<div class="col-md-12 offset-md-2 mt-3" id="permoral">
+							<div class="row" id="permoral">
 								<div class="form-group col-lg-3 col-md-3 col-sm-6 col-xs-12">
 
 			  						<label class="control-label" for="razonsocial">Razon Social:</label>
@@ -108,16 +108,16 @@
 						@endif
 						</div>
 					</div>
-					<ul role="tablist" class="nav nav-tabs nav-pills nav-justified">
-						<li role="tab" tabindex="0" aria-controls="tabs-1" aria-labelledby="ui-id-1" aria-selected="true" aria-expanded="true" class="ui-tabs-tab ui-corner-top ui-state-default ui-tab ui-tabs-active ui-state-active active"><a href="#tab1" tabindex="-1">Dirección Fiscal:</a></li>
-						<li role="tab" tabindex="-1" class="ui-tabs-tab ui-corner-top ui-state-default ui-tab" aria-controls="tabs-2" aria-labelledby="ui-id-2" aria-selected="false" aria-expanded="false"><a href="#tab2" role="tab" tabindex="-1" class="ui-tabs-anchor" id="ui-id-2">Dirección Fisica:</a></li>
-						<li role="tab" tabindex="-1" class="ui-tabs-tab ui-corner-top ui-state-default ui-tab" aria-controls="tabs-3" aria-labelledby="ui-id-3" aria-selected="false" aria-expanded="false"><a href="#tab3" role="tab" tabindex="-1" class="ui-tabs-anchor" id="ui-id-3">Contacto:</a></li>
-						<li role="tab" tabindex="-1" class="ui-tabs-tab ui-corner-top ui-state-default ui-tab" aria-controls="tabs-3" aria-labelledby="ui-id-3" aria-selected="false" aria-expanded="false"><a href="#tab4" role="tab" tabindex="-1" class="ui-tabs-anchor" id="ui-id-3">Datos Generales:</a></li>
+					<ul role="tablist" class="nav nav-pills">
+						<li role="tab" tabindex="0" aria-controls="tabs-1" aria-labelledby="ui-id-1" aria-selected="true" aria-expanded="true" class="nav-item"><a class="nav-link active" href="#tab1" tabindex="-1">Dirección Fiscal:</a></li>
+						<li role="tab" tabindex="-1" class="nav-item" aria-controls="tabs-2" aria-labelledby="ui-id-2" aria-selected="false" aria-expanded="false"><a href="#tab2" role="tab" tabindex="-1" class="nav-link" id="ui-id-2">Dirección Fisica:</a></li>
+						<li role="tab" tabindex="-1" class="nav-item" aria-controls="tabs-3" aria-labelledby="ui-id-3" aria-selected="false" aria-expanded="false"><a href="#tab3" role="tab" tabindex="-1" class="nav-link" id="ui-id-3">Contacto:</a></li>
+						<li role="tab" tabindex="-1" class="nav-item" aria-controls="tabs-3" aria-labelledby="ui-id-3" aria-selected="false" aria-expanded="false"><a href="#tab4" role="tab" tabindex="-1" class="nav-link" id="ui-id-3">Datos Generales:</a></li>
 					</ul>
 					<div class="panel-default pestana" aria-hidden="false" id="tab1" style="display: block;">
 						<div class="panel-heading">Dirección Fiscal:</div>
 						<div class="panel-body">
-							<div class="col-md-12 offset-md-2 mt-3">
+							<div class="row">
 								<div class="form-group col-lg-3 col-md-3 col-sm-6 col-xs-12">
 			    					<label class="control-label" for="calle">Calle:</label>
 			    					<dd>{{ $personal->calle }}</dd>
@@ -135,7 +135,7 @@
 			    					<dd>{{ $personal->cp }}</dd>
 			  					</div>		
 							</div>
-							<div class="col-md-12 offset-md-2 mt-3" id="perfisica">
+							<div class="row" id="perfisica">
 								<div class="form-group col-lg-3 col-md-3 col-sm-6 col-xs-12">
 			  						<label class="control-label" for="colonia">Colonia:</label>
 			  						<dd>{{ $personal->colonia }}</dd>
@@ -153,7 +153,7 @@
 			  						<dd>{{ $personal->estado }}</dd>
 			  					</div>
 							</div>
-							<div class="col-md-12 offset-md-2 mt-3" id="perfisica">
+							<div class="row" id="perfisica">
 								<div class="form-group col-lg-3 col-md-3 col-sm-6 col-xs-12">
 			  						<label class="control-label" for="calle1">Entre calle:</label>
 			  						<dd>{{ $personal->calle1 }}</dd>
@@ -179,7 +179,7 @@
 							@else
 								{{-- false expr --}}
 
-							<div class="col-md-12 offset-md-2 mt-3">
+							<div class="row">
 								<div class="form-group col-lg-3 col-md-3 col-sm-6 col-xs-12">
 			    					<label class="control-label" for="calle">Calle:</label>
 			    					<dd>{{$personal->direccionFisica->calle}}</dd>
@@ -193,7 +193,7 @@
 			    					<dd>{{$personal->direccionFisica->numint}}</dd>
 			  					</div>		
 							</div>
-							<div class="col-md-12 offset-md-2 mt-3" id="perfisica">
+							<div class="row" id="perfisica">
 								<div class="form-group col-lg-3 col-md-3 col-sm-6 col-xs-12">
 			  						<label class="control-label" for="colonia">Colonia:</label>
 			  						<dd>{{$personal->direccionFisica->colonia}}</dd>
@@ -211,7 +211,7 @@
 			  						<dd>{{$personal->direccionFisica->estado}}</dd>
 			  					</div>
 							</div>
-							<div class="col-md-12 offset-md-2 mt-3" id="perfisica">
+							<div class="row" id="perfisica">
 								<div class="form-group col-lg-3 col-md-3 col-sm-6 col-xs-12">
 			  						<label class="control-label" for="calle1">Entre calle:</label>
 			  						<dd>{{$personal->direccionFisica->calle1}}</dd>
@@ -274,13 +274,13 @@
 						@endif
 						@if (count($personal->datosGenerales) !=0)
 				 	<div class="panel-body">
-				 		<div class="col-md-12 offset-md-2 mt-3">
+				 		<div class="row">
 				 			<div class="form-group col-lg-3 col-md-3 col-sm-6 col-xs-12">
 				 			<label class="control-label" for="nombre">Tamaño de la empresa:</label>
 								<dd>{{$personal->datosGenerales->nombre}}</dd>
 				 			</div>
 				 		</div>
-				 		<div class="col-md-12 offset-md-2 mt-3">
+				 		<div class="row">
 				 			<div class="form-group col-lg-3 col-md-3 col-sm-6 col-xs-12">
 				 				<label class="control-label" for="web">Sitio web:</label>
 				 				<dd>{{$personal->datosGenerales->web}}</dd>

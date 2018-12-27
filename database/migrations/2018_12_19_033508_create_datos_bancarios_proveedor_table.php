@@ -15,8 +15,8 @@ class CreateDatosBancariosProveedorTable extends Migration
     {
         Schema::create('datos_bancarios_proveedor', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('provedor_id')->unsigned();
-            $table->foreign('provedor_id')->references('id')->on('proveedores');
+            $table->integer('proveedor_id')->unsigned();
+            $table->foreign('proveedor_id')->references('id')->on('proveedores');
             $table->integer('banco_id')->unsigned();
             $table->foreign('banco_id')->references('id')->on('bancos');
             $table->string('cuenta')->nullable();

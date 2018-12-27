@@ -26,24 +26,24 @@
 						<th>RFC</th>
 						<th>Acción</th>
 					</tr>
-					@foreach($provedores as $provedore)
-					<tr class="active" title="Has Click Aquì para Ver" style="cursor: pointer" href="#{{ $provedore->id }}">
-						<td>{{ $provedore->id }}</td>
+					@foreach($proveedores as $proveedore)
+					<tr class="active" title="Has Click Aquì para Ver" style="cursor: pointer" href="#{{ $proveedore->id }}">
+						<td>{{ $proveedore->id }}</td>
 						<td>
-							@if($provedore->tipopersona == "Fisica")
-							{{ $provedore->nombre }} {{ $provedore->apellidopaterno }} {{ $provedore->apellidomaterno }}
+							@if($proveedore->tipopersona == "Fisica")
+							{{ $proveedore->nombre }} {{ $proveedore->apellidopaterno }} {{ $proveedore->apellidomaterno }}
 							@else
-							{{ $provedore->razonsocial }}
+							{{ $proveedore->razonsocial }}
 							@endif
 						</td>
-						<td>{{ $provedore->tipopersona }}</td>
-						<td>{{ $provedore->alias }}</td>
-						<td>{{ strtoupper($provedore->rfc) }}</td>
+						<td>{{ $proveedore->tipopersona }}</td>
+						<td>{{ $proveedore->alias }}</td>
+						<td>{{ strtoupper($proveedore->rfc) }}</td>
 						<td>
-							<a class="btn btn-primary btn-sm" href="{{ route('proveedores.show', ['provedor'=>$provedore]) }}">
+							<a class="btn btn-primary btn-sm" href="{{ route('proveedores.show', ['proveedor'=>$proveedore]) }}">
 								<i class="fa fa-eye"></i> Ver
 							</a>
-							<a class="btn btn-warning btn-sm" href="{{ route('proveedores.edit', ['provedor'=>$provedore]) }}">
+							<a class="btn btn-warning btn-sm" href="{{ route('proveedores.edit', ['proveedor'=>$proveedore]) }}">
 								<i class="fa fa-pencil" aria-hidden="true"></i> Editar
 							</a>
 						</td>

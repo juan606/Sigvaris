@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateDireccionFisicaProvedorTable extends Migration
+class CreateDireccionFisicaProveedorTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,10 +13,10 @@ class CreateDireccionFisicaProvedorTable extends Migration
      */
     public function up()
     {
-        Schema::create('direccion_fisica_provedor', function (Blueprint $table) {
+        Schema::create('direccion_fisica_proveedor', function (Blueprint $table) {
             $table->increments('id');
-        $table->integer('provedor_id')->unsigned();
-        $table->foreign('provedor_id')->references('id')->on('proveedores');
+        $table->integer('proveedor_id')->unsigned();
+        $table->foreign('proveedor_id')->references('id')->on('proveedores');
         $table->string('calle')->nullable();
         $table->string('numext')->nullable();
         $table->string('numint')->nullable();
@@ -39,6 +39,6 @@ class CreateDireccionFisicaProvedorTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('direccion_fisica_provedor');
+        Schema::dropIfExists('direccion_fisica_proveedor');
     }
 }

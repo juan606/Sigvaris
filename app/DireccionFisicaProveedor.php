@@ -6,12 +6,12 @@ use Illuminate\Database\Eloquent\Model;
 
 class DireccionFisicaProveedor extends Model
 {
-    protected $table='direccion_fisica_provedor';
+    protected $table='direccion_fisica_proveedor';
     public $timestamps = false;
 
     protected $fillable=[
         'id',
-        'provedor_id',
+        'proveedor_id',
         'calle',
         'numext',
         'numint',
@@ -25,7 +25,7 @@ class DireccionFisicaProveedor extends Model
         'cp'];
     
 
-    public function provedores(){
-    	return $this->belongsTo(Provedor::class, 'provedor_id');
+    public function proveedores(){
+    	return $this->belongsTo(Proveedor::class, 'proveedor_id');
     }
 }

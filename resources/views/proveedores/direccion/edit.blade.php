@@ -1,20 +1,20 @@
-@extends('layouts.infoprovedor')
+@extends('layouts.infoproveedor')
 	@section('cliente')
-		<ul role="tablist" class="nav nav-tabs">
-			<li class="ui-tabs-tab ui-corner-top ui-state-default ui-tab">
-				<a href="{{ route('provedores.show',['provedore'=>$provedore]) }}">Dirección Fìsica:</a>
+		<ul role="tablist" class="nav nav-pills">
+			<li class="nav-item">
+				<a class="nav-link" href="{{ route('proveedores.show',['proveedore'=>$proveedore]) }}">Dirección Fìsica:</a>
 			</li>
-			<li class="active">
-				<a href="{{ route('provedores.direccionfisica.index',['provedore'=>$provedore]) }}">Dirección Fiscal:</a>
+			<li class="nav-item">
+				<a class="nav-link active" href="{{ route('proveedores.direccionfisica.index',['proveedore'=>$proveedore]) }}">Dirección Fiscal:</a>
 			</li>
-			<li role="presentation" tabindex="-1" class="ui-tabs-tab ui-corner-top ui-state-default ui-tab" aria-controls="tabs-3" aria-labelledby="ui-id-3" aria-selected="false" aria-expanded="false">
-				<a href="{{ route('provedores.contacto.index',['cliente'=>$provedore]) }}" role="presentation" tabindex="-1" class="ui-tabs-anchor" id="ui-id-3">Contacto:</a>
+			<li role="presentation" tabindex="-1" class="nav-item" aria-controls="tabs-3" aria-labelledby="ui-id-3" aria-selected="false" aria-expanded="false">
+				<a href="{{ route('proveedores.contacto.index',['cliente'=>$proveedore]) }}" role="presentation" tabindex="-1" class="nav-link" id="ui-id-3">Contacto:</a>
 			</li>
-			<li role="presentation" tabindex="-1" class="ui-tabs-tab ui-corner-top ui-state-default ui-tab" aria-controls="tabs-3" aria-labelledby="ui-id-3" aria-selected="false" aria-expanded="false">
-				<a href="{{ route('provedores.datosgenerales.index',['cliente'=>$provedore]) }}" role="presentation" tabindex="-1" class="ui-tabs-anchor" id="ui-id-3">Datos Generales:</a>
+			<li role="presentation" tabindex="-1" class="nav-item" aria-controls="tabs-3" aria-labelledby="ui-id-3" aria-selected="false" aria-expanded="false">
+				<a href="{{ route('proveedores.datosgenerales.index',['cliente'=>$proveedore]) }}" role="presentation" tabindex="-1" class="nav-link" id="ui-id-3">Datos Generales:</a>
 			</li>
-			<li role="presentation" tabindex="-1" class="ui-tabs-tab ui-corner-top ui-state-default ui-tab" aria-controls="tabs-3" aria-labelledby="ui-id-4" aria-selected="false" aria-expanded="false">
-				<a href="{{ route('provedores.datosbancarios.index', ['cliente' => $provedore]) }}" role="presentation" tabindex="-1" class="ui-tabs-anchor" id="ui-id-4">Datos Bancarios:</a>
+			<li role="presentation" tabindex="-1" class="nav-item" aria-controls="tabs-3" aria-labelledby="ui-id-4" aria-selected="false" aria-expanded="false">
+				<a href="{{ route('proveedores.datosbancarios.index', ['cliente' => $proveedore]) }}" role="presentation" tabindex="-1" class="nav-link" id="ui-id-4">Datos Bancarios:</a>
 			</li>
 		</ul>
 	<div class="panel panel-default">
@@ -22,10 +22,10 @@
 						&nbsp;&nbsp;&nbsp;&nbsp; <i class="fa fa-asterisk" aria-hidden="true"></i>Campos Requeridos
 
 					</div>
-		<form role="form" name="domicilio" id="form-cliente" method="POST" action="{{ route('provedores.direccionfisica.update',['provedore'=>$provedore, 'direccion'=>$direccion]) }}" name="form">
+		<form role="form" name="domicilio" id="form-cliente" method="POST" action="{{ route('proveedores.direccionfisica.update',['proveedore'=>$proveedore, 'direccion'=>$direccion]) }}" name="form">
 					{{ csrf_field() }}
 					<input type="hidden" name="_method" value="PUT">
-					 <input type="hidden" name="provedor_id" value="{{$provedore->id}}">
+					 <input type="hidden" name="proveedor_id" value="{{$proveedore->id}}">
 						<div class="panel-body">
 								<div class="col-lg-offset-10">
 									<button type="submit" class="btn btn-success">
@@ -41,7 +41,7 @@
 										¿Usar datos de dirección fìsica?.
 									</label>
 								</div>
-							<div class="col-md-12 offset-md-2 mt-3">
+							<div class="row">
 								<div class="form-group col-lg-3 col-md-3 col-sm-6 col-xs-12">
 			    					<label class="control-label" for="calle"><i class="fa fa-asterisk" aria-hidden="true"></i> Calle:</label>
 			    					<input type="text" class="form-control" id="calle" name="calle" value="{{ $direccion->calle }}" require autofocus>
@@ -55,7 +55,7 @@
 			    					<input type="text" class="form-control" id="numint" name="numint" value="{{ $direccion->numint }}">
 			  					</div>		
 							</div>
-							<div class="col-md-12 offset-md-2 mt-3" id="perfisica">
+							<div class="row" id="perfisica">
 								<div class="form-group col-lg-3 col-md-3 col-sm-6 col-xs-12">
 			  						<label class="control-label" for="colonia"><i class="fa fa-asterisk" aria-hidden="true"></i> Colonia:</label>
 			  						<input type="text" class="form-control" id="colonia" name="colonia" value="{{ $direccion->colonia }}" required>
@@ -73,7 +73,7 @@
 			  						<input type="text" class="form-control" id="estado" name="estado" value="{{ $direccion->estado }}" required>
 			  					</div>
 							</div>
-							<div class="col-md-12 offset-md-2 mt-3" id="perfisica">
+							<div class="row" id="perfisica">
 								<div class="form-group col-lg-3 col-md-3 col-sm-6 col-xs-12">
 			  						<label class="control-label" for="calle1">Entre calle:</label>
 			  						<input type="text" class="form-control" id="calle1" name="calle1" value="{{ $direccion->calle1 }}">
@@ -97,16 +97,16 @@
 <script>
 		<script type="text/javascript">
 			function datosFiscal(){
-				document.domicilio.calle.defaultValue = "{{$provedore->calle}}";
-				document.domicilio.numext.defaultValue = "{{$provedore->numext}}"; 
-				document.domicilio.numint.defaultValue = "{{$provedore->numinter}}"; 
-				document.domicilio.colonia.defaultValue = "{{$provedore->colonia}}"; 
-				document.domicilio.municipio.defaultValue = "{{$provedore->municipio}}"; 
-				document.domicilio.ciudad.defaultValue = "{{$provedore->ciudad}}"; 
-				document.domicilio.estado.defaultValue = "{{$provedore->estado}}"; 
-				document.domicilio.calle1.defaultValue = "{{$provedore->calle1}}"; 
-				document.domicilio.calle2.defaultValue = "{{$provedore->calle2}}"; 
-				document.domicilio.referencia.defaultValue = "{{$provedore->referencia}}"; 
+				document.domicilio.calle.defaultValue = "{{$proveedore->calle}}";
+				document.domicilio.numext.defaultValue = "{{$proveedore->numext}}"; 
+				document.domicilio.numint.defaultValue = "{{$proveedore->numinter}}"; 
+				document.domicilio.colonia.defaultValue = "{{$proveedore->colonia}}"; 
+				document.domicilio.municipio.defaultValue = "{{$proveedore->municipio}}"; 
+				document.domicilio.ciudad.defaultValue = "{{$proveedore->ciudad}}"; 
+				document.domicilio.estado.defaultValue = "{{$proveedore->estado}}"; 
+				document.domicilio.calle1.defaultValue = "{{$proveedore->calle1}}"; 
+				document.domicilio.calle2.defaultValue = "{{$proveedore->calle2}}"; 
+				document.domicilio.referencia.defaultValue = "{{$proveedore->referencia}}"; 
 			}
 		</script>
 	@endsection

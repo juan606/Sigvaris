@@ -1,34 +1,34 @@
-@extends('layouts.infoprovedor')
+@extends('layouts.infoproveedor')
 	@section('cliente')
 		<ul role="tablist" class="nav nav-tabs">
-			<li class="ui-tabs-tab ui-corner-top ui-state-default ui-tab">
-				<a href="{{ route('provedores.show',['provedore'=>$provedore]) }}">Dirección Fìsica:</a>
+			<li class="nav-item">
+				<a class="nav-link" href="{{ route('proveedores.show',['proveedore'=>$proveedore]) }}">Dirección Fìsica:</a>
 			</li>
-			<li class="ui-tabs-tab ui-corner-top ui-state-default ui-tab">
-				<a href="{{ route('provedores.direccionfisica.index',['provedore'=>$provedore]) }}">Dirección Fisica:</a>
+			<li class="nav-item">
+				<a class="nav-link" href="{{ route('proveedores.direccionfisica.index',['proveedore'=>$proveedore]) }}">Dirección Fisica:</a>
 			</li>
-			<li role="presentation" tabindex="-1" class="ui-tabs-tab ui-corner-top ui-state-default ui-tab" aria-controls="tabs-3" aria-labelledby="ui-id-3" aria-selected="false" aria-expanded="false">
-				<a href="{{ route('provedores.contacto.index',['provedore'=>$provedore]) }}" role="presentation" tabindex="-1" class="ui-tabs-anchor" id="ui-id-3">Contacto:</a>
+			<li role="presentation" tabindex="-1" class="nav-item" aria-controls="tabs-3" aria-labelledby="ui-id-3" aria-selected="false" aria-expanded="false">
+				<a href="{{ route('proveedores.contacto.index',['proveedore'=>$proveedore]) }}" role="presentation" tabindex="-1" class="nav-link" id="ui-id-3">Contacto:</a>
 			</li>
-			<li class="active">
-				<a href="{{ route('provedores.datosgenerales.index',['provedore'=>$provedore]) }}" role="presentation" tabindex="-1" class="ui-tabs-anchor" id="ui-id-3">Datos Generales:</a>
+			<li class="nav-item">
+				<a class="nav-link active" href="{{ route('proveedores.datosgenerales.index',['proveedore'=>$proveedore]) }}" role="presentation" tabindex="-1" class="nav-link" id="ui-id-3">Datos Generales:</a>
 			</li>
-			<li role="presentation" tabindex="-1" class="ui-tabs-tab ui-corner-top ui-state-default ui-tab" aria-controls="tabs-3" aria-labelledby="ui-id-4" aria-selected="false" aria-expanded="false">
-				<a href="{{ route('provedores.datosbancarios.index', ['cliente' => $provedore]) }}" role="presentation" tabindex="-1" class="ui-tabs-anchor" id="ui-id-4">Datos Bancarios:</a>
+			<li role="presentation" tabindex="-1" class="nav-item" aria-controls="tabs-3" aria-labelledby="ui-id-4" aria-selected="false" aria-expanded="false">
+				<a href="{{ route('proveedores.datosbancarios.index', ['cliente' => $proveedore]) }}" role="presentation" tabindex="-1" class="nav-link" id="ui-id-4">Datos Bancarios:</a>
 			</li>
 		</ul>
 	<div class="panel panel-default">
 	 	<div class="panel-heading">Datos Generales:&nbsp;&nbsp;&nbsp;&nbsp; <i class="fa fa-asterisk" aria-hidden="true"></i>Campos Requeridos</a></li></div>
-		<form role="form" id="form-cliente" method="POST" action="{{ route('provedores.datosgenerales.update',['provedore'=>$provedore, 'datosgenerale'=>$datos]) }}" name="form">
+		<form role="form" id="form-cliente" method="POST" action="{{ route('proveedores.datosgenerales.update',['proveedore'=>$proveedore, 'datosgenerale'=>$datos]) }}" name="form">
 	{{ csrf_field() }}
 	<input type="hidden" name="_method" value="PUT">
-	 <input type="hidden" name="provedor_id" value="{{$provedore->id}}">
+	 <input type="hidden" name="proveedor_id" value="{{$proveedore->id}}">
 	 	<div class="panel-body">
 	 		<div class="col-xs-offset-10">
 				<button type="submit" class="btn btn-success"><strong>Guardar</strong> </button>
 				
 			</div>	
-	 		<div class="col-md-12 offset-md-2 mt-3">
+	 		<div class="row">
 	 			<div class="form-group col-lg-4 col-md-3 col-sm-6 col-xs-12">
 	 			<label class="control-label" for="nombre"><i class="fa fa-asterisk" aria-hidden="true"></i>Giro:</label>
 				<select type="select" name="giro_id" class="form-control" id="giro_id">
@@ -75,7 +75,7 @@
 					</select>
 	 			</div>
 	 		</div>
-	 		<div class="col-md-12 offset-md-2 mt-3">
+	 		<div class="row">
 	 			<div class="form-group col-lg-4 col-md-3 col-sm-6 col-xs-12">
 	 				<label class="control-label" for="web">Sitio web:</label>
 	 				<input type="text" class="form-control" id="web" name="web" value="{{ $datos->web }}" autofocus>

@@ -17,9 +17,9 @@ class ProveedorController extends Controller
     public function index()
     {
         //
-        $provedores = Proveedor::get();
+        $proveedores = Proveedor::get();
         // Alert::message('Robots are working!');
-        return view('provedores.index', ['provedores'=>$provedores]);
+        return view('proveedores.index', ['proveedores'=>$proveedores]);
     }
 
     /**
@@ -30,7 +30,7 @@ class ProveedorController extends Controller
     public function create()
     {
         //
-        return view('provedores.create');
+        return view('proveedores.create');
     }
 
     /**
@@ -42,18 +42,19 @@ class ProveedorController extends Controller
     public function store(Request $request)
     {
         //
-        $provedore = Proveedor::where('rfc',$request->rfc)->get();
-        // dd(count($provedore));
-        if (count($provedore) != 0) {
+        $proveedore = Proveedor::where('rfc',$request->rfc)->get();
+        // dd(count($proveedore));
+        if (count($proveedore) != 0) {
             # code...
             // alert()->error('Error Message', 'Optional Title');
             // return redirect()->route('clientes.create');
-            return redirect()->back()->with('errors', 'El RFC ya existe');
+            Alert::message('Robots are working!');
+            return view('proveedores.create');
         } else {
             # code...
-            $provedore = Proveedor::create($request->all());
+            $proveedore = Proveedor::create($request->all());
             Alert::success("Proveedor creado con exito, sigue agregando información")->persistent("Cerrar");
-            return redirect()->route('provedores.direccionfisica.create',['provedore'=>$provedore]);
+            return redirect()->route('proveedores.direccionfisica.create',['proveedore'=>$proveedore]);
         }
         
     }
@@ -61,13 +62,13 @@ class ProveedorController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\provedore  $provedore
+     * @param  \App\proveedore  $proveedore
      * @return \Illuminate\Http\Response
      */
-    public function show(Proveedor $provedore)
+    public function show(Proveedor $proveedore)
     {
         
-        return view('provedores.view', ['provedore'=>$provedore]);
+        return view('proveedores.view', ['proveedore'=>$proveedore]);
     }
 
     /**
@@ -76,10 +77,10 @@ class ProveedorController extends Controller
      * @param  \App\Personal  $personal
      * @return \Illuminate\Http\Response
      */
-    public function edit(Proveedor $provedore)
+    public function edit(Proveedor $proveedore)
     {
         //
-        return view('provedores.edit',['provedore'=>$provedore]);
+        return view('proveedores.edit',['proveedore'=>$proveedore]);
     }
 
     /**
@@ -89,12 +90,12 @@ class ProveedorController extends Controller
      * @param  \App\Personal  $personal
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Proveedor $provedore)
+    public function update(Request $request, Proveedor $proveedore)
     {
         
-        $provedore->update($request->all());
+        $proveedore->update($request->all());
         Alert::success('Proveedor actualizado')->persistent("Cerrar");
-        return redirect()->route('provedores.show',['provedore'=>$provedore]);
+        return redirect()->route('proveedores.show',['proveedore'=>$proveedore]);
     }
 
     /**
@@ -103,7 +104,7 @@ class ProveedorController extends Controller
      * @param  \App\Personal  $personal
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Proveedor $provedore)
+    public function destroy(Proveedor $proveedore)
     {
         //
     }
@@ -111,7 +112,7 @@ class ProveedorController extends Controller
     // dd($request);
     $query = $request->input('busqueda');
     $wordsquery = explode(' ',$query);
-    $provedores = Proveedor::where(function($q) use($wordsquery){
+    $proveedores = Proveedor::where(function($q) use($wordsquery){
             foreach ($wordsquery as $word) {
                 # code...
             $q->orWhere('nombre','LIKE',           "%$word%")
@@ -123,7 +124,7 @@ class ProveedorController extends Controller
                 ->orWhere('tipopersona','LIKE',    "%$word%");
             }
         })->get();
-    return view('provedores.busqueda', ['provedores'=>$provedores]);
+    return view('proveedores.busqueda', ['proveedores'=>$proveedores]);
         
 
     }
