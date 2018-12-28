@@ -47603,7 +47603,7 @@ if (false) {
 /* 44 */
 /***/ (function(module, exports) {
 
-// removed by extract-text-webpack-plugin
+throw new Error("Module build failed: ModuleBuildError: Module build failed: \r\n@import '~@fortawesome/fontawesome-free/scss/brands';\r\n^\r\n      File to import not found or unreadable: ~@fortawesome/fontawesome-free/scss/brands.\r\n      in C:\\Users\\tarza\\Documents\\B&W\\Sigvaris\\resources\\sass\\app.scss (line 12, column 1)\n    at runLoaders (C:\\Users\\tarza\\Documents\\B&W\\Sigvaris\\node_modules\\webpack\\lib\\NormalModule.js:195:19)\n    at C:\\Users\\tarza\\Documents\\B&W\\Sigvaris\\node_modules\\loader-runner\\lib\\LoaderRunner.js:364:11\n    at C:\\Users\\tarza\\Documents\\B&W\\Sigvaris\\node_modules\\loader-runner\\lib\\LoaderRunner.js:230:18\n    at context.callback (C:\\Users\\tarza\\Documents\\B&W\\Sigvaris\\node_modules\\loader-runner\\lib\\LoaderRunner.js:111:13)\n    at Object.asyncSassJobQueue.push [as callback] (C:\\Users\\tarza\\Documents\\B&W\\Sigvaris\\node_modules\\sass-loader\\lib\\loader.js:55:13)\n    at Object.done [as callback] (C:\\Users\\tarza\\Documents\\B&W\\Sigvaris\\node_modules\\neo-async\\async.js:8077:18)\n    at options.error (C:\\Users\\tarza\\Documents\\B&W\\Sigvaris\\node_modules\\node-sass\\lib\\index.js:294:32)");
 
 /***/ })
 /******/ ]);

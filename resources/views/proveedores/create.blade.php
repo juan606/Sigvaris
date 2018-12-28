@@ -38,7 +38,7 @@
 			<div id="perfisica" class="row">
 				<div class="form-group col-4">
 					<label class="control-label" for="nombre">✱Nombre:</label>
-					<input type="text" class="form-control" id="nombre" name="nombre" required>
+					<input type="text" class="form-control" id="idnombre" name="nombre" required>
 				</div>
 				<div class="form-group col-4">
 					<label class="control-label" for="apellidopaterno">✱Apellido Paterno:</label>
