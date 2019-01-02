@@ -38,62 +38,40 @@
             </div>
             <div class="row">
                 <ul class="nav nav-pills nav-justified">
-                    <li role="presentation" class="nav-item"><a href="{{ route('doctores.consultorios.index', ['doctor' => $doctor]) }}"  class="nav-link active">Consultorios:</a></li>
+                    <li role="presentation" class="nav-item"><a href="{{ route('doctores.consultorios.index', ['doctor' => $doctor]) }}"  class="nav-link">Consultorios:</a></li>
                     <li role="presentation" class="nav-item"><a href="{{ route('doctores.especialidades.index', ['doctor' => $doctor]) }}" class="nav-link">Especialidades:</a></li>
-                    <li role="presentation" class="nav-item"><a href="{{ route('doctores.premios.index', ['doctor' => $doctor]) }}" class="nav-link">Premios:</a></li>
+                    <li role="presentation" class="nav-item"><a href="{{ route('doctores.premios.index', ['doctor' => $doctor]) }}" class="nav-link active">Premios:</a></li>
                 </ul>
             </div>
             <div class="row my-5">
-                <div class="col-4 px-5"><h4>Consultorios</h4></div>  
+                <div class="col-4 px-5"><h4>Premios</h4></div>  
             </div>
             <div class="row">
                 <div class="col-12">
-                    <form role="form" name="domicilio" id="form-cliente" method="POST" action="{{ route('doctores.consultorios.store', ['doctor'=>$doctor]) }}" name="form">
+                    <form role="form" name="domicilio" id="form-cliente" method="POST" action="{{ route('doctores.premios.store', ['doctor'=>$doctor]) }}" name="form">
                             {{ csrf_field() }}
                         <input type="hidden" name="proveedor_id" value="{{$doctor->id}}" required>
                             
                             
                         <div class="row">
                             <div class="form-group col-4">
-                                <label class="control-label" for="nombre"><i class="fa fa-asterisk" aria-hidden="true"></i> Hospital:</label>
+                                <label class="control-label" for="nombre"><i class="fa fa-asterisk" aria-hidden="true"></i> Nombre:</label>
                                 <input type="text" class="form-control" id="nombre" name="nombre" value="" required autofocus>
                             </div>
                             <div class="form-group col-4">
-                                <label class="control-label" for="apater"><i class="fa fa-asterisk" aria-hidden="true"></i>Dirección:</label>
-                                <input type="text" class="form-control" id="apater" name="direccion" value="" required>
+                                <label class="control-label" for="apater"><i class="fa fa-asterisk" aria-hidden="true"></i>Institución:</label>
+                                <input type="text" class="form-control" id="apater" name="institucion" value="" required>
                             </div>	
                             <div class="form-group col-4">
-                                <label class="control-label" for="amater"><i class="fa fa-asterisk" aria-hidden="true"></i>Secretario/a:</label>
-                                <input type="text" class="form-control" id="amater" name="secretaria" value="" required>
-                            </div>		
+                                <label class="control-label" for="apater"><i class="fa fa-asterisk" aria-hidden="true"></i>Quién otorga:</label>
+                                <input type="text" class="form-control" id="apater" name="otorga" value="" required>
+                            </div>	
                         </div>
                         <div class="row">
                             <div class="form-group col-4">
-                                <label class="control-label" for="nombre"><i class="fa fa-asterisk" aria-hidden="true"></i> Teléfono 1:</label>
-                                <input type="text" class="form-control" id="nombre" name="tel1" value="" required autofocus>
+                                <label class="control-label" for="nombre"><i class="fa fa-asterisk" aria-hidden="true"></i> Fecha:</label>
+                                <input type="date" class="form-control" id="nombre" name="fecha" value="" required autofocus>
                             </div>
-                            <div class="form-group col-4">
-                                <label class="control-label" for="apater"><i class="fa fa-asterisk" aria-hidden="true"></i>Teléfono 2:</label>
-                                <input type="text" class="form-control" id="apater" name="tel2" value="" required>
-                            </div>	
-                            <div class="form-group col-4">
-                                <label class="control-label" for="amater"><i class="fa fa-asterisk" aria-hidden="true"></i>Teléfono 3:</label>
-                                <input type="text" class="form-control" id="amater" name="tel3" value="" required>
-                            </div>		
-                        </div>
-                        <div class="row">
-                            <div class="form-group col-4">
-                                <label class="control-label" for="nombre"><i class="fa fa-asterisk" aria-hidden="true"></i>Correo:</label>
-                                <input type="text" class="form-control" id="nombre" name="mail" value="" required autofocus>
-                            </div>
-                            <div class="form-group col-4">
-                                <label class="control-label" for="apater"><i class="fa fa-asterisk" aria-hidden="true"></i>Horario desde:</label>
-                                <input type="time" class="form-control" id="apater" name="desde" value="" required>
-                            </div>	
-                            <div class="form-group col-4">
-                                <label class="control-label" for="amater"><i class="fa fa-asterisk" aria-hidden="true"></i>Horario hasta:</label>
-                                <input type="time" class="form-control" id="amater" name="hasta" value="" required>
-                            </div>		
                         </div>
                         <div class="row-">
                             <div class="col-12">

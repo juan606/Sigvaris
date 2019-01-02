@@ -38,36 +38,34 @@
             </div>
             <div class="row">
                 <ul class="nav nav-pills nav-justified">
-                    <li role="presentation" class="nav-item"><a href="{{ route('doctores.consultorios.index', ['doctor' => $doctor]) }}"  class="nav-link active">Consultorios:</a></li>
+                    <li role="presentation" class="nav-item"><a href="{{ route('doctores.consultorios.index', ['doctor' => $doctor]) }}"  class="nav-link">Consultorios:</a></li>
                     <li role="presentation" class="nav-item"><a href="{{ route('doctores.especialidades.index', ['doctor' => $doctor]) }}" class="nav-link">Especialidades:</a></li>
-                    <li role="presentation" class="nav-item"><a href="{{ route('doctores.premios.index', ['doctor' => $doctor]) }}" class="nav-link">Premios:</a></li>
+                    <li role="presentation" class="nav-item"><a href="{{ route('doctores.premios.index', ['doctor' => $doctor]) }}" class="nav-link active">Premios:</a></li>
                 </ul>
             </div>
             <div class="row my-5">
-                <div class="col-4 px-5"><h4>Consultorios</h4></div>
+                <div class="col-4 px-5"><h4>Premios</h4></div>
                 <div class="col-4 px-5">
-                    <a class="btn btn-success" href="{{ route('doctores.consultorios.create', ['doctor'=>$doctor]) }}">Crear nuevo</a>
-                </div>   
+                    <a class="btn btn-success" href="{{ route('doctores.premios.create', ['doctor'=>$doctor]) }}">Crear nuevo</a>
+                </div>  
             </div>
             <div class="row">
                 <table class="table table-striped table-bordered table-hover" style="color:rgb(51,51,51); border-collapse: collapse; margin-bottom: 0px;">
                     <thead>
                         <tr class="info">
-                            <th>Hospital</th>
-                            <th>Secretaria</th>
-                            <th>Teléfono</th>
-                            <th>Mail</th>
-                            <th>Horario</th>
+                            <th>Nombre</th>
+                            <th>Institución</th>
+                            <th>Otorga</th>
+                            <th>Fecha</th>
                             <th>Borrar</th>
                         </tr>
                     </thead>
-                    @foreach ($doctor->consultorios as $consultorio)
+                    @foreach ($doctor->premios as $premio)
                         <tr>
-                            <td>{{$consultorio->nombre}}</td>
-                            <td>{{$consultorio->secretaria}}</td>
-                            <td>{{$consultorio->tel1}}</td>
-                            <td>{{$consultorio->mail}}</td>
-                            <td>{{$consultorio->desde}}/{{$consultorio->hasta}}</td>
+                            <td>{{$premio->nombre}}</td>
+                            <td>{{$premio->institucion}}</td>
+                            <td>{{$premio->otorga}}</td>
+                            <td>{{$premio->fecha}}</td>
                             <td><button type="button" class="btn btn-danger">Borrar</button></td>
                         </tr>
                     @endforeach

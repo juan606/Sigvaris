@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Doctor;
 
 use App\Premio;
+use App\Doctor;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
@@ -13,9 +14,10 @@ class DoctorPremioController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index($doctor)
     {
-        //
+        $doctore = Doctor::find($doctor);
+        return view('doctorpremio.index', ['doctor'=>$doctore]);
     }
 
     /**
@@ -23,9 +25,10 @@ class DoctorPremioController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create($doctore)
     {
-        //
+        $doctor = Doctor::find($doctore);
+        return view('doctorpremio.create', ['doctor'=>$doctor]);
     }
 
     /**
@@ -34,9 +37,11 @@ class DoctorPremioController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(Request $request, $doctor)
     {
-        //
+        $doc = Doctor::find($doctor);
+        $doc->premios()->create($request->all());
+        return view('doctorpremio.index', ['doctor'=>$doc]);
     }
 
     /**
