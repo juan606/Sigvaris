@@ -31,26 +31,18 @@
                     <input type="text" name="apellidomaterno" class="form-control">
                 </div>
                 <div class="col-3 form-group">
-                    <label class="control-label">✱Teléfono 1:</label>
-                    <input type="text" name="telefono1" class="form-control" required="">
+                    <label class="control-label">✱Celular:</label>
+                    <input type="number" name="celular" class="form-control" required="">
                 </div>
             </div>
             <div class="row">
                 <div class="col-3 form-group">
-                    <label class="control-label">Teléfono 2:</label>
-                    <input type="text" name="telefono2" class="form-control">
+                    <label class="control-label">✱Correo:</label>
+                    <input type="mail" name="mail" class="form-control">
                 </div>
                 <div class="col-3 form-group">
-                    <label class="control-label">✱Hospital:</label>
-                    <input type="text" name="hospital" class="form-control" required="">
-                </div>
-                <div class="col-3 form-group">
-                    <label class="control-label">Referencia:</label>
-                    <input type="text" name="referenia" class="form-control">
-                </div>
-                <div class="col-3 form-group">
-                    <label class="control-label">✱Especialidad:</label>
-                    <input type="text" name="especialidad" class="form-control" required="">
+                    <label class="control-label">✱Fecha nacimiento:</label>
+                    <input type="date" name="nacimiento" class="form-control" required="">
                 </div>
             </div>
         </div>

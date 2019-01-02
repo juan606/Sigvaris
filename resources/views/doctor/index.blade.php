@@ -23,7 +23,8 @@
 						<th>Nobre</th>
 						<th>Apellido Paterno</th>
 						<th>Apellido Materno</th>
-						<th>Especialidad</th>
+						<th>Nacimiento</th>
+						<th>Operación</th>
 					</tr>
 					@foreach($doctores as $doctor)
 						<tr>
@@ -31,7 +32,18 @@
 							<td>{{ $doctor->nombre }}</td>
 							<td>{{ $doctor->apellidopaterno }}</td>
 							<td>{{ $doctor->apellidomaterno }}</td>
-							<td>{{ $doctor->especialidad }}</td>
+							<td>{{ $doctor->nacimiento }}</td>
+							<td>
+								<a href="{{route('doctores.show', ['doctor'=>$doctor])}}"  class="btn btn-info">Ver</a>
+								<br>
+								<form role="form" method="POST" action="{{ route('doctores.destroy', ['doctor' => $doctor]) }}">
+									{{ csrf_field() }}
+									<input type="hidden" name="_method" value="DELETE">
+									<button type="submit" class="btn btn-danger" >
+										<strong>Borrar</strong>
+									</button>
+								</form>
+								</td>
 						</tr>
 					@endforeach
 				</table>

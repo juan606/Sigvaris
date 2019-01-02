@@ -7,6 +7,9 @@ Route::resource('proveedores.datosgenerales','Proveedor\ProveedorDatosGeneralesC
 Route::resource('proveedores.contacto','Proveedor\ProveedorContactoController');
 Route::resource('proveedores.datosbancarios','Proveedor\ProveedorDatosBancariosController');
 Route::resource('doctores','Doctor\DoctorController');
+Route::resource('doctores.consultorios','Doctor\DoctorConsultorioController');
+Route::resource('doctores.especialidades','Doctor\DoctorEspecialidadController');
+Route::resource('doctores.premios','Doctor\DoctorPremioController');
 Route::resource('empleados','Empleado\EmpleadoController');
 Route::resource('empleados.datoslaborales','Empleado\EmpleadosDatosLabController');
 Route::resource('empleados.estudios','Empleado\EmpleadosEstudiosController');

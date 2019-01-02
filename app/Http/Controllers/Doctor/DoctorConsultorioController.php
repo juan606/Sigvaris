@@ -2,12 +2,11 @@
 
 namespace App\Http\Controllers\Doctor;
 
-use App\Doctor;
-use UxWeb\SweetAlert\SweetAlert as Alert;
+use App\Consultorio;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
-class DoctorController extends Controller
+class DoctorConsultorioController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -16,8 +15,7 @@ class DoctorController extends Controller
      */
     public function index()
     {
-        $doctores = Doctor::get();
-        return view('doctor.index', ['doctores'=> $doctores]);
+        //
     }
 
     /**
@@ -27,7 +25,7 @@ class DoctorController extends Controller
      */
     public function create()
     {
-        return view('doctor.create');
+        //
     }
 
     /**
@@ -38,30 +36,27 @@ class DoctorController extends Controller
      */
     public function store(Request $request)
     {
-        $doctor = Doctor::create($request->all());
-        return redirect()->route('doctores.index');
+        //
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  \App\Doctor  $doctor
+     * @param  \App\Consultorio  $consultorio
      * @return \Illuminate\Http\Response
      */
-    public function show($doctor)
+    public function show(Consultorio $consultorio)
     {
-        $temp = Doctor::find($doctor);
-        return view('doctor.show',['doctor'=>$temp]);
-        dd($temp);
+        //
     }
 
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Doctor  $doctor
+     * @param  \App\Consultorio  $consultorio
      * @return \Illuminate\Http\Response
      */
-    public function edit(Doctor $doctor)
+    public function edit(Consultorio $consultorio)
     {
         //
     }
@@ -70,10 +65,10 @@ class DoctorController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Doctor  $doctor
+     * @param  \App\Consultorio  $consultorio
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Doctor $doctor)
+    public function update(Request $request, Consultorio $consultorio)
     {
         //
     }
@@ -81,14 +76,11 @@ class DoctorController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Doctor  $doctor
+     * @param  \App\Consultorio  $consultorio
      * @return \Illuminate\Http\Response
      */
-    public function destroy($doctor)
+    public function destroy(Consultorio $consultorio)
     {
-        $temp = Doctor::find($doctor);
-        $temp->delete();
-        $doctores = Doctor::get();
-        return view('doctor.index', ['doctores'=>$doctores]);
+        //
     }
 }
