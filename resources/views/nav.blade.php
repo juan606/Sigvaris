@@ -29,11 +29,23 @@
             </li>
             <li class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    Prospecto Médico
+                    Recursos Humanos
                 </a>
                 <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                    <a class="dropdown-item" href="{{ route('prospectos.create') }}">Alta<i class="fa fa-plus float-right"></i></a>
-                    <a class="dropdown-item" href="{{ route('prospectos.index') }}">Buscar<i class="fa fa-search float-right"></i></a>
+                    <a class="dropdown-item" href="{{url('empleados/create')}}">Alta<i class="fa fa-plus float-right"></i></a>
+                    <a class="dropdown-item" href="{{ url('empleados') }}">Buscar<i class="fa fa-search float-right"></i></a>
+                </div>
+            </li>
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    Precargas
+                </a>
+                <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                    <a class="dropdown-item" href="{{ url('bajas') }}">Bajas<i class="fa fa-plus float-right"></i></a>
+                    <a class="dropdown-item" href="{{ url('contratos') }}">Contratos<i class="fa fa-search float-right"></i></a>
+                    <a class="dropdown-item" href="{{ url('/areas') }}">Áreas<i class="fa fa-plus float-right"></i></a>
+                    <a class="dropdown-item" href="{{ url('/puestos') }}">Puestos<i class="fa fa-plus float-right"></i></a>
+                    <a class="dropdown-item" href="{{ url('/faltas') }}">Faltas<i class="fa fa-plus float-right"></i></a>
                 </div>
             </li>
         </ul>

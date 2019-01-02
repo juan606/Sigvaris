@@ -18,12 +18,12 @@
 		<table class="table table-striped table-bordered table-hover" style="color:rgb(51,51,51); border-collapse: collapse; margin-bottom: 0px">
 			<thead>
 				<tr class="info">
-					<th>@sortablelink('id', 'Identificador')</th>
-					<th>@sortablelink('nombre', 'Nombre/Razón Social'){{-- Nombre --}}</th>
-					<th>@sortablelink('tipopersona', 'Tipo de persona')</th>
-					<th>@sortablelink('alias', 'Alias')</th>
-					<th>@sortablelink('rfc', 'RFC')</th>
-					<th>@sortablelink('vendedor', 'Vendedor') </th>
+					<th>Identificador</th>
+					<th>Nombre/Razón Social{{-- Nombre --}}</th>
+					<th>Tipo de persona</th>
+					<th>Alias</th>
+					<th>RFC</th>
+					<th>Vendedor </th>
 					<th>Operacion</th>
 				</tr>
 			</thead>
@@ -53,7 +53,6 @@
 			@endforeach
 		</table>
 	</div>
-	{{ $proveedores->links()}}
 </div>
 @foreach ($proveedores as $personal)
 	{{-- expr --}}

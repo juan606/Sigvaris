@@ -1,23 +1,47 @@
 <?php
 
-namespace App\Http\Controllers\Prospecto;
+namespace App\Http\Controllers\Empleado;
 
-use App\Prospecto;
+use App\Empleado;
+use App\Sucursal;
+use App\Area;
+use App\Puesto;
+use App\EmpleadosDatosLab;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use UxWeb\SweetAlert\SweetAlert as Alert;
 
-class ProspectoController extends Controller
+class EmpleadoSucursalController extends Controller
 {
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        $prospectos = Prospecto::get();
-        return view('prospecto.index', ['prospectos'=> $prospectos]);
+         
+    $empleados=array();
+    
+    $datos=EmpleadosDatosLab::where('sucursal_id',$request->sucursal)->get()->unique('empleado_id')->pluck('empleado_id');
+    $areas=Area::get();
+    $puestos=Puesto::get();
+foreach ($datos as $dato ): 
+
+$empleado=Empleado::where('id',$dato)->get();
+
+array_push($empleados, $empleado);
+
+endforeach;
+
+  
+
+    return view('sucursales.show',[
+        'empleados'=>$empleados,
+        'areas'=>$areas,
+        'puestos'=>$puestos
+         ]);
+
     }
 
     /**
@@ -27,7 +51,7 @@ class ProspectoController extends Controller
      */
     public function create()
     {
-        return view('prospecto.create');
+      
     }
 
     /**
@@ -38,54 +62,55 @@ class ProspectoController extends Controller
      */
     public function store(Request $request)
     {
-        $prospecto = Prospecto::create($request->all());
-        Alert::success('Prospecto creado con éxito');
-        $prospectos = Prospecto::get();
-        return view('prospecto.index', ['prospectos' => $prospectos]);
+      
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  \App\Prospecto  $prospecto
+     * @param  \App\Empleado  $empleado
      * @return \Illuminate\Http\Response
      */
-    public function show(Prospecto $prospecto)
+    public function show(Empleado $empleado)
     {
-        //
+      
     }
 
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Prospecto  $prospecto
+     * @param  \App\Empleado  $empleado
      * @return \Illuminate\Http\Response
      */
-    public function edit(Prospecto $prospecto)
+    public function edit(Empleado $empleado)
     {
-        //
+       
     }
 
     /**
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Prospecto  $prospecto
+     * @param  \App\Empleado  $empleado
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Prospecto $prospecto)
+    public function update(Request $request, Empleado $empleado)
     {
-        //
+       
+
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Prospecto  $prospecto
+     * @param  \App\Empleado  $empleado
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Prospecto $prospecto)
+    public function destroy(Empleado $empleado)
     {
         //
     }
+
+
+
 }

@@ -1,12 +1,12 @@
 <?php
 
-namespace App\Http\Controllers\FormaContacto;
+namespace App\Http\Controllers\Puesto;
 
-use App\FormaContacto;
+use App\Puesto;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
-class FormaContactoController extends Controller
+class PuestoController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -16,8 +16,8 @@ class FormaContactoController extends Controller
     public function index()
     {
         //
-        $formaContactos = FormaContacto::get();
-        return view('formacontacto.index',['formaContactos'=>$formaContactos ]);
+        $puestos = Puesto::sortable()->paginate(10);
+        return view('puestos.index',['puestos'=>$puestos]);
     }
 
     /**
@@ -28,7 +28,7 @@ class FormaContactoController extends Controller
     public function create()
     {
         //
-        return view('formacontacto.create');
+        return view('puestos.create');
     }
 
     /**
@@ -40,75 +40,80 @@ class FormaContactoController extends Controller
     public function store(Request $request)
     {
         //
-        FormaContacto::create($request->all());
-        return redirect('formacontactos');
+
+        Puesto::create($request->all());
+        return redirect('puestos');
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  \App\FormaContacto  $formaContacto
+     * @param  \App\Puesto  $puesto
      * @return \Illuminate\Http\Response
      */
-    public function show(FormaContacto $formaContacto)
+    public function show(Puesto $puesto)
     {
         //
+        // return view('puestos.index');
     }
 
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\FormaContacto  $formaContacto
+     * @param  \App\Puesto  $puesto
      * @return \Illuminate\Http\Response
      */
-    public function edit(FormaContacto $formacontacto)
+    public function edit(Puesto $puesto)
     {
-        
-        return view('formacontacto.edit',['formaContacto'=>$formacontacto]);
+        //
+        return view('puestos.edit',['puesto'=>$puesto]);
     }
 
     /**
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\FormaContacto  $formaContacto
+     * @param  \App\Puesto  $puesto
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, FormaContacto $formacontacto)
+    public function update(Request $request, Puesto $puesto)
     {
         //
-        $formacontacto->update($request->all());
-        return redirect('formacontactos');
+        $puesto->update($request->all());
+        return redirect('puestos');
+
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\FormaContacto  $formaContacto
+     * @param  \App\Puesto  $puesto
      * @return \Illuminate\Http\Response
      */
-    public function destroy(FormaContacto $formacontacto)
+    public function destroy(Puesto $puesto)
     {
         //
-        $formacontacto->delete();
-        return redirect('formacontactos');
+        // var_dump($puesto);
+        // $puesto = Puesto::findoorFail($puesto);
+        // Puesto::destroy($puesto);
+        $puesto->delete();
+        return  redirect('puestos');
     }
-    
     public function buscar(Request $request){
         $query = $request->input('query');
         $wordsquery = explode(' ',$query);
-        $formaContactos = FormaContacto::where(function($q) use($wordsquery){
+        $puestos = Puesto::where(function($q) use($wordsquery){
             foreach ($wordsquery as $word) {
                 # code...
                 $q->orWhere('nombre','LIKE',"%$word%")
                     ->orWhere('etiqueta','LIKE',"%$word%");
             }
         })->paginate(10);
-        return view('formacontacto.index',['formaContactos'=>$formaContactos ]);
+        return view('puestos.index',['puestos'=>$puestos]);
     }
 
-      public function getFormas(){
-        $formas = FormaContacto::get();
-        return view('precargas.select',['precargas'=>$formas]);
+          public function getPuestos(){
+        $puestos = Puesto::get();
+        return view('precargas.select',['precargas'=>$puestos]);
     }
 }

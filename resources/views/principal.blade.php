@@ -16,6 +16,7 @@
     <div class="container" style="margin-top: 20px">
         @yield('content')
     </div>
+    <script type="text/javascript" src="{{ asset('js/forms.js') }}"></script>
 </body>
 
 </html>

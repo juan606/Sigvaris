@@ -21,4 +21,5 @@ class Doctor extends Model
         'especialidad'
         ];
        
+
 }

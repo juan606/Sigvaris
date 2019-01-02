@@ -2,17 +2,17 @@
 
 namespace App;
 
-use App\DatosGeneralesProveedor;
 use Illuminate\Database\Eloquent\Model;
+use Laravel\Scout\Searchable;
 
-class Giro extends Model
+class Area extends Model 
 {
     //
-    protected $table = 'giro';
+    protected $table = 'areas';
     protected $fillable=['id','nombre','etiqueta'];
     protected $hidden=[ 'created_at', 'updated_at','deleted_at'];
 
-    public function datosGen(){
-    	return $this->hasOne(DatosGeneralesProveedor::class);
+    public function datosLab(){
+    	return $this->belongsTo('App\EmpleadosDatosLab');
     }
 }
