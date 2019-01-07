@@ -84,8 +84,10 @@ class DoctorConsultorioController extends Controller
      * @param  \App\Consultorio  $consultorio
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Consultorio $consultorio)
+    public function destroy($doctor, $consultorio)
     {
-        //
+        $consul = Consultorio::find($consultorio);
+        $consul->delete();
+        return redirect()->route('doctores.consultorios.index', ['doctor'=>$doctor]);
     }
 }

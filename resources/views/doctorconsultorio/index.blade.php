@@ -68,7 +68,13 @@
                             <td>{{$consultorio->tel1}}</td>
                             <td>{{$consultorio->mail}}</td>
                             <td>{{$consultorio->desde}}/{{$consultorio->hasta}}</td>
-                            <td><button type="button" class="btn btn-danger">Borrar</button></td>
+                            <td>
+                                <form role="form" name="consultorioborrar" id="form-consultorio" method="POST" action="{{ route('doctores.consultorios.destroy', ['doctor'=>$doctor, 'consultorio'=>$consultorio->id]) }}" name="form">
+                                    {{ csrf_field() }}
+                                    {{ method_field('DELETE') }}
+                                    <button type="submit" class="btn btn-danger">Borrar</button>
+                                </form>
+                            </td>
                         </tr>
                     @endforeach
                 </table>

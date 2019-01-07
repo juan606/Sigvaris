@@ -84,8 +84,10 @@ class DoctorEspecialidadController extends Controller
      * @param  \App\Especialidad  $especialidad
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Especialidad $especialidad)
+    public function destroy($doctor, $especialidad)
     {
-        //
+        $espe = Especialidad::find($especialidad);
+        $espe->delete();
+        return redirect()->route('doctores.especialidades.index', ['doctor'=>$doctor]);
     }
 }

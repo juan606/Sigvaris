@@ -66,7 +66,13 @@
                             <td>{{$premio->institucion}}</td>
                             <td>{{$premio->otorga}}</td>
                             <td>{{$premio->fecha}}</td>
-                            <td><button type="button" class="btn btn-danger">Borrar</button></td>
+                            <td>
+                                <form role="form" name="premioborrar" id="form-premio" method="POST" action="{{ route('doctores.premios.destroy', ['doctor'=>$doctor, 'premio'=>$premio->id]) }}" name="form">
+                                    {{ csrf_field() }}
+                                    {{ method_field('DELETE') }}
+                                    <button type="submit" class="btn btn-danger">Borrar</button>
+                                </form>
+                            </td>
                         </tr>
                     @endforeach
                 </table>

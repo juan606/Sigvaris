@@ -84,8 +84,10 @@ class DoctorPremioController extends Controller
      * @param  \App\Premio  $premio
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Premio $premio)
+    public function destroy($doctor,  $premio)
     {
-        //
+        $premi = Premio::find($premio);
+        $premi->delete();
+        return redirect()->route('doctores.especialidades.index', ['doctor'=>$doctor]);
     }
 }

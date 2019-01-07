@@ -62,7 +62,13 @@
                         <tr>
                             <td>{{$especialidad->nombre}}</td>
                             <td>{{$especialidad->cedula}}</td>
-                            <td><button type="button" class="btn btn-danger">Borrar</button></td>
+                            <td>
+                                <form role="form" name="especialidadborrar" id="form-especialidad" method="POST" action="{{ route('doctores.especialidades.destroy', ['doctor'=>$doctor, 'especialidad'=>$especialidad->id]) }}" name="form">
+                                    {{ csrf_field() }}
+                                    {{ method_field('DELETE') }}
+                                    <button type="submit" class="btn btn-danger">Borrar</button>
+                                </form>
+                            </td>
                         </tr>
                     @endforeach
                 </table>
