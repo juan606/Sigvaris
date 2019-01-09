@@ -12,19 +12,37 @@
 </head>
 
 <body>
-    <div class="row">
-        <div class="col pr-0 mr-0">
-        <img src="{{asset('img/header.jpg')}}" class="img-fluid" alt="Sigvaris.">
-        </div>
-        <div class="col p-0 m-0 d-sm-none d-md-block" style="background-color: #114C9A;">
-        
+    <div class="row fixed-top imagenHeader">
+        <div class="col-12 p-0 m-0">
+			<a href="/">
+				<img src="{{asset('img/header.jpg')}}" class="img-fluid" alt="Sigvaris." >
+			</a>
         </div>
     </div>
-    @include('nav')
+    <div class="row imagenHeader">
+        <div class="col-12" style="margin-top: 165px"></div>
+    </div>
+    <div class="row m-0 p-0 sticky-top">
+        <div class="col-12 m-0 p-0">
+            @include('nav')
+        </div>
+    </div>
+    
     <div class="container" style="margin-top: 20px">
         @yield('content')
     </div>
     <script type="text/javascript" src="{{ asset('js/forms.js') }}"></script>
+    <script>
+        $(window).scroll(function() {
+        	if ($(this).scrollTop()>0) {
+        		$('.imagenHeader').hide(200);
+				$('.imagenHeader-i').show(200);
+        	} else {
+       			$('.imagenHeader').show(200);
+				$('.imagenHeader-i').hide(200);
+        	}
+	}	);
+    </script>
 </body>
 
 </html>
