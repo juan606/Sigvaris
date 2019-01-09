@@ -12,15 +12,15 @@
 </head>
 
 <body>
-    <div class="row fixed-top imagenHeader">
+    <div id="imagenHeader" class="row fixed-top imagenHeader">
         <div class="col-12 p-0 m-0">
 			<a href="/">
 				<img src="{{asset('img/header.jpg')}}" class="img-fluid" alt="Sigvaris." >
 			</a>
         </div>
     </div>
-    <div class="row imagenHeader m-0 p-0 d-none d-md-block" style="max-height:168px">
-        <div class="col-12 mb-0 mx-0 p-0" style="margin-top: 165px"></div>
+    <div id="ayudaHeader" class="imagenHeader" >
+        
     </div>
     <div class="row m-0 p-0 sticky-top">
         <div class="col-12 m-0 p-0">
@@ -33,6 +33,10 @@
     </div>
     <script type="text/javascript" src="{{ asset('js/forms.js') }}"></script>
     <script>
+        $(document).ready(function(){
+            let altura = $("#imagenHeader").height();
+            $('#ayudaHeader').height(altura);
+        });
         $(window).scroll(function() {
         	if ($(this).scrollTop()>0) {
         		$('.imagenHeader').hide(200);
