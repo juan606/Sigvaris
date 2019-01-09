@@ -19,7 +19,7 @@
 			</a>
         </div>
     </div>
-    <div class="row imagenHeader m-0 p-0">
+    <div class="row imagenHeader m-0 p-0 d-none d-md-block" style="max-height:168px">
         <div class="col-12 mb-0 mx-0 p-0" style="margin-top: 165px"></div>
     </div>
     <div class="row m-0 p-0 sticky-top">
