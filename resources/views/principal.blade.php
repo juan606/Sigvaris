@@ -19,8 +19,8 @@
 			</a>
         </div>
     </div>
-    <div class="row imagenHeader">
-        <div class="col-12" style="margin-top: 165px"></div>
+    <div class="row imagenHeader m-0 p-0">
+        <div class="col-12 mb-0 mx-0 p-0" style="margin-top: 165px"></div>
     </div>
     <div class="row m-0 p-0 sticky-top">
         <div class="col-12 m-0 p-0">
