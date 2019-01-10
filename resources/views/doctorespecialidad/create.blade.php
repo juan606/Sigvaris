@@ -59,8 +59,8 @@
                                 <input type="text" class="form-control" id="nombre" name="nombre" value="" required autofocus>
                             </div>
                             <div class="form-group col-6">
-                                <label class="control-label" for="apater"><i class="fa fa-asterisk" aria-hidden="true"></i>Cédula:</label>
-                                <input type="text" class="form-control" id="apater" name="cedula" value="" required>
+                                <label class="control-label" for="apater">Cédula:</label>
+                                <input type="text" class="form-control" id="apater" name="cedula" value="" >
                             </div>		
                         </div>
                         <div class="row-">

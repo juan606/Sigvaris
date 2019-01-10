@@ -69,11 +69,29 @@
                             <td>{{$consultorio->mail}}</td>
                             <td>{{$consultorio->desde}}/{{$consultorio->hasta}}</td>
                             <td>
-                                <form role="form" name="consultorioborrar" id="form-consultorio" method="POST" action="{{ route('doctores.consultorios.destroy', ['doctor'=>$doctor, 'consultorio'=>$consultorio->id]) }}" name="form">
-                                    {{ csrf_field() }}
-                                    {{ method_field('DELETE') }}
-                                    <button type="submit" class="btn btn-danger">Borrar</button>
-                                </form>
+                                
+
+                                <div class="row">
+                                    <div class="col-auto pr-2">
+                                        <a href="{{route('doctores.consultorios.show', ['doctor'=>$doctor, 'consultorio'=>$consultorio->id])}}" class="btn btn-primary">Ver</a>
+                                        <a href="{{route('doctores.consultorios.edit', ['doctor'=>$doctor, 'consultorio'=>$consultorio->id])}}" class="btn btn-warning">Editar</a>
+                                        
+                                    </div>
+                                    <div class="col pl-0">
+                                        <form role="form" name="consultorioborrar" id="form-consultorio" method="POST" action="{{ route('doctores.consultorios.destroy', ['doctor'=>$doctor, 'consultorio'=>$consultorio->id]) }}" name="form">
+                                            {{ csrf_field() }}
+                                            {{ method_field('DELETE') }}
+                                            <button type="submit" class="btn btn-danger">Borrar</button>
+                                        </form>
+                                    </div>
+                                </div>
+                                
+                                
+                                
+
+
+
+
                             </td>
                         </tr>
                     @endforeach

@@ -59,18 +59,18 @@
                                 <input type="text" class="form-control" id="nombre" name="nombre" value="" required autofocus>
                             </div>
                             <div class="form-group col-4">
-                                <label class="control-label" for="apater"><i class="fa fa-asterisk" aria-hidden="true"></i>Institución:</label>
-                                <input type="text" class="form-control" id="apater" name="institucion" value="" required>
+                                <label class="control-label" for="apater">Institución:</label>
+                                <input type="text" class="form-control" id="apater" name="institucion" value="" >
                             </div>	
                             <div class="form-group col-4">
-                                <label class="control-label" for="apater"><i class="fa fa-asterisk" aria-hidden="true"></i>Quién otorga:</label>
-                                <input type="text" class="form-control" id="apater" name="otorga" value="" required>
+                                <label class="control-label" for="apater">Quién otorga:</label>
+                                <input type="text" class="form-control" id="apater" name="otorga" value="" >
                             </div>	
                         </div>
                         <div class="row">
                             <div class="form-group col-4">
-                                <label class="control-label" for="nombre"><i class="fa fa-asterisk" aria-hidden="true"></i> Fecha:</label>
-                                <input type="date" class="form-control" id="nombre" name="fecha" value="" required autofocus>
+                                <label class="control-label" for="nombre"> Fecha:</label>
+                                <input type="date" class="form-control" id="nombre" name="fecha" value=""  autofocus>
                             </div>
                         </div>
                         <div class="row-">

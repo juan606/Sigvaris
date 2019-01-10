@@ -18,7 +18,7 @@ class CreateEspecialidadTable extends Migration
             $table->integer('doctor_id')->unsigned();
             $table->foreign('doctor_id')->references('id')->on('doctores');
             $table->string('nombre');
-            $table->string('cedula');
+            $table->string('cedula')->nullable();
             $table->timestamps();
             $table->softDeletes();
         });

@@ -50,9 +50,10 @@ class DoctorPremioController extends Controller
      * @param  \App\Premio  $premio
      * @return \Illuminate\Http\Response
      */
-    public function show(Premio $premio)
+    public function show($doctor, $premio)
     {
-        //
+        $prem = Premio::find($premio);
+        return view('doctorpremio.show', ['doctor'=>$prem->doctor, 'premio'=>$prem]);
     }
 
     /**
@@ -61,9 +62,10 @@ class DoctorPremioController extends Controller
      * @param  \App\Premio  $premio
      * @return \Illuminate\Http\Response
      */
-    public function edit(Premio $premio)
+    public function edit($doctor, $premio)
     {
-        //
+        $prem = Premio::find($premio);
+        return view('doctorpremio.edit', ['doctor'=>$prem->doctor,'premio'=>$prem]);
     }
 
     /**
@@ -73,9 +75,15 @@ class DoctorPremioController extends Controller
      * @param  \App\Premio  $premio
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Premio $premio)
+    public function update(Request $request, $doctor, $premio)
     {
-        //
+        $prem = Premio::find($premio);
+        $prem->nombre = $request->input('nombre');
+        $prem->institucion = $request->input('institucion');
+        $prem->otorga = $request->input('otorga');
+        $prem->fecha = $request->input('fecha');
+        $prem->save();
+        return redirect()->route('doctores.premios.index', ['doctor'=>$prem->doctor]);
     }
 
     /**
@@ -88,6 +96,6 @@ class DoctorPremioController extends Controller
     {
         $premi = Premio::find($premio);
         $premi->delete();
-        return redirect()->route('doctores.especialidades.index', ['doctor'=>$doctor]);
+        return redirect()->route('doctores.premios.index', ['doctor'=>$doctor]);
     }
 }

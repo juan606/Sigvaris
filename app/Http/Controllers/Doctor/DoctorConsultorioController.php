@@ -50,9 +50,10 @@ class DoctorConsultorioController extends Controller
      * @param  \App\Consultorio  $consultorio
      * @return \Illuminate\Http\Response
      */
-    public function show(Consultorio $consultorio)
+    public function show($doctor, $consultorio)
     {
-        //
+        $consul = Consultorio::find($consultorio);
+        return view('doctorconsultorio.show', ['doctor'=>$consul->doctor, 'consultorio'=>$consul]);
     }
 
     /**
@@ -61,9 +62,10 @@ class DoctorConsultorioController extends Controller
      * @param  \App\Consultorio  $consultorio
      * @return \Illuminate\Http\Response
      */
-    public function edit(Consultorio $consultorio)
+    public function edit($doctor, $consultorio)
     {
-        //
+        $consul = Consultorio::find($consultorio);
+        return view('doctorconsultorio.edit', ['doctor'=>$consul->doctor,'consultorio'=>$consul]);
     }
 
     /**
@@ -73,9 +75,20 @@ class DoctorConsultorioController extends Controller
      * @param  \App\Consultorio  $consultorio
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Consultorio $consultorio)
+    public function update(Request $request, $doctor, $consultorio)
     {
-        //
+        $consul = Consultorio::find($consultorio);
+        $consul->nombre = $request->input('nombre');
+        $consul->direccion = $request->input('direccion');
+        $consul->secretaria = $request->input('secretaria');
+        $consul->tel1 = $request->input('tel1');
+        $consul->tel2 = $request->input('tel2');
+        $consul->tel3 = $request->input('tel3');
+        $consul->mail = $request->input('mail');
+        $consul->desde = $request->input('desde');
+        $consul->hasta = $request->input('hasta');
+        $consul->save();
+        return redirect()->route('doctores.consultorios.index', ['doctor'=>$consul->doctor]);
     }
 
     /**

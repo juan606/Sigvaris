@@ -12,17 +12,14 @@
 </head>
 
 <body>
-    <div id="imagenHeader" class="row fixed-top imagenHeader">
+    <div  class="row">
         <div class="col-12 p-0 m-0">
 			<a href="/">
-				<img src="{{asset('img/header.jpg')}}" class="img-fluid" alt="Sigvaris." >
+				<img id="imagenHeaderid" src="{{asset('img/header.jpg')}}" class="img-fluid" alt="Sigvaris.">
 			</a>
         </div>
     </div>
-    <div id="ayudaHeader" class="imagenHeader" >
-        
-    </div>
-    <div class="row m-0 p-0 sticky-top">
+    <div class="row m-0 p-0">
         <div class="col-12 m-0 p-0">
             @include('nav')
         </div>
@@ -33,19 +30,27 @@
     </div>
     <script type="text/javascript" src="{{ asset('js/forms.js') }}"></script>
     <script>
-        $(document).ready(function(){
-            let altura = $("#imagenHeader").height();
-            $('#ayudaHeader').height(altura);
-        });
-        $(window).scroll(function() {
-        	if ($(this).scrollTop()>0) {
-        		$('.imagenHeader').hide(200);
-				$('.imagenHeader-i').show(200);
-        	} else {
-       			$('.imagenHeader').show(200);
-				$('.imagenHeader-i').hide(200);
-        	}
-	}	);
+        
+
+        // $(document).ready(function(){
+        //     setTimeout(function(){
+        //         let altura = $('#imagenHeaderid').height();
+        //         $('#ayudaHeader2').height(altura);
+
+        //         // $(window).scroll(function() {
+        //         //     if ($(this).scrollTop()>70) {
+        //         //         $('.imagenHeader').hide(200);
+        //         //         $('.imagenHeader-i').show(200);
+        //         //     } else {
+        //         //         $('.imagenHeader').show(200);
+        //         //         $('.imagenHeader-i').hide(200);
+        //         //     }
+                    
+        //         // });
+        //     },250);
+            
+            
+        // });
     </script>
 </body>
 

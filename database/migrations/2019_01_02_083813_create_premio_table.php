@@ -18,9 +18,9 @@ class CreatePremioTable extends Migration
             $table->integer('doctor_id')->unsigned();
             $table->foreign('doctor_id')->references('id')->on('doctores');
             $table->string('nombre');
-            $table->string('institucion');
-            $table->string('otorga');
-            $table->string('fecha');
+            $table->string('institucion')->nullable();
+            $table->string('otorga')->nullable();
+            $table->string('fecha')->nullable();
             $table->timestamps();
             $table->softDeletes();
         });

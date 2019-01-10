@@ -50,9 +50,10 @@ class DoctorEspecialidadController extends Controller
      * @param  \App\Especialidad  $especialidad
      * @return \Illuminate\Http\Response
      */
-    public function show(Especialidad $especialidad)
+    public function show($doctor, $especialidad)
     {
-        //
+        $especial = Especialidad::find($especialidad);
+        return view('doctorespecialidad.show', ['doctor'=>$especial->doctor, 'especialidad'=>$especial]);
     }
 
     /**
@@ -61,9 +62,10 @@ class DoctorEspecialidadController extends Controller
      * @param  \App\Especialidad  $especialidad
      * @return \Illuminate\Http\Response
      */
-    public function edit(Especialidad $especialidad)
+    public function edit($doctor, $especialidad)
     {
-        //
+        $especial = Especialidad::find($especialidad);
+        return view('doctorespecialidad.edit', ['doctor'=>$especial->doctor,'especialidad'=>$especial]);
     }
 
     /**
@@ -73,9 +75,13 @@ class DoctorEspecialidadController extends Controller
      * @param  \App\Especialidad  $especialidad
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Especialidad $especialidad)
+    public function update(Request $request, $doctor, $especialidad)
     {
-        //
+        $especial = Especialidad::find($especialidad);
+        $especial->nombre = $request->input('nombre');
+        $especial->cedula = $request->input('cedula');
+        $especial->save();
+        return redirect()->route('doctores.especialidades.index', ['doctor'=>$especial->doctor]);
     }
 
     /**
