@@ -52,7 +52,6 @@ class DoctorController extends Controller
     {
         $temp = Doctor::find($doctor);
         return view('doctor.show',['doctor'=>$temp]);
-        dd($temp);
     }
 
     /**
@@ -61,9 +60,10 @@ class DoctorController extends Controller
      * @param  \App\Doctor  $doctor
      * @return \Illuminate\Http\Response
      */
-    public function edit(Doctor $doctor)
+    public function edit($doctor)
     {
-        //
+        $temp = Doctor::find($doctor);
+        return view('doctor.edit',['doctor'=>$temp]);
     }
 
     /**
@@ -73,9 +73,17 @@ class DoctorController extends Controller
      * @param  \App\Doctor  $doctor
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Doctor $doctor)
+    public function update(Request $request, $doctor)
     {
-        //
+        $temp = Doctor::find($doctor);
+        $temp->nombre = $request->input('nombre');
+        $temp->apellidopaterno = $request->input('apellidopaterno');
+        $temp->apellidomaterno = $request->input('apellidomaterno');
+        $temp->celular = $request->input('celular');
+        $temp->mail = $request->input('mail');
+        $temp->nacimiento = $request->input('nacimiento');
+        $temp->save();
+        return redirect()->route('doctores.index');
     }
 
     /**

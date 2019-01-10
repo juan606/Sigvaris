@@ -34,15 +34,23 @@
 							<td>{{ $doctor->apellidomaterno }}</td>
 							<td>{{ $doctor->nacimiento }}</td>
 							<td>
-								<a href="{{route('doctores.show', ['doctor'=>$doctor])}}"  class="btn btn-info">Ver</a>
-								<br>
-								<form role="form" method="POST" action="{{ route('doctores.destroy', ['doctor' => $doctor]) }}">
-									{{ csrf_field() }}
-									<input type="hidden" name="_method" value="DELETE">
-									<button type="submit" class="btn btn-danger" >
-										<strong>Borrar</strong>
-									</button>
-								</form>
+
+
+								<div class="row">
+                                    <div class="col-auto pr-2">
+                                        <a href="{{route('doctores.show', ['doctor'=>$doctor])}}" class="btn btn-primary">Ver</a>
+                                        <a href="{{route('doctores.edit', ['doctor'=>$doctor])}}" class="btn btn-warning">Editar</a>
+                                        
+                                    </div>
+                                    <div class="col pl-0">
+                                        <form role="form" name="doctorborrar" id="form-doctor" method="POST" action="{{ route('doctores.destroy', ['doctor'=>$doctor]) }}" name="form">
+                                            {{ csrf_field() }}
+                                            {{ method_field('DELETE') }}
+                                            <button type="submit" class="btn btn-danger">Borrar</button>
+                                        </form>
+                                    </div>
+                                </div>
+
 								</td>
 						</tr>
 					@endforeach
