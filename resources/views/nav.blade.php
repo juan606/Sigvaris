@@ -1,4 +1,4 @@
-<nav class="navbar navbar-expand-md navbar-light" style="background-color: #e3f2fd;">
+<nav class="navbar navbar-expand-md  navbar-dark" style="background-color: #1c3160;">
     
     <a class="navbar-brand imagenHeader-i" style="display: none;" href="/">
         Sigvaris

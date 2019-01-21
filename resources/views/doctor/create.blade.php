@@ -27,8 +27,8 @@
                     <input type="text" name="apellidopaterno" class="form-control" required="">
                 </div>
                 <div class="col-3 form-group">
-                    <label class="control-label">Apellido Materno:</label>
-                    <input type="text" name="apellidomaterno" class="form-control">
+                    <label class="control-label">✱Apellido Materno:</label>
+                    <input type="text" name="apellidomaterno" class="form-control" required="">
                 </div>
                 <div class="col-3 form-group">
                     <label class="control-label">✱Celular:</label>
@@ -38,7 +38,7 @@
             <div class="row">
                 <div class="col-3 form-group">
                     <label class="control-label">✱Correo:</label>
-                    <input type="mail" name="mail" class="form-control">
+                    <input type="email" name="mail" class="form-control" required="">
                 </div>
                 <div class="col-3 form-group">
                     <label class="control-label">✱Fecha nacimiento:</label>
