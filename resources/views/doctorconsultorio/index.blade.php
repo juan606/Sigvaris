@@ -3,8 +3,9 @@
 
     <div class="row my-5">
         <div class="col-4 px-5"><h4>Consultorios</h4></div>
+        <input id="submenu" type="hidden" name="submenu" value="nav-consultorios">
         <div class="col-4 px-5">
-            <a class="btn btn-success" href="{{ route('doctores.consultorios.create', ['doctor'=>$doctor]) }}">Crear nuevo</a>
+            <a class="btn btn-success" href="{{ route('doctores.consultorios.create', ['doctor'=>$doctor]) }}"><i class="fas fa-plus"></i><strong> Crear Consultorio</strong></a>
         </div>   
     </div>
     <div class="row">
@@ -31,15 +32,15 @@
 
                         <div class="row">
                             <div class="col-auto pr-2">
-                                <a href="{{route('doctores.consultorios.show', ['doctor'=>$doctor, 'consultorio'=>$consultorio->id])}}" class="btn btn-primary">Ver</a>
-                                <a href="{{route('doctores.consultorios.edit', ['doctor'=>$doctor, 'consultorio'=>$consultorio->id])}}" class="btn btn-warning">Editar</a>
+                                <a href="{{route('doctores.consultorios.show', ['doctor'=>$doctor, 'consultorio'=>$consultorio->id])}}" class="btn btn-primary"><i class="fas fa-eye"></i><strong> Ver</strong></a>
+                                <a href="{{route('doctores.consultorios.edit', ['doctor'=>$doctor, 'consultorio'=>$consultorio->id])}}" class="btn btn-warning"><i class="fas fa-edit"></i><strong> Editar</strong></a>
                                 
                             </div>
                             <div class="col pl-0">
                                 <form role="form" name="consultorioborrar" id="form-consultorio" method="POST" action="{{ route('doctores.consultorios.destroy', ['doctor'=>$doctor, 'consultorio'=>$consultorio->id]) }}" name="form">
                                     {{ csrf_field() }}
                                     {{ method_field('DELETE') }}
-                                    <button type="submit" class="btn btn-danger">Borrar</button>
+                                    <button type="submit" class="btn btn-danger"><i class="far fa-trash-alt"></i><strong> Borrar</strong></button>
                                 </form>
                             </div>
                         </div>

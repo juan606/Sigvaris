@@ -38,15 +38,15 @@
 
 								<div class="row">
                                     <div class="col-auto pr-2">
-                                        <a href="{{route('doctores.show', ['doctor'=>$doctor])}}" class="btn btn-primary">Ver</a>
-                                        <a href="{{route('doctores.edit', ['doctor'=>$doctor])}}" class="btn btn-warning">Editar</a>
+                                        <a href="{{route('doctores.show', ['doctor'=>$doctor])}}" class="btn btn-primary"><i class="fas fa-eye"></i><strong> Ver</strong></a>
+                                        <a href="{{route('doctores.edit', ['doctor'=>$doctor])}}" class="btn btn-warning"><i class="fas fa-edit"></i><strong> Editar</strong></a>
                                         
                                     </div>
                                     <div class="col pl-0">
                                         <form role="form" name="doctorborrar" id="form-doctor" method="POST" action="{{ route('doctores.destroy', ['doctor'=>$doctor]) }}" name="form">
                                             {{ csrf_field() }}
                                             {{ method_field('DELETE') }}
-                                            <button type="submit" class="btn btn-danger">Borrar</button>
+                                            <button type="submit" class="btn btn-danger"><i class="far fa-trash-alt"></i><strong> Borrar</strong></button>
                                         </form>
                                     </div>
                                 </div>
