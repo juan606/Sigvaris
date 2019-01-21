@@ -46,7 +46,7 @@
                     <a class="dropdown-item" href="{{ url('contratos') }}">Contratos<i class="fa fa-search float-right"></i></a>
                     <!-- <a class="dropdown-item" href="{{ url('/areas') }}">Áreas<i class="fa fa-plus float-right"></i></a> -->
                     <!-- <a class="dropdown-item" href="{{ url('/puestos') }}">Puestos<i class="fa fa-plus float-right"></i></a> -->
-                    <!-- <a class="dropdown-item" href="{{ url('/faltas') }}">Faltas<i class="fa fa-plus float-right"></i></a> -->
+                    <a class="dropdown-item" href="{{ url('/faltas') }}">Faltas </a>
                 </div>
             </li>
         </ul>

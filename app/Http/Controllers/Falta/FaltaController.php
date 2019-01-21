@@ -1,12 +1,12 @@
 <?php
 
-namespace App\Http\Controllers\Puesto;
+namespace App\Http\Controllers\Falta;
 
-use App\Puesto;
+use App\Falta;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
-class PuestoController extends Controller
+class FaltaController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -16,8 +16,8 @@ class PuestoController extends Controller
     public function index()
     {
         //
-        $puestos = Puesto::get();
-        return view('puestos.index',['puestos'=>$puestos]);
+        $faltas = Falta::get();
+        return view('faltas.index',['faltas'=>$faltas]);
     }
 
     /**
@@ -28,7 +28,7 @@ class PuestoController extends Controller
     public function create()
     {
         //
-        return view('puestos.create');
+        return view('faltas.create');
     }
 
     /**
@@ -41,79 +41,79 @@ class PuestoController extends Controller
     {
         //
 
-        Puesto::create($request->all());
-        return redirect('puestos');
+        Falta::create($request->all());
+        return redirect('faltas');
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  \App\Puesto  $puesto
+     * @param  \App\Falta  $falta
      * @return \Illuminate\Http\Response
      */
-    public function show(Puesto $puesto)
+    public function show(Falta $falta)
     {
         //
-        // return view('puestos.index');
+        // return view('faltas.index');
     }
 
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Puesto  $puesto
+     * @param  \App\Falta  $falta
      * @return \Illuminate\Http\Response
      */
-    public function edit(Puesto $puesto)
+    public function edit(Falta $falta)
     {
         //
-        return view('puestos.edit',['puesto'=>$puesto]);
+        return view('faltas.edit',['falta'=>$falta]);
     }
 
     /**
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Puesto  $puesto
+     * @param  \App\Falta  $falta
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Puesto $puesto)
+    public function update(Request $request, Falta $falta)
     {
         //
-        $puesto->update($request->all());
-        return redirect('puestos');
+        $falta->update($request->all());
+        return redirect('faltas');
 
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Puesto  $puesto
+     * @param  \App\Falta  $falta
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Puesto $puesto)
+    public function destroy(Falta $falta)
     {
         //
-        // var_dump($puesto);
-        // $puesto = Puesto::findoorFail($puesto);
-        // Puesto::destroy($puesto);
-        $puesto->delete();
-        return  redirect('puestos');
+        // var_dump($falta);
+        // $falta = Falta::findoorFail($falta);
+        // Falta::destroy($falta);
+        $falta->delete();
+        return  redirect('faltas');
     }
     public function buscar(Request $request){
         $query = $request->input('query');
         $wordsquery = explode(' ',$query);
-        $puestos = Puesto::where(function($q) use($wordsquery){
+        $faltas = Falta::where(function($q) use($wordsquery){
             foreach ($wordsquery as $word) {
                 # code...
                 $q->orWhere('nombre','LIKE',"%$word%")
                     ->orWhere('etiqueta','LIKE',"%$word%");
             }
         })->paginate(10);
-        return view('puestos.index',['puestos'=>$puestos]);
+        return view('faltas.index',['faltas'=>$faltas]);
     }
 
-          public function getPuestos(){
-        $puestos = Puesto::get();
-        return view('precargas.select',['precargas'=>$puestos]);
+          public function getFaltas(){
+        $faltas = Falta::get();
+        return view('precargas.select',['precargas'=>$faltas]);
     }
 }

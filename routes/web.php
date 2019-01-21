@@ -16,6 +16,8 @@ Route::resource('empleados.estudios','Empleado\EmpleadosEstudiosController');
 Route::resource('empleados.emergencias','Empleado\EmpleadosEmergenciasController');
 Route::resource('empleados.vacaciones','Empleado\EmpleadosVacacionesController');
 Route::resource('empleados.faltas','Empleado\EmpleadosFaltasAdministrativasController');
+Route::get('getfaltas','Falta\FaltaController@getFaltas');
+Route::resource('faltas','Falta\FaltaController', ['except'=>'show']);
 Route::resource('contratos','Precargas\TipoContratoController');
 // Route::resource('bajas','Precargas\TipoBajaController');
 // Route::get('buscarempleado','Empleado\EmpleadoController@buscar');
