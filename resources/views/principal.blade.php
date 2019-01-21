@@ -12,7 +12,7 @@
 </head>
 
 <body>
-    <div  class="row">
+    <div  class="row p-0 m-0">
         <div class="col-12 p-0 m-0">
 			<a href="/">
 				<img id="imagenHeaderid" src="{{asset('img/header.jpg')}}" class="img-fluid" alt="Sigvaris.">
@@ -25,33 +25,13 @@
         </div>
     </div>
     
-    <div class="container" style="margin-top: 20px">
+    <div class="container-fliud" style="margin-top: 20px">
+        <!-- <iframe src="{{ route('doctores.create') }}" style="width: 100%; overflow:auto; height:1000px;" frameborder="0"></iframe> -->
         @yield('content')
     </div>
     <script type="text/javascript" src="{{ asset('js/forms.js') }}"></script>
-    <script>
-        
-
-        // $(document).ready(function(){
-        //     setTimeout(function(){
-        //         let altura = $('#imagenHeaderid').height();
-        //         $('#ayudaHeader2').height(altura);
-
-        //         // $(window).scroll(function() {
-        //         //     if ($(this).scrollTop()>70) {
-        //         //         $('.imagenHeader').hide(200);
-        //         //         $('.imagenHeader-i').show(200);
-        //         //     } else {
-        //         //         $('.imagenHeader').show(200);
-        //         //         $('.imagenHeader-i').hide(200);
-        //         //     }
-                    
-        //         // });
-        //     },250);
-            
-            
-        // });
-    </script>
 </body>
+<script>
 
+</script>
 </html>

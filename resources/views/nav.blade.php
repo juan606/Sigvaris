@@ -13,10 +13,10 @@
                     Proveedores
                 </a>
                 <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                    <a class="dropdown-item" href="{{ route('proveedores.create') }}">Alta<i class="fa fa-plus float-right"></i></a>
-                    <a class="dropdown-item" href="{{ route('proveedores.index') }}">Buscar<i class="fa fa-search float-right"></i></a>
+                    <a class="dropdown-item" href="{{ route('proveedores.create') }}"><span>Alta</span><i class="fa fa-plus float-right"></i></a>
+                    <a class="dropdown-item" href="{{ route('proveedores.index') }}"><span>Buscar</span><i class="fa fa-search float-right"></i></a>
                     <div class="dropdown-divider"></div>
-                    <a class="dropdown-item" href="#">Giros<i class="fas fa-sync-alt float-right"></i></i></a>
+                    <a class="dropdown-item" href="#"><span>Giros</span><i class="fas fa-sync-alt float-right"></i></i></a>
                 </div>
             </li>
             <li class="nav-item dropdown">
@@ -24,8 +24,8 @@
                     Doctores
                 </a>
                 <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                    <a class="dropdown-item" href="{{ route('doctores.create') }}">Alta<i class="fa fa-plus float-right"></i></a>
-                    <a class="dropdown-item" href="{{ route('doctores.index') }}">Buscar<i class="fa fa-search float-right"></i></a>
+                    <a class="dropdown-item" href="{{ route('doctores.create') }}"><span>Alta</span><i class="fa fa-plus float-right"></i></a>
+                    <a class="dropdown-item" href="{{ route('doctores.index') }}"><span>Buscar</span><i class="fa fa-search float-right"></i></a>
                 </div>
             </li>
             <li class="nav-item dropdown">
@@ -33,8 +33,8 @@
                     Recursos Humanos
                 </a>
                 <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                    <a class="dropdown-item" href="{{url('empleados/create')}}">Alta<i class="fa fa-plus float-right"></i></a>
-                    <a class="dropdown-item" href="{{ url('empleados') }}">Buscar<i class="fa fa-search float-right"></i></a>
+                    <a class="dropdown-item" href="{{url('empleados/create')}}"><span>Alta</span><i class="fa fa-plus float-right"></i></a>
+                    <a class="dropdown-item" href="{{ url('empleados') }}"><span>Buscar</span><i class="fa fa-search float-right"></i></a>
                 </div>
             </li>
             <li class="nav-item dropdown">
@@ -42,13 +42,64 @@
                     Precargas
                 </a>
                 <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                    <!-- <a class="dropdown-item" href="{{ url('bajas') }}">Bajas<i class="fa fa-plus float-right"></i></a> -->
-                    <a class="dropdown-item" href="{{ url('contratos') }}">Contratos<i class="fa fa-search float-right"></i></a>
+                    <a class="dropdown-item" href="{{ url('contratos') }}"><span>Contratos</span><i class="fa fa-search float-right"></i></a>
+                    <a class="dropdown-item" href="{{ url('/faltas') }}"><span>Faltas </span></a>
                     <!-- <a class="dropdown-item" href="{{ url('/areas') }}">Áreas<i class="fa fa-plus float-right"></i></a> -->
                     <!-- <a class="dropdown-item" href="{{ url('/puestos') }}">Puestos<i class="fa fa-plus float-right"></i></a> -->
-                    <a class="dropdown-item" href="{{ url('/faltas') }}">Faltas </a>
+                    <!-- <a class="dropdown-item" href="{{ url('bajas') }}">Bajas<i class="fa fa-plus float-right"></i></a> -->
                 </div>
             </li>
         </ul>
     </div>
 </nav>
+<div class="row m-0 p-0 text-white" style="background-color: #1c3160;">
+    <div class="col">
+        <ul id="pestanias" class="nav nav-tabs">
+            <li id="pestania_1" class="nav-item">
+                <a class="text-white nav-link pestania" onclick="abrirPestania('pestania_1')" href="#"><span>Active </span><span style="font-size: 1.2em;"><i class="fas fa-times-circle ml-2"></i></span></a>
+            </li>
+        </ul>
+    </div>
+</div>
+<script>
+
+    var no_pestanias = 0;
+    $(document).ready(function(){
+
+        //CREAR PESTAÑA
+        $('.dropdown-item').click({url: 'www.facebook.com'}, crearPestania);
+
+        //CERRAR PESTAÑA
+
+
+
+
+
+        
+
+
+
+    });
+
+    function crearPestania(event){
+        no_pestanias++;
+        //alert(no_pestanias);
+        let titulo = event.data.url;
+        let nuevapestania = `<li id="pestania_${no_pestanias}" class="nav-item">
+                                <a class="text-white nav-link pestania" onclick="abrirPestania('pestania_${no_pestanias}')" href="#"><span> ${titulo + no_pestanias} </span><span style="font-size: 1.2em;"><i onclick="cerrarPestania('pestania_${no_pestanias}')" class="fas fa-times-circle ml-2"></i></span></a>
+                            </li>`
+        $('#pestanias').append(nuevapestania);
+        //return false;
+    }
+
+    function cerrarPestania(id){
+        $('#'+id).remove();
+    }
+
+    function abrirPestania(id){
+        $('.nav-link.pestania').removeClass('active text-dark');
+        $('.nav-link.pestania').addClass('text-white');
+        $('#'+id).find('a').addClass('active text-dark');
+        
+    }
+</script>

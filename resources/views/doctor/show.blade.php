@@ -57,7 +57,7 @@
     <script>
         $(document).ready(function(){
             let submenu = $('#submenu').val();
-            $('.nav-link').removeClass('active')
+            $('.nav-link.submenu').removeClass('active')
             $('#'+submenu).addClass('active')
         });
     </script>
