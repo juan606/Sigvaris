@@ -56,7 +56,7 @@
     <div class="col">
         <ul id="pestanias" class="nav nav-tabs">
             <li id="pestania_1" class="nav-item">
-                <a class="text-white nav-link pestania" onclick="abrirPestania('pestania_1')" href="#"><span>Active </span><span style="font-size: 1.2em;"><i class="fas fa-times-circle ml-2"></i></span></a>
+                <a class="text-white nav-link pestania" onclick="abrirPestania('pestania_1')" href="#"><span>Prueba </span><span style="font-size: 1.2em;"><i onclick="cerrarPestania('pestania_${no_pestanias}')" class="fas fa-times-circle ml-2"></i></span></a>
             </li>
         </ul>
     </div>
@@ -86,13 +86,14 @@
         //alert(no_pestanias);
         let titulo = event.data.url;
         let nuevapestania = `<li id="pestania_${no_pestanias}" class="nav-item">
-                                <a class="text-white nav-link pestania" onclick="abrirPestania('pestania_${no_pestanias}')" href="#"><span> ${titulo + no_pestanias} </span><span style="font-size: 1.2em;"><i onclick="cerrarPestania('pestania_${no_pestanias}')" class="fas fa-times-circle ml-2"></i></span></a>
+                                <a class="text-white nav-link pestania" onclick="abrirPestania('pestania_${no_pestanias}')" href="#"><span> ${titulo + no_pestanias} </span><span style="font-size: 1.2em;"><i onclick="cerrarPestania('pestania_` + no_pestanias + `')" class="fas fa-times-circle ml-2"></i></span></a>
                             </li>`
         $('#pestanias').append(nuevapestania);
-        //return false;
+        return false;
     }
 
     function cerrarPestania(id){
+        alert('#'+id);
         $('#'+id).remove();
     }
 
