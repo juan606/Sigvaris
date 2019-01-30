@@ -53,7 +53,7 @@ class DoctorConsultorioController extends Controller
     public function show($doctor, $consultorio)
     {
         $consul = Consultorio::find($consultorio);
-        return view('doctorconsultorio.show', ['doctor'=>$consul->doctor, 'consultorio'=>$consul]);
+        return view('doctorconsultorio.show', ['doctor'=>$consul->consultable, 'consultorio'=>$consul]);
     }
 
     /**
@@ -65,7 +65,7 @@ class DoctorConsultorioController extends Controller
     public function edit($doctor, $consultorio)
     {
         $consul = Consultorio::find($consultorio);
-        return view('doctorconsultorio.edit', ['doctor'=>$consul->doctor,'consultorio'=>$consul]);
+        return view('doctorconsultorio.edit', ['doctor'=>$consul->consultable,'consultorio'=>$consul]);
     }
 
     /**
@@ -88,7 +88,7 @@ class DoctorConsultorioController extends Controller
         $consul->desde = $request->input('desde');
         $consul->hasta = $request->input('hasta');
         $consul->save();
-        return redirect()->route('doctores.consultorios.index', ['doctor'=>$consul->doctor]);
+        return redirect()->route('doctores.consultorios.index', ['doctor'=>$consul->consultable]);
     }
 
     /**

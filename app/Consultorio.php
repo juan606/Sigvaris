@@ -13,7 +13,6 @@ class Consultorio extends Model
     
     protected $fillable = [
     	'id',
-    	'doctor_id',
     	'nombre',
     	'direccion',
         'secretaria',
@@ -25,7 +24,7 @@ class Consultorio extends Model
         'hasta'
     ];
 
-    public function doctor(){
-        return $this->belongsTo(Doctor::class,'doctor_id');
+    public function consultable(){
+        return $this->morphTo();
     }
 }

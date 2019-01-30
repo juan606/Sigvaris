@@ -19,6 +19,17 @@
                     <a class="dropdown-item" href="#"><span>Giros</span><i class="fas fa-sync-alt float-right"></i></i></a>
                 </div>
             </li>
+            <li class="nav-item dropdown active">
+                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    Pacientes
+                </a>
+                <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                    <a class="dropdown-item" href="{{ route('pacientes.create') }}"><span>Alta</span><i class="fa fa-plus float-right"></i></a>
+                    <a class="dropdown-item" href="{{ route('pacientes.index') }}"><span>Buscar</span><i class="fa fa-search float-right"></i></a>
+                    <div class="dropdown-divider"></div>
+                    <a class="dropdown-item" href="#"><span>Giros</span><i class="fas fa-sync-alt float-right"></i></i></a>
+                </div>
+            </li>
             <li class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                     Doctores
@@ -52,7 +63,7 @@
         </ul>
     </div>
 </nav>
-<div class="row m-0 p-0 text-white" style="background-color: #1c3160;">
+<!-- <div class="row m-0 p-0 text-white" style="background-color: #1c3160;">
     <div class="col">
         <ul id="pestanias" class="nav nav-tabs">
             <li id="pestania_1" class="nav-item">
@@ -60,7 +71,7 @@
             </li>
         </ul>
     </div>
-</div>
+</div> -->
 <script>
 
     var no_pestanias = 0;
@@ -89,7 +100,7 @@
                                 <a class="text-white nav-link pestania" onclick="abrirPestania('pestania_${no_pestanias}')" href="#"><span> ${titulo + no_pestanias} </span><span style="font-size: 1.2em;"><i onclick="cerrarPestania('pestania_` + no_pestanias + `')" class="fas fa-times-circle ml-2"></i></span></a>
                             </li>`
         $('#pestanias').append(nuevapestania);
-        return false;
+        //return false;
     }
 
     function cerrarPestania(id){

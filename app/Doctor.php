@@ -24,16 +24,19 @@ class Doctor extends Model
         ];
 
         public function consultorios(){
-            return $this->hasMany('App\Consultorio');
+            return $this->morphMany('App\Consultorio', 'consultable');
         }
 
         public function especialidades(){
-             return $this->hasMany('App\Especialidad');
+            return $this->hasMany('App\Especialidad');
         }
 
         public function premios(){
-             return $this->hasMany('App\Premio');
+            return $this->hasMany('App\Premio');
         }
        
+        public function pacientes(){
+            return $this->hasMany('App\Paciente');
+        }
 
 }
