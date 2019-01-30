@@ -2,11 +2,11 @@
 
 namespace App\Http\Controllers\Paciente;
 
-use App\RegistroHistorial;
+use App\Crm;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
-class PacienteHistorialController extends Controller
+class PacienteCrmController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -15,7 +15,7 @@ class PacienteHistorialController extends Controller
      */
     public function index()
     {
-        return "historial";
+        return "crms";
     }
 
     /**
@@ -42,10 +42,10 @@ class PacienteHistorialController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\RegistroHistorial  $registroHistorial
+     * @param  \App\Crm  $crm
      * @return \Illuminate\Http\Response
      */
-    public function show(RegistroHistorial $registroHistorial)
+    public function show(Crm $crm)
     {
         //
     }
@@ -53,10 +53,10 @@ class PacienteHistorialController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\RegistroHistorial  $registroHistorial
+     * @param  \App\Crm  $crm
      * @return \Illuminate\Http\Response
      */
-    public function edit(RegistroHistorial $registroHistorial)
+    public function edit(Crm $crm)
     {
         //
     }
@@ -65,10 +65,10 @@ class PacienteHistorialController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\RegistroHistorial  $registroHistorial
+     * @param  \App\Crm  $crm
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, RegistroHistorial $registroHistorial)
+    public function update(Request $request, Crm $crm)
     {
         //
     }
@@ -76,10 +76,10 @@ class PacienteHistorialController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\RegistroHistorial  $registroHistorial
+     * @param  \App\Crm  $crm
      * @return \Illuminate\Http\Response
      */
-    public function destroy(RegistroHistorial $registroHistorial)
+    public function destroy(Crm $crm)
     {
         //
     }

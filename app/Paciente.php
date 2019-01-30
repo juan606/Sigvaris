@@ -30,10 +30,9 @@ class Paciente extends Model
     public function doctor(){
         return $this->belongsTo(Doctor::class,'doctor_id');
     }
-/*CRMS
     public function crms(){
         return $this->hasMany('App\Crm');
-    }*/
+    }
 
     public function tallas(){
         return $this->hasMany('App\Talla');
@@ -42,8 +41,7 @@ class Paciente extends Model
     public function historial(){
         return $this->hasMany('App\RegistroHistorial');
     }
-    /*PADRE TUTOR
     public function tutor(){
         return $this->hasOne('App\Tutor');
-    }*/
+    }
 }
