@@ -89,9 +89,7 @@
 </div>
 <script>
     $('#doctor_id').change(function () {
-        alert();
-    });
-    $.ajaxSetup({
+        $.ajaxSetup({
         headers: {
             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
         }
@@ -103,5 +101,7 @@
     }).done(function (resultado) {
         $("#doctor_id").html(resultado);
     });
+    });
+    
 </script>
 @endsection
