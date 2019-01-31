@@ -40,9 +40,9 @@ class PacienteTallaController extends Controller
      */
     public function store(Request $request, $paciente)
     {
-        $doc = Paciente::find($paciente);
-        $doc->tallas()->create($request->all());
-        return view('pacientetalla.index', ['paciente'=>$doc]);
+        $paciente = Paciente::find($paciente);
+        $paciente->tallas()->create($request->all());
+        return view('pacientetalla.index', ['paciente'=>$paciente]);
     }
 
     /**
