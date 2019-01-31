@@ -15,13 +15,13 @@ class CreateTallasTable extends Migration
     {
         Schema::create('tallas', function (Blueprint $table) {
             $table->increments('id');
-            $table->boolean('pierna');
-            $table->boolean('brazo');
-            $table->boolean('tobimedia');
-            $table->boolean('media');
-            $table->boolean('pantimedia');
-            $table->boolean('calcetin');
-            $table->boolean('pantorrillera');
+            $table->string('pierna')->nullable();
+            $table->string('brazo')->nullable();
+            $table->boolean('tobimedia')->nullable();
+            $table->boolean('media')->nullable();
+            $table->boolean('pantimedia')->nullable();
+            $table->boolean('calcetin')->nullable();
+            $table->boolean('pantorrillera')->nullable();
             $table->decimal('circunferencia_tobillo_izq', 8, 2)->nullable();
             $table->decimal('circunferencia_tobillo_dcha', 8, 2)->nullable();
             $table->decimal('circunferencia_pantorrilla_izq', 8, 2)->nullable();
@@ -37,7 +37,7 @@ class CreateTallasTable extends Migration
             $table->decimal('calzado_dcha', 8, 2)->nullable();
             $table->decimal('peso', 8, 2)->nullable();
             $table->decimal('estatura', 8, 2)->nullable();
-            $table->boolean('guante');
+            $table->boolean('guante')->nullable();
             $table->decimal('circunferencia_plama_izq', 8, 2)->nullable();
             $table->decimal('circunferencia_plama_dcha', 8, 2)->nullable();
             $table->decimal('circunferencia_munieca_izq', 8, 2)->nullable();

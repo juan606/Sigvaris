@@ -26,8 +26,6 @@
                 <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                     <a class="dropdown-item" href="{{ route('pacientes.create') }}"><span>Alta</span><i class="fa fa-plus float-right"></i></a>
                     <a class="dropdown-item" href="{{ route('pacientes.index') }}"><span>Buscar</span><i class="fa fa-search float-right"></i></a>
-                    <div class="dropdown-divider"></div>
-                    <a class="dropdown-item" href="#"><span>Giros</span><i class="fas fa-sync-alt float-right"></i></i></a>
                 </div>
             </li>
             <li class="nav-item dropdown">

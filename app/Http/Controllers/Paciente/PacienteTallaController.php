@@ -2,8 +2,8 @@
 
 namespace App\Http\Controllers\Paciente;
 
-use App\Consultorio;
 use App\Paciente;
+use App\Talla;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
@@ -53,8 +53,8 @@ class PacienteTallaController extends Controller
      */
     public function show($paciente, $talla)
     {
-        $consul = Consultorio::find($talla);
-        return view('pacientetalla.show', ['paciente'=>$consul->consultable, 'talla'=>$consul]);
+        $tallat = Talla::find($talla);
+        return view('pacientetalla.show', ['paciente'=>$talla->paciente, 'talla'=>$tallat]);
     }
 
     /**
@@ -65,8 +65,10 @@ class PacienteTallaController extends Controller
      */
     public function edit($paciente, $talla)
     {
-        $consul = Consultorio::find($talla);
-        return view('pacientetalla.edit', ['paciente'=>$consul->consultable,'talla'=>$consul]);
+        $tallat = Talla::find($talla);
+        
+        //dd($tallat);
+        return view('pacientetalla.edit', ['paciente'=>$tallat->paciente,'talla'=>$tallat]);
     }
 
     /**
@@ -78,18 +80,41 @@ class PacienteTallaController extends Controller
      */
     public function update(Request $request, $paciente, $talla)
     {
-        $consul = Consultorio::find($talla);
-        $consul->nombre = $request->input('nombre');
-        $consul->direccion = $request->input('direccion');
-        $consul->secretaria = $request->input('secretaria');
-        $consul->tel1 = $request->input('tel1');
-        $consul->tel2 = $request->input('tel2');
-        $consul->tel3 = $request->input('tel3');
-        $consul->mail = $request->input('mail');
-        $consul->desde = $request->input('desde');
-        $consul->hasta = $request->input('hasta');
-        $consul->save();
-        return redirect()->route('pacientees.tallas.index', ['paciente'=>$consul->consultable]);
+        $talla = Talla::find($talla);
+        $talla->pierna = $request->input('pierna');
+        $talla->brazo = $request->input('brazo');
+        $talla->tobimedia = $request->input('tobimedia');
+        $talla->media = $request->input('media');
+        $talla->pantimedia = $request->input('pantimedia');
+        $talla->calcetin = $request->input('calcetin');
+        $talla->pantorrillera = $request->input('pantorrillera');
+        $talla->circunferencia_tobillo_izq = $request->input('circunferencia_tobillo_izq');
+        $talla->circunferencia_tobillo_dcha = $request->input('circunferencia_tobillo_dcha');
+        $talla->circunferencia_pantorrilla_izq = $request->input('circunferencia_pantorrilla_izq');
+        $talla->circunferencia_pantorrilla_dcha = $request->input('circunferencia_pantorrilla_dcha');
+        $talla->altura_pantorrilla_izq = $request->input('altura_pantorrilla_izq');
+        $talla->altura_pantorrilla_dcha = $request->input('altura_pantorrilla_dcha');
+        $talla->circunferencia_muslo_izq = $request->input('circunferencia_muslo_izq');
+        $talla->circunferencia_muslo_dcha = $request->input('circunferencia_muslo_dcha');
+        $talla->altura_pierna_izq = $request->input('altura_pierna_izq');
+        $talla->altura_pierna_dcha = $request->input('altura_pierna_dcha');
+        $talla->circunferencia_cadera = $request->input('circunferencia_cadera');
+        $talla->calzado_izq = $request->input('calzado_izq');
+        $talla->calzado_dcha = $request->input('calzado_dcha');
+        $talla->peso = $request->input('peso');
+        $talla->estatura = $request->input('estatura');
+        $talla->guante = $request->input('guante');
+        $talla->circunferencia_plama_izq = $request->input('circunferencia_plama_izq');
+        $talla->circunferencia_plama_dcha = $request->input('circunferencia_plama_dcha');
+        $talla->circunferencia_munieca_izq = $request->input('circunferencia_munieca_izq');
+        $talla->circunferencia_munieca_dcha = $request->input('circunferencia_munieca_dcha');
+        $talla->circunferencia_media_izq = $request->input('circunferencia_media_izq');
+        $talla->circunferencia_media_dcha = $request->input('circunferencia_media_dcha');
+        $talla->talla_izq = $request->input('talla_izq');
+        $talla->talla_dcha = $request->input('talla_dcha');
+        $talla->sexo = $request->input('sexo');
+        $talla->save();
+        return redirect()->route('pacientes.tallas.index', ['paciente'=>$talla->paciente]);
     }
 
     /**
@@ -100,8 +125,8 @@ class PacienteTallaController extends Controller
      */
     public function destroy($paciente, $talla)
     {
-        $consul = Consultorio::find($talla);
+        $consul = Talla::find($talla);
         $consul->delete();
-        return redirect()->route('pacientees.tallas.index', ['paciente'=>$paciente]);
+        return redirect()->route('pacientes.tallas.index', ['paciente'=>$paciente]);
     }
 }

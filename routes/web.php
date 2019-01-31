@@ -26,6 +26,7 @@ Route::resource('pacientes.tallas', 'Paciente\PacienteTallaController');
 Route::resource('pacientes.historial', 'Paciente\PacienteHistorialController');
 Route::resource('pacientes.crm', 'Paciente\PacienteCrmController');
 Route::resource('pacientes.tutores', 'Paciente\PacienteTutorController');
+Route::get('getDoctores','Doctor\DoctorController@getDoctores');
 
 Route::resource('contratos','Precargas\TipoContratoController');
 // Route::resource('bajas','Precargas\TipoBajaController');

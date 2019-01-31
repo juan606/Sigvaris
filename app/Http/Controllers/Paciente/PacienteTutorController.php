@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Paciente;
 
 use App\Tutor;
+use App\Paciente;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
@@ -13,9 +14,10 @@ class PacienteTutorController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
-    {
-        return "tutor";
+    public function index($paciente)
+    {   
+        $paci = Paciente::find($paciente);
+        return view('pacientetutor.index', ['paciente'=>$paci]);
     }
 
     /**
@@ -23,9 +25,10 @@ class PacienteTutorController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create($paciente)
     {
-        //
+        $paci = Paciente::find($paciente);
+        return view('pacientetutor.create',['paciente'=>$paci]);
     }
 
     /**
@@ -34,9 +37,11 @@ class PacienteTutorController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(Request $request, $paciente)
     {
-        //
+        $paci = Paciente::find($paciente);
+        $paci->tutor()->create($request->all());
+        return view('pacientetutor.index', ['paciente'=>$paci]);
     }
 
     /**
@@ -56,9 +61,10 @@ class PacienteTutorController extends Controller
      * @param  \App\Tutor  $tutor
      * @return \Illuminate\Http\Response
      */
-    public function edit(Tutor $tutor)
+    public function edit($paciente, $tutor)
     {
-        //
+        $tuto = Tutor::find($tutor);
+        return view('pacientetutor.edit', ['paciente'=>$tuto->paciente,'tutor'=>$tuto]);
     }
 
     /**
@@ -68,9 +74,15 @@ class PacienteTutorController extends Controller
      * @param  \App\Tutor  $tutor
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Tutor $tutor)
+    public function update(Request $request, $paciente, $tutor)
     {
-        //
+
+        $tuto = Tutor::find($tutor);
+        $tuto->nombre = $request->input('nombre');
+        $tuto->paterno = $request->input('paterno');
+        $tuto->materno = $request->input('materno');
+        $tuto->save();
+        return redirect()->route('pacientes.tutores.index', ['paciente'=>$tuto->paciente]);
     }
 
     /**
@@ -79,8 +91,10 @@ class PacienteTutorController extends Controller
      * @param  \App\Tutor  $tutor
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Tutor $tutor)
+    public function destroy($paciente, $tutor)
     {
-        //
+        $tuto = Tutor::find($tutor);
+        $tuto->delete();
+        return redirect()->route('pacientes.tutores.index', ['paciente'=>$paciente]);
     }
 }

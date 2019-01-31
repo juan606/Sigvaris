@@ -15,6 +15,7 @@
                     <th>Fecha</th>
                     <th>Compresión</th>
                     <th>Estilos</th>
+                    <th>Operaciones</th>
                 </tr>
             </thead>
             @foreach ($paciente->tallas as $talla)

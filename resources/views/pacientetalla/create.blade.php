@@ -18,25 +18,32 @@
                 <div class="form-group col-6">
                     <div class="form-group col-12">
                         <label for="nivel">Sexo:</label>
-                        <select class="form-control" name="sexo" id="sexo" required>
+                        <select class="form-control" name="sexo" id="sexo">
                             <option value="">Seleccione</option>
                             <option value="dama">Dama</option>
                             <option value="caballero">Caballero</option>
                         </select>
                     </div>
                     <h5>Compresión</h5>
-                    <div class="form-check">
-                        <input name="pierna" class="form-check-input cb-compresion" type="checkbox" value="false" id="pierna">
-                        <label class="form-check-label" for="pierna">
-                            Pierna
-                        </label>
+                    <div class="form-group col-12">
+                        <label for="nivel">Pierna:</label>
+                        <select class="form-control compresion" name="pierna" id="pierna">
+                            <option value="">Seleccione</option>
+                            <option value="15-20 mmHG">15-20 mmHG</option>
+                            <option value="18-25 mmHG">18-25 mmHG</option>
+                            <option value="20-30 mmHG">20-30 mmHG</option>
+                            <option value="30-40 mmHG">30-40 mmHG</option>
+                        </select>
                     </div>
-                    <div class="form-check">
-                        <input name="brazo" class="form-check-input cb-compresion" type="checkbox" value="false" id="brazo">
-                        <label class="form-check-label" for="brazo">
-                            Brazo
-                        </label>
+                    <div class="form-group col-12">
+                        <label for="nivel">Brazo:</label>
+                        <select class="form-control compresion" name="brazo" id="brazo" required>
+                            <option value="">Seleccione</option>
+                            <option value="15-20 mmHG">15-20 mmHG</option>
+                            <option value="20-30 mmHG">20-30 mmHG</option>
+                        </select>
                     </div>
+
                 </div>
                 <div class="form-group col-3 estilos-pierna">
                     <h5>Estilos Pierna</h5>
@@ -127,7 +134,7 @@
                         <input name="altura_pierna_izq" id="altura_pierna_izq" type="text" class="form-control medidas-pierna">
                         <input name="altura_pierna_dcha" id="altura_pierna_dcha" type="text" class="form-control medidas-pierna">
                     </div>
-                    <div class="input-group mb-2">
+                    <div class="input-group mb-2 circunferencia_cadera">
                         <div class="input-group-prepend">
                             <span class="input-group-text">Circunferencia cadera</span>
                         </div>
@@ -140,13 +147,13 @@
                         <input name="calzado_izq" id="calzado_izq" type="text" class="form-control medidas-pierna">
                         <input name="calzado_dcha" id="calzado_dcha" type="text" class="form-control medidas-pierna">
                     </div>
-                    <div class="input-group mb-2">
+                    <div class="input-group mb-2 peso">
                         <div class="input-group-prepend">
                             <span class="input-group-text">Peso</span>
                         </div>
                         <input name="peso" id="peso" type="text" class="form-control medidas-pierna">
                     </div>
-                    <div class="input-group mb-2">
+                    <div class="input-group mb-2 estatura">
                             <div class="input-group-prepend">
                                 <span class="input-group-text">Estatura</span>
                             </div>
@@ -213,38 +220,79 @@
         $('.estilos-pierna').hide();
 
         $('input[type="checkbox"]').change(function(){
-            alert('checked cambio');
-            if($('input#pierna').prop('checked')){
-                alert('pierna activa');
-                $('.estilos-pierna').show();
-            }else{
-                alert('pierna no activa');
-                $('.estilos-pierna').hide();
-                $('input.cb-pierna-estilo').prop('checked', false);
-                $('input.cb-pierna-estilo').val('false');
-                $('input.medidas-pierna').val("");
-            }
-
-            if($('input#brazo').prop('checked')){
-                alert('brazo activo');
-                $('.estilos-brazo').show();
-            }else{
-                alert('brazo no activo');
-                $('.estilos-brazo').hide();
-                $('input.cb-brazo-estilo').prop('checked', false);
-                $('input.cb-brazo-estilo').val('false');
-                $('input.medidas-brazo').val("");
-            }
-
+            verificarcheck();
             if($(this).prop('checked')){
-                alert('haciendo this a true');
-                $(this).val('true');
+                $(this).val('1');
             }else{
-                alert('haciendo this a false');
-                $(this).val('false');
+                $(this).val('0');
             }
         });
+        
+        $('.compresion').change(function(){
+            verificarcheck();
+        });
+
+
+
+        $('#sexo').change(function(){
+            verificarcheck();
+        });
     });
+
+    function verificarcheck(){
+        if($('#pierna').val() != ''){
+            $('.estilos-pierna').show();
+            if($('#sexo').val() == 'dama'){
+
+                //circunferencia cadera 
+                $('.circunferencia_cadera').show();
+                $('#circunferencia_cadera').show();
+                $('#circunferencia_cadera').val('');
+
+                //peso
+                $('.peso').show();
+                $('#peso').show();
+                $('#peso').val('');
+
+                //estarura
+                $('.estatura').show();
+                $('#estatura').show();
+                $('#estatura').val('');
+
+            }else{
+                //circunferencia cadera 
+                $('.circunferencia_cadera').hide();
+                $('#circunferencia_cadera').hide();
+                $('#circunferencia_cadera').val('');
+
+                //peso
+                $('.peso').hide();
+                $('#peso').hide();
+                $('#peso').val('');
+
+                //estarura
+                $('.estatura').hide();
+                $('#estatura').hide();
+                $('#estatura').val('');
+            }
+        }else{
+            $('.estilos-pierna').hide();
+            $('input.cb-pierna-estilo').prop('checked', false);
+            $('input.cb-pierna-estilo').val('false');
+            $('input.medidas-pierna').val("");
+        }
+
+        if($('#brazo').val() != ''){
+            $('.estilos-brazo').show();
+        }else{
+            $('.estilos-brazo').hide();
+            $('input.cb-brazo-estilo').prop('checked', false);
+            $('input.cb-brazo-estilo').val('false');
+            $('input.medidas-brazo').val("");
+        }
+
+        
+    }
 </script>
 
 @endsection

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Paciente;
 
 use App\RegistroHistorial;
+use App\Paciente;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
@@ -13,9 +14,10 @@ class PacienteHistorialController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index($paciente)
     {
-        return "historial";
+        $pacientee = Paciente::find($paciente);
+        return view('pacientehistorial.index', ['paciente'=>$pacientee]);
     }
 
     /**

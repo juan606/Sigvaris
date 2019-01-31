@@ -99,4 +99,9 @@ class DoctorController extends Controller
         $doctores = Doctor::get();
         return view('doctor.index', ['doctores'=>$doctores]);
     }
+
+    public function getDoctores(){
+        $doctores = Doctor::get();
+        return view('doctor.options', ['doctores'=>$doctores]);
+    }
 }

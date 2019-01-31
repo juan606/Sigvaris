@@ -66,12 +66,9 @@
                 </div>
                 <div class="form-group col-3">
                     <label for="doctor_id">Doctor que recomienda:</label>
-                    <select class="form-control" name="doctor_id" id="doctor_id">
-                        <option value="1">1</option>
-                        <option>2</option>
-                        <option>3</option>
-                        <option>4</option>
-                        <option>5</option>
+                    <select class="form-control" name="doctor_id" id="doctor_id" required>
+                        <option value="">Seleccione</option>
+                        <option value="2">2</option>
                     </select>
                 </div>
             </div>
@@ -90,5 +87,21 @@
         </div>
     </form>
 </div>
-
+<script>
+    $('#doctor_id').change(function () {
+        alert();
+    });
+    $.ajaxSetup({
+        headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        }
+    });
+    $.ajax({
+        url: "{{ url('/getDoctores') }}",
+        type: "GET",
+        dataType: "html",
+    }).done(function (resultado) {
+        $("#doctor_id").html(resultado);
+    });
+</script>
 @endsection
