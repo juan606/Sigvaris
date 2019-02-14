@@ -54,7 +54,7 @@ class PacienteTallaController extends Controller
     public function show($paciente, $talla)
     {
         $tallat = Talla::find($talla);
-        return view('pacientetalla.show', ['paciente'=>$talla->paciente, 'talla'=>$tallat]);
+        return view('pacientetalla.show', ['paciente'=>$tallat->paciente, 'talla'=>$tallat]);
     }
 
     /**

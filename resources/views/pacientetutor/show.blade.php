@@ -1,4 +1,4 @@
-@extends('doctor.show')
+@extends('paciente.show')
 @section('submodulos')
 
     <div class="row my-5">

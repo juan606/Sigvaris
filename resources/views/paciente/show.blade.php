@@ -9,12 +9,12 @@
             </div>
             <div class="col-4 text-center">
                 <a href="{{ route('pacientes.index') }}" class="btn btn-primary">
-                    <i class="fa fa-bars"></i><strong> Lista de Doctores</strong>
+                    <i class="fa fa-bars"></i><strong> Lista de Pacientes</strong>
                 </a>
             </div>
             <div class="col-4 text-center">
                 <a href="{{route('pacientes.edit', ['paciente'=>$paciente])}}" class="btn btn-warning">
-                    <i class="fas fa-edit"></i><strong> Editar Doctor</strong>
+                    <i class="fas fa-edit"></i><strong> Editar Paciente</strong>
                 </a>
             </div>
         </div>
