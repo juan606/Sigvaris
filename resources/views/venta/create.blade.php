@@ -15,13 +15,13 @@
             </div>
         </div>
         <div class="card-body">
-            <form role="form" id="form-cliente" method="POST" action="{{ route('productos.store') }}" name="form">
+            <form role="form" id="form-cliente" method="POST" action="{{ route('ventas.store') }}" name="form">
                 {{ csrf_field() }}
                 <div class="card-body">
                     <div class="row">
                         <div class="col-4 form-group">
                             <label for="paciente_id">✱Paciente</label>
-                            <select class="form-control" name="paciente_id" id="paciente_id">
+                            <select class="form-control" name="paciente_id" id="paciente_id" required="">
                                 <option value="">Selecciona...</option>
                                 @foreach($pacientes as $paciente)
                                 <option value="{{$paciente->id}}">{{$paciente->nombre}}</option>
@@ -35,8 +35,7 @@
                         </div>
                         <div class="col-4 form-group">
                             <label class="control-label">Folio:</label>
-                            <input type="number" name="precio" class="form-control" readonly="" value="{{$folio}}"
-                                required="">
+                            <input type="number" name="precio" class="form-control" readonly="" value="{{$folio}}">
                         </div>
                     </div>
                     <div class="row">
@@ -82,6 +81,14 @@
                             </table>
                         </div>
                     </div>
+                    <div class="row">
+                        <div class="col-4 offset-4 input-group">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text">Total venta: $</span>
+                            </div>
+                            <input type="number" required="" class="form-control" name="total" id="total" value="0" min="1" step="0.01">
+                        </div>
+                    </div>
                 </div>
                 <div class="card-footer">
                     <div class="row">
@@ -107,15 +114,17 @@
         .append(`
         <tr id="producto_agregado${producto.id}">
             <td>
-                <input class="form-control cantidad" type="number" name="cantidad" value="1">
+                <input class="form-control cantidad" min="1" onchange="cambiarTotal(this, '#producto_agregado${producto.id}')" type="number" name="cantidad[]" value="1">
+                <input class="form-control" type="hidden" name="producto_id[]" value="1">
+
             </td>
             <td>
                 ${producto.nombre}
             </td>
-            <td>
+            <td class="precio_individual">
                 ${producto.precio}
             </td>
-            <td>
+            <td class="precio_total">
                 ${producto.precio}
             </td>
             <td>
@@ -124,10 +133,29 @@
                 </button>
             </td>
         </tr>`);
+        cambiarTotalVenta();
     }
 
     function quitarProducto(p){
         $(p).remove();
+        cambiarTotalVenta();
+    }
+
+    function cambiarTotalVenta(){
+        let precios_total = $('td.precio_total').toArray();
+        let total = 0;
+        precios_total.forEach(e => {
+            total += parseFloat(e.innerText);
+        });
+        $('#total').val(total);
+    }
+
+    function cambiarTotal(a, p){
+        let cant = parseFloat(a.value);
+        let ind = parseFloat($(p).find('.precio_individual').first().text());
+        let total = cant*ind;
+        $(p).find('.precio_total').text(total);
+        cambiarTotalVenta();
     }
 
     $(document).ready(function () {

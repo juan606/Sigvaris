@@ -21,7 +21,7 @@ class VentaController extends Controller
     }
 
     public function indexXPaciente(Paciente $paciente){
-        dd('camp');
+        dd('nel');
     }
 
     /**
@@ -44,6 +44,7 @@ class VentaController extends Controller
      */
     public function store(Request $request)
     {
+        dd($request->all());
         $venta = Venta::create($request->all());
         return redirect()->route('ventas.index');
     }
