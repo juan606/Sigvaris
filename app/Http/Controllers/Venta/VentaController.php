@@ -44,7 +44,27 @@ class VentaController extends Controller
      */
     public function store(Request $request)
     {
-        $venta = Venta::create($request->all());
+        $venta = new Venta($request->all());
+        // dd($request->producto_id);
+        $total = 0.00;
+        foreach ($request->producto_id as $key=>$producto_id) {
+            $producto= Producto::find($producto_id);
+            // dd($key);
+            // $venta->productos()->attach($producto->id,['cantidad'=>$request->cantidad])
+            $precio= (float)$producto->precio*(float)$request->cantidad[$key];
+            $total += $precio;
+        }
+        $venta->total = $total;
+        $venta->save();
+        foreach ($request->producto_id as $key=>$producto_id) {
+            $producto= Producto::find($producto_id);
+            // dd($producto);
+            $venta->productos()->attach($producto->id,['cantidad'=>$request->cantidad[$key]]);
+            $precio= (float)$producto->precio*(float)$request->cantidad;
+            $total += $precio;
+        }
+        // dd($total);
+        // $venta->total = 
         return redirect()->route('ventas.index');
     }
 

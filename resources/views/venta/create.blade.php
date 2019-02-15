@@ -15,7 +15,7 @@
             </div>
         </div>
         <div class="card-body">
-            <form role="form" id="form-cliente" method="POST" action="{{ route('productos.store') }}" name="form">
+            <form role="form" id="form-cliente" method="POST" action="{{ route('ventas.store') }}" name="form">
                 {{ csrf_field() }}
                 <div class="card-body">
                     <div class="row">
@@ -107,7 +107,8 @@
         .append(`
         <tr id="producto_agregado${producto.id}">
             <td>
-                <input class="form-control cantidad" type="number" name="cantidad" value="1">
+                <input class="form-control cantidad" type="number" name="cantidad[]" value="1">
+                <input type="hidden" name="producto_id[]" value="${producto.id}">
             </td>
             <td>
                 ${producto.nombre}
