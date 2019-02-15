@@ -53,9 +53,10 @@
                                 <tbody>
                                     @foreach($productos as $producto)
                                     <tr>
+                                        <input type="hidden" id="producto_a_agregar{{$loop->index}}" value="{{$producto}}">
                                         <td>{{$producto->nombre}}</td>
                                         <td>{{$producto->precio}}</td>
-                                        <td><button type="button" class="btn btn-success boton_agregar"><i class="fas fa-plus"></i></button></td>
+                                        <td><button type="button" class="btn btn-success boton_agregar" onclick="agregarProducto('#producto_a_agregar{{$loop->index}}')"><i class="fas fa-plus"></i></button></td>
                                     </tr>
                                     @endforeach
                                 </tbody>
@@ -99,12 +100,34 @@
     </div>
 </div>
 <script>
-    function agregarProducto(producto){
-        $('#tbody_productos').append('<tr><td><input type="number" name="cantidad" value="1"></td><td>nombre</td><td>$12.23</td><td>$12.23</td><td><button type="button" class="btn btn-danger boton_quitar"><i class="fas fa-minus"></i></button></td></tr>');
+    function agregarProducto(p){
+        let producto = JSON.parse($(p).val());
+        //alert(producto);
+        $('#tbody_productos')
+        .append(`
+        <tr id="producto_agregado${producto.id}">
+            <td>
+                <input class="form-control cantidad" type="number" name="cantidad" value="1">
+            </td>
+            <td>
+                ${producto.nombre}
+            </td>
+            <td>
+                ${producto.precio}
+            </td>
+            <td>
+                ${producto.precio}
+            </td>
+            <td>
+                <button onclick="quitarProducto('#producto_agregado${producto.id}')" type="button" class="btn btn-danger boton_quitar">
+                    <i class="fas fa-minus"></i>
+                </button>
+            </td>
+        </tr>`);
     }
 
-    function quitarProdcuto(){
-
+    function quitarProducto(p){
+        $(p).remove();
     }
 
     $(document).ready(function () {
