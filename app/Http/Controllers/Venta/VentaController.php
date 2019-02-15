@@ -1,12 +1,14 @@
 <?php
 
-namespace App\Http\Controllers\Producto;
+namespace App\Http\Controllers\Venta;
 
+use App\Venta;
+use App\Paciente;
 use App\Producto;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
-class ProductoController extends Controller
+class VentaController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -15,9 +17,11 @@ class ProductoController extends Controller
      */
     public function index()
     {
-        //
-        $productos = Producto::get();
-        return view('producto.index', ['productos'=>$productos]);
+        return view('venta.index', ['ventas'=>Venta::get()]);
+    }
+
+    public function indexXPaciente(Paciente $paciente){
+        dd('camp');
     }
 
     /**
@@ -27,7 +31,9 @@ class ProductoController extends Controller
      */
     public function create()
     {
-        return view('producto.create');
+        $productos = Producto::get();
+        $pacientes = Paciente::get();
+        return view('venta.create', ['pacientes'=>$pacientes, 'productos'=>$productos,'folio'=>Venta::count()+1]);
     }
 
     /**
@@ -38,54 +44,54 @@ class ProductoController extends Controller
      */
     public function store(Request $request)
     {
-        $producto = Producto::create($request->all());
-        return redirect()->route('productos.index');
+        $venta = Venta::create($request->all());
+        return redirect()->route('ventas.index');
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  \App\Producto  $producto
+     * @param  \App\Venta  $venta
      * @return \Illuminate\Http\Response
      */
-    public function show(Producto $producto)
+    public function show(Venta $venta)
     {
-        return view('producto.show',['producto'=>$producto]);
+        return view('venta.show', ['venta'=>$venta]);
     }
 
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Producto  $producto
+     * @param  \App\Venta  $venta
      * @return \Illuminate\Http\Response
      */
-    public function edit(Producto $producto)
+    public function edit(Venta $venta)
     {
-        return view('producto.edit', ['producto'=>$producto]);
+        return view('venta.edit', ['venta'=>$venta]);
     }
 
     /**
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Producto  $producto
+     * @param  \App\Venta  $venta
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Producto $producto)
+    public function update(Request $request, Venta $venta)
     {
-        $producto->update($request->all());
-        return view('producto.show',['producto'=>$producto]);
+        $venta->update($request->all());
+        return view('venta.show',['venta'=>$venta]);
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Producto  $producto
+     * @param  \App\Venta  $venta
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Producto $producto)
+    public function destroy(Venta $venta)
     {
-        $producto->delete();
-        return redirect()->route('productos.index');
+        $venta->delete();
+        return redirect()->route('ventas.index');
     }
 }

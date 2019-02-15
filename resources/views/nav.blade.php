@@ -63,8 +63,17 @@
                     Punto de Venta
                 </a>
                 <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                    <a class="dropdown-item" href="{{url('empleados/create')}}"><span>Alta</span><i class="fa fa-plus float-right"></i></a>
-                    <a class="dropdown-item" href="{{ url('empleados') }}"><span>Buscar</span><i class="fa fa-search float-right"></i></a>
+                    <a class="dropdown-item" href="{{route('ventas.create')}}"><span>Venta</span><i class="fa fa-plus float-right"></i></a>
+                    <a class="dropdown-item" href="{{route('ventas.index')}}"><span>Historial</span><i class="fa fa-search float-right"></i></a>
+                </div>
+            </li>
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    Productos
+                </a>
+                <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                    <a class="dropdown-item" href="{{route('productos.create')}}"><span>Alta</span><i class="fa fa-plus float-right"></i></a>
+                    <a class="dropdown-item" href="{{route('productos.index')}}"><span>Buscar</span><i class="fa fa-search float-right"></i></a>
                 </div>
             </li>
         </ul>
