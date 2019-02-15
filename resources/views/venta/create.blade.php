@@ -115,7 +115,7 @@
         <tr id="producto_agregado${producto.id}">
             <td>
                 <input class="form-control cantidad" min="1" onchange="cambiarTotal(this, '#producto_agregado${producto.id}')" type="number" name="cantidad[]" value="1">
-                <input class="form-control" type="hidden" name="producto_id[]" value="1">
+                <input class="form-control" type="hidden" name="producto_id[]" value="${producto.id}">
 
             </td>
             <td>
@@ -147,7 +147,7 @@
         precios_total.forEach(e => {
             total += parseFloat(e.innerText);
         });
-        $('#total').val(total);
+        $('#total').val(total.toFixed(2));
     }
 
     function cambiarTotal(a, p){

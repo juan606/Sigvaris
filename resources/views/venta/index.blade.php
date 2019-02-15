@@ -23,7 +23,7 @@
                     @foreach($ventas as $venta)
                     <tr>
                         <td>{{$venta->id}}</td>
-                        <td>{{$venta->cliente}}</td>
+                        <td>{{$venta->paciente->nombre}}</td>
                         <td>{{$venta->total}}</td>
                         <td>{{$venta->fecha}}</td>
                         <td>

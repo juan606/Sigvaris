@@ -20,6 +20,6 @@ class Venta extends Model
     }
 
     public function paciente(){
-        $this->belongsTo(Paciente::class, 'paciente_id');
+        return $this->belongsTo('App\Paciente', 'paciente_id');
     }
 }

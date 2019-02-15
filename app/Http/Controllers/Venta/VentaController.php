@@ -44,8 +44,11 @@ class VentaController extends Controller
      */
     public function store(Request $request)
     {
-        dd($request->all());
+        //dd($request->all());
         $venta = Venta::create($request->all());
+        for($i = 0; $i < sizeof($request->cantidad); $i++){
+            $venta->productos()->attach($request->producto_id[$i], ['cantidad'=>$request->cantidad[$i]]);
+        }
         return redirect()->route('ventas.index');
     }
 
