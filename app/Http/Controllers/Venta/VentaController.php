@@ -21,7 +21,7 @@ class VentaController extends Controller
     }
 
     public function indexXPaciente(Paciente $paciente){
-        dd('camp');
+        dd('nel');
     }
 
     /**
@@ -63,8 +63,6 @@ class VentaController extends Controller
             $precio= (float)$producto->precio*(float)$request->cantidad;
             $total += $precio;
         }
-        // dd($total);
-        // $venta->total = 
         return redirect()->route('ventas.index');
     }
 

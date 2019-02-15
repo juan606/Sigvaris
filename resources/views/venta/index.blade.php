@@ -3,7 +3,7 @@
 <div class="container">
     <div class="card">
         <div class="card-header">
-            <h4>Productos</h4>
+            <h4>Historial Ventas</h4>
         </div>
         <div class="card-body">
             <table class="table">

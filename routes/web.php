@@ -31,7 +31,7 @@ Route::get('getDoctores','Doctor\DoctorController@getDoctores');
 Route::resource('contratos','Precargas\TipoContratoController');
 
 Route::resource('productos', 'Producto\ProductoController');
-Route::get('indexXPaciente', 'Venta\VentaController@indexXPaciente');
+Route::get('ventasXPaciente', 'Venta\VentaController@indexXPaciente')->name('ventasXPaciente');
 Route::resource('ventas', 'Venta\VentaController');
 // Route::resource('bajas','Precargas\TipoBajaController');
 // Route::get('buscarempleado','Empleado\EmpleadoController@buscar');
