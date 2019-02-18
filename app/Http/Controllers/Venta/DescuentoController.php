@@ -1,23 +1,21 @@
 <?php
 
-namespace App\Http\Controllers\Paciente;
+namespace App\Http\Controllers\Venta;
 
-use App\RegistroHistorial;
-use App\Paciente;
+use App\Descuento;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
-class PacienteHistorialController extends Controller
+class DescuentoController extends Controller
 {
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function index($paciente)
-    {
-        $pacientee = Paciente::find($paciente);
-        return view('pacientehistorial.index', ['paciente'=>$pacientee]);
+    public function index()
+    {   
+        return view('venta.descuentos', ['descuentos'=>Descuento::get()]);
     }
 
     /**
@@ -38,16 +36,17 @@ class PacienteHistorialController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $descuento = Descuento::create($request->all());
+        return redirect()->route('descuentos.index');
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  \App\RegistroHistorial  $registroHistorial
+     * @param  \App\Descuento  $descuento
      * @return \Illuminate\Http\Response
      */
-    public function show(RegistroHistorial $registroHistorial)
+    public function show(Descuento $descuento)
     {
         //
     }
@@ -55,10 +54,10 @@ class PacienteHistorialController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\RegistroHistorial  $registroHistorial
+     * @param  \App\Descuento  $descuento
      * @return \Illuminate\Http\Response
      */
-    public function edit(RegistroHistorial $registroHistorial)
+    public function edit(Descuento $descuento)
     {
         //
     }
@@ -67,10 +66,10 @@ class PacienteHistorialController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\RegistroHistorial  $registroHistorial
+     * @param  \App\Descuento  $descuento
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, RegistroHistorial $registroHistorial)
+    public function update(Request $request, Descuento $descuento)
     {
         //
     }
@@ -78,10 +77,10 @@ class PacienteHistorialController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\RegistroHistorial  $registroHistorial
+     * @param  \App\Descuento  $descuento
      * @return \Illuminate\Http\Response
      */
-    public function destroy(RegistroHistorial $registroHistorial)
+    public function destroy(Descuento $descuento)
     {
         //
     }

@@ -48,6 +48,10 @@
                 <label class="control-label">Fecha nacimiento:</label>
                 <input value="{{$doctor->nacimiento}}" readonly type="date" name="nacimiento" class="form-control" required="">
             </div>
+            <div class="col-3 form-group">
+                <label class="control-label">Pacientes que recomienda:</label>
+                <input value="{{$doctor->pacientes->count()}}" readonly type="text" name="no_pacientes" class="form-control" required="">
+            </div>
         </div>
         <div class="row">
             @include('doctor.subnav')

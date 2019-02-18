@@ -15,16 +15,16 @@
             </div>
         </div>
         <div class="card-body">
-            <form role="form" id="form-cliente" method="POST" action="{{ route('ventas.store') }}" name="form">
-                {{ csrf_field() }}
-                <div class="card-body">
+            <div class="card-body">
+                <form role="form" id="form-cliente" method="POST" action="{{ route('ventas.store') }}" name="form">
+                    {{ csrf_field() }}
                     <div class="row">
                         <div class="col-4 form-group">
                             <label for="paciente_id">✱Paciente</label>
-                            <select class="form-control" name="paciente_id" id="paciente_id" required="">
+                            <select class="form-control" name="paciente_id" id="paciente_id"  required="">
                                 <option value="">Selecciona...</option>
-                                @foreach($pacientes as $paciente)
-                                <option value="{{$paciente->id}}">{{$paciente->nombre}}</option>
+                                @foreach($pacientes as $pacien)
+                                <option {{$paciente && $paciente->id == $pacien->id ? "selected " : ""}} value="{{$pacien->id}}">{{$pacien->nombre}}</option>
                                 @endforeach
                             </select>
                         </div>
@@ -81,10 +81,29 @@
                             </table>
                         </div>
                     </div>
+                    <div class="row mb-3">
+                        <div class="col-4 offset-4 input-group">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text">Subtotal: $</span>
+                            </div>
+                            <input type="number" required="" class="form-control" name="subtotal" id="subtotal" value="0" min="1" step="0.01">
+                        </div>
+                    </div>
+                    <div class="row mb-3">
+                        <div class="col-4 offset-4 form-group">
+                            <label for="descuento_id">Descuento</label>
+                            <select class="form-control" name="descuento_id" id="descuento_id"  required="">
+                                <option value="">Selecciona...</option>
+                                @foreach($descuentos as $descuento)
+                                <option value="{{$descuento->id}}">{{$descuento->nombre}}</option>
+                                @endforeach
+                            </select>
+                        </div>
+                    </div>
                     <div class="row">
                         <div class="col-4 offset-4 input-group">
                             <div class="input-group-prepend">
-                                <span class="input-group-text">Total venta: $</span>
+                                <span class="input-group-text">Total: </span>
                             </div>
                             <input type="number" required="" class="form-control" name="total" id="total" value="0" min="1" step="0.01">
                         </div>
@@ -148,6 +167,7 @@
         precios_total.forEach(e => {
             total += parseFloat(e.innerText);
         });
+        $('#subtotal').val(total.toFixed(2));
         $('#total').val(total.toFixed(2));
     }
 

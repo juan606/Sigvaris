@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Venta;
 use App\Venta;
 use App\Paciente;
 use App\Producto;
+use App\Descuento;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
@@ -20,8 +21,8 @@ class VentaController extends Controller
         return view('venta.index', ['ventas'=>Venta::get()]);
     }
 
-    public function indexXPaciente(Paciente $paciente){
-        dd('nel');
+    public function indexConPaciente(Paciente $paciente){
+        return view('venta.index', ['ventas'=>$paciente->ventas]);
     }
 
     /**
@@ -31,11 +32,18 @@ class VentaController extends Controller
      */
     public function create()
     {
+        $descuentos = Descuento::get();
         $productos = Producto::get();
         $pacientes = Paciente::get();
-        return view('venta.create', ['pacientes'=>$pacientes, 'productos'=>$productos,'folio'=>Venta::count()+1]);
+        return view('venta.create', ['pacientes'=>$pacientes, 'paciente'=>null, 'descuentos'=>$descuentos ,'productos'=>$productos,'folio'=>Venta::count()+1]);
     }
 
+    public function createConPaciente(Paciente $paciente){
+        $descuentos = Descuento::get();
+        $productos = Producto::get();
+        $pacientes = Paciente::get();
+        return view('venta.create', ['pacientes'=>$pacientes, 'paciente'=>$paciente, 'descuentos'=>$descuentos, 'productos'=>$productos,'folio'=>Venta::count()+1]);
+    }
     /**
      * Store a newly created resource in storage.
      *

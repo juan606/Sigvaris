@@ -23,15 +23,15 @@ Route::resource('faltas','Falta\FaltaController', ['except'=>'show']);
 
 Route::resource('pacientes', 'Paciente\PacienteController');
 Route::resource('pacientes.tallas', 'Paciente\PacienteTallaController');
-Route::resource('pacientes.historial', 'Paciente\PacienteHistorialController');
 Route::resource('pacientes.crm', 'Paciente\PacienteCrmController');
 Route::resource('pacientes.tutores', 'Paciente\PacienteTutorController');
 Route::get('getDoctores','Doctor\DoctorController@getDoctores');
 
 Route::resource('contratos','Precargas\TipoContratoController');
-
+Route::resource('descuentos', 'Venta\DescuentoController');
 Route::resource('productos', 'Producto\ProductoController');
-Route::get('ventasXPaciente', 'Venta\VentaController@indexXPaciente')->name('ventasXPaciente');
+Route::get('pacientes/{paciente}/ventas/historial', 'Venta\VentaController@indexConPaciente')->name('pacientes.historial');
+Route::get('pacientes/{paciente}/ventas', 'Venta\VentaController@createConPaciente')->name('pacientes.venta');
 Route::resource('ventas', 'Venta\VentaController');
 // Route::resource('bajas','Precargas\TipoBajaController');
 // Route::get('buscarempleado','Empleado\EmpleadoController@buscar');

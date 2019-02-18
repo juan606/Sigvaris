@@ -18,6 +18,9 @@ class CreateVentaTable extends Migration
             $table->integer('paciente_id')->unsigned();
             $table->foreign('paciente_id')->references('id')->on('pacientes');    
             $table->string('fecha');
+            $table->decimal('subtotal',8,2);
+            $table->integer('descuento_id')->unsigned();
+            $table->foreign('descuento_id')->references('id')->on('descuentos');  
             $table->decimal('total',8,2);
             $table->timestamps();
         });

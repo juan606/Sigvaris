@@ -51,6 +51,7 @@
                     Precargas
                 </a>
                 <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                    <a class="dropdown-item" href="{{route('descuentos.index')}}"><span>Descuentos</span></a>
                     <a class="dropdown-item" href="{{ url('contratos') }}"><span>Contratos</span><i class="fa fa-search float-right"></i></a>
                     <a class="dropdown-item" href="{{ url('/faltas') }}"><span>Faltas </span></a>
                     <!-- <a class="dropdown-item" href="{{ url('/areas') }}">Áreas<i class="fa fa-plus float-right"></i></a> -->

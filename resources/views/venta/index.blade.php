@@ -12,6 +12,7 @@
                         <th>Folio</th>
                         <th>Cliente</th>
                         <th>Total</th>
+                        <th>Descuento</th>
                         <th>Fecha</th>
                         <th>Operación</th>
                     </tr>
@@ -25,6 +26,7 @@
                         <td>{{$venta->id}}</td>
                         <td>{{$venta->paciente->nombre}}</td>
                         <td>{{$venta->total}}</td>
+                        <td>{{$venta->descuento->nombre}}</td>
                         <td>{{$venta->fecha}}</td>
                         <td>
                             <div class="row">
