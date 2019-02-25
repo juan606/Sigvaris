@@ -14,6 +14,7 @@ class Tutor extends Model
         'nombre',
         'paterno',
         'materno',
+        'relacion',
         'paciente_id'
     ];
 

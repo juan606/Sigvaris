@@ -18,8 +18,9 @@ class CreateTutoresTable extends Migration
             $table->string('nombre');
             $table->string('paterno');
             $table->string('materno');
+            $table->string('relacion');
             $table->integer('paciente_id')->unsigned();
-            $table->foreign('paciente_id')->references('id')->on('pacientes');
+            $table->foreign('paciente_id')->references('id')->on('pacientes')->onDelete('cascade');;
             $table->timestamps();
         });
     }

@@ -104,4 +104,5 @@ class DoctorController extends Controller
         $doctores = Doctor::get();
         return view('doctor.options', ['doctores'=>$doctores]);
     }
+
 }

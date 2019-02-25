@@ -16,7 +16,7 @@ class CreateVentaTable extends Migration
         Schema::create('ventas', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('paciente_id')->unsigned();
-            $table->foreign('paciente_id')->references('id')->on('pacientes');    
+            $table->foreign('paciente_id')->references('id')->on('pacientes')->onDelete('cascade');;    
             $table->string('fecha');
             $table->decimal('subtotal',8,2);
             $table->integer('descuento_id')->unsigned();

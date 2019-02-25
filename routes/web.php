@@ -11,6 +11,7 @@ Route::resource('doctores','Doctor\DoctorController');
 Route::resource('doctores.consultorios','Doctor\DoctorConsultorioController');
 Route::resource('doctores.especialidades','Doctor\DoctorEspecialidadController');
 Route::resource('doctores.premios','Doctor\DoctorPremioController');
+Route::get('doctores.pacientes/{doctor}','Doctor\DoctorPacienteController@getPacientes')->name('doctor.pacientes');
 
 Route::resource('empleados','Empleado\EmpleadoController');
 Route::resource('empleados.datoslaborales','Empleado\EmpleadosDatosLabController');

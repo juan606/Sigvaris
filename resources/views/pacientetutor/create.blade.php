@@ -11,18 +11,22 @@
                     {{ csrf_field() }}
                     
                 <div class="row">
-                    <div class="form-group col-4">
-                        <label class="control-label" for="nombre"><i class="fa fa-asterisk" aria-hidden="true"></i> Nombre:</label>
+                    <div class="form-group col-3">
+                        <label class="control-label" for="nombre"><i class="fa fa-asterisk"></i> Nombre:</label>
                         <input type="text" class="form-control" id="nombre" name="nombre" value="" required autofocus>
                     </div>
-                    <div class="form-group col-4">
-                        <label class="control-label" for="paterno"><i class="fa fa-asterisk" aria-hidden="true"></i> Apellido Paterno:</label>
+                    <div class="form-group col-3">
+                        <label class="control-label" for="paterno"><i class="fa fa-asterisk"></i> Apellido Paterno:</label>
                         <input type="text" class="form-control" id="paterno" name="paterno" value="" required>
                     </div>	
-                    <div class="form-group col-4">
-                        <label class="control-label" for="materno"><i class="fa fa-asterisk" aria-hidden="true"></i> Apellido Materno:</label>
+                    <div class="form-group col-3">
+                        <label class="control-label" for="materno"><i class="fa fa-asterisk"></i> Apellido Materno:</label>
                         <input type="text" class="form-control" id="materno" name="materno" value="" required>
-                    </div>		
+                    </div>
+                    <div class="form-group col-3">
+                        <label class="control-label" for="relacion"><i class="fa fa-asterisk"></i> Relación:</label>
+                        <input type="text" class="form-control" id="relacion" name="relacion" value="" required>
+                    </div>	
                 </div>
                 <div class="row-">
                     <div class="col-12">

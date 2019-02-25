@@ -81,6 +81,7 @@ class PacienteTutorController extends Controller
         $tuto->nombre = $request->input('nombre');
         $tuto->paterno = $request->input('paterno');
         $tuto->materno = $request->input('materno');
+        $tuto->relacion = $request->input('relacion');
         $tuto->save();
         return redirect()->route('pacientes.tutores.index', ['paciente'=>$tuto->paciente]);
     }

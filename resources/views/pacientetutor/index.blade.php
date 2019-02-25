@@ -13,6 +13,7 @@
                         <th>Nombre</th>
                         <th>Apellido Paterno</th>
                         <th>Apellido Materno</th>
+                        <th>Relación</th>
                         <th>Operaciones</th>
                     </tr>
                 </thead>
@@ -30,6 +31,7 @@
                         <td>{{$paciente->tutor->nombre}}</td>
                         <td>{{$paciente->tutor->paterno}}</td>
                         <td>{{$paciente->tutor->materno}}</td>
+                        <td>{{$paciente->tutor->relacion}}</td>
                         <td>
                         
                         

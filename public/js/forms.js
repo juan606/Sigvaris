@@ -22,7 +22,7 @@ function persona(elemento) {
 	$("#apellidomaterno").val('');
 	$("#razonsocial").val('');
 	if(elemento.value == "Fisica") {
-		document.getElementById('perfisica').style.display = 'block';
+		document.getElementById('perfisica').style.display = 'flex';
 		document.getElementById('permoral').style.display = 'none';
 		document.getElementById('varrfc').pattern = "^[A-Za-z]{4}[0-9]{6}[A-Za-z0-9]{3}";
 		document.getElementById('varrfc').placeholder = "Ingrese 13 caracteres";
@@ -31,7 +31,7 @@ function persona(elemento) {
 		$("#apellidopaterno").prop('required', true);
 	} else if(elemento.value == "Moral") {
 		document.getElementById('perfisica').style.display = 'none';
-		document.getElementById('permoral').style.display = 'block';
+		document.getElementById('permoral').style.display = 'flex';
 		document.getElementById('varrfc').pattern = "^[A-Za-z]{3}[0-9]{6}[A-Za-z0-9]{3}";
 		document.getElementById('varrfc').placeholder = "Ingrese 12 caracteres";
 		document.getElementById('varrfc').title = "Siga el formato 3 letras seguidas por 6 digitos y 3 caracteres";

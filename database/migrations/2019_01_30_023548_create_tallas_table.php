@@ -48,7 +48,7 @@ class CreateTallasTable extends Migration
             $table->decimal('talla_dcha', 8, 2)->nullable();
             $table->string('sexo');
             $table->integer('paciente_id')->unsigned();
-            $table->foreign('paciente_id')->references('id')->on('pacientes');
+            $table->foreign('paciente_id')->references('id')->on('pacientes')->onDelete('cascade');;
             $table->timestamps();
         });
     }
