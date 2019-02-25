@@ -6,10 +6,10 @@
 		<div class="panel-default">
 			<div class="panel-heading">
 				<div class="row">
-					<div class="col-sm-4">
+					<div class="col-4">
 						<h4>Empleados:</h4>
 					</div>
-					<div class="col-sm-4 text-center">
+					<div class="col-4 text-center">
 						<a class="btn btn-success" href="{{ route('empleados.create')}}">
 							<i class="fa fa-plus" aria-hidden="true"></i><strong> Agregar Empleado</strong>
 						</a>
@@ -18,7 +18,7 @@
 			</div>
 			<div class="panel-body">
 				<div class="row">
-					<div class="col-sm-12">
+					<div class="col-12">
 						@if(count($empleados) > 0)
 							<table class="table table-striped table-bordered table-hover" style="color: rgb(51,51,51); border-collapse: collapse; margin-bottom: 0px;">
 								<thead>

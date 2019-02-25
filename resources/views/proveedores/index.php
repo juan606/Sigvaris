@@ -62,19 +62,19 @@
 						<div class="panel-heading"><h4>Datos del cliente:</h4></div>
 						<div class="panel-body">
 							<div class="row">
-			  					<div class="form-group col-lg-3 col-md-3 col-sm-6 col-xs-12">
+			  					<div class="form-group col-3">
 			    					<label class="control-label" for="tipopersona">Tipo de Persona:</label>
 			    					<dd>{{ $personal->tipopersona }}</dd>
 			  					</div>
-			  					<div class="form-group col-lg-3 col-md-3 col-sm-6 col-xs-12">
+			  					<div class="form-group col-3">
 			  						<label class="control-label" for="alias">Alias:</label>
 			  						<dd>{{ $personal->alias }}</dd>
 			  					</div>
-			  					<div class="form-group col-lg-3 col-md-3 col-sm-6 col-xs-12">
+			  					<div class="form-group col-3">
 			  						<label class="control-label" for="rfc">RFC:</label>
 			  						<dd>{{ $personal->rfc }}</dd>
 			  					</div>
-			  					<div class="form-group col-lg-3 col-md-3 col-sm-6 col-xs-12">
+			  					<div class="form-group col-3">
 			  						<label class="control-label" for="vendedor">Vendedor:</label>
 			  						<dd>{{ $personal->vendedor }}</dd>
 			  					</div>
@@ -82,15 +82,15 @@
 						@if ($personal->tipopersona == "Fisica")
 								{{-- true expr --}}
 							<div class="row" id="perfisica">
-								<div class="form-group col-lg-3 col-md-3 col-sm-6 col-xs-12">
+								<div class="form-group col-3">
 			  						<label class="control-label" for="nombre">Nombre(s):</label>
 			  						<dd>{{ $personal->nombre }}</dd>
 			  					</div>
-			  					<div class="form-group col-lg-3 col-md-3 col-sm-6 col-xs-12">
+			  					<div class="form-group col-3">
 			  						<label class="control-label" for="apellidopaterno">Apellido Paterno:</label>
 			  						<dd>{{ $personal->apellidopaterno }}</dd>
 			  					</div>
-			  					<div class="form-group col-lg-3 col-md-3 col-sm-6 col-xs-12">
+			  					<div class="form-group col-3">
 			  						<label class="control-label" for="apellidomaterno">Apellido Materno:</label>
 			  						<dd>{{ $personal->apellidomaterno }}</dd>
 			  					</div>
@@ -98,7 +98,7 @@
 						@else
 								{{-- false expr --}}
 							<div class="row" id="permoral">
-								<div class="form-group col-lg-3 col-md-3 col-sm-6 col-xs-12">
+								<div class="form-group col-3">
 
 			  						<label class="control-label" for="razonsocial">Razon Social:</label>
 			  						<dd>{{ $personal->razonsocial }}</dd>
@@ -117,51 +117,51 @@
 						<div class="panel-heading">Dirección Fiscal:</div>
 						<div class="panel-body">
 							<div class="row">
-								<div class="form-group col-lg-3 col-md-3 col-sm-6 col-xs-12">
+								<div class="form-group col-3">
 			    					<label class="control-label" for="calle">Calle:</label>
 			    					<dd>{{ $personal->calle }}</dd>
 			  					</div>
-			  					<div class="form-group col-lg-3 col-md-3 col-sm-6 col-xs-12">
+			  					<div class="form-group col-3">
 			    					<label class="control-label" for="numext">Numero exterior:</label>
 			    					<dd>{{ $personal->numext }}</dd>
 			  					</div>	
-			  					<div class="form-group col-lg-3 col-md-3 col-sm-6 col-xs-12">
+			  					<div class="form-group col-3">
 			    					<label class="control-label" for="numinter">Numero interior:</label>
 			    					<dd>{{ $personal->numinter }}</dd>
 			  					</div>
-			  					<div class="form-group col-lg-3 col-md-3 col-sm-6 col-xs-12">
+			  					<div class="form-group col-3">
 			    					<label class="control-label" for="cp">Código postal:</label>
 			    					<dd>{{ $personal->cp }}</dd>
 			  					</div>		
 							</div>
 							<div class="row" id="perfisica">
-								<div class="form-group col-lg-3 col-md-3 col-sm-6 col-xs-12">
+								<div class="form-group col-3">
 			  						<label class="control-label" for="colonia">Colonia:</label>
 			  						<dd>{{ $personal->colonia }}</dd>
 			  					</div>
-			  					<div class="form-group col-lg-3 col-md-3 col-sm-6 col-xs-12">
+			  					<div class="form-group col-3">
 			  						<label class="control-label" for="municipio">Delegación o Municipio:</label>
 			  						<dd>{{ $personal->municipio }}</dd>
 			  					</div>
-			  					<div class="form-group col-lg-3 col-md-3 col-sm-6 col-xs-12">
+			  					<div class="form-group col-3">
 			  						<label class="control-label" for="ciudad">Ciudad:</label>
 			  						<dd>{{ $personal->ciudad }}</dd>
 			  					</div>
-			  					<div class="form-group col-lg-3 col-md-3 col-sm-6 col-xs-12">
+			  					<div class="form-group col-3">
 			  						<label class="control-label" for="estado">Estado:</label>
 			  						<dd>{{ $personal->estado }}</dd>
 			  					</div>
 							</div>
 							<div class="row" id="perfisica">
-								<div class="form-group col-lg-3 col-md-3 col-sm-6 col-xs-12">
+								<div class="form-group col-3">
 			  						<label class="control-label" for="calle1">Entre calle:</label>
 			  						<dd>{{ $personal->calle1 }}</dd>
 			  					</div>
-			  					<div class="form-group col-lg-3 col-md-3 col-sm-6 col-xs-12">
+			  					<div class="form-group col-3">
 			  						<label class="control-label" for="calle2">Y calle:</label>
 			  						<dd>{{ $personal->calle2 }}</dd>
 			  					</div>
-			  					<div class="form-group col-lg-3 col-md-3 col-sm-6 col-xs-12">
+			  					<div class="form-group col-3">
 			  						<label class="control-label" for="referencia">Referencia:</label>
 			  						<dd>{{ $personal->referencia }}</dd>
 			  					</div>
@@ -179,47 +179,47 @@
 								{{-- false expr --}}
 
 							<div class="row">
-								<div class="form-group col-lg-3 col-md-3 col-sm-6 col-xs-12">
+								<div class="form-group col-3">
 			    					<label class="control-label" for="calle">Calle:</label>
 			    					<dd>{{$personal->direccionFisica->calle}}</dd>
 			  					</div>
-			  					<div class="form-group col-lg-3 col-md-3 col-sm-6 col-xs-12">
+			  					<div class="form-group col-3">
 			    					<label class="control-label" for="numext">Numero exterior:</label>
 			    					<dd>{{$personal->direccionFisica->numext}}</dd>
 			  					</div>	
-			  					<div class="form-group col-lg-3 col-md-3 col-sm-6 col-xs-12">
+			  					<div class="form-group col-3">
 			    					<label class="control-label" for="numint">Numero interior:</label>
 			    					<dd>{{$personal->direccionFisica->numint}}</dd>
 			  					</div>		
 							</div>
 							<div class="row" id="perfisica">
-								<div class="form-group col-lg-3 col-md-3 col-sm-6 col-xs-12">
+								<div class="form-group col-3">
 			  						<label class="control-label" for="colonia">Colonia:</label>
 			  						<dd>{{$personal->direccionFisica->colonia}}</dd>
 			  					</div>
-			  					<div class="form-group col-lg-3 col-md-3 col-sm-6 col-xs-12">
+			  					<div class="form-group col-3">
 			  						<label class="control-label" for="municipio">Delegación o Municipio:</label>
 			  						<dd>{{$personal->direccionFisica->municipio}}</dd>
 			  					</div>
-			  					<div class="form-group col-lg-3 col-md-3 col-sm-6 col-xs-12">
+			  					<div class="form-group col-3">
 			  						<label class="control-label" for="ciudad">Ciudad:</label>
 			  						<dd>{{ $personal->direccionFisica->ciudad }}</dd>
 			  					</div>
-			  					<div class="form-group col-lg-3 col-md-3 col-sm-6 col-xs-12">
+			  					<div class="form-group col-3">
 			  						<label class="control-label" for="estado">Estado:</label>
 			  						<dd>{{$personal->direccionFisica->estado}}</dd>
 			  					</div>
 							</div>
 							<div class="row" id="perfisica">
-								<div class="form-group col-lg-3 col-md-3 col-sm-6 col-xs-12">
+								<div class="form-group col-3">
 			  						<label class="control-label" for="calle1">Entre calle:</label>
 			  						<dd>{{$personal->direccionFisica->calle1}}</dd>
 			  					</div>
-			  					<div class="form-group col-lg-3 col-md-3 col-sm-6 col-xs-12">
+			  					<div class="form-group col-3">
 			  						<label class="control-label" for="calle2">Y calle:</label>
 			  						<dd>{{$personal->direccionFisica->calle2}}</dd>
 			  					</div>
-			  					<div class="form-group col-lg-3 col-md-3 col-sm-6 col-xs-12">
+			  					<div class="form-group col-3">
 			  						<label class="control-label" for="referencia">Referencia:</label>
 			  						<dd>{{$personal->direccionFisica->referencia}}</dd>
 			  					</div>
@@ -274,22 +274,22 @@
 						@if (count($personal->datosGenerales) !=0)
 				 	<div class="panel-body">
 				 		<div class="row">
-				 			<div class="form-group col-lg-3 col-md-3 col-sm-6 col-xs-12">
+				 			<div class="form-group col-3">
 				 			<label class="control-label" for="nombre">Tamaño de la empresa:</label>
 								<dd>{{$personal->datosGenerales->nombre}}</dd>
 				 			</div>
 				 		</div>
 				 		<div class="row">
-				 			<div class="form-group col-lg-3 col-md-3 col-sm-6 col-xs-12">
+				 			<div class="form-group col-3">
 				 				<label class="control-label" for="web">Sitio web:</label>
 				 				<dd>{{$personal->datosGenerales->web}}</dd>
 				 			</div>
 
-				 			<div class="form-group col-lg-3 col-md-3 col-sm-6 col-xs-12">
+				 			<div class="form-group col-3">
 				 				<label class="control-label" for="comentario">Comentarios:</label>
 				 				<dd>{{$personal->datosGenerales->comentario}}</dd>
 				 			</div>
-				 			<div class="form-group col-lg-3 col-md-3 col-sm-6 col-xs-12">
+				 			<div class="form-group col-3">
 				 				<label class="control-label" for="fechacontacto">Fecha de contacto:</label>
 				 				<dd>{{$personal->datosGenerales->fechacontacto}}</dd>
 				 			</div>

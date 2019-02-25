@@ -64,7 +64,7 @@
 	                    <i class="fa fa-check"></i> Guardar
 	                </button>
 	            </div>
-	            <div class="col-sm-4 text-right text-danger">
+	            <div class="col-4 text-right text-danger">
 	                ✱Campos Requeridos.
 	            </div>
 	        </div>

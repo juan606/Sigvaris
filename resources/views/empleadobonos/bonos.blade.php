@@ -7,7 +7,7 @@
 			 	<h4> <strong>Puntualidad</strong></h4>
 			 	 <br /><br />
 			 	
-			 	 <div class="col-sm-3">
+			 	 <div class="col-3">
 	    			<h5><strong>Periodicidad
 	    				<i class="fa fa-calendar" aria-hidden="true"></i>
 	    			</strong></h5> <select name="region">
@@ -22,7 +22,7 @@
 	    		 
 
 
-	    	 	 <div class="col-sm-3">
+	    	 	 <div class="col-3">
 	    			<h5><strong>Nùmero de Dìas
 	    				<i class="fa fa-calculator" aria-hidden="true"></i>
 	    			</strong></h5> <select name="region">
@@ -41,7 +41,7 @@
 	    		</div>
 
 
-	    		<div class="col-sm-3">
+	    		<div class="col-3">
 	    			<h5>Monto
 	    				<i class="fa fa-money" aria-hidden="true"></i>
 	    			</h5>
@@ -54,7 +54,7 @@
 	    	 	 </div><br/><br/>
 
 
-	    	 	 <div class="col-sm-5">
+	    	 	 <div class="col-5">
 	    			
                	<button type="submit" name="submit" value="Ingresar">
 	    				<strong>

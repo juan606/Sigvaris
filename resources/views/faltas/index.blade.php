@@ -34,7 +34,7 @@
 					<td>{{ $falta->etiqueta }}</td>
 					<td>
 						<div class="row-8">
-							<div class="col-sm-4">
+							<div class="col-4">
 								<a class="btn btn-info " href="{{ route('faltas.edit',['falta'=>$falta]) }}"><i class="fa fa-pencil-square-o" aria-hidden="true"></i><strong> Editar</strong></a>
 								
 							</div>

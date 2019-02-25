@@ -12,7 +12,7 @@
 <div class="panel-default">
 	<div class="panel-heading">
 		<div class="row">
-			<div class="col-sm-4">
+			<div class="col-4">
 				<h5>Datos Laborales:</h5>
 			</div>
 		</div>
@@ -27,11 +27,11 @@
 		<div class="panel-body">
 			<input type="hidden" name="empleado_id" value="{{ $empleado->id }}">
 			<div class="row">
-				<div class="form-group col-sm-3">
+				<div class="form-group col-3">
 					<label class="control-label" for="fechacontratacion">✱Fecha de contratación:</label>
 					<input class="form-control" type="date" id="fechacontratacion" name="fechacontratacion" value="{{ $datoslab->fechacontratacion }}" required @if($edit) readonly @endif>
 				</div>
-				<div class="form-group col-sm-3">
+				<div class="form-group col-3">
 					<label class="control-label" for="contrato">Tipo de contrato:</label>
 					<div class="input-group">
 						<span class="input-group-addon" id="basic-addon3" onclick='getContratos()'><strong>⟳</strong></span>
@@ -43,7 +43,7 @@
 						</select>
 					</div>
 				</div>
-				<div class="form-group col-sm-3">
+				<div class="form-group col-3">
 					<label class="control-label" for="area_id">Área:</label>
 					<div class="input-group">
 						<span class="input-group-addon" id="basic-addon3" onclick='getAreas()'><strong>⟳</strong></span>
@@ -55,7 +55,7 @@
 						</select>
 					</div>
 				</div>
-				<div class="form-group col-sm-3">
+				<div class="form-group col-3">
 					<label class="control-label" for="puesto_id">Puesto:</label>
 					<div class="input-group">
 						<span class="input-group-addon" id="basic-addon3" onclick='getPuestos()'><strong>⟳</strong></span>
@@ -69,15 +69,15 @@
 				</div>
 			</div>
 			<div class="row">
-				<div class="form-group col-sm-3">
+				<div class="form-group col-3">
 					<label class="control-label" for="salarionom">✱Salario Nóminal:</label>
 					<input class="form-control" type="text" id="salarionom" name="salarionom" value="{{ $datoslab->salarionom }}" required>
 				</div>
-				<div class="form-group col-sm-3">
+				<div class="form-group col-3">
 					<label class="control-label" for="salariodia">Salario Diario:</label>
 					<input class="form-control" type="text" id="salariodia" name="salariodia" value="{{ $datoslab->salariodia }}">
 				</div>
-				<div class="form-group col-sm-3">
+				<div class="form-group col-3">
 					<label class="control-label" for="periodopaga">Periodicidad de Pago:</label>
 					<select type="select" class="form-control" name="periodopaga" id="periodopaga">
 						<option id="1" value="Semanal" @if ($datoslab->periodopaga == "Semanal") selected="selected" @endif>Semanal</option>
@@ -87,13 +87,13 @@
 				</div>
 			</div>
 			<div class="row">
-				<div class="form-group col-sm-3">
+				<div class="form-group col-3">
 					<label class="control-label" for="prestaciones">Prestaciones:</label>
 					<select class="form-control" type="select" name="prestaciones" id="prestaciones">
 						<option id="1" value="De Ley" @if ($datoslab->prestaciones == "De Ley") selected="selected" @endif>De Ley</option>
 					</select>
 				</div>
-				<div class="form-group col-sm-3">
+				<div class="form-group col-3">
 					<label class="control-label" for="regimen">Régimen de Contratación:</label>
 					<select class="form-control" type="select" name="regimen" id="regimen" value="{{ $datoslab->regimen }}">
 						<option id="1" value="Sueldos y Salarios" @if ($datoslab->regimen == "Sueldos y Salarios") selected="selected" @endif>Sueldos y Salarios</option>
@@ -101,17 +101,17 @@
 						<option id="3" value="Pensionados" @if ($datoslab->regimen == "Pensionados") selected="selected" @endif>Pensionados</option>
 					</select>
 				</div>
-				<div class="form-group col-sm-3">
+				<div class="form-group col-3">
 					<label class="control-label" for="hentrada">Hora de Entrada:</label>
 					<input class="form-control" type="text" id="hentrada" name="hentrada" value="{{ $datoslab->hentrada }}">
 				</div>
-				<div class="form-group col-sm-3">
+				<div class="form-group col-3">
 					<label class="control-label" for="hsalida">Hora de Salida:</label>
 					<input class="form-control" type="text" id="hsalida" name="hsalida" value="{{ $datoslab->hsalida }}">
 				</div>
 			</div>
 			<div class="row">
-				<div class="col-sm-3">
+				<div class="col-3">
 					<label class="control-label" for="hcomida">Tiempo de Comida:</label>
 					<select class="form-control" type="select" name="hcomida" id="hcomida" value="{{ $datoslab->hcomida }}">
 						<option id="1" value="0 min" @if ($datoslab->hcomida == "0 min") selected="selected" @endif>0 min.</option>
@@ -125,7 +125,7 @@
 						<option id="9" value="3 hrs" @if ($datoslab->hcomida == "3 hrs") selected="selected" @endif>3 hrs.</option>
 					</select>
 				</div>
-				<div class="col-sm-3">
+				<div class="col-3">
 					<label class="control-label" for="banco">Banco:</label>
 					<div class="input-group">
 						<span class="input-group-addon" id="basic-addon3" onclick='getBancos()'><strong>⟳</strong></span>
@@ -136,11 +136,11 @@
 						</select>
 					</div>
 				</div>
-				<div class="col-sm-3">
+				<div class="col-3">
 					<label class="control-label" for="cuenta">Cuenta:</label>
 					<input class="form-control" type="text" id="cuenta" name="cuenta" value="{{ $datoslab->cuenta }}">
 				</div>
-				<div class="col-sm-3">
+				<div class="col-3">
 					<label class="control-label" for="clabe">CLABE:</label>
 					<input class="form-control" type="clabe" name="clabe" id="clabe" value="{{ $datoslab->clabe }}">
 				</div>
@@ -149,19 +149,19 @@
 		<div class="panel-default">
 			<div class="panel-heading">
 				<div class="row">
-					<div class="col-sm-4">
+					<div class="col-4">
 						<h5>Datos de Baja:</h5>
 					</div>
 				</div>
 			</div>
 			<div class="panel-body">
 				<div class="row">
-					<div class="col-sm-3">
+					<div class="col-3">
 						<label class="control-label" for="fechabaja">Fecha de la baja:</label>
 						<input class="form-control" type="date" id="fechabaja" name="fechabaja" value="{{ $datoslab->fechabaja }}">
 					</div>
 
-					<div class="col-sm-3">
+					<div class="col-3">
 						<label class="control-label" for="tipobaja_id">Tipo de Baja:</label>
 						<div class="input-group">
 							<span class="input-group-addon" id="basic-addon3" onclick='getBajas()'><strong>⟳</strong></span>
@@ -174,7 +174,7 @@
 						</div>
 					</div>
 
-					<div class="col-sm-3">
+					<div class="col-3">
 						<label class="control-label" for="comentariobaja">Comentarios:</label>
 						<textarea class="form-control" id="comentariobaja" name="comentariobaja" maxlength="500">{{ $datoslab->comentariobaja }}</textarea>
 					</div>
@@ -182,10 +182,10 @@
 			</div>
 			<div class="panel-footer">
 				<div class="row">
-					<div class="col-sm-4 col-sm-offset-4 text-center">
+					<div class="col-4 col-offset-4 text-center">
 						<button type="submit" class="btn btn-success"><i class="fa fa-check-circle" aria-hidden="true"></i> Guardar</button>
 					</div>
-					<div class="col-sm-4 text-right text-danger">
+					<div class="col-4 text-right text-danger">
 						<h5>✱Campos Requeridos</h5>
 					</div>
 				</div>

@@ -33,6 +33,8 @@ Route::resource('productos', 'Producto\ProductoController');
 Route::get('pacientes/{paciente}/ventas/historial', 'Venta\VentaController@indexConPaciente')->name('pacientes.historial');
 Route::get('pacientes/{paciente}/ventas', 'Venta\VentaController@createConPaciente')->name('pacientes.venta');
 Route::resource('ventas', 'Venta\VentaController');
+
+Route::resource('giros', 'Giro\GiroController', ['except' => 'show']);
 // Route::resource('bajas','Precargas\TipoBajaController');
 // Route::get('buscarempleado','Empleado\EmpleadoController@buscar');
 // Route::resource('personals', 'Personal\PersonalController');

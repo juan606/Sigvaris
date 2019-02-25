@@ -6,7 +6,7 @@
 			 <!--<div class="panel-heading"></div>-->	<h4> <strong>Comisión</strong></h4>
 			 	 <br /><br />
 
-			 	 <div class="col-sm-4">
+			 	 <div class="col-4">
 
 			 		<h5>Nombre Bono
 			 			<i class="fa fa-sticky-note" aria-hidden="true"></i>
@@ -24,7 +24,7 @@
 			 	</div>
 
 
-			 	<div class="col-sm-4">
+			 	<div class="col-4">
 	    			<h5><strong>Peiodicidad</strong>
 	    				<i class="fa fa-calendar" aria-hidden="true"></i>
 	    			</h5> <select name="region">
@@ -37,7 +37,7 @@
 	    		</div><br><br><br><br />
 
 
-	    		<div class="col-sm-4">
+	    		<div class="col-4">
 
 			 		<h5>Monto Máximo Mensual
 			 			<i class="fa fa-money" aria-hidden="true"></i>
@@ -50,7 +50,7 @@
 			 	</div>
 
 
-			 	<div class="col-sm-4">
+			 	<div class="col-4">
 
 			 		<h5>Monto Mínimo Mensual
 			 			<i class="fa fa-money" aria-hidden="true"></i>
@@ -62,7 +62,7 @@
 
 			 	</div><br><br><br><br />
 
-			 	<div class="col-sm-4">
+			 	<div class="col-4">
 
 			 		<h5>Porcentaje Máximo
 			 			<i class="fa fa-percent" aria-hidden="true"></i>
@@ -75,7 +75,7 @@
 			 	</div>
 
 
-			 	<div class="col-sm-4">
+			 	<div class="col-4">
 
 			 		<h5>Porcentaje Mínimo
 			 			<i class="fa fa-percent" aria-hidden="true"></i>
@@ -88,7 +88,7 @@
 
 			 </div><br><br><br><br />
 
-			 <div class="col-sm-4">
+			 <div class="col-4">
 	    			<h5><strong>Tipo del Empleado</strong>
 	    				<i class="fa fa-id-card" aria-hidden="true"></i>
 	    			</h5> <select name="region">

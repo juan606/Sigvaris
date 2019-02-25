@@ -23,47 +23,47 @@
 						<div class="panel-heading">Dirección Fiscal:</div>
 						<div class="panel-body">
 							<div class="row">
-								<div class="form-group col-lg-3 col-md-3 col-sm-6 col-xs-12">
+								<div class="form-group col-3">
 			    					<label class="control-label" for="calle">Calle:</label>
 			    					<dd>{{$direccion->calle}}</dd>
 			  					</div>
-			  					<div class="form-group col-lg-3 col-md-3 col-sm-6 col-xs-12">
+			  					<div class="form-group col-3">
 			    					<label class="control-label" for="numext">Numero exterior:</label>
 			    					<dd>{{$direccion->numext}}</dd>
 			  					</div>	
-			  					<div class="form-group col-lg-3 col-md-3 col-sm-6 col-xs-12">
+			  					<div class="form-group col-3">
 			    					<label class="control-label" for="numint">Numero interior:</label>
 			    					<dd>{{$direccion->numint}}</dd>
 			  					</div>		
 							</div>
 							<div class="row" id="perfisica">
-								<div class="form-group col-lg-3 col-md-3 col-sm-6 col-xs-12">
+								<div class="form-group col-3">
 			  						<label class="control-label" for="colonia">Colonia:</label>
 			  						<dd>{{$direccion->colonia}}</dd>
 			  					</div>
-			  					<div class="form-group col-lg-3 col-md-3 col-sm-6 col-xs-12">
+			  					<div class="form-group col-3">
 			  						<label class="control-label" for="municipio">Delegación o Municipio:</label>
 			  						<dd>{{$direccion->municipio}}</dd>
 			  					</div>
-			  					<div class="form-group col-lg-3 col-md-3 col-sm-6 col-xs-12">
+			  					<div class="form-group col-3">
 			  						<label class="control-label" for="ciudad">Ciudad:</label>
 			  						<dd>{{$direccion->ciudad}}</dd>
 			  					</div>
-			  					<div class="form-group col-lg-3 col-md-3 col-sm-6 col-xs-12">
+			  					<div class="form-group col-3">
 			  						<label class="control-label" for="estado">Estado:</label>
 			  						<dd>{{$direccion->estado}}</dd>
 			  					</div>
 							</div>
 							<div class="row" id="perfisica">
-								<div class="form-group col-lg-3 col-md-3 col-sm-6 col-xs-12">
+								<div class="form-group col-3">
 			  						<label class="control-label" for="calle1">Entre calle:</label>
 			  						<dd>{{$direccion->calle1}}</dd>
 			  					</div>
-			  					<div class="form-group col-lg-3 col-md-3 col-sm-6 col-xs-12">
+			  					<div class="form-group col-3">
 			  						<label class="control-label" for="calle2">Y calle:</label>
 			  						<dd>{{$direccion->calle2}}</dd>
 			  					</div>
-			  					<div class="form-group col-lg-3 col-md-3 col-sm-6 col-xs-12">
+			  					<div class="form-group col-3">
 			  						<label class="control-label" for="referencia">Referencia:</label>
 			  						<dd>{{$direccion->referencia}}</dd>
 			  					</div>
