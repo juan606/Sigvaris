@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Paciente;
 
 use App\Paciente;
+use App\Doctor;
 use UxWeb\SweetAlert\SweetAlert as Alert;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;

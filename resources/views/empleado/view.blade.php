@@ -21,7 +21,7 @@
 				</div>
 			</div>
 			<div class="panel-body">
-				<div class="row">
+				<div class="row my-4">
 					<div class="col-3">
 						<label class="control-label" for="appaterno">Apellido Paterno:</label>
 						<dd>{{ $empleado->appaterno }}</dd>

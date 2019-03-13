@@ -7,7 +7,7 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <title></title>
     <link rel="stylesheet" href="{{ asset('css/app.css') }}">
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.1/css/all.css" integrity="sha384-gfdkjb5BdAXd+lj+gudLWI+BXq4IuLW5IT+brZEZsLFm++aCMlF1V92rMkPaX4PP" crossorigin="anonymous"><
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.1/css/all.css" integrity="sha384-gfdkjb5BdAXd+lj+gudLWI+BXq4IuLW5IT+brZEZsLFm++aCMlF1V92rMkPaX4PP" crossorigin="anonymous">
     <script src="{{ asset('js/app.js') }}"></script>
     <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/dt/dt-1.10.18/datatables.min.css"/>
     <script type="text/javascript" src="https://cdn.datatables.net/v/dt/dt-1.10.18/datatables.min.js"></script>
@@ -15,7 +15,7 @@
 </head>
 
 <body>
-    <div  class="row p-0 m-0">
+    <div class="row p-0 m-0">
         <div class="col-12 p-0 m-0">
 			<a href="/">
 				<img id="imagenHeaderid" src="{{asset('img/header.jpg')}}" class="img-fluid" alt="Sigvaris.">
@@ -27,9 +27,7 @@
             @include('nav')
         </div>
     </div>
-    
     <div class="container-fliud" style="margin-top: 20px">
-        <!-- <iframe src="{{ route('doctores.create') }}" style="width: 100%; overflow:auto; height:1000px;" frameborder="0"></iframe> -->
         @yield('content')
     </div>
     <script type="text/javascript" src="{{ asset('js/forms.js') }}"></script>

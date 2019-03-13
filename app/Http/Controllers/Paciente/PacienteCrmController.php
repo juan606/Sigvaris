@@ -3,6 +3,8 @@
 namespace App\Http\Controllers\Paciente;
 
 use App\Crm;
+use UxWeb\SweetAlert\SweetAlert as Alert;
+use App\Paciente;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
@@ -15,7 +17,9 @@ class PacienteCrmController extends Controller
      */
     public function index()
     {
-        return "crms";
+        $pacientes = Paciente::get();
+        $crms = Crm::get();
+        return view('crm.index', ['crms'=>$crms, 'pacientes'=>$pacientes]);
     }
 
     /**
@@ -25,7 +29,7 @@ class PacienteCrmController extends Controller
      */
     public function create()
     {
-        //
+
     }
 
     /**
@@ -36,7 +40,14 @@ class PacienteCrmController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $crm = Crm::create($request->all());
+        if($crm){
+            Alert::success('Crm registrado subido correctamente.');
+            return redirect()->route('crm.index');
+        }else{
+            Alert::error('Error al registrar crm.');
+            return redirect()->back();
+        }
     }
 
     /**
@@ -82,5 +93,9 @@ class PacienteCrmController extends Controller
     public function destroy(Crm $crm)
     {
         //
+    }
+
+    public function getCrmCliente(Paciente $paciente){
+        return view('pacientecrm.index', ['paciente'=>$paciente]);
     }
 }

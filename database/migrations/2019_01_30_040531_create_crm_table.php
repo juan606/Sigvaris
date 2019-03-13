@@ -13,8 +13,18 @@ class CreateCrmTable extends Migration
      */
     public function up()
     {
-        Schema::create('crm', function (Blueprint $table) {
+        Schema::create('crms', function (Blueprint $table) {
             $table->increments('id');
+            $table->integer('paciente_id')->unsigned();
+            $table->foreign('paciente_id')->references('id')->on('pacientes');
+            $table->string('observaciones')->nullable();
+            $table->string('acuerdos')->nullable();
+            $table->string('comentarios')->nullable();
+            $table->date('fecha_aviso');
+            $table->date('fecha_contacto');
+            $table->string('forma_contacto');
+            $table->string('estado');
+            $table->string('hora');
             $table->timestamps();
         });
     }

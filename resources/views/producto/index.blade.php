@@ -19,7 +19,7 @@
                 <thead>
                     <tr>
                         <th>SKU</th>
-                        <th>Descripci+on</th>
+                        <th>Descripción</th>
                         <th>Precio Distribuidor</th>
                         <th>Precio Público S/IVA</th>
                         <th>Precio Público C/IVA</th>

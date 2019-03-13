@@ -24,7 +24,8 @@ Route::resource('faltas','Falta\FaltaController', ['except'=>'show']);
 
 Route::resource('pacientes', 'Paciente\PacienteController');
 Route::resource('pacientes.tallas', 'Paciente\PacienteTallaController');
-Route::resource('pacientes.crm', 'Paciente\PacienteCrmController');
+Route::resource('crm', 'Paciente\PacienteCrmController');
+Route::get('pacientes/{paciente}/crm', 'Paciente\PacienteCrmController@getCrmCliente')->name('getCrmsPorCliente');
 Route::resource('pacientes.tutores', 'Paciente\PacienteTutorController');
 Route::get('getDoctores','Doctor\DoctorController@getDoctores');
 

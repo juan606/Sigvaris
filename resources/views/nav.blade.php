@@ -78,6 +78,14 @@
                     <a class="dropdown-item" href="{{ url('import-export-csv-excel') }}"><span>Excel</span><i class="fa fa-search float-right"></i></a>
                 </div>
             </li>
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    C.R.M.
+                </a>
+                <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                    <a class="dropdown-item" href="{{route('crm.index')}}"><span>General</span><i class="fa fa-search float-right"></i></a>
+                </div>
+            </li>
         </ul>
     </div>
 </nav>
