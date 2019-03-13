@@ -19,13 +19,25 @@
                 {{ csrf_field() }}
                 <div class="card-body">
                     <div class="row">
-                        <div class="col-6 form-group">
-                            <label class="control-label">✱Nombre:</label>
-                            <input type="text" name="nombre" class="form-control" required="">
+                        <div class="col-2 form-group">
+                            <label class="control-label">✱SKU:</label>
+                            <input type="text" name="sku" class="form-control" required="">
                         </div>
-                        <div class="col-6 form-group">
-                            <label class="control-label">✱Precio:</label>
-                            <input type="number" name="precio" class="form-control" step="0.01" required="">
+                        <div class="col-3 form-group">
+                            <label class="control-label">Descripcion:</label>
+                            <input type="text" name="descripcion" class="form-control">
+                        </div>
+                        <div class="col-2 form-group">
+                            <label class="control-label">✱Precio Distribuidor:</label>
+                            <input type="text" name="precio_distribuidor" class="form-control" required="">
+                        </div>
+                        <div class="col-2 form-group">
+                            <label class="control-label">✱Precio público S/IVA:</label>
+                            <input type="text" name="precio_publico" class="form-control" required="">
+                        </div>
+                        <div class="col-3 form-group">
+                            <label class="control-label">✱Precio público C/IVA:</label>
+                            <input type="number" name="precio_publico_iva" class="form-control" step="0.01" required="">
                         </div>
                     </div>
                 </div>

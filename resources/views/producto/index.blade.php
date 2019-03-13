@@ -18,9 +18,11 @@
             <table class="table">
                 <thead>
                     <tr>
-                        <th>ID</th>
-                        <th>Nombre</th>
-                        <th>Precio</th>
+                        <th>SKU</th>
+                        <th>Descripci+on</th>
+                        <th>Precio Distribuidor</th>
+                        <th>Precio Público S/IVA</th>
+                        <th>Precio Público C/IVA</th>
                         <th>Operación</th>
                     </tr>
                 </thead>
@@ -30,9 +32,11 @@
                     @else
                     @foreach($productos as $producto)
                     <tr>
-                        <td>{{$producto->id}}</td>
-                        <td>{{$producto->nombre}}</td>
-                        <td>{{$producto->precio}}</td>
+                        <td>{{$producto->sku}}</td>
+                        <td>{{$producto->descripcion}}</td>
+                        <td>{{$producto->precio_distribuidor}}</td>
+                        <td>{{$producto->precio_publico}}</td>
+                        <td>{{$producto->precio_publico_iva}}</td>
                         <td>
                             <div class="row">
                                 <div class="col-auto pr-2">

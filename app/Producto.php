@@ -11,9 +11,12 @@ class Producto extends Model
     
     protected $fillable = [
         'id',
-        'nombre',
+        'sku',
+        'descripcion',
         'cantidad',
-        'precio'
+        'precio_distribuidor',
+        'precio_publico',
+        'precio_publico_iva'
     ];
 
     public function ventas(){

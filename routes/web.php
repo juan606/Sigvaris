@@ -31,6 +31,10 @@ Route::get('getDoctores','Doctor\DoctorController@getDoctores');
 Route::resource('contratos','Precargas\TipoContratoController');
 Route::resource('descuentos', 'Venta\DescuentoController');
 Route::resource('productos', 'Producto\ProductoController');
+Route::get('import-export-csv-excel', array('as' => 'excel.import', 'uses' => 'FileController@importExportExcelORCSV'));
+Route::post('import-csv-excel', array('as' => 'import-csv-excel', 'uses' => 'FileController@importFileIntoDB'));
+Route::get('download-excel-file/{type}', array('as' => 'excel-file', 'uses' => 'FileController@downloadExcelFile'));
+
 Route::get('pacientes/{paciente}/ventas/historial', 'Venta\VentaController@indexConPaciente')->name('pacientes.historial');
 Route::get('pacientes/{paciente}/ventas', 'Venta\VentaController@createConPaciente')->name('pacientes.venta');
 Route::resource('ventas', 'Venta\VentaController');

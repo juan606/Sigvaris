@@ -15,8 +15,11 @@ class CreateProductosTable extends Migration
     {
         Schema::create('productos', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('nombre');
-            $table->decimal('precio',8,2);
+            $table->string('sku');
+            $table->string('descripcion')->nullable();
+            $table->decimal('precio_distribuidor',8,2);
+            $table->decimal('precio_publico',8,2);
+            $table->decimal('precio_publico_iva',8,2);
             $table->timestamps();
         });
     }

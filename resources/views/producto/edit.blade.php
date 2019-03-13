@@ -20,13 +20,25 @@
                 {{ method_field('PUT') }}
                 <div class="card-body">
                     <div class="row">
-                        <div class="col-6 form-group">
-                            <label class="control-label">✱Nombre:</label>
-                            <input type="text" name="nombre" class="form-control" value="{{$producto->nombre}}" required="">
+                    <div class="col-2 form-group">
+                            <label class="control-label">✱SKU:</label>
+                            <input type="text" name="sku" class="form-control" value="{{$producto->sku}}" required="">
                         </div>
-                        <div class="col-6 form-group">
-                            <label class="control-label">✱Precio:</label>
-                            <input type="number" name="precio" class="form-control" step="0.01" value="{{$producto->precio}}" required="">
+                        <div class="col-3 form-group">
+                            <label class="control-label">Descripción:</label>
+                            <input type="text" name="descripcion" class="form-control" value="{{$producto->descripcion}}">
+                        </div>
+                        <div class="col-2 form-group">
+                            <label class="control-label">✱Precio Distribuidor:</label>
+                            <input type="text" name="precio_distribuidor" class="form-control" value="{{$producto->precio_distribuidor}}" required="">
+                        </div>
+                        <div class="col-2 form-group">
+                            <label class="control-label">✱Precio público S/IVA:</label>
+                            <input type="text" name="precio_publico" class="form-control" value="{{$producto->precio_publico}}" required="">
+                        </div>
+                        <div class="col-3 form-group">
+                            <label class="control-label">✱Precio público C/IVA:</label>
+                            <input type="number" name="precio_publico_iva" class="form-control" step="0.01" value="{{$producto->precio_publico_iva}}" required="">
                         </div>
                     </div>
                 </div>
