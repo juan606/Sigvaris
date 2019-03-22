@@ -62,10 +62,17 @@
                 <label class="control-label">✱Teléfono:</label>
                 <input readonly value="{{$paciente->telefono}}" type="text" name="telefono" class="form-control" required="">
             </div>
+            @if(!empty($paciente->doctor))
             <div class="form-group col-3">
                 <label for="doctor_id">Doctor que recomienda:</label>
                 <input readonly value="{{$paciente->doctor->nombre}} {{$paciente->doctor->paterno}}" type="text" name="nivel" class="form-control" required="">
             </div>
+            @else
+            <div class="form-group col-3">
+                <label for="doctor_id">Doctor que recomienda:</label>
+                <input readonly value="{{$paciente->otro_doctor}}" type="text" name="nivel" class="form-control" required="">
+            </div>
+            @endif
         </div>
         <div class="row">
             @include('paciente.subnav')

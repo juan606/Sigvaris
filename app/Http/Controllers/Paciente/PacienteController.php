@@ -80,17 +80,7 @@ class PacienteController extends Controller
     public function update(Request $request, $paciente)
     {
         $temp = Paciente::find($paciente);
-        $temp->nombre = $request->input('nombre');
-        $temp->paterno = $request->input('paterno');
-        $temp->materno = $request->input('materno');
-        $temp->celular = $request->input('celular');
-        $temp->mail = $request->input('mail');
-        $temp->rfc = $request->input('rfc');
-        $temp->nacimiento = $request->input('nacimiento');
-        $temp->telefono = $request->input('telefono');
-        $temp->doctor_id = $request->input('doctor_id');
-        $temp->nivel = $request->input('nivel');
-        $temp->save();
+        $temp->update($request->all());
         return redirect()->route('pacientes.index');
     }
 

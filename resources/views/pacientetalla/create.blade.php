@@ -28,7 +28,7 @@
                     <div class="form-group col-12">
                         <label for="nivel">Pierna:</label>
                         <select class="form-control compresion" name="pierna" id="pierna">
-                            <option value="">Seleccione</option>
+                            <option value="">Ninguna</option>
                             <option value="15-20 mmHG">15-20 mmHG</option>
                             <option value="18-25 mmHG">18-25 mmHG</option>
                             <option value="20-30 mmHG">20-30 mmHG</option>
@@ -37,8 +37,8 @@
                     </div>
                     <div class="form-group col-12">
                         <label for="nivel">Brazo:</label>
-                        <select class="form-control compresion" name="brazo" id="brazo" required>
-                            <option value="">Seleccione</option>
+                        <select class="form-control compresion" name="brazo" id="brazo">
+                            <option value="">Ninguna</option>
                             <option value="15-20 mmHG">15-20 mmHG</option>
                             <option value="20-30 mmHG">20-30 mmHG</option>
                         </select>

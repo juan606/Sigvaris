@@ -66,8 +66,11 @@
                     <label for="doctor_id">Doctor que recomienda:</label>
                     <select class="form-control" name="doctor_id" id="doctor_id" required>
                         <option value="">Seleccione</option>
-                        <option value="2">2</option>
                     </select>
+                </div>
+                <div class="col-3 form-group" id="otro_doctor">
+                    <label class="control-label">Otro doctor nombre:</label>
+                    <input type="text" name="otro_doctor" class="form-control">
                 </div>
             </div>
         </div>
@@ -86,8 +89,19 @@
     </form>
 </div>
 <script>
+$('#otro_doctor').hide();
     $('#doctor_id').change(function () {
-        //alert();
+        if($(this).val() == 'otro'){
+            $(this).attr('name', 'doctor_id_falsa');
+            $('#otro_doctor').show();
+            $('#otro_doctor').find('input').val('');
+            $('#otro_doctor').find('input').attr('required', 'true');
+        }else{
+            $(this).attr('name', 'doctor_id');
+            $('#otro_doctor').hide();
+            $('#otro_doctor').find('input').val('');
+            $('#otro_doctor').find('input').removeAttr('required');
+        }
     });
     $.ajaxSetup({
         headers: {

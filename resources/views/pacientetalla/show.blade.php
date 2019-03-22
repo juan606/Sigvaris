@@ -46,31 +46,31 @@
                 <div class="form-group col-3 estilos-pierna">
                     <h5>Estilos Pierna</h5>
                     <div class="form-check">
-                        <input readonly name="tobimedia" class="form-check-input cb-pierna-estilo" type="checkbox" value="{{$talla->tobimedia}}" id="tobimedia">
+                        <input readonly name="tobimedia" class="form-check-input cb-pierna-estilo" type="checkbox" value="{{$talla->tobimedia}}" id="tobimedia" {{$talla->tobimedia == 1 ? 'checked' : ''}}>
                         <label class="form-check-label" for="tobimedia">
                             tobimedia
                         </label>
                     </div>
                     <div class="form-check">
-                        <input readonly name="media" class="form-check-input cb-pierna-estilo" type="checkbox" value="{{$talla->media}}" id="media">
+                        <input readonly name="media" class="form-check-input cb-pierna-estilo" type="checkbox" value="{{$talla->media}}" id="media" {{$talla->media == 1 ? 'checked' : ''}}>
                         <label class="form-check-label" for="media">
                             media
                         </label>
                     </div>
                     <div class="form-check">
-                        <input readonly name="pantimedia" class="form-check-input cb-pierna-estilo" type="checkbox" value="{{$talla->pantimedia}}" id="pantimedia">
+                        <input readonly name="pantimedia" class="form-check-input cb-pierna-estilo" type="checkbox" value="{{$talla->pantimedia}}" id="pantimedia" {{$talla->pantimedia == 1 ? 'checked' : ''}}>
                         <label class="form-check-label" for="pantimedia">
                             pantimedia
                         </label>
                     </div>
                     <div class="form-check">
-                        <input readonly name="calcetin" class="form-check-input cb-pierna-estilo" type="checkbox" value="{{$talla->calcetin}}" id="calcetin">
+                        <input readonly name="calcetin" class="form-check-input cb-pierna-estilo" type="checkbox" value="{{$talla->calcetin}}" id="calcetin" {{$talla->calcetin == 1 ? 'checked' : ''}}>
                         <label class="form-check-label" for="calcetin">
                             calcetin
                         </label>
                     </div>
                     <div class="form-check">
-                        <input readonly name="pantorrillera" class="form-check-input cb-pierna-estilo" type="checkbox" value="{{$talla->pantorrillera}}" id="pantorrillera">
+                        <input readonly name="pantorrillera" class="form-check-input cb-pierna-estilo" type="checkbox" value="{{$talla->pantorrillera}}" id="pantorrillera" {{$talla->pantorrillera == 1 ? 'checked' : ''}}>
                         <label class="form-check-label" for="pantorrillera">
                             pantorrillera
                         </label>
@@ -79,7 +79,7 @@
                 <div class="form-group col-3 estilos-brazo">
                     <h5>Estilos Brazo</h5>
                     <div class="form-check">
-                        <input readonly name="guante" class="form-check-input cb-brazo-estilo" type="checkbox" value="{{$talla->guante}}" id="guante">
+                        <input readonly name="guante" class="form-check-input cb-brazo-estilo" type="checkbox" value="{{$talla->guante}}" id="guante" {{$talla->guante == 1 ? 'checked' : ''}}>
                         <label class="form-check-label" for="guante">
                             guante
                         </label>
