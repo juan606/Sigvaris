@@ -1,5 +1,6 @@
 @extends('principal')
 @section('content')
+{{-- {{ dd($productos) }} --}}
 <div class="container">
     <div class="card">
         <div class="card-header">
@@ -53,8 +54,8 @@
                                     @foreach($productos as $producto)
                                     <tr>
                                         <input type="hidden" id="producto_a_agregar{{$loop->index}}" value="{{$producto}}">
-                                        <td>{{$producto->nombre}}</td>
-                                        <td>{{$producto->precio}}</td>
+                                        <td>{{$producto->descripcion}}</td>
+                                        <td>{{$producto->precio_publico_iva}}</td>
                                         <td><button type="button" class="btn btn-success boton_agregar" onclick="agregarProducto('#producto_a_agregar{{$loop->index}}')"><i class="fas fa-plus"></i></button></td>
                                     </tr>
                                     @endforeach
@@ -128,7 +129,7 @@
 <script>
     function agregarProducto(p){
         let producto = JSON.parse($(p).val());
-        //alert(producto);
+        // alert(producto);
         $('#tbody_productos')
         .append(`
         <tr id="producto_agregado${producto.id}">
@@ -139,13 +140,13 @@
 
             </td>
             <td>
-                ${producto.nombre}
+                ${producto.descripcion}
             </td>
             <td class="precio_individual">
-                ${producto.precio}
+                ${producto.precio_publico_iva}
             </td>
             <td class="precio_total">
-                ${producto.precio}
+                ${producto.precio_publico_iva}
             </td>
             <td>
                 <button onclick="quitarProducto('#producto_agregado${producto.id}')" type="button" class="btn btn-danger boton_quitar">
