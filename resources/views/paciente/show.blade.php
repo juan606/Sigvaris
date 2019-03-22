@@ -54,13 +54,7 @@
             </div>
             <div class="form-group col-3">
                 <label for="nivel">Nivel:</label>
-                <select readonly class="form-control" name="nivel" id="nivel">
-                    <option value="1">1</option>
-                    <option>2</option>
-                    <option>3</option>
-                    <option>4</option>
-                    <option>5</option>
-                </select>
+                <input readonly value="{{$paciente->nivel->etiqueta}}}/{{$paciente->nivel->nombre}}" type="text" name="nivel" class="form-control" required="">
             </div>
         </div>
         <div class="row">
@@ -70,13 +64,7 @@
             </div>
             <div class="form-group col-3">
                 <label for="doctor_id">Doctor que recomienda:</label>
-                <select readonly class="form-control" name="doctor_id" id="doctor_id">
-                    <option value="1">1</option>
-                    <option>2</option>
-                    <option>3</option>
-                    <option>4</option>
-                    <option>5</option>
-                </select>
+                <input readonly value="{{$paciente->doctor->nombre}} {{$paciente->doctor->paterno}}" type="text" name="nivel" class="form-control" required="">
             </div>
         </div>
         <div class="row">

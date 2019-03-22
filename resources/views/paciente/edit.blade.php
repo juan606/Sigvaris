@@ -52,11 +52,9 @@
                 <div class="form-group col-3">
                     <label for="nivel">Nivel:</label>
                     <select class="form-control" name="nivel" id="nivel">
-                        <option value="1">1</option>
-                        <option>2</option>
-                        <option>3</option>
-                        <option>4</option>
-                        <option>5</option>
+                        @foreach($niveles as $nivel)
+                            <option value="{{$nivel->id}}">{{$nivel->etiqueta}}/{{$nivel->nombre}}</option>
+                        @endforeach
                     </select>
                 </div>
             </div>

@@ -28,15 +28,15 @@
       <div class="panel-heading" align="center"><strong>Datos Laborales Actuales</strong></div>
       <div class="panel-body" >
 
-      	<div class="col-md-12 offset-md-2 mt-3"> 
+      	<div class="row"> 
 
-				<div class="form-group col-xs-3">
+				<div class="form-group col-3">
 					<label class="control-label" for="fechacontratacion">Fecha de contratación:</label>
 					
 					<dd><strong> {{ $datoslab->fechacontratacion }}</strong></dd>
 				</div>
 				
-				<div class="form-group col-xs-3">
+				<div class="form-group col-3">
 					<label class="control-label" for="contrato">Tipo de contrato:</label>
 					@if($contrato==null)
 					<dd>NO DEFINIDO</dd>
@@ -45,7 +45,7 @@
 					@endif
 				</div>
 
-                <div class="form-group col-xs-3">
+                <div class="form-group col-3">
 					<label class="control-label" for="area">Área:</label>
 					@if($area==null)
 					<dd>NO DEFINIDO</dd>
@@ -55,7 +55,7 @@
 					
 				</div>
 				
-				<div class="form-group col-xs-3">
+				<div class="form-group col-3">
 					<label class="control-label" for="puesto">Puesto:</label>
 					@if($puesto==null)
 					<dd>NO DEFINIDO</dd>
@@ -71,55 +71,55 @@
 
 			</div>
 
-			<div class="col-md-12 offset-md-2 mt-3">
-				<div class="form-group col-xs-3">
+			<div class="row">
+				<div class="form-group col-3">
 					<label class="control-label" for="lugartrabajo">Lugar de Trabajo:</label>
 					<dd>{{ $datoslab->lugartrabajo }}</dd>
 				</div>
 
-				<div class="form-group col-xs-3">
+				<div class="form-group col-3">
 					<label class="control-label" for="salarionom">Salario Nóminal:</label>
 					<dd>{{ $datoslab->salarionom }}</dd>
 				</div>
 
-				<div class="form-group col-xs-3">
+				<div class="form-group col-3">
 					<label class="control-label" for="salariodia">Salario Diario:</label>
 					<dd>{{ $datoslab->salariodia }}</dd>
 				</div>
 
 				
 
-				<div class="form-group col-xs-3">
+				<div class="form-group col-3">
 					<label class="control-label" for="periodopaga">Periodicidad de Pago:</label>
 					<dd>{{ $datoslab->periodopaga }}</dd>
 				</div>
 			</div>
 
-			<div class="col-md-12 offset-md-2 mt-3">
-				<div class="form-group col-xs-3">
+			<div class="row">
+				<div class="form-group col-3">
 					<label class="control-label" for="prestaciones">Prestaciones:</label>
 					<dd>{{ $datoslab->prestaciones }}</dd>
 				</div>
-				<div class="form-group col-xs-3">
+				<div class="form-group col-3">
 					<label class="control-label" for="regimen">Régimen de Contratación:</label>
 					<dd>{{ $datoslab->regimen }}</dd>
 				</div>
-				<div class="form-group col-xs-3">
+				<div class="form-group col-3">
 					<label class="control-label" for="hentrada">Hora de Entrada:</label>
 					<dd>{{ $datoslab->hentrada }}</dd>
 				</div>
-				<div class="form-group col-xs-3">
+				<div class="form-group col-3">
 					<label class="control-label" for="hsalida">Hora de Salida:</label>
 					<dd>{{ $datoslab->hsalida }}</dd>
 				</div>
 			</div>
-			<div class="col-md-12 offset-md-2 mt-3">
-				<div class="form-group col-xs-3">
+			<div class="row">
+				<div class="form-group col-3">
 					<label class="control-label" for="hcomida">Tiempo de Comida:</label>
 					<dd>{{ $datoslab->hcomida }}</dd>
 				</div>
 				
-				<div class="form-group col-xs-3">
+				<div class="form-group col-3">
 					<label class="control-label" for="banco">Banco:</label>
 					
 					@if($datoslab->banco==null)
@@ -128,11 +128,11 @@
 					<dd>{{ $datoslab->banco }}</dd>
 					@endif
 				</div>
-				<div class="form-group col-xs-3">
+				<div class="form-group col-3">
 					<label class="control-label" for="cuenta">Cuenta:</label>
 					<dd>{{ $datoslab->cuenta }}</dd>
 				</div>
-				<div class="form-group col-xs-3">
+				<div class="form-group col-3">
 					<label class="control-label" for="clabe">CLABE:</label>
 					<dd>{{ $datoslab->clabe }}</dd>
 				</div>
@@ -232,14 +232,14 @@
 								        	<div class="panel-heading"><h5><strong>Fecha de Contratación:&nbsp;&nbsp;&nbsp;&nbsp;{{$dato->fechacontratacion}} </strong></h5></div>
 								        	<div class="panel-body">
 
-								        	<div class="col-md-12 offset-md-2 mt-3"> 
-			<div class="form-group col-xs-3">
+								        	<div class="row"> 
+			<div class="form-group col-3">
 					<label class="control-label" for="fechaactualizacion">Fecha de Actualización:</label>
 					
 					<dd><strong> {{ $dato->updated_at }}</strong></dd>
 				</div>
 				
-				<div class="form-group col-xs-3">
+				<div class="form-group col-3">
 					<label class="control-label" for="contrato">Tipo de contrato:</label>
 
 					@if($dato->contrato_id==null)
@@ -256,7 +256,7 @@
 
 				</div>
 
-                <div class="form-group col-xs-3">
+                <div class="form-group col-3">
 					<label class="control-label" for="area">Área:</label>
 
 					@if($dato->area_id==null)
@@ -273,7 +273,7 @@
 					
 				</div>
 				
-				<div class="form-group col-xs-3">
+				<div class="form-group col-3">
 					<label class="control-label" for="puesto">Puesto:</label>
 
 					@if($dato->puesto_id==null)
@@ -295,59 +295,59 @@
 
 
 			</div>
-			<div class="col-md-12 offset-md-2 mt-3">
-				<div class="form-group col-xs-3">
+			<div class="row">
+				<div class="form-group col-3">
 					<label class="control-label" for="salarionom">Salario Nóminal:</label>
 					<dd>{{ $dato->salarionom }}</dd>
 				</div>
-				<div class="form-group col-xs-3">
+				<div class="form-group col-3">
 					<label class="control-label" for="salariodia">Salario Diario:</label>
 					<dd>{{ $dato->salariodia }}</dd>
 				</div>
 
 				
 
-				<div class="form-group col-xs-3">
+				<div class="form-group col-3">
 					<label class="control-label" for="periodopaga">Periodicidad de Pago:</label>
 					<dd>{{ $dato->periodopaga }}</dd>
 				</div>
 			</div>
-			<div class="col-md-12 offset-md-2 mt-3">
-				<div class="form-group col-xs-3">
+			<div class="row">
+				<div class="form-group col-3">
 					<label class="control-label" for="prestaciones">Prestaciones:</label>
 					<dd>{{ $dato->prestaciones }}</dd>
 				</div>
-				<div class="form-group col-xs-3">
+				<div class="form-group col-3">
 					<label class="control-label" for="regimen">Régimen de Contratación:</label>
 					<dd>{{ $dato->regimen }}</dd>
 				</div>
-				<div class="form-group col-xs-3">
+				<div class="form-group col-3">
 					<label class="control-label" for="hentrada">Hora de Entrada:</label>
 					<dd>{{ $dato->hentrada }}</dd>
 				</div>
-				<div class="form-group col-xs-3">
+				<div class="form-group col-3">
 					<label class="control-label" for="hsalida">Hora de Salida:</label>
 					<dd>{{ $dato->hsalida }}</dd>
 				</div>
 			</div>
-			<div class="col-md-12 offset-md-2 mt-3">
-				<div class="form-group col-xs-3">
+			<div class="row">
+				<div class="form-group col-3">
 					<label class="control-label" for="hcomida">Tiempo de Comida:</label>
 					<dd>{{ $dato->hcomida }}</dd>
 				</div>
-				<div class="form-group col-xs-3">
+				<div class="form-group col-3">
 					<label class="control-label" for="lugartrabajo">Lugar de Trabajo:</label>
 					<dd>{{ $dato->lugartrabajo }}</dd>
 				</div>
-				<div class="form-group col-xs-3">
+				<div class="form-group col-3">
 					<label class="control-label" for="banco">Banco:</label>
 					<dd>{{ $dato->banco }}</dd>
 				</div>
-				<div class="form-group col-xs-3">
+				<div class="form-group col-3">
 					<label class="control-label" for="cuenta">Cuenta:</label>
 					<dd>{{ $dato->cuenta }}</dd>
 				</div>
-				<div class="form-group col-xs-3">
+				<div class="form-group col-3">
 					<label class="control-label" for="clabe">CLABE:</label>
 					<dd>{{ $dato->clabe }}</dd>
 				</div>

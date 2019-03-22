@@ -17,13 +17,17 @@
                     
                     
                 <div class="row">
-                    <div class="form-group col-6">
+                    <div class="form-group col-4">
                         <label class="control-label" for="nombre"></i> Especialidad:</label>
                         <input type="text" class="form-control" id="nombre" name="nombre" value="{{$especialidad->nombre}}" readonly  >
                     </div>
-                    <div class="form-group col-6">
+                    <div class="form-group col-4">
                         <label class="control-label" for="apater">Cédula:</label>
                         <input type="text" class="form-control" id="apater" name="cedula" value="{{$especialidad->cedula}}" readonly >
+                    </div>
+                    <div class="form-group col-4">
+                        <label class="control-label" for="apater">Universidad:</label>
+                        <input type="text" class="form-control" id="apater" name="cedula" value="{{$especialidad->universidad}}" readonly >
                     </div>		
                 </div>
                     

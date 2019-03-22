@@ -23,9 +23,11 @@ class CreatePacientesTable extends Migration
             $table->string('celular');
             $table->string('telefono');
             $table->string('mail');
+            $table->string('otro_doctor')->nullable();
             $table->integer('doctor_id')->unsigned()->nullable();
             $table->foreign('doctor_id')->references('id')->on('doctores');
-            $table->string('nivel');
+            $table->integer('nivel_id')->unsigned();
+            $table->foreign('nivel_id')->references('id')->on('nivels');
             $table->timestamps();
         });
     }

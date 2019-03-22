@@ -13,14 +13,18 @@
                     
                     
                 <div class="row">
-                    <div class="form-group col-6">
+                    <div class="form-group col-4">
                         <label class="control-label" for="nombre"><i class="fa fa-asterisk" aria-hidden="true"></i> Especialidad:</label>
                         <input type="text" class="form-control" id="nombre" name="nombre" value="" required autofocus>
                     </div>
-                    <div class="form-group col-6">
+                    <div class="form-group col-4">
                         <label class="control-label" for="apater">Cédula:</label>
                         <input type="text" class="form-control" id="apater" name="cedula" value="" >
-                    </div>		
+                    </div>
+                    <div class="form-group col-4">
+                        <label class="control-label" for="apater">Universiad:</label>
+                        <input type="text" class="form-control" id="apater" name="universidad" value="" >
+                    </div>			
                 </div>
                 <div class="row-">
                     <div class="col-12">

@@ -15,7 +15,8 @@ class Especialidad extends Model
     	'id',
     	'doctor_id',
     	'nombre',
-    	'cedula'
+        'cedula',
+        'universidad'
     ];
 
     public function doctor(){

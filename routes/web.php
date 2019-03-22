@@ -21,6 +21,7 @@ Route::resource('empleados.vacaciones','Empleado\EmpleadosVacacionesController')
 Route::resource('empleados.faltas','Empleado\EmpleadosFaltasAdministrativasController');
 Route::get('getfaltas','Falta\FaltaController@getFaltas');
 Route::resource('faltas','Falta\FaltaController', ['except'=>'show']);
+Route::resource('niveles', 'Nivel\NivelController');
 
 Route::resource('pacientes', 'Paciente\PacienteController');
 Route::resource('pacientes.tallas', 'Paciente\PacienteTallaController');
@@ -41,6 +42,10 @@ Route::get('pacientes/{paciente}/ventas', 'Venta\VentaController@createConPacien
 Route::resource('ventas', 'Venta\VentaController');
 
 Route::resource('giros', 'Giro\GiroController', ['except' => 'show']);
+Route::resource('areas','Area\AreaController', ['except'=>'show']);
+Route::resource('puestos','Puesto\PuestoController', ['except'=>'show']);
+Route::resource('bancos','Banco\BancoController', ['except'=>'show']);
+Route::resource('bajas','Precargas\TipoBajaController');
 // Route::resource('bajas','Precargas\TipoBajaController');
 // Route::get('buscarempleado','Empleado\EmpleadoController@buscar');
 // Route::resource('personals', 'Personal\PersonalController');

@@ -23,8 +23,8 @@ class CreateEmpleadosdatoslabTable extends Migration
             $table->foreign('area_id')->references('id')->on('areas');
             $table->integer('puesto_id')->unsigned()->nullable();
             $table->foreign('puesto_id')->references('id')->on('puestos');
-            $table->date('fechacontratacion');
-            $table->date('fechaactualizacion');
+            $table->date('fechacontratacion')->nullable();;
+            $table->date('fechaactualizacion')->nullable();;
             $table->decimal('salarionom',8,2)->nullable();
             $table->decimal('salariodia',8,2)->nullable();
             $table->enum('periodopaga',['Semanal','Quincenal','Mensual']);

@@ -33,14 +33,6 @@
 					<dd>{{$giro->nombre}}</dd>
 					@endif
 	 			</div>
-	 			<div class="form-group col-lg-4 col-md-3 col-sm-6 col-xs-12">
-	 				<label class="control-label" for="nombre">Forma de contacto:</label>
-	 				@if($datos->forma_contacto_id == null)
-	 				<dd>No tiene forma de contacto</dd>
-	 				@else
-	 				<dd>{{$formaContacto->nombre}}</dd>
-	 				@endif
-	 			</div>
 	 		</div>
 	 		<div class="row">
 	 			<div class="form-group col-lg-4 col-md-3 col-sm-6 col-xs-12">
@@ -51,11 +43,6 @@
 	 			<div class="form-group col-lg-4 col-md-3 col-sm-6 col-xs-12">
 	 				<label class="control-label" for="comentario">Comentarios:</label>
 	 				<dd>{{$datos->comentario}}</dd>
-	 			</div>
-	 			<div class="form-group col-lg-4 col-md-3 col-sm-6 col-xs-12">
-	 				<label class="control-label" for="fechacontacto">Fecha de contacto:</label>
-	 				<dd>{{$datos->fechacontacto}}</dd>
-	 				
 	 			</div>
 	 		</div>
  		<a class="btn btn-info" href="{{ route('proveedores.datosgenerales.edit',['proveedores'=>$proveedore,'datosgenerale'=>$datos]) }}">

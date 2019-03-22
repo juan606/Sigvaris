@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateEspecialidadTable extends Migration
+class CreateNivelsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,15 +13,11 @@ class CreateEspecialidadTable extends Migration
      */
     public function up()
     {
-        Schema::create('especialidads', function (Blueprint $table) {
+        Schema::create('nivels', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('doctor_id')->unsigned();
-            $table->foreign('doctor_id')->references('id')->on('doctores');
             $table->string('nombre');
-            $table->string('universidad')->nullable();
-            $table->string('cedula')->nullable();
+            $table->string('etiqueta');
             $table->timestamps();
-            $table->softDeletes();
         });
     }
 
@@ -32,6 +28,6 @@ class CreateEspecialidadTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('especialidads');
+        Schema::dropIfExists('nivels');
     }
 }

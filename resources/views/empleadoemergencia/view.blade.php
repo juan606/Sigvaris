@@ -19,13 +19,13 @@
 	<div class="panel-default">
 		<div class="panel-heading"><h5>Emergencias:</h5></div>
 		<div class="panel-body">
-			<div class="col-md-12 offset-md-2 mt-3">
+			<div class="row">
 				<div class="form-group col-xs-4">
 					<label class="control-label" for="sangre" id="sangre">Tipo de Sangre:</label>
 					<dd>{{$emergencias->sangre}}</dd>
 				</div>
 			</div>
-			<div class="col-md-12 offset-md-2 mt-3">
+			<div class="row">
 				<div class="form-group col-xs-4">
 					<label class="control-label" for="enfermedades" id="lbl_enf">Enfermedades:</label>
 					<textarea class="form-control" id="enfermedades" maxlength="500" disabled="disabled">{{ $emergencias->enfermedades }}</textarea>

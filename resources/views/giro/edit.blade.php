@@ -1,4 +1,4 @@
-@extends('layouts.blank')
+@extends('principal')
 	@section('content')
 	<div class="container">
 		<form role="form" method="POST" action="{{ route('giros.update',['giro'=>$giro]) }}">

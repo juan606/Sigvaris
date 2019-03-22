@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Paciente;
 
 use App\Paciente;
 use App\Doctor;
+use App\Nivel;
 use UxWeb\SweetAlert\SweetAlert as Alert;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
@@ -28,7 +29,8 @@ class PacienteController extends Controller
      */
     public function create()
     {
-        return view('paciente.create');
+        $niveles = Nivel::get();
+        return view('paciente.create', ['niveles'=>$niveles]);
     }
 
     /**
@@ -64,7 +66,8 @@ class PacienteController extends Controller
     public function edit($paciente)
     {
         $temp = Paciente::find($paciente);
-        return view('paciente.edit',['paciente'=>$temp]);
+        $niveles = Nivel::get();
+        return view('paciente.edit',['paciente'=>$temp, 'niveles'=>$niveles]);
     }
 
     /**

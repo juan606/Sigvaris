@@ -19,8 +19,9 @@ class Paciente extends Model
         'celular',
         'telefono',
         'mail',
-        'nivel',
-        'doctor_id'
+        'otro_doctor',
+        'doctor_id',
+        'nivel_id'
     ];
 
     public function consultorios(){
@@ -30,6 +31,7 @@ class Paciente extends Model
     public function doctor(){
         return $this->belongsTo(Doctor::class,'doctor_id');
     }
+
     public function crms(){
         return $this->hasMany('App\Crm');
     }
@@ -48,4 +50,9 @@ class Paciente extends Model
     public function ventas(){
         return $this->hasMany('App\Venta');
     }
+
+    public function nivel(){
+        return $this->belongsTo(Nivel::class,'nivel_id');
+    }
+
 }

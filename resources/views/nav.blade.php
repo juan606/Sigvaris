@@ -54,9 +54,12 @@
                     <a class="dropdown-item" href="{{route('descuentos.index')}}"><span>Descuentos</span></a>
                     <a class="dropdown-item" href="{{ url('contratos') }}"><span>Contratos</span><i class="fa fa-search float-right"></i></a>
                     <a class="dropdown-item" href="{{ url('/faltas') }}"><span>Faltas </span></a>
-                    <!-- <a class="dropdown-item" href="{{ url('/areas') }}">Áreas<i class="fa fa-plus float-right"></i></a> -->
-                    <!-- <a class="dropdown-item" href="{{ url('/puestos') }}">Puestos<i class="fa fa-plus float-right"></i></a> -->
-                    <!-- <a class="dropdown-item" href="{{ url('bajas') }}">Bajas<i class="fa fa-plus float-right"></i></a> -->
+                    <a class="dropdown-item" href="{{ url('/areas') }}">Áreas<i class="fa fa-plus float-right"></i></a>
+                    <a class="dropdown-item" href="{{ url('/puestos') }}">Puestos<i class="fa fa-plus float-right"></i></a>
+                    <a class="dropdown-item" href="{{ url('/bajas') }}">Bajas<i class="fa fa-plus float-right"></i></a>
+                    <a class="dropdown-item"  href="{{ url('/bancos') }}">Bancos<i class="fa fa-plus float-right"></i></a>
+                    <a class="dropdown-item"  href="{{ route('niveles.index') }}">Niveles<i class="fa fa-plus float-right"></i></a>
+                    <a class="dropdown-item"  href="{{ url('/giros') }}" href="#">Giros<i class="fa fa-plus float-right"></i></a>
                 </div>
             </li>
             <li class="nav-item dropdown">

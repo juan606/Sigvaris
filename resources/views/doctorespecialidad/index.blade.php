@@ -14,6 +14,7 @@
                 <tr class="info">
                     <th>Nombre</th>
                     <th>Cédula</th>
+                    <th>Universidad</th>
                     <th>Borrar</th>
                 </tr>
             </thead>
@@ -21,6 +22,7 @@
                 <tr>
                     <td>{{$especialidad->nombre}}</td>
                     <td>{{$especialidad->cedula}}</td>
+                    <td>{{$especialidad->universidad}}</td>
                     <td>
 
 
