@@ -21,7 +21,7 @@
 					<div class="form-group col-6">
 						<label class="control-label" for="etiqueta">Etiqueta:</label>
 						<input type="text" class="form-control" id="etiqueta" name="etiqueta"
-							value="{{ $falta->etiqueta }}">
+							value="{{ $falta->etiqueta }}" required>
 					</div>
 				</div>
 			</div>

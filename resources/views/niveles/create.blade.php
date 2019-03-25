@@ -17,7 +17,7 @@
 					</div>
 					<div class="form-group col-6">
 						<label class="control-label" for="etiqueta">Etiqueta:</label>
-						<input type="text" class="form-control" id="etiqueta" name="etiqueta">
+						<input type="text" class="form-control" id="etiqueta" name="etiqueta" required>
 					</div>
 				</div>
 			</div>
