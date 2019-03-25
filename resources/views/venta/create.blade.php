@@ -45,6 +45,7 @@
                             <table class="table" id="productos">
                                 <thead>
                                     <tr>
+                                        <th>SKU</th>
                                         <th>Producto</th>
                                         <th>Precio</th>
                                         <th>Agregar</th>
@@ -54,6 +55,7 @@
                                     @foreach($productos as $producto)
                                     <tr>
                                         <input type="hidden" id="producto_a_agregar{{$loop->index}}" value="{{$producto}}">
+                                        <td>{{$producto->sku}}</td>
                                         <td>{{$producto->descripcion}}</td>
                                         <td>{{$producto->precio_publico_iva}}</td>
                                         <td><button type="button" class="btn btn-success boton_agregar" onclick="agregarProducto('#producto_a_agregar{{$loop->index}}')"><i class="fas fa-plus"></i></button></td>
