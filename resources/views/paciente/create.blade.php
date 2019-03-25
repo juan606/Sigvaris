@@ -50,7 +50,7 @@
                 </div>
                 <div class="form-group col-3">
                     <label for="nivel_id">Nivel:</label>
-                    <select class="form-control" name="nivel_id" id="nivel_id">
+                    <select class="form-control" name="nivel_id" id="nivel_id" required>
                         @foreach($niveles as $nivel)
                         <option value="{{$nivel->id}}">{{$nivel->etiqueta}}/{{$nivel->nombre}}</option>
                         @endforeach

@@ -63,16 +63,6 @@
                     <label class="control-label">✱Teléfono:</label>
                     <input value="{{$paciente->telefono}}" type="text" name="telefono" class="form-control" required="">
                 </div>
-                <div class="form-group col-3">
-                    <label for="doctor_id">Doctor que recomienda:</label>
-                    <select class="form-control" name="doctor_id" id="doctor_id" required>
-                        <option value="">Seleccione</option>
-                    </select>
-                </div>
-                <div class="col-3 form-group" id="otro_doctor">
-                    <label class="control-label">Otro doctor nombre:</label>
-                    <input type="text" name="otro_doctor" class="form-control">
-                </div>
             </div>
             <div class="row">
                 @include('paciente.subnav')
