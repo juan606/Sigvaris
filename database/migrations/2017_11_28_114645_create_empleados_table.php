@@ -35,6 +35,8 @@ class CreateEmpleadosTable extends Migration
             $table->string('estado')->nullable();
             $table->string('calles')->nullable();
             $table->string('referencia')->nullable();
+            $table->integer('oficina_id')->unsigned()->nullable();
+            $table->foreign('oficina_id')->references('id')->on('oficinas');
             $table->timestampsTz();
         });
     }

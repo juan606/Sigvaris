@@ -29,7 +29,9 @@ class Empleado extends Model
                            'municipio',
                            'estado',
                            'calles',
-                           'referencia'];
+                           'referencia',
+                           'oficina_id'
+                        ];
    
 
     protected $hidden=[
@@ -50,6 +52,10 @@ class Empleado extends Model
     }
     public function faltasAdmin(){
         return $this->hasMany('App\EmpleadosFaltasAdministrativas');
+    }
+
+    public function oficina(){
+        return $this->belongsTo('App\Oficina','oficina_id');
     }
     
 }

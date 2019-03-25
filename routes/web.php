@@ -42,7 +42,7 @@ Route::get('pacientes/{paciente}/ventas', 'Venta\VentaController@createConPacien
 Route::resource('ventas', 'Venta\VentaController');
 
 Route::resource('estados', 'Estado\EstadoController');
-
+Route::resource('oficinas', 'Oficina\OficinaController');
 Route::resource('giros', 'Giro\GiroController', ['except' => 'show']);
 Route::resource('areas','Area\AreaController', ['except'=>'show']);
 Route::resource('puestos','Puesto\PuestoController', ['except'=>'show']);

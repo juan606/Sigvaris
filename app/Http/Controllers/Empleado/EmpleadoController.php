@@ -5,6 +5,7 @@ use App\EmpleadosDatosLab;
 use App\Empleado;
 use App\Area;
 use App\Puesto;
+use App\Oficina;
 use App\Sucursal;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
@@ -29,9 +30,11 @@ class EmpleadoController extends Controller
      */
     public function create()
     {
+
+        $oficinas = Oficina::get();
         $empleado = new Empleado();
         $edit = false;
-        return view('empleado.create', ['empleado' => $empleado, 'edit' => $edit]);
+        return view('empleado.create', ['empleado' => $empleado, 'edit' => $edit, 'oficinas'=>$oficinas]);
     }
 
     /**
@@ -67,8 +70,9 @@ class EmpleadoController extends Controller
     public function edit(Empleado $empleado)
     {
         //
+        $oficinas = Oficina::get();
         $edit=true;
-        return view('empleado.create',['empleado'=>$empleado,'edit'=>$edit]);
+        return view('empleado.create',['empleado'=>$empleado,'edit'=>$edit, 'oficinas'=>$oficinas]);
     }
 
     /**

@@ -136,10 +136,21 @@
 								<input type="text" class="form-control" name="referencia" id="referencia" value="{{ $empleado->referencia }}">
 							</div>
 						</div>
+						<div class="row my-3">
+							<div class="col-4 offset-4">
+								<label class="control-label" for="oficina_id">✱ Oficina:</label>
+								<select class="custom-select" required name="oficina_id" id="oficina_id">
+									<option value="">Seleccionar...</option>
+									@foreach($oficinas as $oficina)
+									<option value="{{$oficina->id}}">{{$oficina->nombre}}</option>
+									@endforeach
+								</select>
+							</div>
+						</div>
 					</div>
 					<div class="panel-footer">
 						<div class="row">
-							<div class="col-4 col-offset-4 text-center">
+							<div class="col-4 offset-4 text-center">
 								<button type="submit" class="btn btn-success"><i class="fa fa-check-circle" aria-hidden="true"></i> Guardar</button>
 							</div>
 							<div class="col-4 text-right text-danger">

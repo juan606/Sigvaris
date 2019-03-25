@@ -88,6 +88,15 @@
                     <a class="dropdown-item" href="{{route('crm.index')}}"><span>General</span><i class="fa fa-search float-right"></i></a>
                 </div>
             </li>
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    Oficinas
+                </a>
+                <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                    <a class="dropdown-item" href="{{route('oficinas.index')}}"><span>Buscar</span><i class="fa fa-search float-right"></i></a>
+                    <a class="dropdown-item" href="{{route('oficinas.create')}}"><span>Crear</span><i class="fa fa-search float-right"></i></a>
+                </div>
+            </li>
         </ul>
     </div>
 </nav>

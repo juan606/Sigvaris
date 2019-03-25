@@ -22,21 +22,27 @@
 			</div>
 			<div class="panel-body">
 				<div class="row my-4">
-					<div class="col-3">
+					<div class="col-4">
 						<label class="control-label" for="appaterno">Apellido Paterno:</label>
 						<dd>{{ $empleado->appaterno }}</dd>
 					</div>
-					<div class="col-3">
+					<div class="col-4">
 						<label class="control-label" for="apmaterno">Apellido Materno:</label>
 						<dd>{{ $empleado->apmaterno }}</dd>
 					</div>
-					<div class="col-3">
+					<div class="col-4">
 						<label class="control-label" for="nombre">Nombre(s):</label>
 						<dd>{{ $empleado->nombre }}</dd>
 					</div>
-					<div class="col-3">
+				</div>
+				<div class="row my-4">
+					<div class="col-4 offset-2">
 						<label class="control-label" for="rfc">RFC:</label>
 						<dd>{{ $empleado->rfc }}</dd>
+					</div>
+					<div class="col-4">
+						<label class="control-label" for="rfc">Oficina:</label>
+						<dd>{{ $empleado->oficina->nombre }}</dd>
 					</div>
 				</div>
 			</div>
