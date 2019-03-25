@@ -56,6 +56,11 @@
 					@endforeach
 				</table>
 			</div>
+			<div class="col-12 mt-5">
+				<div class="mx-auto" style="width: 200px;">
+				{{ $doctores->links() }}
+				</div>
+			</div>
 		</div>
 	</div>
 </div>
