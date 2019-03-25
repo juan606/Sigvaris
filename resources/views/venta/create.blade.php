@@ -39,6 +39,7 @@
                             <input type="number" name="precio" class="form-control" readonly="" value="{{$folio}}">
                         </div>
                     </div>
+                    <hr>
                     <div class="row">
                         <h3>Productos Existentes</h3>
                         <div class="col-12">
@@ -65,6 +66,7 @@
                             </table>
                         </div>
                     </div>
+                    <hr>
                     <div class="row">
                         <h3>Productos Seleccionados</h3>
                         <div class="col-12">
@@ -78,8 +80,8 @@
                                         <th>Quitar</th>
                                     </tr>
                                 </thead>
-                                <tbody id="tbody_productos">
-                                    
+                                <tbody>
+                                    <div id="tbody_productos"></div>
                                 </tbody>
                             </table>
                         </div>

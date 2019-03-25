@@ -55,7 +55,7 @@
                                         <div class="form-row">
                                             <div class="form-group col-4">
                                                 <label for="forma_contacto">✱Forma de contacto</label>
-                                                <select class="form-control" name="forma_contacto" id="forma_contacto" required="">
+                                                <select class="form-control" name="forma_contacto" required="">
                                                     <option value="">Seleccionar</option>
                                                     <option value="Telefono">Telefono</option>
                                                     <option value="Mail">Mail</option>
