@@ -14,8 +14,13 @@
                     
                 <div class="row">
                     <div class="form-group col-4">
-                        <label class="control-label" for="nombre"><i class="fa fa-asterisk" aria-hidden="true"></i> Hospital:</label>
-                        <input type="text" class="form-control" id="nombre" name="nombre" value="" required autofocus>
+                        <label class="control-label" for="hospital_id"><i class="fa fa-asterisk" aria-hidden="true"></i> Hospital:</label>
+                        <select type="select" class="form-control" name="hospital_id" id="hospital">
+							<option value="">Sin Definir</option>
+							@foreach ($hospitals as $hospital)
+								<option value="{{ $hospital->id }}">{{ $hospital->etiqueta }}/{{ $hospital->nombre }}</option>
+							@endforeach
+						</select>
                     </div>
                     <div class="form-group col-4">
                         <label class="control-label" for="apater">Dirección:</label>

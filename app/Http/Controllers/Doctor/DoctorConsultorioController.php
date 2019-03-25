@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Doctor;
 
 use App\Consultorio;
 use App\Doctor;
+use App\Hospital;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
@@ -27,8 +28,9 @@ class DoctorConsultorioController extends Controller
      */
     public function create($doctore)
     {
+        $hospitals = Hospital::get();
         $doctor = Doctor::find($doctore);
-        return view('doctorconsultorio.create', ['doctor'=>$doctor]);
+        return view('doctorconsultorio.create', ['doctor'=>$doctor, 'hospitals'=>$hospitals]);
     }
 
     /**
@@ -64,8 +66,9 @@ class DoctorConsultorioController extends Controller
      */
     public function edit($doctor, $consultorio)
     {
+        $hospitals = Hospital::get();
         $consul = Consultorio::find($consultorio);
-        return view('doctorconsultorio.edit', ['doctor'=>$consul->consultable,'consultorio'=>$consul]);
+        return view('doctorconsultorio.edit', ['doctor'=>$consul->consultable,'consultorio'=>$consul, 'hospitals'=>$hospitals]);
     }
 
     /**
@@ -78,16 +81,7 @@ class DoctorConsultorioController extends Controller
     public function update(Request $request, $doctor, $consultorio)
     {
         $consul = Consultorio::find($consultorio);
-        $consul->nombre = $request->input('nombre');
-        $consul->direccion = $request->input('direccion');
-        $consul->secretaria = $request->input('secretaria');
-        $consul->tel1 = $request->input('tel1');
-        $consul->tel2 = $request->input('tel2');
-        $consul->tel3 = $request->input('tel3');
-        $consul->mail = $request->input('mail');
-        $consul->desde = $request->input('desde');
-        $consul->hasta = $request->input('hasta');
-        $consul->save();
+        $consul->update($request->all());
         return redirect()->route('doctores.consultorios.index', ['doctor'=>$consul->consultable]);
     }
 

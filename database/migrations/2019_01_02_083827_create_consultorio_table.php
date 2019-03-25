@@ -15,9 +15,8 @@ class CreateConsultorioTable extends Migration
     {
         Schema::create('consultorios', function (Blueprint $table) {
             $table->increments('id');
-            //$table->integer('doctor_id')->unsigned();
-            //$table->foreign('doctor_id')->references('id')->on('doctores');
-            $table->string('nombre');
+            $table->integer('hospital_id')->unsigned();
+            $table->foreign('hospital_id')->references('id')->on('hospitals');
             $table->string('direccion')->nullable();
             $table->string('secretaria')->nullable();
             $table->string('tel1')->nullable();

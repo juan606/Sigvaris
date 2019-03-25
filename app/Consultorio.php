@@ -13,7 +13,7 @@ class Consultorio extends Model
     
     protected $fillable = [
     	'id',
-    	'nombre',
+    	'hospital_id',
     	'direccion',
         'secretaria',
         'tel1',
@@ -26,5 +26,9 @@ class Consultorio extends Model
 
     public function consultable(){
         return $this->morphTo();
+    }
+
+    public function hospital(){
+        return $this->belongsTo('App\Hospital', 'hospital_id');
     }
 }

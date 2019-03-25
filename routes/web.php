@@ -41,6 +41,7 @@ Route::get('pacientes/{paciente}/ventas/historial', 'Venta\VentaController@index
 Route::get('pacientes/{paciente}/ventas', 'Venta\VentaController@createConPaciente')->name('pacientes.venta');
 Route::resource('ventas', 'Venta\VentaController');
 
+Route::resource('hospitals', 'Hospital\HospitalController');
 Route::resource('estados', 'Estado\EstadoController');
 Route::resource('oficinas', 'Oficina\OficinaController');
 Route::resource('giros', 'Giro\GiroController', ['except' => 'show']);

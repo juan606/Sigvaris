@@ -22,7 +22,7 @@
             </thead>
             @foreach ($doctor->consultorios as $consultorio)
                 <tr>
-                    <td>{{$consultorio->nombre}}</td>
+                    <td>{{$consultorio->hospital->etiqueta}}/{{$consultorio->hospital->nombre}}</td>
                     <td>{{$consultorio->secretaria}}</td>
                     <td>{{$consultorio->tel1}}</td>
                     <td>{{$consultorio->mail}}</td>

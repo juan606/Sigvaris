@@ -15,8 +15,13 @@
                     
                 <div class="row">
                     <div class="form-group col-4">
-                        <label class="control-label" for="nombre"><i class="fa fa-asterisk" aria-hidden="true"></i> Hospital:</label>
-                        <input type="text" class="form-control" id="nombre" name="nombre" value="{{$consultorio->nombre}}" required autofocus>
+                        <label class="control-label" for="hospital_id"><i class="fa fa-asterisk" aria-hidden="true"></i> Hospital:</label>
+                        <select type="select" class="form-control" name="hospital_id" id="hospital_id">
+							<option id="" value="">Sin Definir</option>
+							@foreach ($hospitals as $hospital)
+								<option value="{{ $hospital->id }}" @if ($consultorio->hospital_id == $hospital->id) selected="selected" @endif>{{ $hospital->etiqueta}}/{{ $hospital->nombre }}</option>
+							@endforeach
+						</select>
                     </div>
                     <div class="form-group col-4">
                         <label class="control-label" for="apater">Dirección:</label>

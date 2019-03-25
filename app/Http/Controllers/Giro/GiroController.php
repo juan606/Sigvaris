@@ -16,7 +16,7 @@ class GiroController extends Controller
     public function index()
     {
         //
-        $giros = Giro::paginate(10);
+        $giros = Giro::get();
         return view('giro.index',['giros'=>$giros]);
     }
 
