@@ -1,63 +1,105 @@
 @extends('principal')
 @section('content')
 <div class="container">
-    <form method="POST" action="{{route('niveles.store')}}">
-        {{ csrf_field() }}
-        <div class="row">
-            <h4>Crear Nivel</h4>
-        </div>
-        <div class="row my-5">
-            <div class="col">
-                <input type="text" name="nombre" class="form-control" required placeholder="Nombre">
-            </div>
-            <div class="col">
-                <input type="text" name="etiqueta" class="form-control" required placeholder="Etiqueta">
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-4 offset-4">
-                <input type="submit" class="btn btn-success btn-lg btn-block" value="Agregar">
-            </div>
-        </div>
-    </form>
-    @if( $niveles->count() == 0)
-    <h4>No hay niveles registrados</h4>
-    @else
-    <div class="row">
-        <div class="col-12">
-            <table class="table">
-                <thead>
-                    <tr>
-                        <th>Nombre</th>
-                        <th>Etiqueta</th>
-                        <th>Operacion</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    @foreach($niveles as $nivel)
-                    <tr>
-                        <td>{{$nivel->nombre}}</td>
-                        <td>{{$nivel->etiqueta}}</td>
-                        <td>
-                            <div class="row">
-                                <div class="col-6">
-                                    <a class="btn btn-warning btn-lg btn-block" href="{{route('niveles.edit', ['nivele'=>$nivel])}}">Editar</a>
-                                </div>
-                                <div class="col-6">
-                                    <form method="POST" action="{{route('niveles.destroy', ['nivele'=>$nivel])}}">
-                                            {{ csrf_field() }}
-                                            <input type="hidden" name="_method" value="DELETE">
-                                        <button type="submit" class="btn btn-danger btn-lg btn-block">Borrar</button>
-                                    </form>
-                                </div>
-                            </div>
-                        </td>
-                    </tr>
-                    @endforeach
-                </tbody>
-            </table>
-        </div>
-    </div>
-    @endif
+	<div class="card">
+		<div class="card-header">
+			<div class="row">
+				<div class="col-6">
+					<h1>Niveles</h1>
+				</div>
+				<div class="col-6">
+					<a class="btn btn-success" href="{{ route('niveles.create') }}">
+						<strong><i class="fa fa-plus float-right"></i></strong>
+					</a>
+				</div>
+			</div>
+
+
+		</div>
+		<div class="card-body">
+			@if ($niveles->count() == 0)
+			{{-- true expr --}}
+			<label>No hay niveles añadidos</label>
+			@else
+			{{-- false expr --}}
+			<table id="precargas" class="table table-striped table-bordered table-hover"
+				style="color:rgb(51,51,51); border-collapse: collapse; margin-bottom: 0px">
+				<thead>
+					<tr class="info">
+						<th>ID</th>
+						<th>Nombre</th>
+						<th>Etiqueta</th>
+						<th>Operacion</th>
+					</tr>
+				</thead>
+				@foreach($niveles as $nivel)
+				<tr>
+					<td>
+						{{ $nivel->id }}
+					</td>
+					<td>{{ $nivel->nombre }}</td>
+					<td>{{ $nivel->etiqueta }}</td>
+					<td>
+						<div class="row">
+							<div class="col-2">
+								<a class="btn btn-warning" href="{{ route('niveles.edit',['nivel'=>$nivel]) }}">
+									<strong>
+										<i class="far fa-edit"></i>
+									</strong>
+								</a>
+							</div>
+							<div class="col-2">
+								<form role="form" method="POST" action="{{ route('niveles.destroy',['nivel'=>$nivel]) }}">
+									{{ csrf_field() }}
+									<input type="hidden" name="_method" value="DELETE">
+									<button type="submit" class="btn btn-danger" role="button">
+										<strong>
+											<i class="fa fa-trash"></i>
+										</strong>
+									</button>
+								</form>
+							</div>
+						</div>
+
+				</tr>
+				</td>
+				</tbody>
+				@endforeach
+			</table>
+			@endif
+		</div>
+	</div>
+
 </div>
+<script>
+	$(document).ready(function () {
+		$('#precargas').DataTable({
+			"language": {
+				"sProcessing": "Procesando...",
+				"sLengthMenu": "Mostrar _MENU_ registros",
+				"sZeroRecords": "No se encontraron resultados",
+				"sEmptyTable": "Ningún dato disponible en esta tabla",
+				"sInfo": "Mostrando registros del _START_ al _END_ de un total de _TOTAL_ registros",
+				"sInfoEmpty": "Mostrando registros del 0 al 0 de un total de 0 registros",
+				"sInfoFiltered": "(filtrado de un total de _MAX_ registros)",
+				"sInfoPostFix": "",
+				"sSearch": "Buscar:",
+				"sUrl": "",
+				"sInfoThousands": ",",
+				"sLoadingRecords": "Cargando...",
+				"oPaginate": {
+					"sFirst": "Primero",
+					"sLast": "Último",
+					"sNext": "Siguiente",
+					"sPrevious": "Anterior"
+				},
+				"oAria": {
+					"sSortAscending": ": Activar para ordenar la columna de manera ascendente",
+					"sSortDescending": ": Activar para ordenar la columna de manera descendente"
+				}
+			}
+		});
+	});
+</script>
+
 @endsection

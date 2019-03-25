@@ -41,10 +41,6 @@
 	  						<label class="control-label" for="rfc"><small><small><i class="fa fa-asterisk" aria-hidden="true"></i></small></small> RFC:</label>
 	  						<input type="text" class="form-control" id="rfc" name="rfc" value="{{ $proveedore->rfc }}" required>
 	  					</div>
-	  					<div class="form-group col-3">
-	  						<label class="control-label" for="vendedor">Vendedor:</label>
-	  						<input type="text" class="form-control" id="vendedor" name="vendedor" value="{{ $proveedore->vendedor }}">
-	  					</div>
 					</div>
 					<div class="row" id="perfisica">
 						<div class="form-group col-3">

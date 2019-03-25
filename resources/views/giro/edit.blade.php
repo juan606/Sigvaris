@@ -1,29 +1,38 @@
 @extends('principal')
-	@section('content')
-	<div class="container">
+@section('content')
+<div class="container">
+
+	<div class="card">
 		<form role="form" method="POST" action="{{ route('giros.update',['giro'=>$giro]) }}">
-			{{ csrf_field() }}
 			<input type="hidden" name="_method" value="PUT">
-			<div class="panel panel-default">
-				<div class="panel-heading">
-					Editar Giro&nbsp;&nbsp;&nbsp;&nbsp; <i class="fa fa-asterisk" aria-hidden="true"></i>Campos Requeridos
-				</div>
-				<div class="panel-body">
+			<div class="card-header">
+				<h1>Editar Giro </h1>
+			</div>
+			<div class="card-body">
+				{{ csrf_field() }}
+				<div class="row">
 					<div class="form-group col-6">
-						<label class="control-label" for="nombre"><i class="fa fa-asterisk" aria-hidden="true"></i>  Nombre del Giro:</label>
-	  					<input type="text" class="form-control" id="nombre" name="nombre" value="{{ $giro->nombre }}" required autofocus>
+						<label class="control-label" for="nombre"><i class="fa fa-asterisk" aria-hidden="true"></i>
+							Nombre
+							del Giro:</label>
+						<input type="text" class="form-control" id="nombre" name="nombre" value="{{ $giro->nombre }}"
+							required autofocus>
 					</div>
 					<div class="form-group col-6">
 						<label class="control-label" for="etiqueta">Etiqueta:</label>
-	  					<input type="text" class="form-control" id="etiqueta" name="etiqueta" value="{{ $giro->etiqueta }}">
+						<input type="text" class="form-control" id="etiqueta" name="etiqueta"
+							value="{{ $giro->etiqueta }}">
 					</div>
 				</div>
-				<div class="panel-body">
-					<button type="submit" class="btn btn-success">
-				<strong>Guardar</strong>	</button>
-					
-				</div>
 			</div>
-		</form>
+			<div class="card-footer text-muted">
+				<button type="submit" class="btn btn-success btn-lg btn-block">
+					<strong>Guardar</strong>
+				</button>
+			</div>
 	</div>
-	@endsection
+
+	</form>
+</div>
+
+@endsection

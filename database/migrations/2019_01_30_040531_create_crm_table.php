@@ -23,8 +23,9 @@ class CreateCrmTable extends Migration
             $table->date('fecha_aviso');
             $table->date('fecha_contacto');
             $table->string('forma_contacto');
-            $table->string('estado');
             $table->string('hora');
+            $table->integer('estado_id')->unsigned();
+            $table->foreign('estado_id')->references('id')->on('estados');
             $table->timestamps();
         });
     }

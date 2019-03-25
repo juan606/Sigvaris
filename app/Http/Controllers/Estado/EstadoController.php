@@ -1,15 +1,12 @@
 <?php
 
-namespace App\Http\Controllers\Paciente;
+namespace App\Http\Controllers\Estado;
 
-use App\Crm;
 use App\Estado;
-use UxWeb\SweetAlert\SweetAlert as Alert;
-use App\Paciente;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
-class PacienteCrmController extends Controller
+class EstadoController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -19,9 +16,7 @@ class PacienteCrmController extends Controller
     public function index()
     {
         $estados = Estado::get();
-        $pacientes = Paciente::get();
-        $crms = Crm::get();
-        return view('crm.index', ['crms'=>$crms, 'pacientes'=>$pacientes, 'estados'=>$estados]);
+        return view('estados.index',['estados'=>$estados]);
     }
 
     /**
@@ -31,7 +26,7 @@ class PacienteCrmController extends Controller
      */
     public function create()
     {
-
+        return view('estados.create');
     }
 
     /**
@@ -42,23 +37,17 @@ class PacienteCrmController extends Controller
      */
     public function store(Request $request)
     {
-        $crm = Crm::create($request->all());
-        if($crm){
-            Alert::success('Crm registrado subido correctamente.');
-            return redirect()->route('crm.index');
-        }else{
-            Alert::error('Error al registrar crm.');
-            return redirect()->back();
-        }
+        Estado::create($request->all());
+        return redirect('estados');
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  \App\Crm  $crm
+     * @param  \App\Estado  $estado
      * @return \Illuminate\Http\Response
      */
-    public function show(Crm $crm)
+    public function show(Estado $estado)
     {
         //
     }
@@ -66,39 +55,36 @@ class PacienteCrmController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Crm  $crm
+     * @param  \App\Estado  $estado
      * @return \Illuminate\Http\Response
      */
-    public function edit(Crm $crm)
+    public function edit(Estado $estado)
     {
-        //
+        return view('estados.edit',['estado'=>$estado]);
     }
 
     /**
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Crm  $crm
+     * @param  \App\Estado  $estado
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Crm $crm)
+    public function update(Request $request, Estado $estado)
     {
-        //
+        $estado->update($request->all());
+        return redirect('estados');
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Crm  $crm
+     * @param  \App\Estado  $estado
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Crm $crm)
+    public function destroy(Estado $estado)
     {
-        //
-    }
-
-    public function getCrmCliente(Paciente $paciente){
-        $estados = Estado::get();
-        return view('pacientecrm.index', ['paciente'=>$paciente, 'estados'=>$estados]);
+        $estado->delete();
+        return  redirect('estados');
     }
 }

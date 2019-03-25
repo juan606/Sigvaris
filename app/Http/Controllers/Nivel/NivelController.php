@@ -26,7 +26,7 @@ class NivelController extends Controller
      */
     public function create()
     {
-        //
+        return view('niveles.create');
     }
 
     /**
@@ -70,9 +70,9 @@ class NivelController extends Controller
      * @param  \App\nivel  $nivel
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Nivel $nivel)
+    public function update(Request $request, Nivel $nivele)
     {
-        $nivel->update($request->all());
+        $nivele->update($request->all());
         return redirect()->route('niveles.index');
     }
 

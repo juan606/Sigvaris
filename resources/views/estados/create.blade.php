@@ -3,21 +3,17 @@
 <div class="container">
 
 	<div class="card">
-		<form role="form" method="POST" action="{{ route('faltas.store') }}">
+		<form role="form" method="POST" action="{{ route('estados.store') }}">
 			<div class="card-header">
-				<h1>Nuevo Falta </h1>
+				<h1>Nuevo Estado </h1>
 			</div>
 			<div class="card-body">
 				{{ csrf_field() }}
 				<div class="row">
 					<div class="form-group col-6">
 						<label class="control-label" for="nombre"><i class="fa fa-asterisk" aria-hidden="true"></i> Nombre
-							del Falta:</label>
+							del Estado:</label>
 						<input type="text" class="form-control" id="nombre" name="nombre" required autofocus>
-					</div>
-					<div class="form-group col-6">
-						<label class="control-label" for="etiqueta">Etiqueta:</label>
-						<input type="text" class="form-control" id="etiqueta" name="etiqueta">
 					</div>
 				</div>
 			</div>

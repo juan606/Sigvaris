@@ -41,20 +41,13 @@ Route::get('pacientes/{paciente}/ventas/historial', 'Venta\VentaController@index
 Route::get('pacientes/{paciente}/ventas', 'Venta\VentaController@createConPaciente')->name('pacientes.venta');
 Route::resource('ventas', 'Venta\VentaController');
 
+Route::resource('estados', 'Estado\EstadoController');
+
 Route::resource('giros', 'Giro\GiroController', ['except' => 'show']);
 Route::resource('areas','Area\AreaController', ['except'=>'show']);
 Route::resource('puestos','Puesto\PuestoController', ['except'=>'show']);
 Route::resource('bancos','Banco\BancoController', ['except'=>'show']);
 Route::resource('bajas','Precargas\TipoBajaController');
-// Route::resource('bajas','Precargas\TipoBajaController');
-// Route::get('buscarempleado','Empleado\EmpleadoController@buscar');
-// Route::resource('personals', 'Personal\PersonalController');
-// Route::resource('personals.datoslaborales', 'Personal\PersonalDatosLabController');
-// Route::resource('personals.referenciapersonales', 'Personal\PersonalRefPersonalController');
-// Route::resource('personals.datosbeneficiario', 'Personal\PersonalBeneficiarioController');
-// Route::resource('personals.producto','Personal\PersonalProductoController');
-// Route::resource('personals.products.transactions', 'Personal\PersonalProductTransactionController',['only'=>'store']);
-// Route::resource('personals.product','Personal\PersonalProductController', ['only'=>'index']);
 Route::get('/', function () {
     return view('index');
 });

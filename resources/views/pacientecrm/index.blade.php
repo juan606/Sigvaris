@@ -45,16 +45,20 @@
                                         <div class="form-row">
                                             <div class="form-group col-4">
                                                 <label for="forma_contacto">✱Forma de contacto</label>
-                                                <input type="text" class="form-control" required="" name="forma_contacto">
+                                                <select class="form-control" name="forma_contacto" id="forma_contacto" required="">
+                                                    <option value="">Seleccionar</option>
+                                                    <option value="Telefono">Telefono</option>
+                                                    <option value="Mail">Mail</option>
+                                                    <option value="Celular">Celular</option>
+                                                </select>
                                             </div>
                                             <div class="form-group col-4">
                                                 <label for="estado">✱Estado</label>
-                                                <select class="form-control" name="estado" required="">
+                                                <select class="form-control" name="estado_id" required="">
                                                     <option value="">Seleccionar</option>
-                                                    <option value="1">1</option>
-                                                    <option value="2">2</option>
-                                                    <option value="3">3</option>
-                                                    <option value="4">4</option>
+                                                    @foreach($estados as $estado)
+                                                    <option value="{{$estado->id}}">{{$estado->nombre}}</option>
+                                                    @endforeach
                                                 </select>
                                             </div>
                                             <div class="form-group col-4">
@@ -180,7 +184,7 @@
                         <td>{{$crm->fecha_aviso}}</td>
                         <td>{{$crm->fecha_contacto}}</td>
                         <td>{{$crm->forma_contacto}}</td>
-                        <td>{{$crm->estado}}</td>
+                        <td>{{$crm->estado->nombre}}</td>
                         <td>{{$crm->hora}}</td>
                         <td>
                             <button type="button" onclick="mostrarCrm('{{$crm}}')" class="btn btn-primary">Ver</button>
@@ -210,7 +214,7 @@ function mostrarCrm(data){
     $('#fecha_aviso').val(crm.fecha_aviso);
     $('#fecha_contacto').val(crm.fecha_contacto);
     $('#forma_contacto').val(crm.forma_contacto);
-    $('#estado').val(crm.estado);
+    $('#estado').val(crm.estado.nombre);
     $('#hora').val(crm.hora);
     $('#ver_crm_modal').modal('show');
 }

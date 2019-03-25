@@ -18,11 +18,15 @@ class Crm extends Model
         'fecha_aviso',
         'fecha_contacto',
         'forma_contacto',
-        'estado',
-        'hora'
+        'hora',
+        'estado_id'
     ];
 
     public function paciente(){
         return $this->belongsTo(Paciente::class,'paciente_id');
+    }
+
+    public function estado(){
+        return $this->belongsTo(Estado::class, 'estado_id');
     }
 }

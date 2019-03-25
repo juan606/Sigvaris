@@ -5,10 +5,10 @@
 		<div class="card-header">
 			<div class="row">
 				<div class="col-6">
-					<h1>Bancos</h1>
+					<h1>Estados</h1>
 				</div>
 				<div class="col-6">
-					<a class="btn btn-success" href="{{ route('bancos.create') }}">
+					<a class="btn btn-success" href="{{ route('estados.create') }}">
 						<strong><i class="fa fa-plus float-right"></i></strong>
 					</a>
 				</div>
@@ -17,39 +17,34 @@
 
 		</div>
 		<div class="card-body">
-			@if ($bancos->count() == 0)
-			{{-- true expr --}}
-			<label>No hay bancos añadidos</label>
+			@if ($estados->count() == 0)
+			<label>No hay estados añadidos</label>
 			@else
-			{{-- false expr --}}
-			<table id="precargas" class="table table-striped table-bordered table-hover"
-				style="color:rgb(51,51,51); border-collapse: collapse; margin-bottom: 0px">
+			<table id="precargas" class="table table-striped table-bordered table-hover">
 				<thead>
 					<tr class="info">
 						<th>ID</th>
-						<th>Nombre</th>
-						<th>Etiqueta</th>
-						<th>Operacion</th>
+						<th>Estado</th>
+						<th>Operación</th>
 					</tr>
 				</thead>
-				@foreach($bancos as $banco)
+				@foreach($estados as $estado)
 				<tr>
 					<td>
-						{{ $banco->id }}
+						{{ $estado->id }}
 					</td>
-					<td>{{ $banco->nombre }}</td>
-					<td>{{ $banco->etiqueta }}</td>
+					<td>{{ $estado->nombre }}</td>
 					<td>
 						<div class="row">
 							<div class="col-2">
-								<a class="btn btn-warning" href="{{ route('bancos.edit',['banco'=>$banco]) }}">
+								<a class="btn btn-warning" href="{{ route('estados.edit',['estado'=>$estado]) }}">
 									<strong>
 										<i class="far fa-edit"></i>
 									</strong>
 								</a>
 							</div>
 							<div class="col-2">
-								<form role="form" method="POST" action="{{ route('bancos.destroy',['banco'=>$banco]) }}">
+								<form role="form" method="POST" action="{{ route('estados.destroy',['estado'=>$estado]) }}">
 									{{ csrf_field() }}
 									<input type="hidden" name="_method" value="DELETE">
 									<button type="submit" class="btn btn-danger" role="button">
