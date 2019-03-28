@@ -104,7 +104,7 @@
                 </a>
                 <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                     <a class="dropdown-item" href="{{route('roles.index')}}"><span>Roles</span><i class="fa fa-search float-right"></i></a>
-                    <a class="dropdown-item" href="{{route('usuarios.create')}}"><span>Usuarios</span><i class="fa fa-search float-right"></i></a>
+                    <a class="dropdown-item" href="{{route('usuarios.index')}}"><span>Usuarios</span><i class="fa fa-search float-right"></i></a>
                 </div>
             </li>
         </ul>

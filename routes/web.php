@@ -50,7 +50,7 @@ Route::resource('bancos','Banco\BancoController', ['except'=>'show']);
 Route::resource('bajas','Precargas\TipoBajaController');
 
 Route::resource('roles','Role\RoleController');
-Route::resource('usuarios','Usuario\UsuarioController');
+Route::resource('usuarios','User\UserController');
 
 // Route::get('/', function () {
 //     return view('index');
