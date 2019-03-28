@@ -1,7 +1,6 @@
 <?php
 
 Route::resource('proveedores','Proveedor\ProveedorController');
-// Route::resource('proveedores.direccionFiscal','Proveedor\ProveedorDireccionFiscalController');
 Route::resource('proveedores.direccionfisica','Proveedor\ProveedorDireccionFisicaController');
 Route::resource('proveedores.datosgenerales','Proveedor\ProveedorDatosGeneralesController');
 Route::resource('proveedores.contacto','Proveedor\ProveedorContactoController');
@@ -52,3 +51,9 @@ Route::resource('bajas','Precargas\TipoBajaController');
 Route::get('/', function () {
     return view('index');
 });
+
+// Route::get('/', function () {
+//     return view('auth.login');
+// });
+
+Route::post('login', 'Auth\LoginController@login')->name('login');
