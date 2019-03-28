@@ -6,13 +6,13 @@ use Illuminate\Database\Eloquent\Model;
 
 class Role extends Model
 {
-    protected $table='proveedores';
+    protected $table='roles';
     public $timestamps = false;
 
     protected $fillable = [
         'id',
         'nombre',
-        'preveedores',
+        'proveedores',
         'pacientes',
         'doctores',
         'recursos_humanos',
@@ -23,7 +23,4 @@ class Role extends Model
         'oficinas',
     ];
 
-    public function users(){
-        return $this->hasMany('App\User');
-    }
 }

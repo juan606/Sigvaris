@@ -48,12 +48,18 @@ Route::resource('areas','Area\AreaController', ['except'=>'show']);
 Route::resource('puestos','Puesto\PuestoController', ['except'=>'show']);
 Route::resource('bancos','Banco\BancoController', ['except'=>'show']);
 Route::resource('bajas','Precargas\TipoBajaController');
-Route::get('/', function () {
-    return view('index');
-});
+
+Route::resource('roles','Role\RoleController');
+Route::resource('usuarios','Usuario\UsuarioController');
 
 // Route::get('/', function () {
-//     return view('auth.login');
+//     return view('index');
 // });
+
+Route::get('/', function () {
+    return view('auth.login');
+});
+
+Route::get('inicio', 'InicioController@index')->name('inicio');
 
 Route::post('login', 'Auth\LoginController@login')->name('login');

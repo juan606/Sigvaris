@@ -9,7 +9,7 @@
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav mr-auto">
             <li class="nav-item dropdown active">
-                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown">
                     Proveedores
                 </a>
                 <div class="dropdown-menu" aria-labelledby="navbarDropdown">
@@ -18,7 +18,7 @@
                 </div>
             </li>
             <li class="nav-item dropdown active">
-                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown">
                     Pacientes
                 </a>
                 <div class="dropdown-menu" aria-labelledby="navbarDropdown">
@@ -27,7 +27,7 @@
                 </div>
             </li>
             <li class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown">
                     Doctores
                 </a>
                 <div class="dropdown-menu" aria-labelledby="navbarDropdown">
@@ -36,7 +36,7 @@
                 </div>
             </li>
             <li class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown">
                     Recursos Humanos
                 </a>
                 <div class="dropdown-menu" aria-labelledby="navbarDropdown">
@@ -45,7 +45,7 @@
                 </div>
             </li>
             <li class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown">
                     Precargas
                 </a>
                 <div class="dropdown-menu" aria-labelledby="navbarDropdown">
@@ -63,7 +63,7 @@
                 </div>
             </li>
             <li class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown">
                     Punto de Venta
                 </a>
                 <div class="dropdown-menu" aria-labelledby="navbarDropdown">
@@ -72,7 +72,7 @@
                 </div>
             </li>
             <li class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown">
                     Productos
                 </a>
                 <div class="dropdown-menu" aria-labelledby="navbarDropdown">
@@ -82,7 +82,7 @@
                 </div>
             </li>
             <li class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown">
                     C.R.M.
                 </a>
                 <div class="dropdown-menu" aria-labelledby="navbarDropdown">
@@ -90,12 +90,21 @@
                 </div>
             </li>
             <li class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown">
                     Oficinas
                 </a>
                 <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                     <a class="dropdown-item" href="{{route('oficinas.index')}}"><span>Buscar</span><i class="fa fa-search float-right"></i></a>
-                    <a class="dropdown-item" href="{{route('oficinas.create')}}"><span>Crear</span><i class="fa fa-search float-right"></i></a>
+                    <a class="dropdown-item" href="{{route('oficinas.create')}}"><span>Crear</span><i class="fa fa-plus float-right"></i></a>
+                </div>
+            </li>
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown">
+                    Usuarios
+                </a>
+                <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                    <a class="dropdown-item" href="{{route('roles.index')}}"><span>Roles</span><i class="fa fa-search float-right"></i></a>
+                    <a class="dropdown-item" href="{{route('usuarios.create')}}"><span>Usuarios</span><i class="fa fa-search float-right"></i></a>
                 </div>
             </li>
         </ul>

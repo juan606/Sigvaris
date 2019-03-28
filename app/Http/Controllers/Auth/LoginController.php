@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
-
+use Illuminate\Support\Facades\Auth;
 class LoginController extends Controller
 {
     public function login(){
@@ -13,9 +13,9 @@ class LoginController extends Controller
         ]);
 
         if(Auth::attempt($credentials)){
-            return "correcto";
+            return redirect()->route('inicio');
         }else{
-            return "error";
+            return " back()";
         }
     }
 }
