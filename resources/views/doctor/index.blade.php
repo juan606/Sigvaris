@@ -1,6 +1,61 @@
 @extends('principal')
 @section('content')
 
+<script type="text/javascript">
+
+	function confirmacion(doctor_id){
+		swal("¿Esta seguro de eliminar este doctor?", {
+  buttons: {
+  	Si: true,
+    cancel: "No",    
+  },
+})
+.then((value) => {
+  switch (value) {
+ 
+    case "Si":
+      swal({  
+  text: "El doctor se eliminara permanentemente",
+  icon: "warning",
+  buttons: true,
+  dangerMode: true,
+})
+.then((willDelete) => {
+  if (willDelete) {
+    swal("Se ha dado de baja al doctor", {
+      icon: "success",
+    });
+  	$("#form-doctor"+doctor_id).submit()
+  } else {
+    swal("Se ha cancelado la baja");
+  }
+});
+      break;     
+    
+  }
+});
+	}
+// 	function confirmacion(doctor_id){
+// 		swal({
+//   title: "¿Eliminar doctor?",
+//   text: "¿Estas seguro de eliminar este doctor?",
+//   icon: "warning",
+//   buttons: true,
+//   dangerMode: true,
+// })
+// .then((willDelete) => {
+//   if (willDelete) {
+//     swal("Poof! Your imaginary file has been deleted!", {
+//       icon: "success",
+//     });
+//   	$("#form-doctor"+doctor_id).submit()
+//   } else {
+//     swal("Your imaginary file is safe!");
+//   }
+// });
+// 	}
+</script>
+
 <div class="card">
 	<div class="card-header">
 		<div class="row">
@@ -24,6 +79,7 @@
 						<th>Apellido Paterno</th>
 						<th>Apellido Materno</th>
 						<th>Nacimiento</th>
+						<th>Estatus</th>
 						<th>Operación</th>
 					</tr>
 					@foreach($doctores as $doctor)
@@ -33,6 +89,14 @@
 							<td>{{ $doctor->apellidopaterno }}</td>
 							<td>{{ $doctor->apellidomaterno }}</td>
 							<td>{{ $doctor->nacimiento }}</td>
+							<td><script type="text/javascript">
+								if({{ $doctor->activo }})
+									document.write("Activo");
+								else
+									document.write("Inactivo");
+							</script>
+								{{-- {{ $doctor->activo }} --}}
+							</td>
 							<td>
 
 
@@ -42,11 +106,12 @@
                                         <a href="{{route('doctores.edit', ['doctor'=>$doctor])}}" class="btn btn-warning"><i class="fas fa-edit"></i><strong> Editar</strong></a>
                                         
                                     </div>
+                                    
                                     <div class="col pl-0">
-                                        <form role="form" name="doctorborrar" id="form-doctor" method="POST" action="{{ route('doctores.destroy', ['doctor'=>$doctor]) }}" name="form">
-                                            {{ csrf_field() }}
-                                            {{ method_field('DELETE') }}
-                                            <button type="submit" class="btn btn-danger"><i class="far fa-trash-alt"></i><strong> Borrar</strong></button>
+                                        <form role="form" name="doctorborrar" id="form-doctor{{ $doctor->id }}" method="post" action="{{ url('doctores/'.$doctor->id.'/Borrar') }}" name="form">
+                                        @method('DELETE')
+    									@csrf
+                                            <button class="btn btn-danger" type="button" id="butonBorrar" onclick="confirmacion({{$doctor->id}})"><i class="far fa-trash-alt"></i><strong> Borrar</strong></button>
                                         </form>
                                     </div>
                                 </div>

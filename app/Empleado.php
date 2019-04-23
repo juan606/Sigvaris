@@ -30,7 +30,8 @@ class Empleado extends Model
                            'estado',
                            'calles',
                            'referencia',
-                           'oficina_id'
+                           'oficina_id',
+                           'activo'
                         ];
    
 
@@ -56,6 +57,10 @@ class Empleado extends Model
 
     public function oficina(){
         return $this->belongsTo('App\Oficina','oficina_id');
+    }
+
+    public function baja(){
+      return $this->hasOne('App/EmpleadoBaja');
     }
     
 }

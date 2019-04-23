@@ -17,10 +17,11 @@ class CreateDoctorTable extends Migration
             $table->increments('id');
             $table->string('nombre');
             $table->string('apellidopaterno');
-            $table->string('apellidomaterno');
-            $table->string('celular');
-            $table->string('mail');
-            $table->string('nacimiento');
+            $table->string('apellidomaterno')->nullable();
+            $table->string('celular')->nullable();
+            $table->string('mail')->nullable();
+            $table->string('nacimiento')->nullable();
+            $table->boolean('activo')->default(1);
             $table->softDeletes();
         });
     }

@@ -28,6 +28,9 @@
 										<th>Apellido Paterno</th>
 										<th>Apellido Materno</th>
 										<th>R.F.C.</th>
+										<th>Oficina</th>
+										<th>Estatus
+										</th>
 										<th class="text-center">Acciones</th>
 									</tr>
 								</thead>
@@ -38,12 +41,17 @@
 										<td>{{$empleado->appaterno}}</td>
 										<td>{{$empleado->apmaterno}}</td>
 										<td>{{$empleado->rfc}}</td>
+										<td>{{$empleado->oficina->nombre}}</td>
+										<td>{{$empleado->activo}}</td>
 										<td class="text-center">
 											<a class="btn btn-primary btn-sm" href="{{ route('empleados.show',['empleado'=>$empleado]) }}">
 												<i class="fa fa-eye" aria-hidden="true"></i><strong> Ver</strong>
 											</a>
-											<a class="btn btn-danger btn-sm" href="{{ route('empleados.edit',['empleado'=>$empleado]) }}">
+											<a class="btn btn-info btn-sm" href="{{ route('empleados.edit',['empleado'=>$empleado]) }}">
 												<i class="fa fa-pencil" aria-hidden="true"></i><strong> Editar</strong>
+											</a>
+											<a class="btn btn-danger btn-sm" href="{{ url('empleados/'.$empleado->id.'/EmpledoBaja') }}">
+												<i class="fas fa-trash-alt" aria-hidden="true"></i><strong> Borrar</strong>
 											</a>
 										</td>
 									</tr>

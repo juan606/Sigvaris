@@ -1,5 +1,18 @@
 <?php
 
+// Route::get('/', function () {
+//     return view('index');
+// });
+
+Route::get('/', function () {
+    return view('auth.login');
+});
+
+Route::get('inicio', 'InicioController@index')->name('inicio');
+// Route::get('/login', function(){echo
+// "hello"});
+Route::post('login', 'Auth\LoginController@login')->name('login');
+
 Route::resource('proveedores','Proveedor\ProveedorController');
 Route::resource('proveedores.direccionfisica','Proveedor\ProveedorDireccionFisicaController');
 Route::resource('proveedores.datosgenerales','Proveedor\ProveedorDatosGeneralesController');
@@ -7,6 +20,7 @@ Route::resource('proveedores.contacto','Proveedor\ProveedorContactoController');
 Route::resource('proveedores.datosbancarios','Proveedor\ProveedorDatosBancariosController');
 
 Route::resource('doctores','Doctor\DoctorController');
+Route::delete('doctores/{doctor}/Borrar','Doctor\DoctorController@borrar');
 Route::resource('doctores.consultorios','Doctor\DoctorConsultorioController');
 Route::resource('doctores.especialidades','Doctor\DoctorEspecialidadController');
 Route::resource('doctores.premios','Doctor\DoctorPremioController');
@@ -18,6 +32,10 @@ Route::resource('empleados.estudios','Empleado\EmpleadosEstudiosController');
 Route::resource('empleados.emergencias','Empleado\EmpleadosEmergenciasController');
 Route::resource('empleados.vacaciones','Empleado\EmpleadosVacacionesController');
 Route::resource('empleados.faltas','Empleado\EmpleadosFaltasAdministrativasController');
+
+Route::get('empleados/{empleado}/EmpledoBaja','Empleado\EmpleadoBajaController@create');
+Route::post('empleados/{empleado}/EmpledoBaja/store','Empleado\EmpleadoBajaController@store');
+
 Route::get('getfaltas','Falta\FaltaController@getFaltas');
 Route::resource('faltas','Falta\FaltaController', ['except'=>'show']);
 Route::resource('niveles', 'Nivel\NivelController');
@@ -52,14 +70,3 @@ Route::resource('bajas','Precargas\TipoBajaController');
 Route::resource('roles','Role\RoleController');
 Route::resource('usuarios','User\UserController');
 
-// Route::get('/', function () {
-//     return view('index');
-// });
-
-Route::get('/', function () {
-    return view('auth.login');
-});
-
-Route::get('inicio', 'InicioController@index')->name('inicio');
-
-Route::post('login', 'Auth\LoginController@login')->name('login');

@@ -18,7 +18,7 @@ class CreatePacientesTable extends Migration
             $table->string('nombre');
             $table->string('materno');
             $table->string('paterno');
-            $table->string('nacimiento');
+            $table->date('nacimiento')->nullable();
             $table->string('rfc');
             $table->string('celular');
             $table->string('telefono');

@@ -27,22 +27,22 @@
                     <input type="text" name="apellidopaterno" class="form-control" required="">
                 </div>
                 <div class="col-3 form-group">
-                    <label class="control-label">✱Apellido Materno:</label>
-                    <input type="text" name="apellidomaterno" class="form-control" required="">
+                    <label class="control-label">Apellido Materno:</label>
+                    <input type="text" name="apellidomaterno" class="form-control">
                 </div>
                 <div class="col-3 form-group">
-                    <label class="control-label">✱Celular:</label>
-                    <input type="number" name="celular" class="form-control" required="">
+                    <label class="control-label">Celular:</label>
+                    <input type="number" name="celular" class="form-control">
                 </div>
             </div>
             <div class="row">
                 <div class="col-3 form-group">
-                    <label class="control-label">✱Correo:</label>
-                    <input type="email" name="mail" class="form-control" required="">
+                    <label class="control-label">Correo:</label>
+                    <input type="email" name="mail" class="form-control">
                 </div>
                 <div class="col-3 form-group">
-                    <label class="control-label">✱Fecha nacimiento:</label>
-                    <input type="date" name="nacimiento" class="form-control" required="">
+                    <label class="control-label">Fecha nacimiento:</label>
+                    <input type="date" name="nacimiento" class="form-control">
                 </div>
             </div>
         </div>

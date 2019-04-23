@@ -20,7 +20,8 @@ class Doctor extends Model
         'apellidomaterno',
         'celular',
         'mail',
-        'nacimiento'
+        'nacimiento',
+        'activo'
         ];
 
         public function consultorios(){

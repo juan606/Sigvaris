@@ -95,7 +95,7 @@ class DoctorController extends Controller
     public function destroy($doctor)
     {
         $temp = Doctor::find($doctor);
-        $temp->delete();
+        $temp->activo=0;
         $doctores = Doctor::get();
         return view('doctor.index', ['doctores'=>$doctores]);
     }
@@ -104,5 +104,18 @@ class DoctorController extends Controller
         $doctores = Doctor::get();
         return view('doctor.options', ['doctores'=>$doctores]);
     }
-
+    
+    public function borrar(Doctor $doctor)
+    {
+ //        echo "<script language='javascript'> swal({
+ //   title: '¡ERROR!',
+ //   text: 'Esto es un mensaje de error',
+ //   type: 'error',
+ // });</script>";
+        $doctor->activo=0;
+        $doctor->save();
+        return back();
+    }
 }
+
+

@@ -41,8 +41,8 @@
                     <input type="email" name="mail" class="form-control" required="">
                 </div>
                 <div class="col-3 form-group">
-                    <label class="control-label">✱Fecha nacimiento:</label>
-                    <input type="date" name="nacimiento" class="form-control" required="">
+                    <label class="control-label">Fecha nacimiento:</label>
+                    <input type="date" name="nacimiento" class="form-control">
                 </div>
                 <div class="col-3 form-group">
                     <label class="control-label">✱RFC:</label>
