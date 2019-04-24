@@ -14,6 +14,13 @@
 							<i class="fa fa-plus" aria-hidden="true"></i><strong> Agregar Empleado</strong>
 						</a>
 					</div>
+			<div class="search-container">
+			    <form action="empleados">
+			      <input type="text" placeholder="Search.." name="search">
+			      <button type="submit"><i class="fa fa-search"></i></button>
+			    </form>
+			</div>					
+
 				</div>
 			</div>
 			<div class="panel-body">
@@ -42,7 +49,7 @@
 										<td>{{$empleado->apmaterno}}</td>
 										<td>{{$empleado->rfc}}</td>
 										<td>{{$empleado->oficina->nombre}}</td>
-										<td>{{$empleado->activo}}</td>
+										<td>{{$empleado->activo?"Activo":"Inactivo"}}</td>
 										<td class="text-center">
 											<a class="btn btn-primary btn-sm" href="{{ route('empleados.show',['empleado'=>$empleado]) }}">
 												<i class="fa fa-eye" aria-hidden="true"></i><strong> Ver</strong>
@@ -50,7 +57,7 @@
 											<a class="btn btn-info btn-sm" href="{{ route('empleados.edit',['empleado'=>$empleado]) }}">
 												<i class="fa fa-pencil" aria-hidden="true"></i><strong> Editar</strong>
 											</a>
-											<a class="btn btn-danger btn-sm" href="{{ url('empleados/'.$empleado->id.'/EmpledoBaja') }}">
+											<a class="btn btn-danger btn-sm {{$empleado->activo?"":"d-none"}}" href="{{ url('empleados/'.$empleado->id.'/EmpledoBaja') }}">
 												<i class="fas fa-trash-alt" aria-hidden="true"></i><strong> Borrar</strong>
 											</a>
 										</td>

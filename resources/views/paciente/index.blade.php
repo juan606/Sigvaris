@@ -12,15 +12,22 @@
 					<i class="fa fa-plus"></i><strong> Agregar Paciente</strong>
 				</a>
 			</div>
+			<div class="search-container">
+			    <form action="/pacientes">
+			      <input type="text" placeholder="Search.." name="search">
+			      <button type="submit"><i class="fa fa-search"></i></button>
+			    </form>
+			  </div>
+			</div>
 		</div>
 	</div>
 	<div class="card-body">
 		<div class="row">
 			<div class="col-12">
-				<table class="table table-striped table-bordered table-hover" style="margin-bottom: 0px">
+				<table class="table table-striped table-bordered table-hover" style="margin-bottom: 0px" id="tablaPacientes">
 					<tr class="info">
 						<th>Id Paciente</th>
-						<th>Nobre</th>
+						<th>Nombre</th>
 						<th>Apellido Paterno</th>
 						<th>Apellido Materno</th>
 						<th>Nacimiento</th>
@@ -55,9 +62,41 @@
 						</tr>
 					@endforeach
 				</table>
+				{{$pacientes->links()}}
 			</div>
 		</div>
 	</div>
 </div>
+<script type="text/javascript">
+	$(document).ready(function () {
+		$('#tablaPacientes').DataTable({
+			"language": {
+				"sProcessing": "Procesando...",
+				"sLengthMenu": "Mostrar _MENU_ registros",
+				"sZeroRecords": "No se encontraron resultados",
+				"sEmptyTable": "Ningún dato disponible en esta tabla",
+				"sInfo": "Mostrando registros del _START_ al _END_ de un total de _TOTAL_ registros",
+				"sInfoEmpty": "Mostrando registros del 0 al 0 de un total de 0 registros",
+				"sInfoFiltered": "(filtrado de un total de _MAX_ registros)",
+				"sInfoPostFix": "",
+				"sSearch": "Buscar:",
+				"sUrl": "",
+				"sInfoThousands": ",",
+				"sLoadingRecords": "Cargando...",
+				"oPaginate": {
+					"sFirst": "Primero",
+					"sLast": "Último",
+					"sNext": "Siguiente",
+					"sPrevious": "Anterior"
+				},
+				"oAria": {
+					"sSortAscending": ": Activar para ordenar la columna de manera ascendente",
+					"sSortDescending": ": Activar para ordenar la columna de manera descendente"
+				}
+			}
+		});
+	});
+</script>
+
 
 @endsection

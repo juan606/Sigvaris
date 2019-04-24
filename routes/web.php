@@ -20,6 +20,7 @@ Route::resource('proveedores.contacto','Proveedor\ProveedorContactoController');
 Route::resource('proveedores.datosbancarios','Proveedor\ProveedorDatosBancariosController');
 
 Route::resource('doctores','Doctor\DoctorController');
+Route::get('doctores/i','Doctor\DoctorController@index');
 Route::delete('doctores/{doctor}/Borrar','Doctor\DoctorController@borrar');
 Route::resource('doctores.consultorios','Doctor\DoctorConsultorioController');
 Route::resource('doctores.especialidades','Doctor\DoctorEspecialidadController');
@@ -41,6 +42,7 @@ Route::resource('faltas','Falta\FaltaController', ['except'=>'show']);
 Route::resource('niveles', 'Nivel\NivelController');
 
 Route::resource('pacientes', 'Paciente\PacienteController');
+// Route::get('pacientes','Paciente\PacienteController@index');
 Route::resource('pacientes.tallas', 'Paciente\PacienteTallaController');
 Route::resource('crm', 'Paciente\PacienteCrmController');
 Route::get('pacientes/{paciente}/crm', 'Paciente\PacienteCrmController@getCrmCliente')->name('getCrmsPorCliente');

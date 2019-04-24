@@ -17,9 +17,21 @@ class EmpleadoController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        $empleados = Empleado::get();
+        $busqueda=$request->search;
+        if($busqueda)
+        {
+            $palabras_busqueda=explode(" ",$busqueda);
+            $empleados=Empleado::where(function($query)use($palabras_busqueda){
+
+                foreach ($palabras_busqueda as $palabra) {
+                    $query->where('nombre','like',"%$palabra%" )->orWhere('appaterno','like',"%$palabra%")->orWhere('apmaterno','like',"%$palabra%"); 
+                }
+            })->paginate(10);    
+        }
+        else
+            $empleados = Empleado::get();
         return view('empleado.index', ['empleados' => $empleados]);
     }
 

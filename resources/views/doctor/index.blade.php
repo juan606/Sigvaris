@@ -65,8 +65,15 @@
 			<div class="col-4 text-center">
 				<a href="{{ route('doctores.create') }}" class="btn btn-success">
 					<i class="fa fa-plus"></i><strong> Agregar Doctor</strong>
-				</a>
+				</a>				
 			</div>
+			<div class="search-container">
+			    <form action="doctores">
+			      <input type="text" placeholder="Search.." name="search">
+			      <button type="submit"><i class="fa fa-search"></i></button>
+			    </form>
+			</div>
+			
 		</div>
 	</div>
 	<div class="card-body">
@@ -111,7 +118,7 @@
                                         <form role="form" name="doctorborrar" id="form-doctor{{ $doctor->id }}" method="post" action="{{ url('doctores/'.$doctor->id.'/Borrar') }}" name="form">
                                         @method('DELETE')
     									@csrf
-                                            <button class="btn btn-danger" type="button" id="butonBorrar" onclick="confirmacion({{$doctor->id}})"><i class="far fa-trash-alt"></i><strong> Borrar</strong></button>
+                                            <button class="btn btn-danger {{$doctor->activo?"":"d-none"}}" type="button" id="butonBorrar" onclick="confirmacion({{$doctor->id}})"><i class="far fa-trash-alt"></i><strong> Borrar</strong></button>
                                         </form>
                                     </div>
                                 </div>

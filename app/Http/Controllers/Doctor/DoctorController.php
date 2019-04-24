@@ -7,6 +7,7 @@ use UxWeb\SweetAlert\SweetAlert as Alert;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
+
 class DoctorController extends Controller
 {
     /**
@@ -14,9 +15,24 @@ class DoctorController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        $doctores = Doctor::paginate(10);
+        $busqueda=$request->search;
+        if($busqueda)
+        {
+            $palabras_busqueda=explode(" ",$busqueda);
+            $doctores=Doctor::where(function($query)use($palabras_busqueda){
+
+                foreach ($palabras_busqueda as $palabra) {
+                    $query->where('nombre','like',"%$palabra%" )->orWhere('apellidopaterno','like',"%$palabra%")->orWhere('apellidomaterno','like',"%$palabra%"); 
+                }
+            })->paginate(10);    
+        }
+        else
+        {
+            $doctores = Doctor::paginate(10);
+        }
+
         return view('doctor.index', ['doctores'=> $doctores]);
     }
 
