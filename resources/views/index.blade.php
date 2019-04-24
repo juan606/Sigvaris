@@ -8,9 +8,6 @@
     <h5>
       Bienvenido {{auth()->user()->name}}
     </h5>
-  </div>
-  <div class="card-body">
-    <h5 class="card-title">Página en desarrollo.</h5>
-  </div>
+  </div>  
 </div>
 @endsection
