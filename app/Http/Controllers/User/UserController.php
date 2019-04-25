@@ -7,6 +7,9 @@ use App\Role;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
+use UxWeb\SweetAlert\SweetAlert as Alert;
+use DB;
+use App\Quotation;
 
 
 class UserController extends Controller
@@ -32,7 +35,7 @@ class UserController extends Controller
     }
     public function index()
     {
-        $usuarios = User::get();
+        $usuarios = User::get();        
         return view('users.index', ['users'=>$usuarios]);
     }
 
@@ -55,13 +58,43 @@ class UserController extends Controller
      */
     public function store(Request $request)
     {
+        $invalidarC=0;
+        $invalidarN=0;
+        $roles = Role::get();
         $usuario = new User;
         $usuario->name = $request->name;
         $usuario->email = $request->email;
         $usuario->password = bcrypt($request->password);
         $usuario->role_id = $request->role_id;
-        $usuario->save();
-        return redirect()->route('usuarios.index');
+        $usuario_verificacion=DB::table('users')->get();
+        foreach ($usuario_verificacion as $U) {
+            if($U->email==$usuario->email)
+            {
+                $invalidarC++;
+            }
+            if($U->name==$usuario->name)
+            {
+                $invalidarN++;
+            }
+        }
+        if($invalidarC || $invalidarN)
+        {
+            if ($invalidarC) {
+                Alert::error('Porfavor ingrese uno diferente','¡Este correo ya existe!');
+            }
+            if($invalidarN)
+            {
+                Alert::error('Porfavor ingrese uno diferente','¡Este nombre ya existe!');
+                                
+            }
+            
+            return view('users.create', ['roles'=>$roles]);
+        }
+        else{
+            $usuario->save();
+            return redirect()->route('usuarios.index');
+        }
+        
     }
 
     /**
