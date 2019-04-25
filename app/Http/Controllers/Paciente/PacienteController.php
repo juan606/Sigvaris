@@ -24,12 +24,12 @@ class PacienteController extends Controller
                 {
                     return $next($request);
                 }                
-                return redirect('/');
+                return redirect('/inicio');
                  
-            }            
+            }
+            return redirect('/');            
         });
     }
-
     public function index(Request $request)
     {
         $busqueda=$request->search;
