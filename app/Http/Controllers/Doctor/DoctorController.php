@@ -6,6 +6,7 @@ use App\Doctor;
 use UxWeb\SweetAlert\SweetAlert as Alert;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Auth;
 
 
 class DoctorController extends Controller
@@ -15,6 +16,21 @@ class DoctorController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+    public function __construct() {
+        $this->middleware(function ($request, $next) {
+            if(Auth::check()) {
+                if(Auth::user()->role->doctores)
+                {
+                    return $next($request);
+                }                
+                return redirect('/inicio');
+                 
+            }
+            return redirect('/');            
+        });
+    }
+
+
     public function index(Request $request)
     {
         $busqueda=$request->search;

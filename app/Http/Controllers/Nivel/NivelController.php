@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Nivel;
 use App\Nivel;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Auth;
 
 class NivelController extends Controller
 {
@@ -13,6 +14,19 @@ class NivelController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+    public function __construct() {
+        $this->middleware(function ($request, $next) {
+            if(Auth::check()) {
+                if(Auth::user()->role->precargas)
+                {
+                    return $next($request);
+                }                
+             return redirect('/inicio');
+                 
+            }
+            return redirect('/'); 
+        });
+    }
     public function index()
     {
         $niveles = Nivel::get();

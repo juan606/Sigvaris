@@ -6,6 +6,7 @@ use UxWeb\SweetAlert\SweetAlert as Alert;
 use App\Proveedor;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Auth;
 
 class ProveedorController extends Controller
 {
@@ -14,6 +15,20 @@ class ProveedorController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+
+   public function __construct() {
+        $this->middleware(function ($request, $next) {
+            if(Auth::check()) {
+                if(Auth::user()->role->proveedores)
+                {
+                    return $next($request);
+                }                
+             return redirect('/inicio');
+                 
+            }
+            return redirect('/');            
+        });
+    }
     public function index()
     {
         //

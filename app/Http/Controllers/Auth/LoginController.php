@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Http\Request;
 class LoginController extends Controller
 {
     public function login(){
@@ -17,5 +18,10 @@ class LoginController extends Controller
         }else{
             return  back();
         }
+    }
+
+    public function logout(Request $request) {
+      Auth::logout();
+      return redirect('/');
     }
 }

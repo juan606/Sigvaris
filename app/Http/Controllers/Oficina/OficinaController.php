@@ -5,6 +5,8 @@ namespace App\Http\Controllers\Oficina;
 use App\Oficina;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Auth;
+
 
 class OficinaController extends Controller
 {
@@ -13,6 +15,19 @@ class OficinaController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+    public function __construct() {
+        $this->middleware(function ($request, $next) {
+            if(Auth::check()) {
+                if(Auth::user()->role->oficinas)
+                {
+                    return $next($request);
+                }                
+                return redirect('/inicio');
+                 
+            }
+            return redirect('/');         
+        });
+    }
     public function index()
     {
         $oficinas = Oficina::get();

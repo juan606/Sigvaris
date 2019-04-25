@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Role;
 use App\Role;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Auth;
 
 class RoleController extends Controller
 {
@@ -13,6 +14,20 @@ class RoleController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+
+    public function __construct() {
+        $this->middleware(function ($request, $next) {
+            if(Auth::check()) {
+                if(Auth::user()->role->usuarios)
+                {
+                    return $next($request);
+                }                
+             return redirect('/inicio');
+                 
+            }
+            return redirect('/');           
+        });
+    }
     public function index()
     {
         return view('roles.index', ['roles'=> Role::get()]);

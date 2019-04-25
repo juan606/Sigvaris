@@ -21,6 +21,7 @@ class RoleSeeder extends Seeder
         'punto_de_venta'=>1,
         'productos'=>1,
         'crm'=>1,
-        'oficinas'=>1]);
+        'oficinas'=>1,
+        'usuarios'=>1]);
     }
 }

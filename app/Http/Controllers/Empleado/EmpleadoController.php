@@ -9,6 +9,7 @@ use App\Oficina;
 use App\Sucursal;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Auth;
 
 class EmpleadoController extends Controller
 {
@@ -17,6 +18,19 @@ class EmpleadoController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+    public function __construct() {
+        $this->middleware(function ($request, $next) {
+            if(Auth::check()) {
+                if(Auth::user()->role->recursos_humanos)
+                {
+                    return $next($request);
+                }                
+             return redirect('/inicio');
+                 
+            }
+            return redirect('/');           
+        });
+    }
     public function index(Request $request)
     {
         $busqueda=$request->search;

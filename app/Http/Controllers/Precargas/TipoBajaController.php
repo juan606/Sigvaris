@@ -5,17 +5,32 @@ namespace App\Http\Controllers\Precargas;
 use App\TipoBaja;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Auth;
+
 
 class TipoBajaController extends Controller
 {
+    
     public function __construct(){
-        $this->titulo = 'Tipo de Baja';
-        $this->agregar = 'bajas.create';
-        $this->guardar = 'bajas.store';
-        $this->editar ='bajas.edit';
-        $this->actualizar = 'bajas.update';
-        $this->borrar ='bajas.destroy';
-        $this->buscar = 'buscarbaja';
+        
+        $this->middleware(function ($request, $next) {
+            if(Auth::check()) {
+                $this->titulo = 'Tipo de Baja';
+                $this->agregar = 'bajas.create';
+                $this->guardar = 'bajas.store';
+                $this->editar ='bajas.edit';
+                $this->actualizar = 'bajas.update';
+                $this->borrar ='bajas.destroy';
+                $this->buscar = 'buscarbaja';   
+                if(Auth::user()->role->precargas)
+                {
+                    return $next($request);
+                }                
+             return redirect('/inicio');
+                 
+            }
+            return redirect('/'); 
+        });
     }
     /**
      * Display a listing of the resource.

@@ -19,14 +19,17 @@
 <body>
     <div class="row p-0 m-0">
         <div class="col-12 p-0 m-0">
-            <a href="/">
+            <a href="/inicio">
                 <img id="imagenHeaderid" src="{{asset('img/header.jpg')}}" class="img-fluid" alt="Sigvaris.">
             </a>
         </div>
     </div>
     <div class="row m-0 p-0">
         <div class="col-12 m-0 p-0">
-            @include('nav')
+            @if (Auth::check())                        
+                @include('nav')
+            @endif
+            
         </div>
     </div>
     <div class="container-fliud" style="margin-top: 20px">

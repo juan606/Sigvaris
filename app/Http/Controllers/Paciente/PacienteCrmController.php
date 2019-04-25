@@ -8,6 +8,7 @@ use UxWeb\SweetAlert\SweetAlert as Alert;
 use App\Paciente;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Auth;
 
 class PacienteCrmController extends Controller
 {
@@ -16,6 +17,20 @@ class PacienteCrmController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+
+    public function __construct() {
+        $this->middleware(function ($request, $next) {
+            if(Auth::check()) {
+                if(Auth::user()->role->crm)
+                {
+                    return $next($request);
+                }                
+              return redirect('/inicio');
+                 
+            }
+            return redirect('/');          
+        });
+    }
     public function index()
     {
         $estados = Estado::get();

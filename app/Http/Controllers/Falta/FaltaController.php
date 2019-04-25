@@ -5,6 +5,8 @@ namespace App\Http\Controllers\Falta;
 use App\Falta;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Auth;
+
 
 class FaltaController extends Controller
 {
@@ -13,6 +15,19 @@ class FaltaController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+    public function __construct() {
+        $this->middleware(function ($request, $next) {
+            if(Auth::check()) {
+                if(Auth::user()->role->precargas)
+                {
+                    return $next($request);
+                }                
+             return redirect('/inicio');
+                 
+            }
+            return redirect('/'); 
+        });
+    }
     public function index()
     {
         //

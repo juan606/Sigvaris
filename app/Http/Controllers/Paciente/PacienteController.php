@@ -8,6 +8,7 @@ use App\Nivel;
 use UxWeb\SweetAlert\SweetAlert as Alert;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Auth;
 
 class PacienteController extends Controller
 {
@@ -16,6 +17,19 @@ class PacienteController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+    public function __construct() {
+        $this->middleware(function ($request, $next) {
+            if(Auth::check()) {
+                if(Auth::user()->role->pacientes)
+                {
+                    return $next($request);
+                }                
+                return redirect('/');
+                 
+            }            
+        });
+    }
+
     public function index(Request $request)
     {
         $busqueda=$request->search;

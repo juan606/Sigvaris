@@ -5,23 +5,36 @@ namespace App\Http\Controllers\Precargas;
 use App\TipoContrato;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Auth;
 
 class TipoContratoController extends Controller
 {
-	public function __construct(){
-        $this->titulo = 'Tipo de Contrato';
-        $this->agregar = 'contratos.create';
-        $this->guardar = 'contratos.store';
-        $this->editar ='contratos.edit';
-        $this->actualizar = 'contratos.update';
-        $this->borrar ='contratos.destroy';
-        $this->buscar = 'buscarcontrato';
-    }
+	
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
+    public function __construct() {
+        $this->middleware(function ($request, $next) {
+            if(Auth::check()) {
+                $this->titulo = 'Tipo de Contrato';
+                $this->agregar = 'contratos.create';
+                $this->guardar = 'contratos.store';
+                $this->editar ='contratos.edit';
+                $this->actualizar = 'contratos.update';
+                $this->borrar ='contratos.destroy';
+                $this->buscar = 'buscarcontrato';
+                if(Auth::user()->role->precargas)
+                {
+                    return $next($request);
+                }                
+             return redirect('/inicio');
+                 
+            }
+            return redirect('/'); 
+        });
+    }
     public function index()
     {
         //

@@ -13,6 +13,8 @@ Route::get('inicio', 'InicioController@index')->name('inicio');
 // "hello"});
 Route::post('login', 'Auth\LoginController@login')->name('login');
 
+Route::get('logout', 'Auth\LoginController@logout');
+
 Route::resource('proveedores','Proveedor\ProveedorController');
 Route::resource('proveedores.direccionfisica','Proveedor\ProveedorDireccionFisicaController');
 Route::resource('proveedores.datosgenerales','Proveedor\ProveedorDatosGeneralesController');
