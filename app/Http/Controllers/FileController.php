@@ -7,10 +7,25 @@ use App\Producto;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Maatwebsite\Excel\Excel;
+use Illuminate\Support\Facades\Auth;
+
 
 class FileController extends Controller
 {
     //
+    public function __construct() {
+        $this->middleware(function ($request, $next) {
+            if(Auth::check()) {
+                if(Auth::user()->role->productos)
+                {
+                    return $next($request);
+                }                
+             return redirect('/inicio');
+                 
+            }
+            return redirect('/');             
+        });
+    }
     public function importExportExcelORCSV() {
     	return view('excel.importar');
     }
