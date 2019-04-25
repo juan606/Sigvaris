@@ -12,9 +12,9 @@ class UserSeeder extends Seeder
     public function run()
     {
     	DB::table('users')->insert([
-        'name'=>'admin',
-        'email'=>'correo@correo.com',
-        'password'=> '$2y$10$TKh8H1.PfQx37YgCzwiKb.KjNyWgaHb9cbcoQgdIVFlYg7B77UdFm', // secret
+        'name'=>'Administrador',
+        'email'=>'admin@sigvarismexicocrm.mx',
+        'password'=> bcrypt('SigvarisCrm246'), // secret
         'role_id'=>1
     	]);
     }

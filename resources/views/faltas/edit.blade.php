@@ -10,6 +10,7 @@
 			</div>
 			<div class="card-body">
 				{{ csrf_field() }}
+				@method('PUT')
 				<div class="row">
 					<div class="form-group col-6">
 						<label class="control-label" for="nombre"><i class="fa fa-asterisk" aria-hidden="true"></i>

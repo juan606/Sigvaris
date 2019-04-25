@@ -40,7 +40,7 @@ class DescuentoController extends Controller
      */
     public function create()
     {
-        //
+        return view('venta.descuentos_create');
     }
 
     /**
@@ -74,7 +74,7 @@ class DescuentoController extends Controller
      */
     public function edit(Descuento $descuento)
     {
-        //
+        return view('venta.descuentos_edit',['descuento'=>$descuento]);
     }
 
     /**
@@ -86,7 +86,8 @@ class DescuentoController extends Controller
      */
     public function update(Request $request, Descuento $descuento)
     {
-        //
+        $descuento->update($request->all());
+        return redirect('descuentos');
     }
 
     /**

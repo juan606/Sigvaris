@@ -25,6 +25,9 @@
         <div class="card-footer text-muted">
             <button type="submit" class="btn btn-success">Enviar</button>
         </div>
+        <a class="btn btn-link" {{-- href="{{ route('password.request') }} --}}">
+                                    {{ __('Forgot Your Password?') }}
+        </a>
     </form>
 </div>
 @endsection
