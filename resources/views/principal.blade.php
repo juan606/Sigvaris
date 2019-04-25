@@ -19,7 +19,7 @@
 <body>
     <div class="row p-0 m-0">
         <div class="col-12 p-0 m-0">
-            <a href="/inicio">
+            <a href="{{ url('/inicio') }}">
                 <img id="imagenHeaderid" src="{{asset('img/header.jpg')}}" class="img-fluid" alt="Sigvaris.">
             </a>
         </div>
