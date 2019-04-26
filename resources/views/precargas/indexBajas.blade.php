@@ -5,10 +5,10 @@
 		<div class="card-header">
 			<div class="row">
 				<div class="col-6">
-					<h1>Contratos</h1>
+					<h1>Bajas</h1>
 				</div>
 				<div class="col-6">
-					<a class="btn btn-success" href="{{ route('contratos.create') }}">
+					<a class="btn btn-success" href="{{ route('bajas.create') }}">
 						<strong><i class="fa fa-plus float-right"></i></strong>
 					</a>
 				</div>
@@ -17,9 +17,9 @@
 
 		</div>
 		<div class="card-body">
-			@if ($contratos->count() == 0)
+			@if ($bajas->count() == 0)
 			{{-- true expr --}}
-			<label>No hay contratos añadidos</label>
+			<label>No hay bajas añadidas</label>
 			@else
 			{{-- false expr --}}
 			<table id="precargas" class="table table-striped table-bordered table-hover"
@@ -32,7 +32,7 @@
 						<th>Operacion</th>
 					</tr>
 				</thead>
-				@foreach($contratos as $area)
+				@foreach($bajas as $area)
 				<tr>
 					<td>
 						{{ $area->id }}
@@ -42,14 +42,14 @@
 					<td>
 						<div class="row">
 							<div class="col-2">
-								<a class="btn btn-warning" href="{{ route('contratos.edit',['area'=>$area]) }}">
+								<a class="btn btn-warning" href="{{ route('bajas.edit',['area'=>$area]) }}">
 									<strong>
 										<i class="far fa-edit"></i>
 									</strong>
 								</a>
 							</div>
 							<div class="col-2">
-								<form role="form" method="POST" action="{{ route('contratos.destroy',['area'=>$area]) }}">
+								<form role="form" method="POST" action="{{ route('bajas.destroy',['area'=>$area]) }}">
 									{{ csrf_field() }}
 									<input type="hidden" name="_method" value="DELETE">
 									<button type="submit" class="btn btn-danger" role="button">

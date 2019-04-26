@@ -39,7 +39,7 @@ class TipoContratoController extends Controller
     {
         //
         $contratos = TipoContrato::get();
-        return view('precargas.index',['precargas'=>$contratos, 'agregar'=>$this->agregar, 'editar'=>$this->editar,'borrar'=>$this->borrar,'titulo'=>$this->titulo,'buscar'=>$this->buscar]);
+        return view('precargas.index',['contratos'=>$contratos, 'agregar'=>$this->agregar, 'editar'=>$this->editar,'borrar'=>$this->borrar,'titulo'=>$this->titulo,'buscar'=>$this->buscar]);
     }
 
         public function getContratos(){

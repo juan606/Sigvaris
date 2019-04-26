@@ -22,7 +22,7 @@ class VentaController extends Controller
     }
 
     public function indexConPaciente(Paciente $paciente){
-        return view('venta.index', ['ventas'=>$paciente->ventas]);
+        return view('venta.index', ['ventas'=>$paciente->ventas,'paciente'=>$paciente]);
     }
 
     /**

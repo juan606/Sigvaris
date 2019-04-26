@@ -41,7 +41,7 @@ class TipoBajaController extends Controller
     {
         //
         $bajas = TipoBaja::paginate(10);
-        return view('precargas.index',['precargas'=>$bajas, 'agregar'=>$this->agregar, 'editar'=>$this->editar,'borrar'=>$this->borrar,'titulo'=>$this->titulo,'buscar'=>$this->buscar]);
+        return view('precargas.indexBajas',['bajas'=>$bajas, 'agregar'=>$this->agregar, 'editar'=>$this->editar,'borrar'=>$this->borrar,'titulo'=>$this->titulo,'buscar'=>$this->buscar]);
     }
 
     /**
@@ -52,7 +52,7 @@ class TipoBajaController extends Controller
     public function create()
     {
         //
-         return view('precargas.create',['titulo'=>$this->titulo,'guardar'=>$this->guardar]);
+         return view('precargas.createBajas',['titulo'=>$this->titulo,'guardar'=>$this->guardar]);
     }
 
     /**
@@ -89,7 +89,7 @@ class TipoBajaController extends Controller
     {
         //
         // dd($baja);
-        return view('precargas.edit',['precarga'=>$baja, 'titulo'=>$this->titulo,'actualizar'=>$this->actualizar]);
+        return view('precargas.editBajas',['baja'=>$baja, 'titulo'=>$this->titulo,'actualizar'=>$this->actualizar]);
     }
 
     /**

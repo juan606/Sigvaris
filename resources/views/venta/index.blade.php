@@ -1,6 +1,8 @@
-@extends('principal')
-@section('content')
+@extends('paciente.show')
+@section('submodulos')
 <div class="container">
+
+    
     <div class="card">
         <div class="card-header">
             <h4>Historial Ventas</h4>
