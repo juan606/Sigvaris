@@ -74,3 +74,7 @@ Route::resource('bajas','Precargas\TipoBajaController');
 Route::resource('roles','Role\RoleController');
 Route::resource('usuarios','User\UserController');
 
+
+Auth::routes();
+
+Route::get('/home', 'HomeController@index')->name('home');
