@@ -26,6 +26,7 @@ class CreateRolesTable extends Migration
             $table->boolean('crm')->default(false);
             $table->boolean('oficinas')->default(false);
             $table->boolean('usuarios')->default(false);
+            $table->boolean('roles')->default(false);
             $table->timestamps();
         });
     }

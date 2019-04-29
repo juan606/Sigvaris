@@ -31,26 +31,26 @@
                     <input type="text" name="materno" class="form-control" required="">
                 </div>
                 <div class="col-3 form-group">
-                    <label class="control-label">✱Celular:</label>
-                    <input type="number" name="celular" class="form-control" required="">
+                    <label class="control-label">Celular:</label>
+                    <input type="number" name="celular" class="form-control">
                 </div>
             </div>
             <div class="row">
                 <div class="col-3 form-group">
-                    <label class="control-label">✱Correo:</label>
-                    <input type="email" name="mail" class="form-control" required="">
+                    <label class="control-label">Correo:</label>
+                    <input type="email" name="mail" class="form-control">
                 </div>
                 <div class="col-3 form-group">
-                    <label class="control-label">Fecha nacimiento:</label>
-                    <input type="date" name="nacimiento" class="form-control">
+                    <label class="control-label">✱Fecha nacimiento:</label>
+                    <input type="date" name="nacimiento" class="form-control" required="">
                 </div>
                 <div class="col-3 form-group">
                     <label class="control-label">✱RFC:</label>
-                    <input type="text" name="rfc" class="form-control" required="">
+                    <input type="text" name="rfc" class="form-control">
                 </div>
                 <div class="form-group col-3">
                     <label for="nivel_id">Nivel:</label>
-                    <select class="form-control" name="nivel_id" id="nivel_id" required>
+                    <select class="form-control" name="nivel_id" id="nivel_id">
                         @foreach($niveles as $nivel)
                         <option value="{{$nivel->id}}">{{$nivel->etiqueta}}/{{$nivel->nombre}}</option>
                         @endforeach
@@ -59,8 +59,8 @@
             </div>
             <div class="row">
                 <div class="col-3 form-group">
-                    <label class="control-label">✱Teléfono:</label>
-                    <input type="text" name="telefono" class="form-control" required="">
+                    <label class="control-label">Teléfono:</label>
+                    <input type="text" name="telefono" class="form-control">
                 </div>
                 <div class="form-group col-3">
                     <label for="doctor_id">Doctor que recomienda:</label>

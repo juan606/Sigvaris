@@ -42,7 +42,7 @@
         <div class="row">
             <div class="col-3 form-group">
                 <label class="control-label">✱Correo:</label>
-                <input readonly value="{{$paciente->mail}}}" type="email" name="mail" class="form-control" required="">
+                <input readonly value="{{$paciente->mail}}" type="email" name="mail" class="form-control" required="">
             </div>
             <div class="col-3 form-group">
                 <label class="control-label">✱Fecha nacimiento:</label>
@@ -50,11 +50,16 @@
             </div>
             <div class="col-3 form-group">
                 <label class="control-label">✱RFC:</label>
-                <input readonly value="{{$paciente->rfc}}}" type="text" name="rfc" class="form-control" required="">
+                <input readonly value="{{$paciente->rfc}}" type="text" name="rfc" class="form-control" required="">
             </div>
             <div class="form-group col-3">
                 <label for="nivel">Nivel:</label>
-                <input readonly value="{{$paciente->nivel->etiqueta}}}/{{$paciente->nivel->nombre}}" type="text" name="nivel" class="form-control" required="">
+                @if ($paciente->nivel)
+                     <input readonly value="{{$paciente->nivel->etiqueta}}}/{{$paciente->nivel->nombre}}" type="text" name="nivel" class="form-control" required="">
+                @else
+                    <input readonly value="" type="text" name="nivel" class="form-control">
+                @endif
+               
             </div>
         </div>
         <div class="row">

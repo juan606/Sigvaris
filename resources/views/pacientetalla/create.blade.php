@@ -77,6 +77,12 @@
                             pantorrillera
                         </label>
                     </div>
+                    <div class="form-check">
+                        <input name="leggins" class="form-check-input cb-pierna-estilo" type="checkbox" value="false" id="leggins">
+                        <label class="form-check-label" for="leggins">
+                            leggins
+                        </label>
+                    </div>
                 </div>
                 <div class="form-group col-3 estilos-brazo">
                     <h5>Estilos Brazo</h5>

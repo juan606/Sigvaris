@@ -22,6 +22,7 @@ class Talla extends Model
             'pantimedia',
             'calcetin',
             'pantorrillera',
+            'leggins',
 
             //Medidas
             'circunferencia_tobillo_izq',

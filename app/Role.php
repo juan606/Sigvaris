@@ -21,7 +21,8 @@ class Role extends Model
         'productos',
         'crm',
         'oficinas',
-        'usuarios'
+        'usuarios',
+        'roles'
     ];
 
 }

@@ -22,6 +22,7 @@ class RoleSeeder extends Seeder
         'productos'=>1,
         'crm'=>1,
         'oficinas'=>1,
-        'usuarios'=>1]);
+        'usuarios'=>1,
+        'roles'=>1]);
     }
 }

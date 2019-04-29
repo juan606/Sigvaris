@@ -32,14 +32,14 @@
                     <input value="{{$paciente->materno}}" type="text" name="materno" class="form-control" required="">
                 </div>
                 <div class="col-3 form-group">
-                    <label class="control-label">✱Celular:</label>
-                    <input value="{{$paciente->celular}}" type="number" name="celular" class="form-control" required="">
+                    <label class="control-label">Celular:</label>
+                    <input value="{{$paciente->celular}}" type="number" name="celular" class="form-control">
                 </div>
             </div>
             <div class="row">
                 <div class="col-3 form-group">
-                    <label class="control-label">✱Correo:</label>
-                    <input value="{{$paciente->mail}}" type="email" name="mail" class="form-control" required="">
+                    <label class="control-label">Correo:</label>
+                    <input value="{{$paciente->mail}}" type="email" name="mail" class="form-control">
                 </div>
                 <div class="col-3 form-group">
                     <label class="control-label">✱Fecha nacimiento:</label>
@@ -60,8 +60,8 @@
             </div>
             <div class="row">
                 <div class="col-3 form-group">
-                    <label class="control-label">✱Teléfono:</label>
-                    <input value="{{$paciente->telefono}}" type="text" name="telefono" class="form-control" required="">
+                    <label class="control-label">Teléfono:</label>
+                    <input value="{{$paciente->telefono}}" type="text" name="telefono" class="form-control">
                 </div>
             </div>
             <div class="row">

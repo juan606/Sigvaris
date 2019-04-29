@@ -81,6 +81,20 @@
                                     <span class="slider"></span>
                                 </label>
                             </li>
+                            <li class="list-group-item">
+                                Usuarios
+                                <label class="switch ">
+                                    <input type="checkbox" name="permisos[usuarios]" value="1" class="success">
+                                    <span class="slider"></span>
+                                </label>
+                            </li>
+                            <li class="list-group-item">
+                                Roles
+                                <label class="switch ">
+                                    <input type="checkbox" name="permisos[roles]" value="1" class="success">
+                                    <span class="slider"></span>
+                                </label>
+                            </li>
                         </ul>
                     </div>
 

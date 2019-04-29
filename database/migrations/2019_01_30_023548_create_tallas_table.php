@@ -22,6 +22,7 @@ class CreateTallasTable extends Migration
             $table->boolean('pantimedia')->nullable();
             $table->boolean('calcetin')->nullable();
             $table->boolean('pantorrillera')->nullable();
+            $table->boolean('leggins')->nullable();
             $table->decimal('circunferencia_tobillo_izq', 8, 2)->nullable();
             $table->decimal('circunferencia_tobillo_dcha', 8, 2)->nullable();
             $table->decimal('circunferencia_pantorrilla_izq', 8, 2)->nullable();

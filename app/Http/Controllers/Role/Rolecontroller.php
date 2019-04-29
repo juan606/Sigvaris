@@ -61,6 +61,8 @@ class RoleController extends Controller
         $punto_de_venta = false;
         $crm = false;
         $oficinas = false;
+        $usuarios = false;
+        $roles = false;
         if(isset($perm['proveedores'])){
             $proveedores = true;
         }
@@ -88,6 +90,12 @@ class RoleController extends Controller
         if(isset($perm['oficinas'])){
             $oficinas = true;
         }
+        if(isset($perm['usuarios'])){
+            $usuarios = true;
+        }
+        if(isset($perm['roles'])){
+            $roles = true;
+        }
         $role = new Role;
         $role->nombre = $request->nombre;
         $role->proveedores = $proveedores;
@@ -99,6 +107,8 @@ class RoleController extends Controller
         $role->productos = $productos;
         $role->crm = $crm;
         $role->oficinas = $oficinas;
+        $role->usuarios = $usuarios;
+        $role->roles = $roles;
         $role->save();
         return redirect()->route('roles.index');
     }

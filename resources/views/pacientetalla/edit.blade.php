@@ -75,6 +75,12 @@
                             pantorrillera
                         </label>
                     </div>
+                    <div class="form-check">
+                        <input readonly name="pantorrillera" class="form-check-input cb-pierna-estilo" type="checkbox" value="{{$talla->leggins}}" id="pantorrillera" {{$talla->leggins == 1 ? 'checked' : ''}}>
+                        <label class="form-check-label" for="pantorrillera">
+                            leggins
+                        </label>
+                    </div>
                 </div>
                 <div class="form-group col-3 estilos-brazo">
                     <h5>Estilos Brazo</h5>
