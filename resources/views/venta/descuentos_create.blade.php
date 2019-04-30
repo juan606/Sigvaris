@@ -15,17 +15,90 @@
                         <input type="text" class="form-control" name="nombre" id="nombre" required="">
                     </div>
                     <div class="form-group col-3">
-                        <label for="tipo">Tipo</label>
-                        <select class="form-control" name="tipo" id="tipo" required="">
-                            <option value="">Seleccionar...</option>
-                            <option value="Porcentaje">Porcentaje</option>
-                            <option value="Efectivo">Efectivo</option>                        
-                        </select>
+                        <label for="nombre">De:</label>
+                        <input type="date" class="form-control" name="nombre" id="nombre" required="">
                     </div>
                     <div class="form-group col-3">
-                        <label for="valor">Valor</label>
-                        <input type="vaue" step="0.01" name="valor" class="form-control" id="valor" required="">
+                        <label for="valor">A:</label>
+                        <input type="date" step="0.01" name="valor" class="form-control" id="valor" required="">
                     </div>
+                   
+                </div>
+                    <br>
+                    <label>Tipo: </label>
+                    <div class="form-group col-10">
+                        <input type="checkbox">
+                        <label>Compra: </label>
+                        <input type="number" class="form-group col-1" name="nombre" id="nombre" required="">
+                        <label> Llevate: </label>
+                        <input type="number" class="form-group col-1" name="nombre" id="nombre" required="">
+                    </div>
+
+                    <div class="form-group col-10">
+                        <input type="checkbox">
+                        <label>Monto minimo de compra: </label>
+                        <input type="number" class="form-group col-1" name="nombre" id="nombre" required="">
+                        <label>$ por un descuento de: </label>
+                        <input type="number" class="form-group col-1" name="nombre" id="nombre" required="">
+                        <select class="form-group col-1" name="descuento_id" id="descuento_id"  required="">
+                                
+                               
+                                <option value="">$</option>
+                                <option value="">%</option>
+                                
+                        </select>
+                    </div>
+
+                    <div class="form-group col-10">
+                        <input type="checkbox">
+                        <label>Descuento por cumpleaños </label>
+                        <input type="number" class="form-group col-1" name="nombre" id="nombre" required="">
+                        <select class="form-group col-1" name="descuento_id" id="descuento_id"  required="">
+                                
+                               
+                                <option value="">$</option>
+                                <option value="">%</option>
+                                
+                        </select>
+                    </div>
+
+                    <div class="form-group col-10">
+                        <input type="checkbox">
+                        <label>Monto minimo de prendas: </label>
+                        <input type="number" class="form-group col-1" name="nombre" id="nombre" required="">
+                        <label> por un descuento de: </label>
+                        <input type="number" class="form-group col-1" name="nombre" id="nombre" required="">
+                        <select class="form-group col-1" name="descuento_id" id="descuento_id"  required="">
+                                
+                               
+                                <option value="">$</option>
+                                <option value="">%</option>
+                                
+                        </select>
+                    </div>
+
+                    <div class="form-group col-10">
+                        <input type="checkbox">
+                        <label>Monto minimo de prendas: </label>
+                        <input type="number" class="form-group col-1" name="nombre" id="nombre" required="">
+                        <label> por: </label>
+                        <input type="number" class="form-group col-2" name="nombre" id="nombre" required="">
+                        <label>sigpesos</label>
+                    </div>
+
+                    <div class="form-group col-10">
+                        <input type="checkbox">
+                        <label>Descuento de empleado: </label>
+                        <input type="number" class="form-group col-1" name="nombre" id="nombre" required="">
+                        <select class="form-group col-1" name="descuento_id" id="descuento_id"  required="">
+                                
+                               
+                                <option value="">$</option>
+                                <option value="">%</option>
+                                
+                        </select>
+                    </div>
+
                     <div class="col-3 pt-4">
                         <button type="submit" class="btn btn-success btn-lg btn-block">Agregar</a>
                     </div>

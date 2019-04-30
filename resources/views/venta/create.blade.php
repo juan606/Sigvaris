@@ -87,30 +87,72 @@
                         </div>
                     </div>
                     <div class="row mb-3">
+                        <div class="col-4 offset-4 form-group">
+                            <label for="descuento_id">Descuento</label>
+                            <select class="form-control" name="descuento_id" id="descuento_id"  required="">
+                                <option value="">Selecciona...</option>                               
+                            </select>
+                             <label class="radio-inline">
+                                <input type="radio" name="Aplica" value="Aplica" id="Aplica" onchange="aplica()" /> Aplica
+                            </label>
+                            <label class="radio-inline offset-2 ">
+                                <input type="radio" name="Aplica" value="high" onchange="no_aplica()" id="NoAplica" /> No aplica
+                            </label>
+                        </div>
+                    </div>
+
+                    <div class="row mb-3" id="promo">
+                        <div class="col-4 offset-4 form-group">
+                            <label for="descuento_id">Promocion</label>
+                            <select class="form-control" name="descuento_id" id="descuento_id"  required="">
+                                <option value="">Selecciona...</option>                               
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="row mb-3">
+                        <div class="col-4 offset-4 input-group">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text">Sigpesos: </span>
+                            </div>
+                            <input type="number" required="" class="form-control" name="subtotal" id="subtotal" value="0" min="1" step="0.01" readonly="">
+                        </div>
+                    </div>
+
+                    
+                    <div class="row mb-3">
                         <div class="col-4 offset-4 input-group">
                             <div class="input-group-prepend">
                                 <span class="input-group-text">Subtotal: $</span>
                             </div>
-                            <input type="number" required="" class="form-control" name="subtotal" id="subtotal" value="0" min="1" step="0.01">
+                            <input type="number" required="" class="form-control" name="subtotal" id="subtotal" value="0" min="1" step="0.01" readonly="">
                         </div>
                     </div>
+
                     <div class="row mb-3">
-                        <div class="col-4 offset-4 form-group">
-                            <label for="descuento_id">Descuento</label>
-                            <select class="form-control" name="descuento_id" id="descuento_id"  required="">
-                                <option value="">Selecciona...</option>
-                                @foreach($descuentos as $descuento)
-                                <option value="{{$descuento->id}}">{{$descuento->nombre}}</option>
-                                @endforeach
-                            </select>
+                        <div class="col-4 offset-4 input-group">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text">Descuentos: $</span>
+                            </div>
+                            <input type="number" required="" class="form-control" name="subtotal" id="subtotal" value="0" step="0.01" readonly="">
                         </div>
                     </div>
+
+                    <div class="row mb-3">
+                        <div class="col-4 offset-4 input-group">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text">Iva: $</span>
+                            </div>
+                            <input type="number" required="" class="form-control" name="subtotal" id="subtotal" value="0" min="1" step="0.01" readonly="">
+                        </div>
+                    </div>
+                    
                     <div class="row">
                         <div class="col-4 offset-4 input-group">
                             <div class="input-group-prepend">
-                                <span class="input-group-text">Total: </span>
+                                <span class="input-group-text">Total: $ </span>
                             </div>
-                            <input type="number" required="" class="form-control" name="total" id="total" value="0" min="1" step="0.01">
+                            <input type="number" required="" class="form-control" name="total" id="total" value="0" min="1" step="0.01" readonly="">
                         </div>
                     </div>
                 </div>
@@ -212,5 +254,28 @@
             }
         });
     });
+</script>
+
+<script type="text/javascript">
+    if(document.getElementById('Aplica').checked)
+        document.getElementById("promo").style.display = "block";
+    else
+        document.getElementById("promo").style.display = "none";
+    function aplica(){
+        if(document.getElementById('Aplica').checked){
+            var x = document.getElementById("promo");
+            x.style.display = "block";
+        }
+        
+    }
+
+        function no_aplica(){
+        if(document.getElementById('NoAplica').checked){
+            var x = document.getElementById("promo");
+            x.style.display = "none";
+        }
+        
+    }
+        
 </script>
 @endsection
