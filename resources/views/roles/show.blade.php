@@ -74,6 +74,20 @@
                                     <span class="slider"></span>
                                 </label>
                             </li>
+                            <li class="list-group-item">
+                                Usuarios
+                                <label class="switch ">
+                                    <input disabled id="usuarios" type="checkbox" name="permisos[usuarios]" value="1" class="success">
+                                    <span class="slider"></span>
+                                </label>
+                            </li>
+                            <li class="list-group-item">
+                                Roles
+                                <label class="switch ">
+                                    <input disabled id="usuarios" type="checkbox" name="permisos[roles]" value="1" class="success">
+                                    <span class="slider"></span>
+                                </label>
+                            </li>
                         </ul>
                     </div>
 
@@ -92,7 +106,9 @@ $(document).ready(function(){
     let productos = $('#productos');
     let crm = $('#crm');
     let oficinas = $('#oficinas');
-    
+    let usuarios = $('#usuarios');
+    let roles = $('#roles');
+
     proveedores_v = {{$role->proveedores}};
     pacientes_v = {{$role->pacientes}};
     doctores_v = {{$role->doctores}};
@@ -102,6 +118,8 @@ $(document).ready(function(){
     productos_v = {{$role->productos}};
     crm_v = {{$role->crm}};
     oficinas_v = {{$role->oficinas}};
+    usuarios_v = {{$role->usuarios}};
+    roles_v = {{$role->roles}};
 
     if(proveedores_v == 1)
         proveedores.prop('checked', true);
@@ -113,14 +131,18 @@ $(document).ready(function(){
         recursos_humanos.prop('checked', true);
     if(precargas_v == 1)
         precargas.prop('checked', true);
-    if(punto_de_venta_v_v == 1)
-        punto_de_venta_v.prop('checked', true);
+    if(punto_de_venta_v == 1)
+        punto_de_venta.prop('checked', true);
     if(productos_v == 1)
         productos.prop('checked', true);
     if(crm_v == 1)
         crm.prop('checked', true);
     if(oficinas_v == 1)
         oficinas.prop('checked', true);
+    if(usuarios_v == 1)
+        usuarios.prop('checked', true);
+    if(roles_v == 1)
+        roles.prop('checked', true);
 
 
 });

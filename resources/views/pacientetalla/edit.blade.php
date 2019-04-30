@@ -34,7 +34,7 @@
                     </div>
                     <div class="form-group col-12">
                         <label for="nivel">Brazo:</label>
-                        <select class="form-control compresion" name="brazo" id="brazo" required>/
+                        <select class="form-control compresion" name="brazo" id="brazo">/
                             <option value="{{$talla->brazo}}">{{$talla->brazo}}</option>
                             <option value="">Ninguna</option>
                             <option value="15-20 mmHG">15-20 mmHG</option>
@@ -46,38 +46,38 @@
                 <div class="form-group col-3 estilos-pierna">
                     <h5>Estilos Pierna</h5>
                     <div class="form-check">
-                        <input name="tobimedia" class="form-check-input cb-pierna-estilo" type="checkbox" value="{{$talla->tobimedia}}" id="tobimedia">
+                        <input name="tobimedia" class="form-check-input cb-pierna-estilo" type="checkbox" value="{{$talla->tobimedia}}" id="tobimedia" {{$talla->tobimedia == 1 ? 'checked' : ''}}>
                         <label class="form-check-label" for="tobimedia">
                             tobimedia
                         </label>
                     </div>
                     <div class="form-check">
-                        <input name="media" class="form-check-input cb-pierna-estilo" type="checkbox" value="{{$talla->media}}" id="media">
+                        <input name="media" class="form-check-input cb-pierna-estilo" type="checkbox" value="{{$talla->media}}" id="media" {{$talla->media == 1 ? 'checked' : ''}}>
                         <label class="form-check-label" for="media">
                             media
                         </label>
                     </div>
                     <div class="form-check">
-                        <input name="pantimedia" class="form-check-input cb-pierna-estilo" type="checkbox" value="{{$talla->pantimedia}}" id="pantimedia">
+                        <input name="pantimedia" class="form-check-input cb-pierna-estilo" type="checkbox" value="{{$talla->pantimedia}}" id="pantimedia" {{$talla->pantimedia == 1 ? 'checked' : ''}}>
                         <label class="form-check-label" for="pantimedia">
                             pantimedia
                         </label>
                     </div>
                     <div class="form-check">
-                        <input name="calcetin" class="form-check-input cb-pierna-estilo" type="checkbox" value="{{$talla->calcetin}}" id="calcetin">
+                        <input name="calcetin" class="form-check-input cb-pierna-estilo" type="checkbox" value="{{$talla->calcetin}}" id="calcetin" {{$talla->calcetin == 1 ? 'checked' : ''}}>
                         <label class="form-check-label" for="calcetin">
                             calcetin
                         </label>
                     </div>
                     <div class="form-check">
-                        <input name="pantorrillera" class="form-check-input cb-pierna-estilo" type="checkbox" value="{{$talla->pantorrillera}}" id="pantorrillera">
+                        <input name="pantorrillera" class="form-check-input cb-pierna-estilo" type="checkbox" value="{{$talla->pantorrillera}}" id="pantorrillera" {{$talla->pantorrillera == 1 ? 'checked' : ''}}>
                         <label class="form-check-label" for="pantorrillera">
                             pantorrillera
                         </label>
                     </div>
                     <div class="form-check">
-                        <input readonly name="pantorrillera" class="form-check-input cb-pierna-estilo" type="checkbox" value="{{$talla->leggins}}" id="pantorrillera" {{$talla->leggins == 1 ? 'checked' : ''}}>
-                        <label class="form-check-label" for="pantorrillera">
+                        <input readonly name="leggins" class="form-check-input cb-pierna-estilo" type="checkbox" value="{{$talla->leggins}}" id="leggins" {{$talla->leggins == 1 ? 'checked' : ''}}>
+                        <label class="form-check-label" for="leggins">
                             leggins
                         </label>
                     </div>
@@ -104,61 +104,61 @@
                         </div>
                     </div>
                     <div class="input-group mb-2">
-                        <div class="input-group-prepend">
+                        <div class="col-sm-4">
                             <span class="input-group-text">Circunferencia Tobillo</span>
                         </div>
                         <input value="{{$talla->circunferencia_tobillo_izq}}" name="circunferencia_tobillo_izq" id="circunferencia_tobillo_izq" type="text" class="form-control medidas-pierna">
                         <input value="{{$talla->circunferencia_tobillo_dcha}}" name="circunferencia_tobillo_dcha" id="circunferencia_tobillo_dcha" type="text" class="form-control medidas-pierna">
                     </div>
                     <div class="input-group mb-2">
-                        <div class="input-group-prepend">
+                        <div class="col-sm-4">
                             <span class="input-group-text">Circunferencia Pantorrilla</span>
                         </div>
                         <input value="{{$talla->circunferencia_pantorrilla_izq}}" name="circunferencia_pantorrilla_izq" id="circunferencia_pantorrilla_izq" type="text" class="form-control medidas-pierna">
                         <input value="{{$talla->circunferencia_pantorrilla_dcha}}" name="circunferencia_pantorrilla_dcha" id="circunferencia_pantorrilla_dcha" type="text" class="form-control medidas-pierna">
                     </div>
                     <div class="input-group mb-2">
-                        <div class="input-group-prepend">
+                        <div class="col-sm-4">
                             <span class="input-group-text">Altura Pantorrilla</span>
                         </div>
                         <input value="{{$talla->altura_pantorrilla_izq}}" name="altura_pantorrilla_izq" id="altura_pantorrilla_izq" type="text" class="form-control medidas-pierna">
                         <input value="{{$talla->altura_pantorrilla_dcha}}" name="altura_pantorrilla_dcha" id="altura_pantorrilla_dcha" type="text" class="form-control medidas-pierna">
                     </div>
                     <div class="input-group mb-2">
-                        <div class="input-group-prepend">
+                        <div class="col-sm-4">
                             <span class="input-group-text">Circunferencia Muslo</span>
                         </div>
                         <input value="{{$talla->circunferencia_muslo_izq}}" name="circunferencia_muslo_izq" id="circunferencia_muslo_izq" type="text" class="form-control medidas-pierna">
                         <input value="{{$talla->circunferencia_muslo_dcha}}" name="circunferencia_muslo_dcha" id="circunferencia_muslo_dcha" type="text" class="form-control medidas-pierna">
                     </div>
                     <div class="input-group mb-2">
-                        <div class="input-group-prepend">
+                        <div class="col-sm-4">
                             <span class="input-group-text">Altura Pierna</span>
                         </div>
                         <input value="{{$talla->altura_pierna_izq}}" name="altura_pierna_izq" id="altura_pierna_izq" type="text" class="form-control medidas-pierna">
                         <input value="{{$talla->altura_pierna_dcha}}" name="altura_pierna_dcha" id="altura_pierna_dcha" type="text" class="form-control medidas-pierna">
                     </div>
                     <div class="input-group mb-2 circunferencia_cadera">
-                        <div class="input-group-prepend">
+                        <div class="col-sm-4">
                             <span class="input-group-text">Circunferencia cadera</span>
                         </div>
                         <input value="{{$talla->circunferencia_cadera}}" name="circunferencia_cadera" id="circunferencia_cadera" type="text" class="form-control medidas-pierna">
                     </div>
                     <div class="input-group mb-2">
-                        <div class="input-group-prepend">
+                        <div class="col-sm-4">
                             <span class="input-group-text">Calzado</span>
                         </div>
                         <input value="{{$talla->calzado_izq}}" name="calzado_izq" id="calzado_izq" type="text" class="form-control medidas-pierna">
                         <input value="{{$talla->calzado_dcha}}" name="calzado_dcha" id="calzado_dcha" type="text" class="form-control medidas-pierna">
                     </div>
                     <div class="input-group mb-2 peso">
-                        <div class="input-group-prepend">
+                        <div class="col-sm-4">
                             <span class="input-group-text">Peso</span>
                         </div>
                         <input value="{{$talla->peso}}" name="peso" id="peso" type="text" class="form-control medidas-pierna">
                     </div>
                     <div class="input-group mb-2 estatura">
-                        <div class="input-group-prepend">
+                        <div class="col-sm-4">
                             <span class="input-group-text">Estatura</span>
                         </div>
                         <input value="{{$talla->estatura}}" name="estatura" id="estatura" type="text" class="form-control medidas-pierna">
@@ -176,28 +176,28 @@
                         </div>
                         
                         <div class="input-group mb-2">
-                            <div class="input-group-prepend">
+                            <div class="col-sm-4">
                                 <span class="input-group-text">Circunferencia Palma</span>
                             </div>
                             <input value="{{$talla->circunferencia_plama_izq}}" name="circunferencia_plama_izq" id="circunferencia_plama_izq" type="text" class="form-control medidas-brazo">
                             <input value="{{$talla->circunferencia_plama_dcha}}" name="circunferencia_plama_dcha" id="circunferencia_plama_dcha" type="text" class="form-control medidas-brazo">
                         </div>
                         <div class="input-group mb-2">
-                            <div class="input-group-prepend">
+                            <div class="col-sm-4">
                                 <span class="input-group-text">Circunferencia Muñeca</span>
                             </div>
                             <input value="{{$talla->circunferencia_munieca_izq}}" name="circunferencia_munieca_izq" id="circunferencia_munieca_izq" type="text" class="form-control medidas-brazo">
                             <input value="{{$talla->circunferencia_munieca_dcha}}" name="circunferencia_munieca_dcha" id="circunferencia_munieca_dcha" type="text" class="form-control medidas-brazo">
                         </div>
                         <div class="input-group mb-2">
-                            <div class="input-group-prepend">
+                            <div class="col-sm-4">
                                 <span class="input-group-text">Circunferencia parte media</span>
                             </div>
                             <input value="{{$talla->circunferencia_media_izq}}" name="circunferencia_media_izq" id="circunferencia_media_izq" type="text" class="form-control medidas-brazo">
                             <input value="{{$talla->circunferencia_media_dcha}}" name="circunferencia_media_dcha" id="circunferencia_media_dcha" type="text" class="form-control medidas-brazo">
                         </div>
                         <div class="input-group mb-2">
-                            <div class="input-group-prepend">
+                            <div class="col-sm-4">
                                 <span class="input-group-text">Talla</span>
                             </div>
                             <input value="{{$talla->talla_izq}}" name="talla_izq" id="talla_izq" type="text" class="form-control medidas-brazo">

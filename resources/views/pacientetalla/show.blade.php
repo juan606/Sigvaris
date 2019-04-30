@@ -92,6 +92,7 @@
                     </div>
                 </div>
             </div>
+
             <div class="row">
                 <div class="form-group col-6 estilos-pierna">
                     <h5>Medidas Pierna</h5>
@@ -104,64 +105,65 @@
                         </div>
                     </div>
                     <div class="input-group mb-2">
-                        <div class="input-group-prepend">
+                        <div class="col-sm-4">
                             <span class="input-group-text">Circunferencia Tobillo</span>
                         </div>
-                        <input readonly value="{{$talla->circunferencia_tobillo_izq}}" name="circunferencia_tobillo_izq" id="circunferencia_tobillo_izq" type="text" class="form-control medidas-pierna">
-                        <input readonly value="{{$talla->circunferencia_tobillo_dcha}}" name="circunferencia_tobillo_dcha" id="circunferencia_tobillo_dcha" type="text" class="form-control medidas-pierna">
+                        <input readonly value="{{$talla->circunferencia_tobillo_izq}}" name="circunferencia_tobillo_izq" id="circunferencia_tobillo_izq" type="text" class="col-sm-4">
+                        <input readonly value="{{$talla->circunferencia_tobillo_dcha}}" name="circunferencia_tobillo_dcha" id="circunferencia_tobillo_dcha" type="text" class="col-sm-4">
                     </div>
+
                     <div class="input-group mb-2">
-                        <div class="input-group-prepend">
+                        <div class="col-sm-4">
                             <span class="input-group-text">Circunferencia Pantorrilla</span>
                         </div>
-                        <input readonly value="{{$talla->circunferencia_pantorrilla_izq}}" name="circunferencia_pantorrilla_izq" id="circunferencia_pantorrilla_izq" type="text" class="form-control medidas-pierna">
-                        <input readonly value="{{$talla->circunferencia_pantorrilla_dcha}}" name="circunferencia_pantorrilla_dcha" id="circunferencia_pantorrilla_dcha" type="text" class="form-control medidas-pierna">
+                        <input readonly value="{{$talla->circunferencia_pantorrilla_izq}}" name="circunferencia_pantorrilla_izq" id="circunferencia_pantorrilla_izq" type="text" class="col-sm-4">
+                        <input readonly value="{{$talla->circunferencia_pantorrilla_dcha}}" name="circunferencia_pantorrilla_dcha" id="circunferencia_pantorrilla_dcha" type="text" class="col-sm-4">
                     </div>
                     <div class="input-group mb-2">
-                        <div class="input-group-prepend">
+                        <div class="col-sm-4">
                             <span class="input-group-text">Altura Pantorrilla</span>
                         </div>
-                        <input readonly value="{{$talla->altura_pantorrilla_izq}}" name="altura_pantorrilla_izq" id="altura_pantorrilla_izq" type="text" class="form-control medidas-pierna">
-                        <input readonly value="{{$talla->altura_pantorrilla_dcha}}" name="altura_pantorrilla_dcha" id="altura_pantorrilla_dcha" type="text" class="form-control medidas-pierna">
+                        <input readonly value="{{$talla->altura_pantorrilla_izq}}" name="altura_pantorrilla_izq" id="altura_pantorrilla_izq" type="text" class="col-sm-4">
+                        <input readonly value="{{$talla->altura_pantorrilla_dcha}}" name="altura_pantorrilla_dcha" id="altura_pantorrilla_dcha" type="text" class="col-sm-4">
                     </div>
                     <div class="input-group mb-2">
-                        <div class="input-group-prepend">
+                        <div class="col-sm-4">
                             <span class="input-group-text">Circunferencia Muslo</span>
                         </div>
-                        <input readonly value="{{$talla->circunferencia_muslo_izq}}" name="circunferencia_muslo_izq" id="circunferencia_muslo_izq" type="text" class="form-control medidas-pierna">
-                        <input readonly value="{{$talla->circunferencia_muslo_dcha}}" name="circunferencia_muslo_dcha" id="circunferencia_muslo_dcha" type="text" class="form-control medidas-pierna">
+                        <input readonly value="{{$talla->circunferencia_muslo_izq}}" name="circunferencia_muslo_izq" id="circunferencia_muslo_izq" type="text" class="col-sm-4">
+                        <input readonly value="{{$talla->circunferencia_muslo_dcha}}" name="circunferencia_muslo_dcha" id="circunferencia_muslo_dcha" type="text" class="col-sm-4">
                     </div>
                     <div class="input-group mb-2">
-                        <div class="input-group-prepend">
+                        <div class="col-sm-4">
                             <span class="input-group-text">Altura Pierna</span>
                         </div>
-                        <input readonly value="{{$talla->altura_pierna_izq}}" name="altura_pierna_izq" id="altura_pierna_izq" type="text" class="form-control medidas-pierna">
-                        <input readonly value="{{$talla->altura_pierna_dcha}}" name="altura_pierna_dcha" id="altura_pierna_dcha" type="text" class="form-control medidas-pierna">
+                        <input readonly value="{{$talla->altura_pierna_izq}}" name="altura_pierna_izq" id="altura_pierna_izq" type="text" class="col-sm-4">
+                        <input readonly value="{{$talla->altura_pierna_dcha}}" name="altura_pierna_dcha" id="altura_pierna_dcha" type="text" class="col-sm-4">
                     </div>
                     <div class="input-group mb-2 circunferencia_cadera">
-                        <div class="input-group-prepend">
+                        <div class="col-sm-4">
                             <span class="input-group-text">Circunferencia cadera</span>
                         </div>
-                        <input readonly value="{{$talla->circunferencia_cadera}}" name="circunferencia_cadera" id="circunferencia_cadera" type="text" class="form-control medidas-pierna">
+                        <input readonly value="{{$talla->circunferencia_cadera}}" {{-- name="circunferencia_cadera" id="circunferencia_cadera" --}} type="text" class="col-sm-8">
                     </div>
                     <div class="input-group mb-2">
-                        <div class="input-group-prepend">
+                        <div class="col-sm-4">
                             <span class="input-group-text">Calzado</span>
                         </div>
-                        <input readonly value="{{$talla->calzado_izq}}" name="calzado_izq" id="calzado_izq" type="text" class="form-control medidas-pierna">
-                        <input readonly value="{{$talla->calzado_dcha}}" name="calzado_dcha" id="calzado_dcha" type="text" class="form-control medidas-pierna">
+                        <input readonly value="{{$talla->calzado_izq}}" name="calzado_izq" id="calzado_izq" type="text" class="col-sm-4">
+                        <input readonly value="{{$talla->calzado_dcha}}" name="calzado_dcha" id="calzado_dcha" type="text" class="col-sm-4">
                     </div>
                     <div class="input-group mb-2 peso">
-                        <div class="input-group-prepend">
+                        <div class="col-sm-4">
                             <span class="input-group-text">Peso</span>
                         </div>
-                        <input readonly value="{{$talla->peso}}" name="peso" id="peso" type="text" class="form-control medidas-pierna">
+                        <input readonly value="{{$talla->peso}}" {{-- name="peso" id="peso" --}} type="text" class="col-sm-8">
                     </div>
                     <div class="input-group mb-2 estatura">
-                        <div class="input-group-prepend">
+                        <div class="col-sm-4">
                             <span class="input-group-text">Estatura</span>
                         </div>
-                        <input readonly value="{{$talla->estatura}}" name="estatura" id="estatura" type="text" class="form-control medidas-pierna">
+                        <input readonly value="{{$talla->estatura}}" {{-- name="estatura" id="estatura" --}} type="text" class="col-sm-8">
                     </div>
                 </div>
                 <div class="form-group col-6 estilos-brazo">
@@ -176,41 +178,41 @@
                         </div>
                         
                         <div class="input-group mb-2">
-                            <div class="input-group-prepend">
+                            <div class="col-sm-4">
                                 <span class="input-group-text">Circunferencia Palma</span>
                             </div>
-                            <input readonly value="{{$talla->circunferencia_plama_izq}}" name="circunferencia_plama_izq" id="circunferencia_plama_izq" type="text" class="form-control medidas-brazo">
-                            <input readonly value="{{$talla->circunferencia_plama_dcha}}" name="circunferencia_plama_dcha" id="circunferencia_plama_dcha" type="text" class="form-control medidas-brazo">
+                            <input readonly value="{{$talla->circunferencia_plama_izq}}" name="circunferencia_plama_izq" id="circunferencia_plama_izq" type="text" class="col-sm-4">
+                            <input readonly value="{{$talla->circunferencia_plama_dcha}}" name="circunferencia_plama_dcha" id="circunferencia_plama_dcha" type="text" class="col-sm-4">
                         </div>
                         <div class="input-group mb-2">
-                            <div class="input-group-prepend">
+                            <div class="col-sm-4">
                                 <span class="input-group-text">Circunferencia Muñeca</span>
                             </div>
-                            <input readonly value="{{$talla->circunferencia_munieca_izq}}" name="circunferencia_munieca_izq" id="circunferencia_munieca_izq" type="text" class="form-control medidas-brazo">
-                            <input readonly value="{{$talla->circunferencia_munieca_dcha}}" name="circunferencia_munieca_dcha" id="circunferencia_munieca_dcha" type="text" class="form-control medidas-brazo">
+                            <input readonly value="{{$talla->circunferencia_munieca_izq}}" name="circunferencia_munieca_izq" id="circunferencia_munieca_izq" type="text" class="col-sm-4">
+                            <input readonly value="{{$talla->circunferencia_munieca_dcha}}" name="circunferencia_munieca_dcha" id="circunferencia_munieca_dcha" type="text" class="col-sm-4">
                         </div>
                         <div class="input-group mb-2">
-                            <div class="input-group-prepend">
+                            <div class="col-sm-4">
                                 <span class="input-group-text">Circunferencia parte media</span>
                             </div>
-                            <input readonly value="{{$talla->circunferencia_media_izq}}" name="circunferencia_media_izq" id="circunferencia_media_izq" type="text" class="form-control medidas-brazo">
-                            <input readonly value="{{$talla->circunferencia_media_dcha}}" name="circunferencia_media_dcha" id="circunferencia_media_dcha" type="text" class="form-control medidas-brazo">
+                            <input readonly value="{{$talla->circunferencia_media_izq}}" name="circunferencia_media_izq" id="circunferencia_media_izq" type="text" class="col-sm-4">
+                            <input readonly value="{{$talla->circunferencia_media_dcha}}" name="circunferencia_media_dcha" id="circunferencia_media_dcha" type="text" class="col-sm-4">
                         </div>
                         <div class="input-group mb-2">
-                            <div class="input-group-prepend">
+                            <div class="col-sm-4">
                                 <span class="input-group-text">Talla</span>
                             </div>
-                            <input readonly value="{{$talla->talla_izq}}" name="talla_izq" id="talla_izq" type="text" class="form-control medidas-brazo">
-                            <input readonly value="{{$talla->talla_dcha}}" name="talla_dcha" id="talla_dcha" type="text" class="form-control medidas-brazo">
+                            <input readonly value="{{$talla->talla_izq}}" name="talla_izq" id="talla_izq" type="text" class="col-sm-4">
+                            <input readonly value="{{$talla->talla_dcha}}" name="talla_dcha" id="talla_dcha" type="text" class="col-sm-4">
                         </div>
                     </div>
 
             </div>
-                    <div class="col-12">
+                    {{-- <div class="col-12">
                         <button type="submit" class="btn btn-success">
                             <strong>Guardar</strong>
                         </button>
-                    </div>
+                    </div> --}}
                 </div>
                     
             </form>

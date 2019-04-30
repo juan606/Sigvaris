@@ -22,6 +22,7 @@
                         <th>Nombre</th>
                         <th>Correo</th>
                         <th>Rol</th>
+                        <th>Borrar</th>
                     </tr>
                </thead>
                <tbody>
@@ -30,6 +31,15 @@
                         <td>{{$user->name}}</td>
                         <td>{{$user->email}}</td>
                         <td>{{$user->role->nombre}}</td>
+                        <td>
+                             <div class="col pl-0">
+                                        <form role="form" name="doctorborrar" id="form-doctor" method="POST" action="{{ route('usuarios.destroy',['user'=>$user]) }}" name="form">
+                                            {{ csrf_field() }}
+                                            {{ method_field('DELETE') }}
+                                            <button type="submit" class="btn btn-danger"><i class="far fa-trash-alt"></i><strong> Borrar</strong></button>
+                                        </form>
+                                    </div>
+                            {{-- <a href="{{ route('usuarios.destroy',['user'=>$user]) }}" role="button" class="btn btn-danger"> <strong><i class="fas fa-trash-alt "></i></strong></a> --}}</td>
                     </tr>
                     @endforeach
                </tbody>

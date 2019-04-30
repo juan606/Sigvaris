@@ -69,8 +69,54 @@ class PacienteController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
-    {
-        $paciente = Paciente::create($request->all());
+    {           
+        if($request->rfc && $request->nacimiento)
+            $paciente = Paciente::create($request->all());
+        elseif($request->rfc==null)
+        {   
+            $time=strtotime($request->nacimiento); 
+            $year=date("Y",$time);  
+            $rfc=substr($request->paterno,0,2);
+            $rfc.=substr($request->materno,0,1);
+            $rfc.=substr($request->nombre,0,1);        
+            $rfc.=substr($year,2,3);
+            $rfc.=date("m",$time);
+            $rfc.=date("d",$time);
+            $paciente=new Paciente([
+                'nombre'=>$request->nombre,
+                'materno'=>$request->materno,
+                'paterno'=>$request->paterno,
+                'nacimiento'=>$request->nacimiento,
+                'rfc'=>strtolower($rfc),
+                'celular'=>$request->celular,
+                'telefono'=>$request->telefono,
+                'mail'=>$request->mail,
+                'otro_doctor'=>$request->otro_doctor,
+                'doctor_id'=>$request->doctor_id,
+                'nivel_id'=>$request->nivel_id
+            ]);
+            $paciente->save();
+            
+        }
+        else{
+            $birth=strtotime("19".substr($request->rfc,-6));
+            $fecha=date('Y-m-d',$birth); 
+            $paciente=new Paciente([
+                'nombre'=>$request->nombre,
+                'materno'=>$request->materno,
+                'paterno'=>$request->paterno,
+                'nacimiento'=>$fecha,
+                'rfc'=>$request->rfc,
+                'celular'=>$request->celular,
+                'telefono'=>$request->telefono,
+                'mail'=>$request->mail,
+                'otro_doctor'=>$request->otro_doctor,
+                'doctor_id'=>$request->doctor_id,
+                'nivel_id'=>$request->nivel_id
+            ]);
+            $paciente->save();  
+            // dd($fecha);
+        }
         return redirect()->route('pacientes.index');
     }
 
@@ -123,7 +169,7 @@ class PacienteController extends Controller
     {
         $temp = Paciente::find($paciente);
         $temp->delete();
-        $pacientes = Paciente::get();
+        $pacientes = Paciente::paginate(10);
         return view('paciente.index', ['pacientes'=>$pacientes]);
     }
 }

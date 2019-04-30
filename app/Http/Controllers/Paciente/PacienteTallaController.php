@@ -88,6 +88,7 @@ class PacienteTallaController extends Controller
         $talla->pantimedia = $request->input('pantimedia');
         $talla->calcetin = $request->input('calcetin');
         $talla->pantorrillera = $request->input('pantorrillera');
+        $talla->leggins = $request->input('leggins');
         $talla->circunferencia_tobillo_izq = $request->input('circunferencia_tobillo_izq');
         $talla->circunferencia_tobillo_dcha = $request->input('circunferencia_tobillo_dcha');
         $talla->circunferencia_pantorrilla_izq = $request->input('circunferencia_pantorrilla_izq');

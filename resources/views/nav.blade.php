@@ -125,17 +125,18 @@
                 </li>    
             @endif
 
-            
-                <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown">
-                        Usuarios
-                    </a>
-                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-            @if (Auth::user()->role->usuarios)
-                        <a class="dropdown-item" href="{{route('roles.index')}}"><span>Roles</span><i class="fa fa-search float-right"></i></a>
-            @endif
-            @if (Auth::user()->role->roles)
-                        <a class="dropdown-item" href="{{route('usuarios.index')}}"><span>Usuarios</span><i class="fa fa-search float-right"></i></a>
+             @if (Auth::user()->role->roles || Auth::user()->role->usuarios)
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown">
+                            Usuarios
+                        </a>
+                        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                @if (Auth::user()->role->roles)
+                            <a class="dropdown-item" href="{{route('roles.index')}}"><span>Roles</span><i class="fa fa-search float-right"></i></a>
+                @endif
+                @if (Auth::user()->role->usuarios)
+                            <a class="dropdown-item" href="{{route('usuarios.index')}}"><span>Usuarios</span><i class="fa fa-search float-right"></i></a>
+                @endif
             @endif
                     </div>
                 </li>

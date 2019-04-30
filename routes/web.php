@@ -72,6 +72,7 @@ Route::resource('bancos','Banco\BancoController', ['except'=>'show']);
 Route::resource('bajas','Precargas\TipoBajaController');
 
 Route::resource('roles','Role\RoleController');
+//Route::get('roles/{role}/destroy','Role\RoleController@destroy');
 Route::resource('usuarios','User\UserController');
 
 

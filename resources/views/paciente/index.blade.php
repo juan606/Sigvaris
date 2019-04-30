@@ -47,6 +47,8 @@
                                     <div class="col-auto pr-2">
                                         <a href="{{route('pacientes.show', ['paciente'=>$paciente])}}" class="btn btn-primary"><i class="fas fa-eye"></i><strong> Ver</strong></a>
                                         <a href="{{route('pacientes.edit', ['paciente'=>$paciente])}}" class="btn btn-warning"><i class="fas fa-edit"></i><strong> Editar</strong></a>
+
+                                        <a href="{{route('pacientes.venta', ['paciente' => $paciente])}}" class="btn btn-secondary float-right"><i class="fas fa-dollar-sign"></i><strong> Punto de venta</strong></a>
                                         
                                     </div>
                                     <div class="col pl-0">

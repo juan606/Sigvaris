@@ -155,6 +155,14 @@ class RoleController extends Controller
      */
     public function destroy(Role $role)
     {
-        //
+        //return 'borrado';
+        //dd($role->user());
+        //$temp = Role::find($role->id);
+        //dd($temp);
+        Role::has('user')->get();
+        //dd($role->user()->exists());
+        $role->delete();
+        $roles = Role::paginate(10);
+        return view('roles.index', ['roles'=>$roles]);
     }
 }

@@ -137,8 +137,19 @@ class UserController extends Controller
      * @param  \App\User  $user
      * @return \Illuminate\Http\Response
      */
-    public function destroy(User $user)
+    public function destroy(User $usuario)
     {
-        //
+        //return 'destruido '.$user->name;
+        //$temp = User::find($user);
+        //return 'entrando a destroy';
+        //dd($usuario);
+        if($usuario)
+        {
+            $usuario->delete();
+            $usuarios = User::paginate(10);
+            return view('users.index', ['users'=>$usuarios]);
+        }
+        else
+            return 'no existe';
     }
 }

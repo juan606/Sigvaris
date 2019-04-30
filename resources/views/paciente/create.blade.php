@@ -14,7 +14,7 @@
             </div>
         </div>
     </div>
-    <form role="form" id="form-cliente" method="POST" action="{{ route('pacientes.store') }}" name="form">
+    <form role="form" name="Form" onsubmit="return validateForm()" id="form-cliente" method="POST" action="{{ route('pacientes.store') }}" name="form">
         {{ csrf_field() }}
         <div class="card-body">
             <div class="row">
@@ -42,7 +42,7 @@
                 </div>
                 <div class="col-3 form-group">
                     <label class="control-label">✱Fecha nacimiento:</label>
-                    <input type="date" name="nacimiento" class="form-control" required="">
+                    <input type="date" name="nacimiento" class="form-control">
                 </div>
                 <div class="col-3 form-group">
                     <label class="control-label">✱RFC:</label>
@@ -88,6 +88,21 @@
         </div>
     </form>
 </div>
+<script type="text/javascript">
+    function validateForm(){
+        var a=document.forms["Form"]["nacimiento"].value;
+        var b=document.forms["Form"]["rfc"].value;
+        if((a==null & b==null) || (a=="" && b=="") || (a=="" && b==null) || (a==null && b=="") )
+        {
+            alert("Favor de llenar fecha de nacimiento o rfc");
+            return false;
+        }
+        //alert("hola mundo");
+    } 
+
+</script>
+
+
 <script>
 $('#otro_doctor').hide();
     $('#doctor_id').change(function () {
