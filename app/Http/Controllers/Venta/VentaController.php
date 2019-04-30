@@ -18,7 +18,7 @@ class VentaController extends Controller
      */
     public function index()
     {
-        return view('venta.index', ['ventas'=>Venta::get()]);
+        return view('venta.SelectPaciente', ['ventas'=>Venta::get()]);
     }
 
     public function indexConPaciente(Paciente $paciente){
