@@ -32,10 +32,10 @@
 
                         <td>
                             <div class="col pl-0">
-                                        <form role="form" name="doctorborrar" id="form-doctor" method="POST" action="{{route('roles.destroy', ['role'=>$role])}}" name="form">
+                                        <form role="form" name="doctorborrar" id="form-doctor{{ $role->id }}" method="POST"  action="{{route('roles.destroy', ['role'=>$role])}}" name="form">
                                             {{ csrf_field() }}
                                             {{ method_field('DELETE') }}
-                                            <button type="submit" class="btn btn-danger"><i class="far fa-trash-alt"></i><strong> Borrar</strong></button>
+                                            <button onclick="confirmacion({{$role->id}})" type="button" class="btn btn-danger" ><i class="far fa-trash-alt"></i><strong> Borrar</strong></button>
                                         </form>
                                     </div>
                             {{-- <a href="{{ url('roles/'.$role.'->id/destroy') }}" role="button" class="btn btn-danger"> <strong><i class="fas fa-trash-alt "></i></strong></a> --}}</td>
@@ -48,3 +48,37 @@
 </div>
 
 @endsection
+
+<script type="text/javascript">
+
+    function confirmacion(rol_id){
+        swal("¿Esta seguro de eliminar rol?", {
+  buttons: {
+    Si: true,
+    cancel: "No",    
+  },
+})
+.then((value) => {
+  switch (value) {
+ 
+    case "Si":
+      swal({  
+  text: "El rol se eliminara permanentemente",
+  icon: "warning",
+  buttons: true,
+  dangerMode: true,
+})
+.then((willDelete) => {
+  if (willDelete) {
+    
+    $("#form-doctor"+rol_id).submit()
+  } else {
+    swal("Se ha cancelado la eliminación");
+  }
+});
+      break;     
+    
+  }
+});
+    }
+</script>

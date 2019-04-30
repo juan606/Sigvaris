@@ -1,6 +1,42 @@
 @extends('principal')
 @section('content')
 
+<script type="text/javascript">
+
+    function confirmacion(user_id){
+        swal("¿Esta seguro de eliminar este usuario?", {
+  buttons: {
+    Si: true,
+    cancel: "No",    
+  },
+})
+.then((value) => {
+  switch (value) {
+ 
+    case "Si":
+      swal({  
+  text: "El usuario se eliminara permanentemente",
+  icon: "warning",
+  buttons: true,
+  dangerMode: true,
+})
+.then((willDelete) => {
+  if (willDelete) {
+    swal("Se ha dado de baja al usuario", {
+      icon: "success",
+    });
+    $("#form-doctor"+user_id).submit()
+  } else {
+    swal("Se ha cancelado la baja");
+  }
+});
+      break;     
+    
+  }
+});
+    }
+</script>
+
 <div class="container">
     <div class="card">
         <div class="card-header">
@@ -33,10 +69,10 @@
                         <td>{{$user->role->nombre}}</td>
                         <td>
                              <div class="col pl-0">
-                                        <form role="form" name="doctorborrar" id="form-doctor" method="POST" action="{{ route('usuarios.destroy',['user'=>$user]) }}" name="form">
+                                        <form role="form" name="doctorborrar" id="form-doctor{{ $user->id}}" method="POST" action="{{ route('usuarios.destroy',['user'=>$user]) }}" name="form">
                                             {{ csrf_field() }}
                                             {{ method_field('DELETE') }}
-                                            <button type="submit" class="btn btn-danger"><i class="far fa-trash-alt"></i><strong> Borrar</strong></button>
+                                            <button type="button" class="btn btn-danger" onclick="confirmacion({{$user->id}})"><i class="far fa-trash-alt"></i><strong> Borrar</strong></button>
                                         </form>
                                     </div>
                             {{-- <a href="{{ route('usuarios.destroy',['user'=>$user]) }}" role="button" class="btn btn-danger"> <strong><i class="fas fa-trash-alt "></i></strong></a> --}}</td>

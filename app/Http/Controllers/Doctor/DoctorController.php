@@ -48,6 +48,7 @@ class DoctorController extends Controller
         {
             $doctores = Doctor::paginate(10);
         }
+        
 
         return view('doctor.index', ['doctores'=> $doctores]);
     }

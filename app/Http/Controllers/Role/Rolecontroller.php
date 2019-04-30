@@ -6,6 +6,7 @@ use App\Role;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
+use UxWeb\SweetAlert\SweetAlert as Alert;
 
 class RoleController extends Controller
 {
@@ -155,12 +156,19 @@ class RoleController extends Controller
      */
     public function destroy(Role $role)
     {
+        //  
         //return 'borrado';
         //dd($role->user());
         //$temp = Role::find($role->id);
         //dd($temp);
-        Role::has('user')->get();
+        //dd(Role::has('user')->get());
         //dd($role->user()->exists());
+        if($role->user()->exists())
+        {
+            Alert::error('Primero elimine al usuario que usa este perfil', 'Usuario usando el perfil actual');
+            return $this->index();
+        }
+        Alert::success('Se ha eliminado el rol');        
         $role->delete();
         $roles = Role::paginate(10);
         return view('roles.index', ['roles'=>$roles]);
