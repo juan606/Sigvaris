@@ -19,7 +19,7 @@ class RoleController extends Controller
     public function __construct() {
         $this->middleware(function ($request, $next) {
             if(Auth::check()) {
-                if(Auth::user()->role->usuarios)
+                if(Auth::user()->role->roles)
                 {
                     return $next($request);
                 }                
