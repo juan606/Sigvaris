@@ -21,7 +21,8 @@
                     <tr>
                         <th>Nombre</th>
                         <th>Ver</th>
-                        <th>BORRAR</th>
+                        <th>Borrar</th>
+                        <th>Editar</th>
                     </tr>
                </thead>
                <tbody>
@@ -32,13 +33,26 @@
 
                         <td>
                             <div class="col pl-0">
-                                        <form role="form" name="doctorborrar" id="form-doctor{{ $role->id }}" method="POST"  action="{{route('roles.destroy', ['role'=>$role])}}" name="form">
+                                    @if($role->nombre=='Administrador')
+                                    @else
+                                      <form role="form" name="doctorborrar" id="form-doctor{{ $role->id }}" method="POST"  action="{{route('roles.destroy', ['role'=>$role])}}" name="form">
                                             {{ csrf_field() }}
                                             {{ method_field('DELETE') }}
                                             <button onclick="confirmacion({{$role->id}})" type="button" class="btn btn-danger" ><i class="far fa-trash-alt"></i><strong> Borrar</strong></button>
                                         </form>
+                                    @endif
+                                        
                                     </div>
-                            {{-- <a href="{{ url('roles/'.$role.'->id/destroy') }}" role="button" class="btn btn-danger"> <strong><i class="fas fa-trash-alt "></i></strong></a> --}}</td>
+                            </td>
+                            <td>
+                            <div class="col pl-0">
+                                    @if($role->nombre=='Administrador')
+                                    @else
+                                      <a href="{{route('roles.edit', ['role'=>$role])}}" class="btn btn-warning"><i class="fas fa-edit"></i><strong> Editar</strong></a>
+                                    @endif
+                                        
+                                    </div>
+                            </td>
                     </tr>
                     @endforeach
                </tbody>

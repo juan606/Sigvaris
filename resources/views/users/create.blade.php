@@ -31,7 +31,11 @@
                             <select class="form-control" required name="role_id" id="role_id">
                                 <option value="">Seleccionar...</option>
                                 @foreach($roles as $role)
-                                <option value="{{$role->id}}">{{$role->nombre}}</option>
+                                    @if($role->nombre=='Administrador')
+                                    @else
+                                        <option value="{{$role->id}}">{{$role->nombre}}</option>
+                                    @endif
+                                
                                 @endforeach
                             </select>
                         </div>

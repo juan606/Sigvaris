@@ -64,18 +64,46 @@
                <tbody>
                     @foreach($users as $user)
                     <tr>
+                      @if(Auth::user()->role->nombre=='Administrador')
                         <td>{{$user->name}}</td>
                         <td>{{$user->email}}</td>
                         <td>{{$user->role->nombre}}</td>
                         <td>
                              <div class="col pl-0">
+                                      @if ($user->role->nombre=='Administrador')
+                                        {{-- expr --}}
+                                      @else
                                         <form role="form" name="doctorborrar" id="form-doctor{{ $user->id}}" method="POST" action="{{ route('usuarios.destroy',['user'=>$user]) }}" name="form">
                                             {{ csrf_field() }}
                                             {{ method_field('DELETE') }}
                                             <button type="button" class="btn btn-danger" onclick="confirmacion({{$user->id}})"><i class="far fa-trash-alt"></i><strong> Borrar</strong></button>
                                         </form>
+                                      @endif
+                                        
                                     </div>
                             {{-- <a href="{{ route('usuarios.destroy',['user'=>$user]) }}" role="button" class="btn btn-danger"> <strong><i class="fas fa-trash-alt "></i></strong></a> --}}</td>
+                        @else
+                          @if($user->role->nombre=='Administrador')
+                          @else
+                            <td>{{$user->name}}</td>
+                            <td>{{$user->email}}</td>
+                            <td>{{$user->role->nombre}}</td>
+                            <td>
+                                 <div class="col pl-0">
+                                          @if ($user->role->nombre=='Administrador')
+                                            {{-- expr --}}
+                                          @else
+                                            <form role="form" name="doctorborrar" id="form-doctor{{ $user->id}}" method="POST" action="{{ route('usuarios.destroy',['user'=>$user]) }}" name="form">
+                                                {{ csrf_field() }}
+                                                {{ method_field('DELETE') }}
+                                                <button type="button" class="btn btn-danger" onclick="confirmacion({{$user->id}})"><i class="far fa-trash-alt"></i><strong> Borrar</strong></button>
+                                            </form>
+                                          @endif
+                                            
+                                        </div>
+                                {{-- <a href="{{ route('usuarios.destroy',['user'=>$user]) }}" role="button" class="btn btn-danger"> <strong><i class="fas fa-trash-alt "></i></strong></a> --}}</td>
+                          @endif
+                        @endif
                     </tr>
                     @endforeach
                </tbody>

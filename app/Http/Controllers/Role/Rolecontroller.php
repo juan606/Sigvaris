@@ -133,7 +133,7 @@ class RoleController extends Controller
      */
     public function edit(Role $role)
     {
-        //
+        return view('roles.edit',['role'=>$role]);    
     }
 
     /**
@@ -145,7 +145,65 @@ class RoleController extends Controller
      */
     public function update(Request $request, Role $role)
     {
-        //
+        $perm = $request->permisos;
+         $proveedores = false;
+        $pacientes = false;
+        $doctores = false;
+        $recursos_humanos = false;
+        $precargas = false;
+        $productos = false;
+        $punto_de_venta = false;
+        $crm = false;
+        $oficinas = false;
+        $usuarios = false;
+        $roles = false;       
+        if(isset($perm['proveedores'])){
+            $proveedores = true;
+        }
+        if(isset($perm['pacientes'])){
+            $pacientes = true;
+        }
+        if(isset($perm['doctores'])){
+            $doctores = true;
+        }
+        if(isset($perm['recursos_humanos'])){
+            $recursos_humanos = true;
+        }
+        if(isset($perm['precargas'])){
+            $precargas = true;
+        }
+        if(isset($perm['punto_de_venta'])){
+            $punto_de_venta = true;
+        }
+        if(isset($perm['productos'])){
+            $productos = true;
+        }
+        if(isset($perm['crm'])){
+            $crm = true;
+        }
+        if(isset($perm['oficinas'])){
+            $oficinas = true;
+        }
+        if(isset($perm['usuarios'])){
+            $usuarios = true;
+        }
+        if(isset($perm['roles'])){
+            $roles = true;
+        }        
+        $role->nombre = $request->nombre;
+        $role->proveedores = $proveedores;
+        $role->pacientes = $pacientes;
+        $role->doctores = $doctores;
+        $role->recursos_humanos = $recursos_humanos;
+        $role->precargas = $precargas;
+        $role->punto_de_venta = $punto_de_venta;
+        $role->productos = $productos;
+        $role->crm = $crm;
+        $role->oficinas = $oficinas;
+        $role->usuarios = $usuarios;
+        $role->roles = $roles;
+        $role->save();        
+        return $this->index();
     }
 
     /**

@@ -79,3 +79,6 @@ Route::resource('usuarios','User\UserController');
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
+
+Route::post('/pembayaran/print', 'PembayaranController@print')->name('pembayaran.print');
+Route::post('receipt/print','ReceiptController@printReceipt');
