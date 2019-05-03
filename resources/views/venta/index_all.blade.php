@@ -29,7 +29,11 @@
                         <td>{{$venta->id}}</td>
                         <td>{{$venta->paciente->nombre}}</td>
                         <td>{{$venta->total}}</td>
-                        <td>{{$venta->descuento->nombre}}</td>
+                        @if($venta->descuento)
+                            <td>{{$venta->descuento->nombre}}</td>
+                        @else
+                            <td></td>
+                        @endif
                         <td>{{$venta->fecha}}</td>
                         <td>
                             <div class="row">

@@ -169,6 +169,13 @@
                     </div>
                 </div>
             </form>
+            <div class="col-4 offset-4 text-center">
+                <form action="{{ route('pembayaran.print') }}" method="POST">
+                {{-- <input type="text" name="username" class="form-control"> --}}
+                    <input type="hidden" name="_token" class="form-control" value="{!! csrf_token() !!}">
+                    <button type="submit" name="submit" class="btn btn-info">Imprimir</button>
+                </form>
+            </div>
         </div>
     </div>
 </div>

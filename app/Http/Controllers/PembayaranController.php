@@ -17,7 +17,7 @@
         {
             try {
                 // $connector = new WindowsPrintConnector("Epson TM-T20II");
-                $connector = new WindowsPrintConnector("epson");
+                $connector = new WindowsPrintConnector("Epson TM-T20II");
                 //dd($connector);
                 $printer = new Printer($connector);
                 //dd($printer -> text("Hello World!\n"));
