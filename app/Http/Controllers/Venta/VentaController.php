@@ -54,6 +54,9 @@ class VentaController extends Controller
     {
         //dd($request->all());
         $venta = Venta::create($request->all());
+        if(session()->get('oficina'))
+            $venta->oficina_id=session()->get('oficina');
+        $venta->save();
         for($i = 0; $i < sizeof($request->cantidad); $i++){
             $venta->productos()->attach($request->producto_id[$i], ['cantidad'=>$request->cantidad[$i]]);
         }

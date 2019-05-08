@@ -4,6 +4,7 @@ namespace App\Http\Controllers\User;
 
 use App\User;
 use App\Role;
+use App\Empleado;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
@@ -47,7 +48,8 @@ class UserController extends Controller
     public function create()
     {
         $roles = Role::get();
-        return view('users.create', ['roles'=>$roles]);
+        $empleados=Empleado::get();
+        return view('users.create', ['roles'=>$roles,'empleados'=>$empleados]);
     }
 
     /**
@@ -61,11 +63,15 @@ class UserController extends Controller
         $invalidarC=0;
         $invalidarN=0;
         $roles = Role::get();
+        $empleado=Empleado::find($request->empleado_id);
         $usuario = new User;
-        $usuario->name = $request->name;
+        //dd($empleado->nombre);
+        $usuario->name = $empleado->nombre;
         $usuario->email = $request->email;
         $usuario->password = bcrypt($request->password);
         $usuario->role_id = $request->role_id;
+        $usuario->empleado_id=$request->empleado_id;
+        //dd($usuario);
         $usuario_verificacion=DB::table('users')->get();
         foreach ($usuario_verificacion as $U) {
             if($U->email==$usuario->email)
@@ -114,9 +120,11 @@ class UserController extends Controller
      * @param  \App\User  $user
      * @return \Illuminate\Http\Response
      */
-    public function edit(User $user)
+    public function edit(User $usuario)
     {
-        //
+        
+        $roles=Role::get();
+        return view('users.edit',['user'=>$usuario,'roles'=>$roles]);
     }
 
     /**
@@ -126,9 +134,12 @@ class UserController extends Controller
      * @param  \App\User  $user
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, User $user)
+    public function update(Request $request, User $usuario)
     {
-        //
+        $usuario->password = bcrypt($request->password);
+        $usuario->role_id = $request->role_id;
+        $usuario->save();
+        return $this->index();
     }
 
     /**

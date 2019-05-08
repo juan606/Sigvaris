@@ -52,13 +52,13 @@
             </div>
         </div>
         <div class="card-body">
-           <table class="table">
+           <table class="table table-striped table-bordered table-hover">
                <thead>
                     <tr>
                         <th>Nombre</th>
                         <th>Correo</th>
                         <th>Rol</th>
-                        <th>Borrar</th>
+                        <th class="text-center">Accion</th>
                     </tr>
                </thead>
                <tbody>
@@ -68,7 +68,7 @@
                         <td>{{$user->name}}</td>
                         <td>{{$user->email}}</td>
                         <td>{{$user->role->nombre}}</td>
-                        <td>
+                        <td class="text-center">
                              <div class="col pl-0">
                                       @if ($user->role->nombre=='Administrador')
                                         {{-- expr --}}
@@ -76,8 +76,9 @@
                                         <form role="form" name="doctorborrar" id="form-doctor{{ $user->id}}" method="POST" action="{{ route('usuarios.destroy',['user'=>$user]) }}" name="form">
                                             {{ csrf_field() }}
                                             {{ method_field('DELETE') }}
-                                            <button type="button" class="btn btn-danger" onclick="confirmacion({{$user->id}})"><i class="far fa-trash-alt"></i><strong> Borrar</strong></button>
+                                            <button type="button" class="btn btn-danger btn-sm" onclick="confirmacion({{$user->id}})"><i class="far fa-trash-alt"></i><strong> Borrar</strong></button>
                                         </form>
+                                        <a href="{{route('usuarios.edit',['user'=>$user])}}" class="btn btn-warning btn-sm"><i class="fas fa-edit"></i><strong> Editar</strong></a>
                                       @endif
                                         
                                     </div>
@@ -88,7 +89,7 @@
                             <td>{{$user->name}}</td>
                             <td>{{$user->email}}</td>
                             <td>{{$user->role->nombre}}</td>
-                            <td>
+                            <td class="text-center">
                                  <div class="col pl-0">
                                           @if ($user->role->nombre=='Administrador')
                                             {{-- expr --}}
@@ -98,6 +99,7 @@
                                                 {{ method_field('DELETE') }}
                                                 <button type="button" class="btn btn-danger" onclick="confirmacion({{$user->id}})"><i class="far fa-trash-alt"></i><strong> Borrar</strong></button>
                                             </form>
+                                             <a href="{{route('usuarios.edit',['user'=>$user])}}" class="btn btn-warning btn-sm"><i class="fas fa-edit"></i><strong> Editar</strong></a>
                                           @endif
                                             
                                         </div>

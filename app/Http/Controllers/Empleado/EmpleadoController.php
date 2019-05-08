@@ -152,4 +152,9 @@ class EmpleadoController extends Controller
         
 
     }
+
+    public function getEmpleado($id){
+        $empleado=Empleado::find($id);
+        return response()->json(['empleado'=>$empleado],200);
+    }
 }

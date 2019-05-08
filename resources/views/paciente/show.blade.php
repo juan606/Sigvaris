@@ -78,6 +78,16 @@
                 <input readonly value="{{$paciente->otro_doctor}}" type="text" name="nivel" class="form-control" required="">
             </div>
             @endif
+            @if ($paciente->oficina_id)
+                <div class="form-group col-3">
+                    <label for="oficina_id">Oficina donde se registro:</label>
+                    <input readonly value="{{$paciente->oficina->nombre}}" type="text" name="oficina" class="form-control" required="">
+                </div>
+            @endif
+            {{-- <div class="form-group col-3">
+                <label for="oficina_id">Oficina donde se registro:</label>
+                <input readonly value="{{$paciente->oficina->nombre}}" type="text" name="oficina" class="form-control" required="">
+            </div> --}}
         </div>
         <div class="row">
             @include('paciente.subnav')

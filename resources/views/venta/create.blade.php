@@ -89,7 +89,7 @@
                     <div class="row mb-3">
                         <div class="col-4 offset-4 form-group">
                             <label for="descuento_id">Descuento</label>
-                            <select class="form-control" name="descuento_id" id="descuento_id"  required="">
+                            <select class="form-control" name="descuento_id" id="descuento_id" >
                                 <option value="">Selecciona...</option>                               
                             </select>
                              <label class="radio-inline">
@@ -104,7 +104,7 @@
                     <div class="row mb-3" id="promo">
                         <div class="col-4 offset-4 form-group">
                             <label for="descuento_id">Promocion</label>
-                            <select class="form-control" name="descuento_id" id="descuento_id"  required="">
+                            <select class="form-control" name="descuento_id" id="descuento_id">
                                 <option value="">Selecciona...</option>                               
                             </select>
                         </div>
@@ -115,7 +115,7 @@
                             <div class="input-group-prepend">
                                 <span class="input-group-text">Sigpesos: </span>
                             </div>
-                            <input type="number" required="" class="form-control" name="subtotal" id="subtotal" value="0" min="1" step="0.01" readonly="">
+                            <input type="number" class="form-control" name="sigpesos" id="sigpesos" value="0" min="1" step="0.01" readonly="">
                         </div>
                     </div>
 
@@ -170,11 +170,10 @@
                 </div>
             </form>
             <div class="col-4 offset-4 text-center">
-                <form action="{{ route('pembayaran.print') }}" method="POST">
-                {{-- <input type="text" name="username" class="form-control"> --}}
-                    <input type="hidden" name="_token" class="form-control" value="{!! csrf_token() !!}">
+{{--                 <form action="{{ route('pembayaran.print') }}" method="POST">                
+                    <input type="hidden" name="_token" class="form-control" value="{!! csrf_token() !!}"> --}}
                     <button type="submit" name="submit" class="btn btn-info">Imprimir</button>
-                </form>
+                {{-- </form> --}}
             </div>
         </div>
     </div>

@@ -21,6 +21,19 @@
                         placeholder="Contraseña">
                 </div>
             </div>
+
+            <div class="row">
+                <div class="form-group col-6 offset-3">
+                    <label for="oficina">Oficina</label>
+                    <select name="oficina" required class="form-control">
+                        <option value="0">Seleccione una oficina</option>
+                        @foreach ($oficinas as $oficina)
+                            <option value="{{$oficina->id}}">{{$oficina->nombre}}
+                        @endforeach
+                    </select>
+                </div>
+            </div>
+
         </div>
         <div class="card-footer text-muted">
             <button type="submit" class="btn btn-success">Enviar</button>

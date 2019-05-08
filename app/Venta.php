@@ -28,4 +28,7 @@ class Venta extends Model
     public function descuento(){
         return $this->belongsTo('App\Descuento', 'descuento_id');
     }
+    public function oficina(){
+        return $this->belongsTo('App\Oficina');
+    }
 }

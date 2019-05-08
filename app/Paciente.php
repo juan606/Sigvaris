@@ -21,7 +21,8 @@ class Paciente extends Model
         'mail',
         'otro_doctor',
         'doctor_id',
-        'nivel_id'
+        'nivel_id',
+        'oficina_id'
     ];
 
     public function consultorios(){
@@ -53,6 +54,10 @@ class Paciente extends Model
 
     public function nivel(){
         return $this->belongsTo(Nivel::class,'nivel_id');
+    }
+
+    public function oficina(){
+        return $this->belongsTo('App\Oficina');
     }
 
 }

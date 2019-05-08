@@ -14,6 +14,7 @@ class LoginController extends Controller
         ]);
 
         if(Auth::attempt($credentials)){
+            session(['oficina'=>request()->oficina]);
             return redirect()->route('inicio');
         }else{
             return  back();

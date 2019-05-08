@@ -69,9 +69,20 @@ class PacienteController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
-    {           
+    {   
+        //dd(session()->get('oficina'));
         if($request->rfc && $request->nacimiento)
+        {
             $paciente = Paciente::create($request->all());
+            //dd(session()->get('oficina'));
+            if(session()->get('oficina'))
+            {
+                //dd($paciente);
+                $paciente->oficina_id=session()->get('oficina');
+                $paciente->save();
+            }
+            
+        }
         elseif($request->rfc==null)
         {   
             $time=strtotime($request->nacimiento); 
@@ -93,8 +104,16 @@ class PacienteController extends Controller
                 'mail'=>$request->mail,
                 'otro_doctor'=>$request->otro_doctor,
                 'doctor_id'=>$request->doctor_id,
-                'nivel_id'=>$request->nivel_id
+                'nivel_id'=>$request->nivel_id,
+                //dd(session()->get('oficina')),
+
+                
             ]);
+            if (session()->get('oficina')) {
+
+                $paciente->oficina_id=session()->get('oficina');
+            }
+           // dd($paciente);
             $paciente->save();
             
         }
@@ -112,8 +131,15 @@ class PacienteController extends Controller
                 'mail'=>$request->mail,
                 'otro_doctor'=>$request->otro_doctor,
                 'doctor_id'=>$request->doctor_id,
-                'nivel_id'=>$request->nivel_id
+                'nivel_id'=>$request->nivel_id,
+                //dd(session()->get('oficina')),
+                
             ]);
+            //dd($paciente);
+            if (session()->get('oficina')) {
+                
+                $paciente->oficina_id=session()->get('oficina');
+            }
             $paciente->save();  
             // dd($fecha);
         }

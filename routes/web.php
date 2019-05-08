@@ -5,7 +5,8 @@
 // });
 
 Route::get('/', function () {
-    return view('auth.login');
+	$oficinas=App\Oficina::get();
+    return view('auth.login',['oficinas'=>$oficinas]);
 });
 
 Route::get('inicio', 'InicioController@index')->name('inicio');
@@ -82,3 +83,4 @@ Route::get('/home', 'HomeController@index')->name('home');
 
 Route::post('/pembayaran/print', 'PembayaranController@print')->name('pembayaran.print');
 Route::post('receipt/print','ReceiptController@printReceipt');
+Route::get('emp/{id}','Empleado\EmpleadoController@getEmpleado');

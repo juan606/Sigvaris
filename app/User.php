@@ -11,7 +11,7 @@ class User extends Authenticatable
 {
     use Notifiable;
     protected $fillable = [
-        'name', 'email', 'password', 'role_id'
+        'id','name', 'email', 'password', 'role_id','empleado_id',
     ];
     protected $hidden = [
         'password', 'remember_token',
@@ -19,5 +19,9 @@ class User extends Authenticatable
 
     public function role(){
         return $this->belongsTo('App\Role');
+    }
+
+    public function empleado(){
+        return $this->belongsTo('App/Empleado');
     }
 }

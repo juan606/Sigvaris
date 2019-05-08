@@ -62,5 +62,9 @@ class Empleado extends Model
     public function baja(){
       return $this->hasOne('App/EmpleadoBaja');
     }
+
+    public function user(){
+      return $this->hasOne('App/User');
+    }
     
 }

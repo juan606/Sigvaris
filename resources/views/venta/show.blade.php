@@ -29,6 +29,16 @@
                         <label class="control-label">Folio:</label>
                         <input type="number" class="form-control" value="{{$venta->id}}" readonly="">
                     </div>
+                    @if ($venta->oficina_id)
+                        <div class="col-4 form-group">
+                            <label class="control-label">Oficina:</label>
+                            <input type="text" class="form-control" value="{{$venta->oficina->nombre}}" readonly="">
+                        </div>
+                    @endif
+                    {{-- <div class="col-4 form-group">
+                        <label class="control-label">Oficina:</label>
+                        <input type="text" class="form-control" value="{{$venta->oficina->nombre}}" readonly="">
+                    </div> --}}
                 </div>
                 <div class="row">
                     <h5>Productos</h5>
@@ -64,7 +74,7 @@
                 <div class="row">
                     <div class="col-4 offset-4 form-group">
                         <label class="control-label">Descuento:</label>
-                        <input type="text" class="form-control" value="{{$venta->descuento->nombre}} / {{$venta->descuento->valor}}" readonly="">
+                        <input type="text" class="form-control" value="{{-- {{$venta->descuento->nombre}} / {{$venta->descuento->valor}} --}}" readonly="">
                     </div>
                 </div>
                 <div class="row">
