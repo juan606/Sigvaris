@@ -6,6 +6,7 @@ use App\Oficina;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
+use UxWeb\SweetAlert\SweetAlert as Alert;
 
 
 class OficinaController extends Controller
@@ -98,8 +99,14 @@ class OficinaController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function destroy(Oficina $oficina)
-    {
-        $oficina->delete();
-        return redirect()->route('oficinas.index');
+    {        
+        if($oficina->empleados->isEmpty() && $oficina->pacientes->isEmpty() && $oficina->ventas->isEmpty() )
+        {
+            $oficina->delete();
+            return redirect()->route('oficinas.index');    
+        }
+        Alert::error('La oficina puede tener empleados, pacientes o ventas registradas', 'La oficina esta siendo usada');
+        return $this->index();
+        
     }
 }
