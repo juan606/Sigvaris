@@ -26,7 +26,7 @@
                 <div class="form-group col-6 offset-3">
                     <label for="oficina">Oficina</label>
                     <select name="oficina" required class="form-control">
-                        <option value="0">Seleccione una oficina</option>
+                        <option value="">Seleccione una oficina</option>
                         @foreach ($oficinas as $oficina)
                             <option value="{{$oficina->id}}">{{$oficina->nombre}}
                         @endforeach

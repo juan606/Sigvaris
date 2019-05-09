@@ -60,46 +60,25 @@ class UserController extends Controller
      */
     public function store(Request $request)
     {
+
         $invalidarC=0;
         $invalidarN=0;
         $roles = Role::get();
         $empleado=Empleado::find($request->empleado_id);
+        if (User::where('email', '=', $empleado->email)->exists()) {
+            Alert::error('Porfavor ingrese uno diferente','¡Este empleado ya tiene usuario!');
+            return redirect()->route('usuarios.index');
+        }
         $usuario = new User;
         //dd($empleado->nombre);
         $usuario->name = $empleado->nombre;
-        $usuario->email = $request->email;
+        $usuario->email = $empleado->email;
         $usuario->password = bcrypt($request->password);
         $usuario->role_id = $request->role_id;
         $usuario->empleado_id=$request->empleado_id;
         //dd($usuario);
-        $usuario_verificacion=DB::table('users')->get();
-        foreach ($usuario_verificacion as $U) {
-            if($U->email==$usuario->email)
-            {
-                $invalidarC++;
-            }
-            if($U->name==$usuario->name)
-            {
-                $invalidarN++;
-            }
-        }
-        if($invalidarC || $invalidarN)
-        {
-            if ($invalidarC) {
-                Alert::error('Porfavor ingrese uno diferente','¡Este correo ya existe!');
-            }
-            if($invalidarN)
-            {
-                Alert::error('Porfavor ingrese uno diferente','¡Este nombre ya existe!');
-                                
-            }
-            
-            return view('users.create', ['roles'=>$roles]);
-        }
-        else{
-            $usuario->save();
-            return redirect()->route('usuarios.index');
-        }
+        $usuario->save();
+        return redirect()->route('usuarios.index');        
         
     }
 
@@ -124,6 +103,7 @@ class UserController extends Controller
     {
         
         $roles=Role::get();
+        $empleados=Empleado::get();
         return view('users.edit',['user'=>$usuario,'roles'=>$roles]);
     }
 
