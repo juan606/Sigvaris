@@ -16,7 +16,8 @@ class Venta extends Model
         'descuento_id',
         'total',
         'promocion_id',
-        'sigpesos'
+        'sigpesos',
+        'created_at'
     ];
 
     public function productos(){

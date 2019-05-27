@@ -6,6 +6,8 @@ use App\Descuento;
 use App\Promocion;
 use App\Paciente;
 use App\Producto;
+use DateInterval;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
@@ -488,7 +490,13 @@ class DescuentoController extends Controller
     {
         if(isset($paciente->ventas))
         {
-            return $paciente->ventas->last()->sigpesos;
+            $intervalo = new DateInterval('P6M');
+            $hoy=Carbon::now();
+            $expira=$paciente->ventas->last()->created_at->add($intervalo);
+            if($expira>$hoy)
+                return $paciente->ventas->last()->sigpesos;
+            else
+                return 0;
         }
         else
         {
