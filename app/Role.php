@@ -22,7 +22,8 @@ class Role extends Model
         'crm',
         'oficinas',
         'usuarios',
-        'roles'
+        'roles',
+        'facturacion'
     ];
 
     public function user(){

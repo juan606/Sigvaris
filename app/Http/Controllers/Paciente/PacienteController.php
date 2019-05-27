@@ -83,7 +83,7 @@ class PacienteController extends Controller
             }
             
         }
-        elseif($request->rfc==null)
+        elseif($request->rfc==null && $request->nacimiento!=null)
         {   
             $time=strtotime($request->nacimiento); 
             $year=date("Y",$time);  
@@ -117,7 +117,7 @@ class PacienteController extends Controller
             $paciente->save();
             
         }
-        else{
+        elseif($request->nacimiento==null && $request->rfc!=null){
             $birth=strtotime("19".substr($request->rfc,-6));
             $fecha=date('Y-m-d',$birth); 
             $paciente=new Paciente([
@@ -142,6 +142,29 @@ class PacienteController extends Controller
             }
             $paciente->save();  
             // dd($fecha);
+        }
+        else{
+            $paciente=new Paciente([
+                'nombre'=>$request->nombre,
+                'materno'=>$request->materno,
+                'paterno'=>$request->paterno,
+                //'nacimiento'=>$fecha,
+                //'rfc'=>$request->rfc,
+                'celular'=>$request->celular,
+                'telefono'=>$request->telefono,
+                'mail'=>$request->mail,
+                'otro_doctor'=>$request->otro_doctor,
+                'doctor_id'=>$request->doctor_id,
+                'nivel_id'=>$request->nivel_id,
+                //dd(session()->get('oficina')),
+                
+            ]);
+            //dd($paciente);
+            if (session()->get('oficina')) {
+                
+                $paciente->oficina_id=session()->get('oficina');
+            }
+            $paciente->save();  
         }
         return redirect()->route('pacientes.index');
     }

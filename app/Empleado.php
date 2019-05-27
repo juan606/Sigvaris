@@ -31,7 +31,8 @@ class Empleado extends Model
                            'calles',
                            'referencia',
                            'oficina_id',
-                           'activo'
+                           'activo',
+                           'homoclave'
                         ];
    
 

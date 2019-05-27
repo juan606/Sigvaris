@@ -14,7 +14,9 @@ class Venta extends Model
         'fecha',
         'subtotal',
         'descuento_id',
-        'total'
+        'total',
+        'promocion_id',
+        'sigpesos'
     ];
 
     public function productos(){
@@ -30,5 +32,13 @@ class Venta extends Model
     }
     public function oficina(){
         return $this->belongsTo('App\Oficina');
+    }
+
+    public function factura(){
+        return $this->hasOne('App\Factura');
+    }
+
+    public function promocion(){
+        return $this->belongsTo('App\Promocion', 'promocion_id');
     }
 }

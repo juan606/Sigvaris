@@ -88,6 +88,13 @@
                                     <span class="slider"></span>
                                 </label>
                             </li>
+                             <li class="list-group-item">
+                                Facturacion
+                                <label class="switch ">
+                                    <input type="checkbox" name="permisos[facturacion]" value="1" class="success">
+                                    <span class="slider"></span>
+                                </label>
+                            </li>
                             <li class="list-group-item">
                                 Roles
                                 <label class="switch ">

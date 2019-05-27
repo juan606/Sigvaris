@@ -52,6 +52,14 @@ Route::get('pacientes/{paciente}/crm', 'Paciente\PacienteCrmController@getCrmCli
 Route::resource('pacientes.tutores', 'Paciente\PacienteTutorController');
 Route::get('getDoctores','Doctor\DoctorController@getDoctores');
 
+//FACTURAS
+Route::resource('facturas','Paciente\FacturaController');
+Route::get('ventas_from/{paciente}','Paciente\FacturaController@getVentas');
+Route::get('get_paciente/{paciente}','Paciente\FacturaController@getPaciente');
+Route::get('get_promos/{descuento}','Venta\DescuentoController@getPromos');
+Route::post('calcular_descuento/{promocion}','Venta\DescuentoController@getDescuento');
+Route::get('obtener_sigpesos/{paciente}','Venta\DescuentoController@getSigpesos');
+
 Route::resource('contratos','Precargas\TipoContratoController');
 Route::resource('descuentos', 'Venta\DescuentoController');
 Route::resource('productos', 'Producto\ProductoController');

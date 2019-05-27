@@ -124,6 +124,17 @@
                     </div>
                 </li>    
             @endif
+            @if (Auth::user()->role->facturacion)
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown">
+                        Facturacion
+                    </a>
+                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                        <a class="dropdown-item" href="{{route('facturas.index')}}"><span>Buscar</span><i class="fa fa-search float-right"></i></a>
+                        <a class="dropdown-item" href="{{route('facturas.create')}}"><span>Crear</span><i class="fa fa-plus float-right"></i></a>
+                    </div>
+                </li>    
+            @endif
 
              @if (Auth::user()->role->roles || Auth::user()->role->usuarios)
                     <li class="nav-item dropdown">
@@ -140,9 +151,6 @@
             @endif
                     </div>
                 </li>
-            
-            
-            
             <a  class="btn btn-info btn-sm" href="{{ url('logout') }}">
                     <strong>
                        {{--  <i class="far fa-save"></i> --}}

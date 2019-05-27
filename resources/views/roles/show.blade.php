@@ -82,6 +82,13 @@
                                 </label>
                             </li>
                             <li class="list-group-item">
+                                Facturacion
+                                <label class="switch ">
+                                    <input disabled id="facturacion" type="checkbox" name="permisos[facturacion]" value="1" class="success">
+                                    <span class="slider"></span>
+                                </label>
+                            </li>
+                            <li class="list-group-item">
                                 Roles
                                 <label class="switch ">
                                     <input disabled id="roles" type="checkbox" name="permisos[roles]" value="1" class="success">
@@ -107,6 +114,7 @@ $(document).ready(function(){
     let crm = $('#crm');
     let oficinas = $('#oficinas');
     let usuarios = $('#usuarios');
+    let facturacion = $('#facturacion');
     let roles = $('#roles');
 
     proveedores_v = {{$role->proveedores}};
@@ -119,6 +127,7 @@ $(document).ready(function(){
     crm_v = {{$role->crm}};
     oficinas_v = {{$role->oficinas}};
     usuarios_v = {{$role->usuarios}};
+    facturacion_v = {{$role->facturacion}};
     roles_v = {{$role->roles}};
 
     if(proveedores_v == 1)
@@ -141,6 +150,8 @@ $(document).ready(function(){
         oficinas.prop('checked', true);
     if(usuarios_v == 1)
         usuarios.prop('checked', true);
+     if(facturacion_v == 1)
+        facturacion.prop('checked', true);
     if(roles_v == 1)
         roles.prop('checked', true);
 

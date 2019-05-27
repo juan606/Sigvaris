@@ -41,11 +41,11 @@
                     <input type="email" name="mail" class="form-control">
                 </div>
                 <div class="col-3 form-group">
-                    <label class="control-label">✱Fecha nacimiento:</label>
+                    <label class="control-label">Fecha nacimiento:</label>
                     <input type="date" name="nacimiento" class="form-control">
                 </div>
                 <div class="col-3 form-group">
-                    <label class="control-label">✱RFC:</label>
+                    <label class="control-label">RFC:</label>
                     <input type="text" name="rfc" class="form-control">
                 </div>
                 <div class="form-group col-3">
@@ -88,7 +88,7 @@
         </div>
     </form>
 </div>
-<script type="text/javascript">
+{{-- <script type="text/javascript">
     function validateForm(){
         var a=document.forms["Form"]["nacimiento"].value;
         var b=document.forms["Form"]["rfc"].value;
@@ -100,7 +100,7 @@
         //alert("hola mundo");
     } 
 
-</script>
+</script> --}}
 
 
 <script>

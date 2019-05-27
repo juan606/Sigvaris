@@ -19,7 +19,7 @@
             <div class="card-body">
                 @if ($descuentos->count() == 0)
                 {{-- true expr --}}
-                <label>No hay faltas añadidos</label>
+                <label>No hay descuentos añadidos</label>
                 @else
                 {{-- false expr --}}
                 <table id="precargas" class="table table-striped table-bordered table-hover"
@@ -27,29 +27,36 @@
                     <thead>
                         <tr class="info">                        
                             <th>Nombre</th>
-                            <th>Tipo</th>
-                            <th>Valor</th>
+                            <th>fecha de inicio</th>
+                            <th>fecha de fin</th>
                             <th>Operacion</th>
                         </tr>
                     </thead>
-                    @foreach($descuentos as $area)
+                    @foreach($descuentos as $descuento)
                     <tr>
                         <td>
-                            {{ $area->nombre }}
+                            {{ $descuento->nombre }}
                         </td>
-                        <td>{{ $area->tipo }}</td>
-                        <td>{{ $area->valor }}</td>
+                        <td>{{ $descuento->inicio }}</td>
+                        <td>{{ $descuento->fin }}</td>
                         <td>
                             <div class="row">
                                 <div class="col-2">
-                                    <a class="btn btn-warning" href="{{ route('descuentos.edit',['area'=>$area]) }}">
+                                    <a class="btn btn-info" href="{{ route('descuentos.show',['descuento'=>$descuento]) }}">
+                                        <strong>
+                                            <i class="far fa-eye"></i>
+                                        </strong>
+                                    </a>
+                                </div>
+                                <div class="col-2">
+                                    <a class="btn btn-warning" href="{{ route('descuentos.edit',['descuento'=>$descuento]) }}">
                                         <strong>
                                             <i class="far fa-edit"></i>
                                         </strong>
                                     </a>
                                 </div>
                                 <div class="col-2">
-                                    <form role="form" method="POST" action="{{ route('descuentos.destroy',['area'=>$area]) }}">
+                                    <form role="form" method="POST" action="{{ route('descuentos.destroy',['descuento'=>$descuento]) }}">
                                         {{ csrf_field() }}
                                         <input type="hidden" name="_method" value="DELETE">
                                         <button type="submit" class="btn btn-danger" role="button">

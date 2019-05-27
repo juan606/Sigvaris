@@ -74,7 +74,18 @@
                 <div class="row">
                     <div class="col-4 offset-4 form-group">
                         <label class="control-label">Descuento:</label>
-                        <input type="text" class="form-control" value="{{-- {{$venta->descuento->nombre}} / {{$venta->descuento->valor}} --}}" readonly="">
+                        <input type="text" class="form-control" value="{{round($venta->subtotal-$venta->total+($venta->subtotal*0.16))}}" readonly="">
+                        {{-- @if ($venta->descuento)
+                            @if ($venta->promocion->tipo=='E')
+                                <input type="text" class="form-control" value="0" readonly="">
+                            @else
+                                <input type="text" class="form-control" value="{{ $venta->subtotal-$venta->total+($venta->subtotal*0.16) }}" readonly="">
+                            @endif
+                            
+                        @else    
+                            <input type="text" class="form-control" value="0" readonly="">
+                        @endif --}}
+                        
                     </div>
                 </div>
                 <div class="row">

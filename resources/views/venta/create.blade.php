@@ -1,4 +1,5 @@
 @extends('principal')
+<meta name="csrf-token" content="{{ csrf_token() }}" />
 @section('content')
 {{-- {{ dd($productos) }} --}}
 <div class="container">
@@ -90,21 +91,19 @@
                         <div class="col-4 offset-4 form-group">
                             <label for="descuento_id">Descuento</label>
                             <select class="form-control" name="descuento_id" id="descuento_id" >
-                                <option value="">Selecciona...</option>                               
-                            </select>
-                             <label class="radio-inline">
-                                <input type="radio" name="Aplica" value="Aplica" id="Aplica" onchange="aplica()" /> Aplica
-                            </label>
-                            <label class="radio-inline offset-2 ">
-                                <input type="radio" name="Aplica" value="high" onchange="no_aplica()" id="NoAplica" /> No aplica
-                            </label>
+                                <option value="">Selecciona...</option>
+                                @foreach ($descuentos as $descuento)
+                                    <option value="{{$descuento->id}}">{{$descuento->nombre}}</option>
+                                @endforeach
+
+                            </select>                            
                         </div>
                     </div>
 
                     <div class="row mb-3" id="promo">
                         <div class="col-4 offset-4 form-group">
-                            <label for="descuento_id">Promocion</label>
-                            <select class="form-control" name="descuento_id" id="descuento_id">
+                            <label for="promo_id">Promocion</label>
+                            <select class="form-control" name="promo_id" id="promo_id">
                                 <option value="">Selecciona...</option>                               
                             </select>
                         </div>
@@ -113,9 +112,18 @@
                     <div class="row mb-3">
                         <div class="col-4 offset-4 input-group">
                             <div class="input-group-prepend">
-                                <span class="input-group-text">Sigpesos: </span>
+                                <span class="input-group-text">Sigpesos ganados: </span>
                             </div>
                             <input type="number" class="form-control" name="sigpesos" id="sigpesos" value="0" min="1" step="0.01" readonly="">
+                        </div>
+                    </div>
+
+                    <div class="row mb-3">
+                        <div class="col-4 offset-4 input-group">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text">Sigpesos a usar: </span>
+                            </div>
+                            <input type="number" class="form-control" name="sigpesos_usar" id="sigpesos_usar" value="0" min="1" step="0.01" readonly="">
                         </div>
                     </div>
 
@@ -132,9 +140,9 @@
                     <div class="row mb-3">
                         <div class="col-4 offset-4 input-group">
                             <div class="input-group-prepend">
-                                <span class="input-group-text">Descuentos: $</span>
+                                <span class="input-group-text">Descuento: $</span>
                             </div>
-                            <input type="number" required="" class="form-control" name="subtotal" id="subtotal" value="0" step="0.01" readonly="">
+                            <input type="number" required="" class="form-control" name="descuento" id="descuento" value="0" step="0.01" readonly="">
                         </div>
                     </div>
 
@@ -143,7 +151,7 @@
                             <div class="input-group-prepend">
                                 <span class="input-group-text">Iva: $</span>
                             </div>
-                            <input type="number" required="" class="form-control" name="subtotal" id="subtotal" value="0" min="1" step="0.01" readonly="">
+                            <input type="number" required="" class="form-control" name="iva" id="iva" value="0" min="1" step="0.01" readonly="">
                         </div>
                     </div>
                     
@@ -220,8 +228,18 @@
         precios_total.forEach(e => {
             total += parseFloat(e.innerText);
         });
+        $('#promo_id option:eq(0)').prop('selected',true);
+        $('#descuento').val(0);
+        $('#sigpesos').val(0);
         $('#subtotal').val(total.toFixed(2));
-        $('#total').val(total.toFixed(2));
+        $('#iva').val($('#subtotal').val()*0.16);
+        var sigpesos=parseInt($('#sigpesos_usar').val());
+        var subtotal=parseFloat($('#subtotal').val())
+        var iva=parseFloat($('#iva').val())
+        var des=parseFloat($('#descuento').val());
+        // console.log(des);       
+        $('#total').val(subtotal+iva-des-sigpesos);
+        // $('#total').val('ola');
     }
 
     function cambiarTotal(a, p){
@@ -263,25 +281,117 @@
 </script>
 
 <script type="text/javascript">
-    if(document.getElementById('Aplica').checked)
-        document.getElementById("promo").style.display = "block";
-    else
-        document.getElementById("promo").style.display = "none";
-    function aplica(){
-        if(document.getElementById('Aplica').checked){
-            var x = document.getElementById("promo");
-            x.style.display = "block";
-        }
-        
-    }
+    $(document).ready(function(){
+        $('#descuento_id').change(function(){            
+            var id=$('#descuento_id').val();
+            $('#descuento').val(0);
+            $('#sigpesos').val(0);
+            var subtotal=parseFloat($('#subtotal').val());
+            var iva=parseFloat($('#iva').val());
+            var des=parseFloat($('#descuento').val());
+            var sigpesos=parseInt($('#sigpesos_usar').val());
+            $('#total').val(subtotal+iva-des-sigpesos);
+            $.ajax({
+                url:"{{ url('/get_promos') }}/"+id,
+                type:'GET',
+                dataType:'html',
+                success: function(res){
+                    $('#promo_id').html(res);
 
-        function no_aplica(){
-        if(document.getElementById('NoAplica').checked){
-            var x = document.getElementById("promo");
-            x.style.display = "none";
-        }
-        
-    }
+                }
+            });
+        });
+
+        $('#promo_id').change(function(){
+            var id=$('#promo_id').val();
+            if(!id)
+            {
+                $('#descuento').val(0);
+                $('#sigpesos').val(0);
+            }
+            var paciente_id=$('#paciente_id').val();
+            var total_productos=parseInt(0);
+            var subtotal=parseFloat($('#subtotal').val());
+            var iva=parseFloat($('#iva').val());
+            var des=parseFloat($('#descuento').val());
+            var sigpesos=parseInt($('#sigpesos_usar').val());
+            $('#total').val(subtotal+iva-des-sigpesos);
+            var productos_id=[];
+            var cantidad_id=[];
+            $('[name="cantidad[]"]').each(function(){
+                total_productos+=parseInt($(this).val());
+                cantidad_id.push($(this).val());
+            });
+
+            $('[name="producto_id[]"]').each(function(){
+                productos_id.push($(this).val());
+            }); 
+            $.ajax({
+                url:"{{ url('/calcular_descuento') }}/"+id,
+                type:'POST',
+                data: {"_token": "{{CSRF_TOKEN()}}",
+                    "subtotal":$("#subtotal").val(),
+                    "paciente_id":paciente_id,
+                    "total_productos":total_productos,
+                    "productos_id":productos_id,
+                    "cantidad_id":cantidad_id
+                },
+                dataType:'json',
+                success: function(res){                    
+                    if(res.status){                       
+                        $('#descuento').val(res.total);
+                        $('#sigpesos').val(res.sigpesos);
+                        des=parseFloat($('#descuento').val());
+                        $('#total').val(subtotal+iva-des-sigpesos);
+                        if($('#total').val()<0)
+                        {
+                            $('#total').val(0);
+                        }
+                        //$('#total').val()
+                    }
+                    else
+                    {
+                        swal("No aplica el descuento");
+                        $('#promo_id option:eq(0)').prop('selected',true);
+                    }
+                }
+
+            });
+        });
+       
+        $('#paciente_id').change(function(){
+            var id=$(this).val();
+            $('#promo_id option:eq(0)').prop('selected',true);
+            $('#descuento').val(0);
+            $('#sigpesos').val(0);
+            var subtotal=parseFloat($('#subtotal').val());
+            var iva=parseFloat($('#iva').val());
+            var des=parseFloat($('#descuento').val());
+            $.ajax({
+                url:"{{ url('/obtener_sigpesos') }}/"+id,
+                type:'GET',
+                dataType:'text',
+                success: function(res){                    
+                    var sigpesos=$('#sigpesos_usar').val(parseInt(res));
+                }
+
+            });
+            if((subtotal+iva-des)<sigpesos)
+            {
+                $('#total').val(0);
+            }
+            else
+            {
+                $('#total').val(subtotal+iva-des-sigpesos);
+            }
+            
+        });
+
+        // $('#subtotal').change(function(){
+        //     console.log('cambio subtotal');
+        //     $('#iva').val($('#subtotal').val()*0.16);
+        // });
+    });
         
 </script>
 @endsection

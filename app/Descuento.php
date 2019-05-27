@@ -7,16 +7,19 @@ use Illuminate\Database\Eloquent\Model;
 class Descuento extends Model
 {
     protected $table='descuentos';
-    public $timestamps = false;
 
     protected $fillable = [
         'id',
         'nombre',
-        'tipo',
-        'valor'
+        'inicio',
+        'fin'
     ];
     
     public function ventas(){
         return $this->hasMany('App\Venta');
+    }
+
+    public function promociones(){
+        return $this->hasMany('App\Promocion');
     }
 }

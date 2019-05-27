@@ -1,11 +1,12 @@
 <?php
 
 namespace App\Http\Controllers\Venta;
-
+use Carbon\Carbon;
 use App\Venta;
 use App\Paciente;
 use App\Producto;
 use App\Descuento;
+use App\Promocion;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
@@ -32,7 +33,8 @@ class VentaController extends Controller
      */
     public function create()
     {
-        $descuentos = Descuento::get();
+        $hoy=Carbon::now()->toDateString();
+        $descuentos = Descuento::where('inicio','<=',$hoy)->where('fin','>=',$hoy)->get();
         $productos = Producto::get();
         $pacientes = Paciente::get();
         return view('venta.create', ['pacientes'=>$pacientes, 'paciente'=>null, 'descuentos'=>$descuentos ,'productos'=>$productos,'folio'=>Venta::count()+1]);
@@ -53,7 +55,8 @@ class VentaController extends Controller
     public function store(Request $request)
     {
         //dd($request->all());
-        $venta = Venta::create($request->all());
+        $venta = new Venta($request->all());
+        $venta->promocion_id=$request->promo_id;
         if(session()->get('oficina'))
             $venta->oficina_id=session()->get('oficina');
         $venta->save();

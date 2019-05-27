@@ -63,6 +63,7 @@ class RoleController extends Controller
         $crm = false;
         $oficinas = false;
         $usuarios = false;
+        $facturacion=false;
         $roles = false;
         if(isset($perm['proveedores'])){
             $proveedores = true;
@@ -94,6 +95,9 @@ class RoleController extends Controller
         if(isset($perm['usuarios'])){
             $usuarios = true;
         }
+         if(isset($perm['facturacion'])){
+            $facturacion = true;
+        }
         if(isset($perm['roles'])){
             $roles = true;
         }
@@ -109,6 +113,7 @@ class RoleController extends Controller
         $role->crm = $crm;
         $role->oficinas = $oficinas;
         $role->usuarios = $usuarios;
+        $role->facturacion = $facturacion;
         $role->roles = $roles;
         $role->save();
         return redirect()->route('roles.index');
@@ -146,7 +151,7 @@ class RoleController extends Controller
     public function update(Request $request, Role $role)
     {
         $perm = $request->permisos;
-         $proveedores = false;
+        $proveedores = false;
         $pacientes = false;
         $doctores = false;
         $recursos_humanos = false;
@@ -156,6 +161,7 @@ class RoleController extends Controller
         $crm = false;
         $oficinas = false;
         $usuarios = false;
+        $facturacion = false;
         $roles = false;       
         if(isset($perm['proveedores'])){
             $proveedores = true;
@@ -187,6 +193,9 @@ class RoleController extends Controller
         if(isset($perm['usuarios'])){
             $usuarios = true;
         }
+        if(isset($perm['facturacion'])){
+            $facturacion = true;
+        }
         if(isset($perm['roles'])){
             $roles = true;
         }        
@@ -201,6 +210,7 @@ class RoleController extends Controller
         $role->crm = $crm;
         $role->oficinas = $oficinas;
         $role->usuarios = $usuarios;
+        $role->facturacion = $facturacion;
         $role->roles = $roles;
         $role->save();        
         return $this->index();
