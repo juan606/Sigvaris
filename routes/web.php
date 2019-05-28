@@ -69,7 +69,10 @@ Route::get('download-excel-file/{type}', array('as' => 'excel-file', 'uses' => '
 
 Route::get('pacientes/{paciente}/ventas/historial', 'Venta\VentaController@indexConPaciente')->name('pacientes.historial');
 Route::get('pacientes/{paciente}/ventas', 'Venta\VentaController@createConPaciente')->name('pacientes.venta');
+
+Route::post('get_ventas','Venta\VentaController@getVentas');
 Route::resource('ventas', 'Venta\VentaController');
+
 
 Route::resource('hospitals', 'Hospital\HospitalController');
 Route::resource('estados', 'Estado\EstadoController');

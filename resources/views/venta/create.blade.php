@@ -50,6 +50,7 @@
                                         <th>SKU</th>
                                         <th>Producto</th>
                                         <th>Precio</th>
+                                        <th>Precio con iva</th>
                                         <th>Agregar</th>
                                     </tr>
                                 </thead>
@@ -59,6 +60,7 @@
                                         <input type="hidden" id="producto_a_agregar{{$loop->index}}" value="{{$producto}}">
                                         <td>{{$producto->sku}}</td>
                                         <td>{{$producto->descripcion}}</td>
+                                        <td>{{$producto->precio_publico}}</td>
                                         <td>{{$producto->precio_publico_iva}}</td>
                                         <td><button type="button" class="btn btn-success boton_agregar" onclick="agregarProducto('#producto_a_agregar{{$loop->index}}')"><i class="fas fa-plus"></i></button></td>
                                     </tr>
@@ -77,12 +79,13 @@
                                         <th>Cantidad</th>
                                         <th>Producto</th>
                                         <th>Precio Unitario</th>
-                                        <th>Precio</th>
+                                        <th>Precio Unitario + IVA</th>
+                                        <th>Subtotal</th>
                                         <th>Quitar</th>
                                     </tr>
                                 </thead>
-                                <tbody>
-                                    <div id="tbody_productos"></div>
+                                <tbody id="tbody_productos">
+                                    {{-- <div id="tbody_productos"></div> --}}
                                 </tbody>
                             </table>
                         </div>
@@ -203,10 +206,11 @@
                 ${producto.descripcion}
             </td>
             <td class="precio_individual">
-                ${producto.precio_publico_iva}
+                ${producto.precio_publico}
             </td>
+            <td>${producto.precio_publico_iva}</td>
             <td class="precio_total">
-                ${producto.precio_publico_iva}
+                ${producto.precio_publico}
             </td>
             <td>
                 <button onclick="quitarProducto('#producto_agregado${producto.id}')" type="button" class="btn btn-danger boton_quitar">

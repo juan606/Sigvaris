@@ -33,11 +33,11 @@
                         </div>
                         <div class="col-2 form-group">
                             <label class="control-label">✱Precio público S/IVA:</label>
-                            <input type="text" name="precio_publico" class="form-control" required="">
+                            <input type="text" name="precio_publico" class="form-control" required="" id="precio">
                         </div>
                         <div class="col-3 form-group">
                             <label class="control-label">✱Precio público C/IVA:</label>
-                            <input type="number" name="precio_publico_iva" class="form-control" step="0.01" required="">
+                            <input type="number" name="precio_publico_iva" class="form-control" step="0.01" required="" id="precio_iva" readonly="">
                         </div>
                     </div>
                 </div>
@@ -57,5 +57,10 @@
         </div>
     </div>
 </div>
+<script type="text/javascript">
+    $('#precio').change(function(){
+        $('#precio_iva').val((parseFloat($(this).val())*0.16)+parseFloat($(this).val()));
+    });
+</script>
 
 @endsection

@@ -74,6 +74,7 @@ class VentaController extends Controller
      */
     public function show(Venta $venta)
     {
+        //dd($venta->productos);
         return view('venta.show', ['venta'=>$venta]);
     }
 
@@ -111,5 +112,11 @@ class VentaController extends Controller
     {
         $venta->delete();
         return redirect()->route('ventas.index');
+    }
+
+    public function getVentas(Request $request)
+    {        
+        $ventas = Venta::with('paciente','descuento')->where('fecha','<=',$request->hasta)->where('fecha','>=',$request->desde)->get();
+        return response()->json($ventas);
     }
 }

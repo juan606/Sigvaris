@@ -56,10 +56,10 @@
                         <tbody>
                             @foreach($venta->productos as $producto)
                             <tr>
-                                <td>{{$producto->nombre}}</td>
-                                <td>{{$producto->precio}}</td>
+                                <td>{{$producto->descripcion}}</td>
+                                <td>{{$producto->precio_publico_iva}}</td>
                                 <td>{{$producto->pivot->cantidad}}</td>
-                                <td>{{$producto->precio * $producto->pivot->cantidad}}</td>
+                                <td>{{$producto->precio_publico_iva * $producto->pivot->cantidad}}</td>
                             </tr>
                             @endforeach
                         </tbody>
