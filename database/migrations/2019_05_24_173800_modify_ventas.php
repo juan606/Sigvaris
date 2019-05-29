@@ -31,7 +31,7 @@ class ModifyVentas extends Migration
         Schema::table('ventas', function (Blueprint $table) {
             $table->dropColumn('sigpesos');
             $table->dropColumn('promocion_id');
-            $table->integer('descuento_id')->unsigned()->nullable(false)  ->change();
+            $table->integer('descuento_id')->unsigned()->nullable(false)->change();
         });
     }
 }
