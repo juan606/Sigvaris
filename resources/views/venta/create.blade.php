@@ -44,6 +44,7 @@
                     <div class="row">
                         <h3>Productos Existentes</h3>
                         <div class="col-12">
+                            {{-- <input type="text" id="busqueda" placeholder="buscar productos.."> --}}
                             <table class="table" id="productos">
                                 <thead>
                                     <tr>
@@ -60,13 +61,14 @@
                                         <input type="hidden" id="producto_a_agregar{{$loop->index}}" value="{{$producto}}">
                                         <td>{{$producto->sku}}</td>
                                         <td>{{$producto->descripcion}}</td>
-                                        <td>{{$producto->precio_publico}}</td>
-                                        <td>{{$producto->precio_publico_iva}}</td>
+                                        <td>${{$producto->precio_publico}}</td>
+                                        <td>${{$producto->precio_publico_iva}}</td>
                                         <td><button type="button" class="btn btn-success boton_agregar" onclick="agregarProducto('#producto_a_agregar{{$loop->index}}')"><i class="fas fa-plus"></i></button></td>
                                     </tr>
                                     @endforeach
                                 </tbody>
                             </table>
+                            {{-- {{$productos->links()}} --}}
                         </div>
                     </div>
                     <hr>
@@ -283,9 +285,13 @@
         });
     });
 </script>
-
+<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/dt/dt-1.10.18/datatables.min.css" />
+    <script type="text/javascript" src="https://cdn.datatables.net/v/dt/dt-1.10.18/datatables.min.js"></script>
 <script type="text/javascript">
     $(document).ready(function(){
+        $('#productos').DataTable();
+
+
         $('#descuento_id').change(function(){            
             var id=$('#descuento_id').val();
             $('#descuento').val(0);
@@ -396,6 +402,7 @@
         //     $('#iva').val($('#subtotal').val()*0.16);
         // });
     });
-        
+
+   
 </script>
 @endsection

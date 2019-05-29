@@ -20,6 +20,9 @@
                     <tr>
                         <th>SKU</th>
                         <th>Descripción</th>
+                        <th>Line</th>
+                        <th>UPC</th>
+                        <th>Swiss id</th>
                         <th>Precio Distribuidor</th>
                         <th>Precio Público S/IVA</th>
                         <th>Precio Público C/IVA</th>
@@ -34,9 +37,12 @@
                     <tr>
                         <td>{{$producto->sku}}</td>
                         <td>{{$producto->descripcion}}</td>
-                        <td>{{$producto->precio_distribuidor}}</td>
-                        <td>{{$producto->precio_publico}}</td>
-                        <td>{{$producto->precio_publico_iva}}</td>
+                        <td>{{$producto->line}}</td>
+                        <td>{{$producto->upc}}</td>
+                        <td>{{$producto->swiss_id}}</td>
+                        <td>${{$producto->precio_distribuidor}}</td>
+                        <td>${{$producto->precio_publico}}</td>
+                        <td>${{$producto->precio_publico_iva}}</td>
                         <td>
                             <div class="row">
                                 <div class="col-auto pr-2">

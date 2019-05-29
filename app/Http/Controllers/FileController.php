@@ -34,16 +34,21 @@ class FileController extends Controller
     	if($request->hasFile('sample_file')) {
     		$path = $request->file('sample_file')->getPathName();
             $data = \Excel::load($path, null, null, true, null)->get();
+            //dd($data);
     		if($data->count()) {
                 foreach ($data as $sheet) {
+                    //dd($sheet->)
                         $arr[] = [
                             'sku' => $sheet->sku,
-                            'descripcion' => $sheet->descripcion,
+                            'descripcion' => $sheet->description,
                             'precio_distribuidor' => number_format($sheet->distribuidor, 2, '.', ''),
-                            'precio_publico' => number_format($sheet->public_sin_iva, 2, '.', ''),
-                            'precio_publico_iva' => number_format($sheet->publico_con_iva, 2, '.', ''),
+                            'precio_publico' => number_format($sheet->precio_sin_iva, 2, '.', ''),
+                            'precio_publico_iva' => number_format($sheet->precio_con_iva, 2, '.', ''),
                             'created_at' => date('Y-m-d h:m:s'),
                             'updated_at' => date('Y-m-d h:m:s'),
+                            'line'=>$sheet->line,
+                            'upc'=>$sheet->upc,
+                            'swiss_id'=>$sheet->swiss_id
                         ];
                 }
     			if (!empty($arr)) {

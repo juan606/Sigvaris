@@ -17,7 +17,10 @@ class Venta extends Model
         'total',
         'promocion_id',
         'sigpesos',
-        'created_at'
+        'created_at',
+        'line',
+        'upc',
+        'swiss_id'
     ];
 
     public function productos(){
