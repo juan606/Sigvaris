@@ -10,18 +10,51 @@
             <h4>Historial Ventas</h4>
         </div>
             
-            <div class="input-group mb-3">
-                <div class="input-group-prepend">
-                    <span class="input-group-text" id="basic-addon3">Desde</span>              
-                    <input type="date" class="form-control" id="desde" aria-describedby="basic-addon3">
-                </div>            
-                <div class="input-group-prepend">
-                    <span class="input-group-text" id="basic-addon3">Hasta</span>
-                    <input type="date" class="form-control" id="hasta" aria-describedby="basic-addon3">
+        <div class="card-body">
+            <div class="row">
+                <div class="input-group m-auto col-sm-6">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text" id="basic-addon3">Desde</span>              
+                        <input type="date" class="form-control" id="desde" aria-describedby="basic-addon3">
+                    </div>            
+                    <div class="input-group-prepend">
+                        <span class="input-group-text" id="basic-addon3">Hasta</span>
+                        <input type="date" class="form-control" id="hasta" aria-describedby="basic-addon3">
+                    </div>                
+                </div>
+            </div>
+            <div class="row">
+                <div class="input-group mt-3 mb-3 col-sm-3 offset-sm-2">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text" id="basic-addon3">Prenda: </span>
+                        <input class="form-control" type="text" name="prenda">
+                    </div>
+                </div>
+                <div class="input-group mt-3 mb-3 col-sm-3 offset-sm-1">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text" id="basic-addon3">Número de piezas: </span>
+                        <input class="form-control" type="number" step="1" name="num_prendas">
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-12 text-center">
+                    <div class="form-check form-check-inline">
+                      <input class="form-check-input" type="checkbox" id="Checkbox1" name="prendasmas" value="">
+                      <label class="form-check-label" for="inlineCheckbox1">Prendas más Vendidas</label>
+                    </div>
+                    <div class="form-check form-check-inline">
+                      <input class="form-check-input" type="checkbox" id="Checkbox2" name="prendasmenos" value="">
+                      <label class="form-check-label" for="inlineCheckbox2">Prendas menos Vendidas</label>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-2 m-auto">
                     <button class="btn btn-outline-secondary" type="button" id="reporte">Buscar</button>
-                </div>                
-            </div>        
-            <table class="table">
+                </div>
+            </div>
+            <table class="table" id="hventas">
                 <thead>
                     <tr>
                         <th>Folio</th>
@@ -57,7 +90,7 @@
                         @endphp
                         <tr>
                             <td>{{$venta->id}}</td>
-                            <td>{{$venta->paciente->nombre}}</td>
+                            <td>{{$venta->paciente->fullname}}</td>
                             <td>{{$venta->total}}</td>
                             @if($venta->descuento)
                                 <td>{{$venta->descuento->nombre}}</td>
@@ -90,13 +123,69 @@
                         </tr>
                     </tbody>                          
                     @endif
-
+            
                 </tbody>
             </table>
+
+            <div class="row m-3">
+                <div class="col-sm-9 offset-sm-2">
+                    <h3 style="display: none;" id="tituloP">Prendas Vendidas</h3>
+                    <table class="table table-hover" id="PrendasVen">
+                    </table>
+                </div>
+            </div>
         </div>
     </div>
 </div>
 <script type="text/javascript">
+    $(document).ready(function() {
+        $('#hventas').DataTable({
+            'language':{
+                "sProcessing":     "Procesando...",
+                "sLengthMenu":     "Mostrar _MENU_ registros",
+                "sZeroRecords":    "No se encontraron resultados",
+                "sEmptyTable":     "Ningún dato disponible en esta tabla",
+                "sInfo":           "Productos _START_ al _END_ de un total de _TOTAL_ ",
+                "sInfoEmpty":      "Productos 0 de un total de 0 ",
+                "sInfoFiltered":   "(filtrado de un total de _MAX_ registros)",
+                "sInfoPostFix":    "",
+                "sSearch":         "Buscar:",
+                "sUrl":            "",
+                "sInfoThousands":  ",",
+                "sLoadingRecords": "Cargando...",
+                "oPaginate": {
+                    "sFirst":    "Primero",
+                    "sLast":     "Último",
+                    "sNext":     "Siguiente",
+                    "sPrevious": "Anterior"
+                },
+                "oAria": {
+                    "sSortAscending":  ": Activar para ordenar la columna de manera ascendente",
+                    "sSortDescending": ": Activar para ordenar la columna de manera descendente"
+                }
+            }
+        });
+    } );
+
+    $('#Checkbox1').click(function(event) {
+        $('#Checkbox2').prop('checked', false);
+        $('#Checkbox2').prop('value', '');
+        if($('#Checkbox1').prop('checked'))
+            $('#Checkbox1').prop('value', 'mas');
+        else
+            $('#Checkbox1').prop('value', '');
+
+    });
+
+    $('#Checkbox2').click(function(event) {
+        $('#Checkbox1').prop('checked', false);
+        $('#Checkbox1').prop('value', '');
+        if($('#Checkbox2').prop('checked'))
+            $('#Checkbox2').prop('value', 'menos');
+        else
+            $('#Checkbox2').prop('value', '');
+    });
+
     $('#reporte').click(function(){        
         $.ajax({
             url:"{{ url('/get_ventas') }}",
@@ -104,16 +193,20 @@
             data:{
                 "_token": "{{CSRF_TOKEN()}}",
                 "desde":$('#desde').val(),
-                "hasta":$('#hasta').val()
+                "hasta":$('#hasta').val(),
+                "mas":$('#Checkbox1').val(),
+                "menos":$('#Checkbox2').val()
             },
             dataType:"json",
             success:function(res){
+                console.log(res);
                 $('tbody').find("tr").remove();
                 var ventas_total=0;
                 var total_realizadas=0;
                 var total_clientes=[];
                 var val=1;
-                $.each(res,function(i,item){
+                let tbody = '';
+                $.each(res.ventas,function(i,item){
                     //console.log(item.id);
                     val=1;
                    $('#ventas').append(`
@@ -153,9 +246,25 @@
                         <td>$`+ventas_total+`</td>
                     </tr>
                     `);
-                // var count = Object.keys(res).length;
-                // console.log(count);
-                //console.log(res[0]);
+                $.each(res.consulta, function(index, el) {
+                    tbody += `<tr>
+                        <td>${el[0].sku}</td>
+                        <td>${el[0].descripcion}</td>
+                        <td>${el[1]}</td>
+                    </tr>`;
+                });
+                let tabla = `<thead>
+                                <tr>
+                                    <th>SKU</th>
+                                    <th>Descripción</th>
+                                    <th>Cantidad</th>
+                                </tr>
+                            </thead>
+                        <tbody>` + tbody + `</tbody>`;
+                $('#PrendasVen').text('');
+                $('#PrendasVen').append(tabla);
+                
+                $('#tituloP').prop('style', '');
             },
             error:function(error){
                 console.log("error");

@@ -233,17 +233,21 @@
         let total = 0;
         precios_total.forEach(e => {
             total += parseFloat(e.innerText);
+            console.log(total);
         });
         $('#promo_id option:eq(0)').prop('selected',true);
         $('#descuento').val(0);
         $('#sigpesos').val(0);
         $('#subtotal').val(total.toFixed(2));
-        $('#iva').val($('#subtotal').val()*0.16);
+        let getIva = ($('#subtotal').val()*0.16);
+        $('#iva').val(getIva.toFixed(2));
+        //console.log(getIva.toFixed(2));
         var sigpesos=parseInt($('#sigpesos_usar').val());
         var subtotal=parseFloat($('#subtotal').val())
         var iva=parseFloat($('#iva').val())
         var des=parseFloat($('#descuento').val());
         // console.log(des);       
+        console.log(subtotal+iva-des-sigpesos);
         $('#total').val(subtotal+iva-des-sigpesos);
         // $('#total').val('ola');
     }
@@ -258,39 +262,35 @@
 
     $(document).ready(function () {
         $('#productos').DataTable({
-            "language": {
-                "sProcessing": "Procesando...",
-                "sLengthMenu": "Mostrar _MENU_ registros",
-                "sZeroRecords": "No se encontraron resultados",
-                "sEmptyTable": "Ningún dato disponible en esta tabla",
-                "sInfo": "Mostrando registros del _START_ al _END_ de un total de _TOTAL_ registros",
-                "sInfoEmpty": "Mostrando registros del 0 al 0 de un total de 0 registros",
-                "sInfoFiltered": "(filtrado de un total de _MAX_ registros)",
-                "sInfoPostFix": "",
-                "sSearch": "Buscar:",
-                "sUrl": "",
-                "sInfoThousands": ",",
+            'language':{
+                "sProcessing":     "Procesando...",
+                "sLengthMenu":     "Mostrar _MENU_ registros",
+                "sZeroRecords":    "No se encontraron resultados",
+                "sEmptyTable":     "Ningún dato disponible en esta tabla",
+                "sInfo":           "Productos _START_ al _END_ de un total de _TOTAL_ ",
+                "sInfoEmpty":      "Productos 0 de un total de 0 ",
+                "sInfoFiltered":   "(filtrado de un total de _MAX_ registros)",
+                "sInfoPostFix":    "",
+                "sSearch":         "Buscar:",
+                "sUrl":            "",
+                "sInfoThousands":  ",",
                 "sLoadingRecords": "Cargando...",
                 "oPaginate": {
-                    "sFirst": "Primero",
-                    "sLast": "Último",
-                    "sNext": "Siguiente",
+                    "sFirst":    "Primero",
+                    "sLast":     "Último",
+                    "sNext":     "Siguiente",
                     "sPrevious": "Anterior"
                 },
                 "oAria": {
-                    "sSortAscending": ": Activar para ordenar la columna de manera ascendente",
+                    "sSortAscending":  ": Activar para ordenar la columna de manera ascendente",
                     "sSortDescending": ": Activar para ordenar la columna de manera descendente"
                 }
             }
         });
     });
 </script>
-<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/dt/dt-1.10.18/datatables.min.css" />
-    <script type="text/javascript" src="https://cdn.datatables.net/v/dt/dt-1.10.18/datatables.min.js"></script>
 <script type="text/javascript">
     $(document).ready(function(){
-        $('#productos').DataTable();
-
 
         $('#descuento_id').change(function(){            
             var id=$('#descuento_id').val();

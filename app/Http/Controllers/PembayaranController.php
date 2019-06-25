@@ -30,13 +30,21 @@
                     veces a $printer->text()
                 */
                 $printer->text("Sigvaris 2019" . "\n");
-                $printer->text("Otra linea" . "\n");
                 $printer->text(date("Y-m-d H:i:s") . "\n");
-                //$printer->text("Paciente: Miguel Contreras Nuñez\n");
+                $printer->text("Paciente: Miguel Contreras Nuñez\n");
                 //$printer->text("1234567890-1234567890-234567890-1234567890-1234567890-1234567890\n");
-                //$printer->text("SKU    Producto    PrecioU   Cantidad   Precio\n");
+                $printer->setJustification(Printer::JUSTIFY_LEFT);
+                $printer->text("Cantidad    Producto                Precio\n");
                 # Para mostrar el total
                 $total = 0;
+                $c = 2;
+                for ($i=0; $i < 10; $i++) { 
+                    $total += 350;
+                    $printer->setJustification(Printer::JUSTIFY_LEFT);
+                    $printer->text("2 x     Medias Compresion" . "\n");
+                    $printer->setJustification(Printer::JUSTIFY_RIGHT);
+                    $printer->text(' $350' . "\n");
+                }
                 /*foreach ($productos as $producto) {
                     $total += $producto->cantidad * $producto->precio;
                  
@@ -50,14 +58,14 @@
                 }*/
                 $printer->setJustification(Printer::JUSTIFY_RIGHT);
                 $printer->text("--------\n");
-                $printer->text("TOTAL: $2360.56" ."\n");
+                $printer->text("TOTAL: " . $total ."\n");
                 $printer->text("Muchas gracias por su compra");
                  
                 /*
                     Hacemos que el papel salga. Es como 
                     dejar muchos saltos de línea sin escribir nada
                 */
-                $printer->feed(3);
+                $printer->feed(20);
                  
                 /*
                     Cortamos el papel. Si nuestra impresora

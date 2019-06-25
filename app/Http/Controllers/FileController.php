@@ -4,9 +4,11 @@ namespace App\Http\Controllers;
 use UxWeb\SweetAlert\SweetAlert as Alert;
 use App\Http\Controllers\Controller;
 use App\Producto;
+use App\Imports\ProductImport;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
-use Maatwebsite\Excel\Excel;
+use Excel;
+use Maatwebsite\Excel\Concerns\WithCalculatedFormulas;
 use Illuminate\Support\Facades\Auth;
 
 
@@ -32,24 +34,30 @@ class FileController extends Controller
 
     public function importFileIntoDB(Request $request) {
     	if($request->hasFile('sample_file')) {
-    		$path = $request->file('sample_file')->getPathName();
-            $data = \Excel::load($path, null, null, true, null)->get();
-            //dd($data);
-    		if($data->count()) {
-                foreach ($data as $sheet) {
-                    //dd($sheet->)
+    		//$path = $request->file('sample_file')->getPathName();
+            //$data = \Excel::load($path, null, null, true, null)->get();
+            $data = Excel::toArray(new ProductImport, request()->file('sample_file'));
+            $Precios = $data[1];
+            $data = $data[0];
+            unset($Precios[0]);
+            unset($data[0]);
+    		if(count($data)) {
+                foreach ($data as $row) {
+                    $indice = $this->buscarPreciosenExcel($Precios, count($Precios), $row[0]);
+                    if($indice != -1){
                         $arr[] = [
-                            'sku' => $sheet->sku,
-                            'descripcion' => $sheet->description,
-                            'precio_distribuidor' => number_format($sheet->distribuidor, 2, '.', ''),
-                            'precio_publico' => number_format($sheet->precio_sin_iva, 2, '.', ''),
-                            'precio_publico_iva' => number_format($sheet->precio_con_iva, 2, '.', ''),
+                            'sku' => $row[0],
+                            'descripcion' => $row[1],
+                            //'precio_distribuidor' => number_format($row->distribuidor, 2, '.', ''),
+                            'precio_publico' => number_format($Precios[$indice][1], 2, '.', ''),
+                            'precio_publico_iva' => number_format($Precios[$indice][2], 2, '.', ''),
                             'created_at' => date('Y-m-d h:m:s'),
                             'updated_at' => date('Y-m-d h:m:s'),
-                            'line'=>$sheet->line,
-                            'upc'=>$sheet->upc,
-                            'swiss_id'=>$sheet->swiss_id
+                            'line'=>$row[2],
+                            'upc'=>$row[3],
+                            'swiss_id'=>$row[4]
                         ];
+                    }
                 }
     			if (!empty($arr)) {
                     // dd($arr);
@@ -77,6 +85,19 @@ class FileController extends Controller
 				$sheet->fromArray($products);
 			});
     	})->download($type);
+    }
+
+    public function buscarPreciosenExcel($arreglo, $tamaño, $dato){
+        $centro = 0;
+        $inf=0;
+        $sup=$tamaño-1;
+        while($inf <= $sup){
+            $centro=(int)(($sup - $inf) / 2) + $inf;
+            if($arreglo[$centro][0] == $dato)       return $centro;
+            else if($dato < $arreglo[$centro][0]) $sup = $centro-1;
+            else $inf = $centro+1;
+        }
+        return -1;
     }
 
 }

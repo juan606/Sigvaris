@@ -60,4 +60,9 @@ class Paciente extends Model
         return $this->belongsTo('App\Oficina');
     }
 
+    public function getFullnameAttribute()
+    {
+        return $this->nombre . ' ' . $this->materno . ' ' . $this->paterno;
+    }
+
 }

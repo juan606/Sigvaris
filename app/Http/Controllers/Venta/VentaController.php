@@ -8,6 +8,7 @@ use App\Producto;
 use App\Descuento;
 use App\Promocion;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
 
 class VentaController extends Controller
@@ -61,7 +62,7 @@ class VentaController extends Controller
             $venta->oficina_id=session()->get('oficina');
         $venta->save();
         for($i = 0; $i < sizeof($request->cantidad); $i++){
-            $venta->productos()->attach($request->producto_id[$i], ['cantidad'=>$request->cantidad[$i]]);
+            $venta->productos()->attach($request->producto_id[$i], ['cantidad'=>$request->cantidad[$i], 'created_at' => date('Y-m-d'), 'updated_at' => date('Y-m-d') ]);
         }
         return redirect()->route('ventas.index');
     }
@@ -115,8 +116,21 @@ class VentaController extends Controller
     }
 
     public function getVentas(Request $request)
-    {        
+    {
+        $prod = [];
         $ventas = Venta::with('paciente','descuento')->where('fecha','<=',$request->hasta)->where('fecha','>=',$request->desde)->get();
-        return response()->json($ventas);
+        if($request->mas != "")
+            $consulta = DB::select("SELECT producto_id, SUM(cantidad) AS TotalVentas FROM producto_venta GROUP BY producto_id ORDER BY SUM(cantidad) DESC LIMIT 0 , 30 ");
+        elseif($request->menos != "")
+            $consulta = DB::select("SELECT producto_id, SUM(cantidad) AS TotalVentas FROM producto_venta GROUP BY producto_id ORDER BY SUM(cantidad) LIMIT 0 , 100 ");
+        else
+            $consulta = [];
+        foreach ($consulta as $productos) {
+            $prod[] = ["0" => Producto::find($productos->producto_id), "1" => $productos->TotalVentas];
+        }
+        return response()->json(["ventas" => $ventas, "consulta" => $prod]);
     }
 }
+
+
+//SELECT `producto_venta`.`producto_id`, SUM(`producto_venta`.`cantidad`) AS TotalVentas FROM `producto_venta` GROUP BY `producto_venta`.`producto_id` ORDER BY SUM(`producto_venta`.`cantidad`) DESC LIMIT 0 , 30 

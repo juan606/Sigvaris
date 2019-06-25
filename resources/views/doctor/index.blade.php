@@ -58,6 +58,7 @@
 
 <div class="card">
 	<div class="card-header">
+		<form action="doctores">
 		<div class="row">
 			<div class="col-4">
 				<h4>Doctores</h4>
@@ -67,14 +68,16 @@
 					<i class="fa fa-plus"></i><strong> Agregar Doctor</strong>
 				</a>				
 			</div>
-			<div class="search-container">
-			    <form action="doctores">
-			      <input type="text" placeholder="Search.." name="search">
-			      <button type="submit"><i class="fa fa-search"></i></button>
-			    </form>
-			</div>
-			
+			<div class="col-4">
+				<div class="input-group mb-3">
+			    	<input type="text" name="search" class="form-control" placeholder="search" aria-label="Recipient's username" aria-describedby="basic-addon2">
+			    	<div class="input-group-append">
+						<button class="btn btn-outline-secondary" type="submit"><i class="fa fa-search"></i></button>
+					</div>
+				</div>
+			</div>	
 		</div>
+		</form>
 	</div>
 	<div class="card-body">
 		<div class="row">
@@ -82,7 +85,7 @@
 				<table class="table table-striped table-bordered table-hover" style="margin-bottom: 0px">
 					<tr class="info">
 						<th>Identificador</th>
-						<th>Nobre</th>
+						<th>Nombre</th>
 						<th>Apellido Paterno</th>
 						<th>Apellido Materno</th>
 						<th>Nacimiento</th>

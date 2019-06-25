@@ -26,7 +26,7 @@
                     @foreach($ventas as $venta)
                     <tr>
                         <td>{{$venta->id}}</td>
-                        <td>{{$venta->paciente->nombre}}</td>
+                        <td>{{$venta->paciente->fullname}}</td>
                         <td>{{$venta->total}}</td>
                         @if($venta->descuento)
                             <td>{{$venta->descuento->nombre}}</td>

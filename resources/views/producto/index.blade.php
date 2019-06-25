@@ -15,7 +15,7 @@
         </div>
         </div>
         <div class="card-body">
-            <table class="table">
+            <table class="table table-responsive" id="productos">
                 <thead>
                     <tr>
                         <th>SKU</th>
@@ -44,23 +44,16 @@
                         <td>${{$producto->precio_publico}}</td>
                         <td>${{$producto->precio_publico_iva}}</td>
                         <td>
-                            <div class="row">
-                                <div class="col-auto pr-2">
-                                    <a href="{{route('productos.show', ['producto'=>$producto])}}"
-                                        class="btn btn-primary"><i class="fas fa-eye"></i><strong> Ver</strong></a>
-                                    <a href="{{route('productos.edit', ['producto'=>$producto])}}"
-                                        class="btn btn-warning"><i class="fas fa-edit"></i><strong> Editar</strong></a>
-
-                                </div>
-                                <div class="col pl-0">
-                                    <form role="form" name="productoborrar" id="form-doctor" method="POST"
-                                        action="{{ route('productos.destroy', ['producto'=>$producto]) }}" name="form">
-                                        {{ csrf_field() }}
-                                        {{ method_field('DELETE') }}
-                                        <button type="submit" class="btn btn-danger"><i class="far fa-trash-alt"></i><strong> Borrar</strong></button>
-                                    </form>
-                                </div>
-                            </div>
+                            <a href="{{route('productos.show', ['producto'=>$producto])}}"
+                                class="btn btn-primary btn-sm"><i class="fas fa-eye"></i><strong> Ver</strong></a>
+                            <a href="{{route('productos.edit', ['producto'=>$producto])}}"
+                                class="btn btn-warning btn-sm"><i class="fas fa-edit"></i><strong> Editar</strong></a>
+                            <form role="form" name="productoborrar" id="form-doctor" method="POST"
+                                action="{{ route('productos.destroy', ['producto'=>$producto]) }}" name="form">
+                                {{ csrf_field() }}
+                                {{ method_field('DELETE') }}
+                                <button type="submit" class="btn btn-danger btn-sm"><i class="far fa-trash-alt"></i><strong> Borrar</strong></button>
+                            </form>
                         </td>
                     </tr>
                     @endforeach
@@ -71,5 +64,35 @@
         </div>
     </div>
 </div>
+<script>
+    $(document).ready(function() {
+        $('#productos').DataTable({
+            'language':{
+                "sProcessing":     "Procesando...",
+                "sLengthMenu":     "Mostrar _MENU_ registros",
+                "sZeroRecords":    "No se encontraron resultados",
+                "sEmptyTable":     "Ningún dato disponible en esta tabla",
+                "sInfo":           "Productos _START_ al _END_ de un total de _TOTAL_ ",
+                "sInfoEmpty":      "Productos 0 de un total de 0 ",
+                "sInfoFiltered":   "(filtrado de un total de _MAX_ registros)",
+                "sInfoPostFix":    "",
+                "sSearch":         "Buscar:",
+                "sUrl":            "",
+                "sInfoThousands":  ",",
+                "sLoadingRecords": "Cargando...",
+                "oPaginate": {
+                    "sFirst":    "Primero",
+                    "sLast":     "Último",
+                    "sNext":     "Siguiente",
+                    "sPrevious": "Anterior"
+                },
+                "oAria": {
+                    "sSortAscending":  ": Activar para ordenar la columna de manera ascendente",
+                    "sSortDescending": ": Activar para ordenar la columna de manera descendente"
+                }
+            }
+        });
+    } );
+</script>
 
 @endsection

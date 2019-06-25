@@ -23,7 +23,7 @@
                     </div>
                     <div class="col-4 form-group">
                         <label class="control-label">Cliente:</label>
-                        <input type="text" class="form-control" value="{{$venta->paciente->nombre}}" readonly="">
+                        <input type="text" class="form-control" value="{{$venta->paciente->fullname}}" readonly="">
                     </div>
                     <div class="col-4 form-group">
                         <label class="control-label">Folio:</label>
