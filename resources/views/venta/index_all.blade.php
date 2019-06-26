@@ -27,13 +27,13 @@
                 <div class="input-group mt-3 mb-3 col-sm-3 offset-sm-2">
                     <div class="input-group-prepend">
                         <span class="input-group-text" id="basic-addon3">Prenda: </span>
-                        <input class="form-control" type="text" name="prenda">
+                        <input class="form-control" type="text" name="prenda" id="prenda">
                     </div>
                 </div>
                 <div class="input-group mt-3 mb-3 col-sm-3 offset-sm-1">
                     <div class="input-group-prepend">
                         <span class="input-group-text" id="basic-addon3">Número de piezas: </span>
-                        <input class="form-control" type="number" step="1" name="num_prendas">
+                        <input class="form-control" type="number" step="1" name="num_prendas" id="num_prendas" min="0">
                     </div>
                 </div>
             </div>
@@ -59,7 +59,7 @@
                     <tr>
                         <th>Folio</th>
                         <th>Cliente</th>
-                        <th>Total</th>
+                        <th>Total (sin IVA)</th>
                         <th>Descuento</th>
                         <th>Fecha</th>
                         <th>Operación</th>
@@ -75,7 +75,7 @@
                     @endphp
                     @foreach($ventas as $venta)
                         @php
-                           $sumatoria_ventas+=$venta->total;
+                           $sumatoria_ventas+=$venta->subtotal;
                            $val=1;
                            foreach ($sumatoria_pacientes as $p) {
                                if($p==$venta->paciente->id)
@@ -91,7 +91,7 @@
                         <tr>
                             <td>{{$venta->id}}</td>
                             <td>{{$venta->paciente->fullname}}</td>
-                            <td>{{$venta->total}}</td>
+                            <td>${{$venta->subtotal}}</td>
                             @if($venta->descuento)
                                 <td>{{$venta->descuento->nombre}}</td>
                             @else
@@ -135,6 +135,7 @@
                 </div>
             </div>
         </div>
+        @include('venta.rep_clientes')
     </div>
 </div>
 <script type="text/javascript">
@@ -195,11 +196,13 @@
                 "desde":$('#desde').val(),
                 "hasta":$('#hasta').val(),
                 "mas":$('#Checkbox1').val(),
-                "menos":$('#Checkbox2').val()
+                "menos":$('#Checkbox2').val(),
+                "num_prendas":$('#num_prendas').val(),
+                "prenda":$('#prenda').val()
             },
             dataType:"json",
             success:function(res){
-                console.log(res);
+                //console.log(res);
                 $('tbody').find("tr").remove();
                 var ventas_total=0;
                 var total_realizadas=0;
@@ -212,8 +215,8 @@
                    $('#ventas').append(`
                     <tr>
                         <td>`+item.id+`</td>
-                        <td>`+item.paciente.nombre+`</td>
-                        <td>`+item.total+`</td>
+                        <td>`+item.paciente.nombre+` `+ item.paciente.paterno+` `+item.paciente.materno+`</td>
+                        <td>$`+item.subtotal+`</td>
                         <td>`+(item.descuento_id?item.descuento.nombre:``)+`</td>
                         <td>`+item.fecha+`</td>
                         <td>
@@ -265,6 +268,56 @@
                 $('#PrendasVen').append(tabla);
                 
                 $('#tituloP').prop('style', '');
+            },
+            error:function(error){
+                console.log("error");
+            }
+        });
+    });
+
+    $('#reporteClientes').click(function(event) {
+        let tipo = $('input:radio[name=tipoCliente]:checked').val();
+        $.ajax({
+            url:"{{ url('/get-ventas-clientes') }}",
+            type: "POST",
+            data:{
+                "_token": "{{CSRF_TOKEN()}}",
+                "desde":$('#desdeC').val(),
+                "hasta":$('#hastaC').val(),
+                "tipo": tipo,
+            },
+            dataType:"json",
+            success:function(res){
+                console.log(res);
+                let cuerpo = '';
+                let totales = `<thead>
+                                <tr>
+                                    <th>Total ventas</th>
+                                    <th>Total clientes</th>
+                                    <th>Total $</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                              <tr>
+                                <td>${res.ventas.length}</td>
+                                <td>${res.suma_pacientes}</td>
+                                <td>$${res.total}</td>
+                               </tr>
+                            </tbody>`;
+                $.each(res.ventas,function(index, el) {
+                    cuerpo += `<tr>
+                                    <td>${el.venta.id}</td>
+                                    <td>${el.venta.paciente.nombre} ${el.venta.paciente.paterno} ${el.venta.paciente.materno}</td>
+                                    <td>${el.venta.fecha}</td>
+                                    <td>${el.venta.subtotal}</td>
+                                    <td>${el.venta.total}</td>
+                                    <td>${el.cantidad}</td>
+                            </tr>`;
+                });
+                $('#clientes').empty();
+                $('#clientes').append(cuerpo);
+                $('#clientes').append(totales);
+                console.log( $('#clientes'));
             },
             error:function(error){
                 console.log("error");

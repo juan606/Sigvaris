@@ -118,7 +118,55 @@ class VentaController extends Controller
     public function getVentas(Request $request)
     {
         $prod = [];
-        $ventas = Venta::with('paciente','descuento')->where('fecha','<=',$request->hasta)->where('fecha','>=',$request->desde)->get();
+        $ventasxprenda = [];
+        // Obtencion de las ventas por numero de piezas
+        if($request->num_prendas != "" && $request->num_prendas != "0"){
+            $ventas = Venta::with('paciente','descuento')->where('fecha','<=',$request->hasta)->where('fecha','>=',$request->desde)->get();
+            foreach ($ventas as $v) {
+                if($v->productos->count() == $request->num_prendas)
+                    $ventasxprenda[] = $v;
+            }
+            $ventas = [];
+            foreach ($ventasxprenda as $v)
+                $ventas[] = $v;
+        }
+        else
+            $ventas = Venta::with('paciente','descuento')->where('fecha','<=',$request->hasta)->where('fecha','>=',$request->desde)->get();
+
+        // Obtención de Las ventas que contengan la prenda o prendas que se introdujeron en el campo prenda
+        if($request->prenda != ""){
+            $arr = [];
+            $query = $request->prenda;
+            $wordsquery = explode(' ',$query);
+            $total_ventas = Venta::where('fecha','<=',$request->hasta)->where('fecha','>=',$request->desde)->get();
+            foreach ($total_ventas as $venta) {
+                $productos = $venta->productos()->where(function($q) use($wordsquery){
+                    foreach ($wordsquery as $word) {
+                        $q->orWhere('sku', 'LIKE', "%$word%")
+                            ->orWhere('descripcion', 'LIKE', "%$word%")
+                            ->orWhere('line', 'LIKE', "%$word%")
+                            ->orWhere('upc', 'LIKE', "%$word%")
+                            ->orWhere('precio_publico', 'LIKE', "%$word%")
+                            ->orWhere('swiss_id', 'LIKE', "%$word%");
+                    }
+                })->get();
+                if ($productos->count() != 0) 
+                    $arr[] = $venta;
+            }
+            //dd($arr);
+        }
+
+        // Combinar las ventas de acuerdo a las dos busquedas anteriores
+        $ventas_final = [];
+        foreach ($ventas as $venta) {
+            foreach ($arr as $v) {
+                if ($venta->id == $v->id) {
+                    $ventas_final[] = $venta;
+                }
+            }
+        }
+
+        // Obtencion de las prendas MAS o MENOS vendidas
         if($request->mas != "")
             $consulta = DB::select("SELECT producto_id, SUM(cantidad) AS TotalVentas FROM producto_venta GROUP BY producto_id ORDER BY SUM(cantidad) DESC LIMIT 0 , 30 ");
         elseif($request->menos != "")
@@ -128,7 +176,48 @@ class VentaController extends Controller
         foreach ($consulta as $productos) {
             $prod[] = ["0" => Producto::find($productos->producto_id), "1" => $productos->TotalVentas];
         }
-        return response()->json(["ventas" => $ventas, "consulta" => $prod]);
+        return response()->json(["ventas" => $ventas_final, "consulta" => $prod]);
+    }
+
+    public function getVentasClientes(Request $request)
+    {
+        if($request->tipo == "primero"){
+            $consulta = DB::select("SELECT paciente_id FROM ventas GROUP BY paciente_id HAVING COUNT(*) = 1 ");
+        }
+        elseif ($request->tipo == "consecutivo") {
+            $consulta = DB::select("SELECT paciente_id FROM ventas GROUP BY paciente_id HAVING COUNT(*) > 1 ");
+        }
+        else{
+            dd($request->all());
+        }
+
+        $ventas = [];
+        foreach ($consulta as $paciente) {
+            $ventastemp = Venta::where('paciente_id', $paciente->paciente_id)->get();
+            foreach ($ventastemp as $v) {
+                $cantidad = 0;
+                foreach ($v->productos as $prod) {
+                    $cantidad += $prod->pivot->cantidad;
+                }
+                $ventas[] = ['venta' =>$v, 'cantidad' => $cantidad];
+            }
+        }
+        $suma_ventas = 0;
+        $sumatoria_pacientes=[];
+        foreach ($ventas as $vent) {
+            $suma_ventas += $vent['venta']->total;
+            $val=1;
+            foreach ($sumatoria_pacientes as $p) {
+                if($p==$vent['venta']->paciente->id)
+                    $val = 0;
+            }
+            if($val)
+                array_push($sumatoria_pacientes,$vent['venta']->paciente->id);
+        }
+        $totalClientes = count($sumatoria_pacientes);
+        return response()->json(["ventas" => $ventas, 'total' => $suma_ventas, 'suma_pacientes' => $totalClientes]);
+        
+
     }
 }
 

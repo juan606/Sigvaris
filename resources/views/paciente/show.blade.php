@@ -55,7 +55,7 @@
             <div class="form-group col-3">
                 <label for="nivel">Nivel:</label>
                 @if ($paciente->nivel)
-                     <input readonly value="{{$paciente->nivel->etiqueta}}}/{{$paciente->nivel->nombre}}" type="text" name="nivel" class="form-control" required="">
+                     <input readonly value="{{$paciente->nivel->etiqueta}}/{{$paciente->nivel->nombre}}" type="text" name="nivel" class="form-control" required="">
                 @else
                     <input readonly value="" type="text" name="nivel" class="form-control">
                 @endif

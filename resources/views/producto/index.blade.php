@@ -15,7 +15,7 @@
         </div>
         </div>
         <div class="card-body">
-            <table class="table table-responsive" id="productos">
+            <table class="table table-responsive table-hover" id="productos">
                 <thead>
                     <tr>
                         <th>SKU</th>

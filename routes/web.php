@@ -71,6 +71,7 @@ Route::get('pacientes/{paciente}/ventas/historial', 'Venta\VentaController@index
 Route::get('pacientes/{paciente}/ventas', 'Venta\VentaController@createConPaciente')->name('pacientes.venta');
 
 Route::post('get_ventas','Venta\VentaController@getVentas');
+Route::post('get-ventas-clientes','Venta\VentaController@getVentasClientes');
 Route::resource('ventas', 'Venta\VentaController');
 
 
