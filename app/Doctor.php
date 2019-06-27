@@ -40,4 +40,9 @@ class Doctor extends Model
             return $this->hasMany('App\Paciente');
         }
 
+        public function getFullnameAttribute()
+        {
+            return $this->nombre . ' ' . $this->apellidomaterno . ' ' . $this->apellidopaterno;
+        }
+
 }

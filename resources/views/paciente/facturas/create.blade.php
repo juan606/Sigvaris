@@ -42,7 +42,7 @@
             <div class="row">
                 <div class="col-3 form-group">
                     <label class="control-label">✱Tipo de persona:</label>
-                    <select name="tipo_persona">
+                    <select name="tipo_persona" class="form-control">
                         <option value="">Seleccione el tipo de persona</option>
                         <option value="1">Persona fisica</option>
                         <option value="0">Persona moral</option>
@@ -145,7 +145,7 @@
                     success:function(res){
                         var paciente=res.paciente;
                         $('#nombre').prop('value',paciente.nombre+' '+paciente.paterno+' '+paciente.materno);
-                        $('#correo').prop('value',paciente.email);
+                        $('#correo').prop('value',paciente.mail);
                         $('#rfc').prop('value',paciente.rfc);
                     }
                 });

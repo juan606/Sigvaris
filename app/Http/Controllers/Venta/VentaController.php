@@ -7,6 +7,7 @@ use App\Paciente;
 use App\Producto;
 use App\Descuento;
 use App\Promocion;
+use App\Doctor;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
@@ -20,7 +21,8 @@ class VentaController extends Controller
      */
     public function index()
     {
-        return view('venta.index_all', ['ventas'=>Venta::get()]);
+        $medicos = Doctor::get();
+        return view('venta.index_all', ['ventas'=>Venta::get(), 'medicos' =>$medicos]);
     }
 
     public function indexConPaciente(Paciente $paciente){
@@ -134,8 +136,8 @@ class VentaController extends Controller
             $ventas = Venta::with('paciente','descuento')->where('fecha','<=',$request->hasta)->where('fecha','>=',$request->desde)->get();
 
         // Obtención de Las ventas que contengan la prenda o prendas que se introdujeron en el campo prenda
+        $arr = [];
         if($request->prenda != ""){
-            $arr = [];
             $query = $request->prenda;
             $wordsquery = explode(' ',$query);
             $total_ventas = Venta::where('fecha','<=',$request->hasta)->where('fecha','>=',$request->desde)->get();
@@ -159,11 +161,15 @@ class VentaController extends Controller
         // Combinar las ventas de acuerdo a las dos busquedas anteriores
         $ventas_final = [];
         foreach ($ventas as $venta) {
-            foreach ($arr as $v) {
-                if ($venta->id == $v->id) {
-                    $ventas_final[] = $venta;
+            if (count($arr) != 0) {
+                foreach ($arr as $v) {
+                    if ($venta->id == $v->id) {
+                        $ventas_final[] = $venta;
+                    }
                 }
             }
+            else
+                $ventas_final[] = $venta;
         }
 
         // Obtencion de las prendas MAS o MENOS vendidas
@@ -188,12 +194,19 @@ class VentaController extends Controller
             $consulta = DB::select("SELECT paciente_id FROM ventas GROUP BY paciente_id HAVING COUNT(*) > 1 ");
         }
         else{
-            dd($request->all());
+            $consulta = [];
         }
 
         $ventas = [];
         foreach ($consulta as $paciente) {
-            $ventastemp = Venta::where('paciente_id', $paciente->paciente_id)->get();
+            if ($request->desde && $request->hasta) {
+                $ventastemp = Venta::where('paciente_id', $paciente->paciente_id)
+                    ->where('fecha','<=',$request->hasta)->where('fecha','>=',$request->desde)
+                    ->get();
+            }
+            else
+                $ventastemp = Venta::where('paciente_id', $paciente->paciente_id)->get();
+            
             foreach ($ventastemp as $v) {
                 $cantidad = 0;
                 foreach ($v->productos as $prod) {

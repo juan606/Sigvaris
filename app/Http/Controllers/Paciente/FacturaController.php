@@ -66,7 +66,7 @@ class FacturaController extends Controller
         }
         //dd($factura);
         $factura->save();
-        return $this->index();
+        return redirect()->route('facturas.index');
         // $factura->rfc=$request->rfc;
         // $factura
     }

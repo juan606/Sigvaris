@@ -14,7 +14,7 @@
 			</div>
 			<div class="search-container">
 			    <form action="/pacientes">
-			      <input type="text" placeholder="Search.." name="search">
+			      <input type="text" placeholder="Search.." name="search" class="form-control">
 			      <button type="submit"><i class="fa fa-search"></i></button>
 			    </form>
 			  </div>
