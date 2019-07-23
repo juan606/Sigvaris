@@ -12,6 +12,7 @@ use Excel;
 use Maatwebsite\Excel\Concerns\WithCalculatedFormulas;
 use Illuminate\Support\Facades\Auth;
 use ErrorException;
+use App\Exports\InvoicesExport;
 
 
 class FileController extends Controller
@@ -82,13 +83,13 @@ class FileController extends Controller
     }
 
     public function downloadExcelFile($type) {
-   //  	$products = Producto::get()->toArray();
-   //  	return Excel::create('productos', function($excel) use($products) {
-			// $excel->sheet('sheet name', function($sheet) use($products) {
-			// 	$sheet->fromArray($products);
-			// });
-   //  	})->download($type);
-        return Excel::download(new ProductExport, 'productos.xlsx');
+        if ($type === "xlsx") {
+            return Excel::download(new ProductExport, 'productos.xlsx');
+        }
+        else {
+            return Excel::download(new ProductExport, 'invoices.csv', \Maatwebsite\Excel\Excel::CSV);
+
+        }
     }
 
     public function buscarPreciosenExcel($arreglo, $tamaño, $dato){
