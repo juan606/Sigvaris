@@ -42,11 +42,11 @@ class DoctorController extends Controller
                 foreach ($palabras_busqueda as $palabra) {
                     $query->where('nombre','like',"%$palabra%" )->orWhere('apellidopaterno','like',"%$palabra%")->orWhere('apellidomaterno','like',"%$palabra%"); 
                 }
-            })->paginate(10);    
+            })->where('activo', '!=', '0')->paginate(10);
         }
         else
         {
-            $doctores = Doctor::paginate(10);
+            $doctores = Doctor::where('activo', '!=', '0')->paginate(10);
         }
         
 
