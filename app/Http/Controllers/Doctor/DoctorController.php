@@ -129,12 +129,12 @@ class DoctorController extends Controller
     {
         $temp = Doctor::find($doctor);
         $temp->activo=0;
-        $doctores = Doctor::get();
+        $doctores = Doctor::where('activo', '!=', '0')->get();
         return view('doctor.index', ['doctores'=>$doctores]);
     }
 
     public function getDoctores(){
-        $doctores = Doctor::get();
+        $doctores = Doctor::where('activo', '!=', '0')->get();
         return view('doctor.options', ['doctores'=>$doctores]);
     }
     
