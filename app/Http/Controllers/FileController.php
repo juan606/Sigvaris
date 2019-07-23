@@ -5,11 +5,13 @@ use UxWeb\SweetAlert\SweetAlert as Alert;
 use App\Http\Controllers\Controller;
 use App\Producto;
 use App\Imports\ProductImport;
+use App\Exports\ProductExport;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Excel;
 use Maatwebsite\Excel\Concerns\WithCalculatedFormulas;
 use Illuminate\Support\Facades\Auth;
+use ErrorException;
 
 
 class FileController extends Controller
@@ -42,22 +44,26 @@ class FileController extends Controller
             unset($Precios[0]);
             unset($data[0]);
     		if(count($data)) {
-                foreach ($data as $row) {
-                    $indice = $this->buscarPreciosenExcel($Precios, count($Precios), $row[0]);
-                    if($indice != -1){
-                        $arr[] = [
-                            'sku' => $row[0],
-                            'descripcion' => $row[1],
-                            //'precio_distribuidor' => number_format($row->distribuidor, 2, '.', ''),
-                            'precio_publico' => number_format($Precios[$indice][1], 2, '.', ''),
-                            'precio_publico_iva' => number_format($Precios[$indice][2], 2, '.', ''),
-                            'created_at' => date('Y-m-d h:m:s'),
-                            'updated_at' => date('Y-m-d h:m:s'),
-                            'line'=>$row[2],
-                            'upc'=>$row[3],
-                            'swiss_id'=>$row[4]
-                        ];
+                try{
+                    foreach ($data as $row) {
+                        $indice = $this->buscarPreciosenExcel($Precios, count($Precios), $row[0]);
+                        if($indice != -1){
+                            $arr[] = [
+                                'sku' => $row[0],
+                                'descripcion' => $row[1],
+                                //'precio_distribuidor' => number_format($row->distribuidor, 2, '.', ''),
+                                'precio_publico' => number_format($Precios[$indice][1], 2, '.', ''),
+                                'precio_publico_iva' => number_format($Precios[$indice][2], 2, '.', ''),
+                                'created_at' => date('Y-m-d h:m:s'),
+                                'updated_at' => date('Y-m-d h:m:s'),
+                                'line'=>$row[2],
+                                'upc'=>$row[3],
+                                'swiss_id'=>$row[4]
+                            ];
+                        }
                     }
+                } catch(\ErrorException $ee){
+                    return redirect()->back()->withErrors(['status', 'error_create']);
                 }
     			if (!empty($arr)) {
                     // dd($arr);
@@ -65,26 +71,24 @@ class FileController extends Controller
                     Alert::success('Archivo subido correctamente.');
     				return redirect()->back();
                 } else
-                    return('Error al subir el archivo.');
-    				return redirect()->back()->with('error', 'Error al subir el archivo.');
+                    //return('Error al subir el archivo.');
+    				return redirect()->back()->withErrors(['error', 'Error al subir el archivo.']);
             } else
-            return('Error al subir el archivo.');
-    			return redirect()->back()->with('error', 'Error al subir el archivo.');
+    		return redirect()->back()->withErrors(['error', 'Error al subir el archivo.']);
         } else
             return('No se subio ningun archivo');
-    		return redirect()->back()->with('error', 'No se subio ningun archivo');
-
-        return('Error al subir el archivo.');
-    	return redirect()->back()->with('error', 'Error al subir el archivo.');
+    		return redirect()->back()->withErrors(['error', 'No se subio ningun archivo']);
+    	return redirect()->back()->withErrors(['error', 'Error al subir el archivo.']);
     }
 
     public function downloadExcelFile($type) {
-    	$products = Producto::get()->toArray();
-    	return \Excel::create('productos', function($excel) use($products) {
-			$excel->sheet('sheet name', function($sheet) use($products) {
-				$sheet->fromArray($products);
-			});
-    	})->download($type);
+   //  	$products = Producto::get()->toArray();
+   //  	return Excel::create('productos', function($excel) use($products) {
+			// $excel->sheet('sheet name', function($sheet) use($products) {
+			// 	$sheet->fromArray($products);
+			// });
+   //  	})->download($type);
+        return Excel::download(new ProductExport, 'productos.xlsx');
     }
 
     public function buscarPreciosenExcel($arreglo, $tamaño, $dato){

@@ -11,6 +11,11 @@
 					</div>
 				</div>
 			</div>
+			@if($errors->any())
+			<div class="alert alert-danger" role="alert">
+			  Error al subir el Archivo. Formato incorrecto
+			</div>
+			@endif
 			<div class="panel-body">
 				<div class="row text-center">
 					<!-- <div class="col-4 form-group">
