@@ -23,11 +23,11 @@
                         <input type="date" step="0.01" name="fin" class="form-control" id="fin" required="">
                     </div>   
                 </div>
+                <label>Tipo: </label>
                 <div class="row">
                     <div class="col-4">
-                        <label>Tipo: </label>
-                        <div class="form-check">
-                            <input type="checkbox" class="form-check-input" name="tipoA" id="tipoA">
+                        <div class="form-group">
+                            <input type="checkbox" name="tipoA" id="tipoA">
                             <label>Compra: </label>
                             <input type="number" class="form-control" name="compra_minA" id="compra_minA">
                             <label> Llevate: </label>
@@ -41,22 +41,34 @@
                             <label>Monto minimo de compra: </label>
                             <input type="number" class="form-control" name="compra_minB" id="compra_minB" >
                             <label>$ por un descuento de: </label>
-                            <input type="number" class="form-control" name="descuento_deB" id="descuento_deB">
-                            <select class="form-control" name="unidad_descuentoB" id="unidad_descuentoB"  required="">        
-                                    <option value="$">$</option>
-                                    <option value="%">%</option>
-                            </select>
+                            <div class="row">
+                                <div class="col-6 pr-0">
+                                    <input type="number" class="form-control" name="descuento_deB" id="descuento_deB" min="0">
+                                </div>
+                                <div class="col-6 pl-0">
+                                    <select class="form-control" name="unidad_descuentoB" id="unidad_descuentoB"  required="">        
+                                            <option value="$">$</option>
+                                            <option value="%">%</option>
+                                    </select>
+                                </div>
+                            </div>
                         </div>
                     </div>
                     <div class="col-4">
                         <div class="form-group">
                             <input type="checkbox" name="tipoC" id="tipoC">
                             <label>Descuento por cumpleaños </label>
-                            <input type="number" class="form-control" name="descuento_deC" id="descuento_deC">
-                            <select class="form-control" name="unidad_descuentoC" id="unidad_descuentoC">
-                                    <option value="$">$</option>
-                                    <option value="%">%</option>
-                            </select>
+                            <div class="row">
+                                <div class="col-6 pr-0">
+                                    <input type="number" class="form-control" name="descuento_deC" id="descuento_deC">
+                                </div>
+                                <div class="col-6 pl-0">
+                                    <select class="form-control" name="unidad_descuentoC" id="unidad_descuentoC">
+                                            <option value="$">$</option>
+                                            <option value="%">%</option>
+                                    </select>
+                                </div>
+                            </div>
                         </div>
                     </div>
 
@@ -66,11 +78,17 @@
                             <label>Monto minimo de prendas: </label>
                             <input type="number" class="form-control" name="compra_minD" id="compra_minD">
                             <label> por un descuento de: </label>
-                            <input type="number" class="form-control" name="descuento_deD" id="descuento_deD">
-                            <select class="form-control" name="unidad_descuentoD" id="unidad_descuentoD">                               
-                                    <option value="$">$</option>
-                                    <option value="%">%</option>
-                            </select>
+                            <div class="row">
+                                <div class="col-6 pr-0">
+                                    <input type="number" class="form-control" name="descuento_deD" id="descuento_deD">
+                                </div>
+                                <div class="col-6 pl-0">
+                                    <select class="form-control" name="unidad_descuentoD" id="unidad_descuentoD">                               
+                                            <option value="$">$</option>
+                                            <option value="%">%</option>
+                                    </select>
+                                </div>
+                            </div>
                         </div>
                     </div>
 
@@ -89,11 +107,17 @@
                         <div class="form-group">
                             <input type="checkbox" name="tipoF" id="tipoF">
                             <label>Descuento de empleado: </label>
-                            <input type="number" class="form-control" name="descuento_deF" id="descuento_deF">
-                            <select class="form-control" name="unidad_descuentoF" id="unidad_descuentoF">
-                                    <option value="$">$</option>
-                                    <option value="%">%</option>                  
-                            </select>
+                            <div class="row">
+                                <div class="col-6 pr-0">
+                                    <input type="number" class="form-control" name="descuento_deF" id="descuento_deF">
+                                </div>
+                                <div class="col-6 pl-0">
+                                    <select class="form-control" name="unidad_descuentoF" id="unidad_descuentoF">
+                                            <option value="$">$</option>
+                                            <option value="%">%</option>                  
+                                    </select>
+                                </div>
+                            </div>
                         </div>
                     </div>
 

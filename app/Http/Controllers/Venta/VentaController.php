@@ -64,7 +64,8 @@ class VentaController extends Controller
             $venta->oficina_id=session()->get('oficina');
         $venta->save();
         for($i = 0; $i < sizeof($request->cantidad); $i++){
-            $venta->productos()->attach($request->producto_id[$i], ['cantidad'=>$request->cantidad[$i], 'created_at' => date('Y-m-d'), 'updated_at' => date('Y-m-d') ]);
+            $producto = Producto::find($request->producto_id[$i]);
+            $venta->productos()->attach($producto->id, ['cantidad'=>$request->cantidad[$i], 'precio' =>$producto->precio_publico, 'created_at' => date('Y-m-d'), 'updated_at' => date('Y-m-d') ]);
         }
         return redirect()->route('ventas.index');
     }

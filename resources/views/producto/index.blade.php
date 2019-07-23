@@ -23,7 +23,6 @@
                         <th>Line</th>
                         <th>UPC</th>
                         <th>Swiss id</th>
-                        <th>Precio Distribuidor</th>
                         <th>Precio Público S/IVA</th>
                         <th>Precio Público C/IVA</th>
                         <th>Operación</th>
@@ -40,7 +39,6 @@
                         <td>{{$producto->line}}</td>
                         <td>{{$producto->upc}}</td>
                         <td>{{$producto->swiss_id}}</td>
-                        <td>${{$producto->precio_distribuidor}}</td>
                         <td>${{$producto->precio_publico}}</td>
                         <td>${{$producto->precio_publico_iva}}</td>
                         <td>

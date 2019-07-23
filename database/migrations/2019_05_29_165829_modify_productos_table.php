@@ -17,7 +17,6 @@ class ModifyProductosTable extends Migration
             $table->string('line')->nullable();
             $table->string('upc')->nullable();
             $table->string('swiss_id')->nullable();      
-            $table->dropColumn('precio_distribuidor')->nullable()->change();
         });
     }
 
@@ -32,7 +31,6 @@ class ModifyProductosTable extends Migration
             $table->dropColumn('line');
             $table->dropColumn('upc');
             $table->dropColumn('swiss_id');
-            $table->dropColumn('precio_distribuidor')->nullable(false)->change();
         });
     }
 }

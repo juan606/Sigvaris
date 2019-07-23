@@ -59,74 +59,44 @@ class DescuentoController extends Controller
         $descuento = Descuento::create($request->all());
         if($request->tipoA)
         {
-            $promoA=new Promocion;
-            $promoA->tipo='A';
-            $promoA->compra_min=$request->compra_minA;
-            $promoA->unidad_compra='prendas';
-            $promoA->descuento_de=$request->descuento_deA;
-            $promoA->unidad_descuento='prendas';
-            $promoA->descuento_id=$descuento->id;
-            $promoA->save();
+            $promoA=Promocion::create(['tipo'=>'A', 'compra_min'=>$request->compra_minA, 'unidad_compra'=>'prendas',
+                                        'descuento_de'=>$request->descuento_deA, 'unidad_descuento'=>'prendas', 
+                                        'descuento_id'=>$descuento->id]);
         }
 
         if($request->tipoB)
         {
-            $promoB=new Promocion;
-            $promoB->tipo='B';
-            $promoB->compra_min=$request->compra_minB;
-            $promoB->unidad_compra='$';
-            $promoB->descuento_de=$request->descuento_deB;
-            $promoB->unidad_descuento=$request->unidad_descuentoB;
-            $promoB->descuento_id=$descuento->id;
-            $promoB->save();
+            $promoB=Promocion::create(['tipo'=>'B','compra_min'=>$request->compra_minB,'unidad_compra'=>'$',
+                                        'descuento_de'=>$request->descuento_deB,
+                                        'unidad_descuento'=>$request->unidad_descuentoB, 'descuento_id'=>$descuento->id]);
         }
 
         if($request->tipoC)
         {
-            $promoC=new Promocion;
-            $promoC->tipo='C';
-            $promoC->compra_min=0;
-            $promoC->unidad_compra='$';
-            $promoC->descuento_de=$request->descuento_deC;
-            $promoC->unidad_descuento=$request->unidad_descuentoC;
-            $promoC->descuento_id=$descuento->id;
-            $promoC->save();
+            $promoC=Promocion::create(['tipo'=>'C','compra_min'=>0,'unidad_compra'=>'$',
+                                        'descuento_de'=>$request->descuento_deC,
+                                        'unidad_descuento'=>$request->unidad_descuentoC,'descuento_id'=>$descuento->id]);
         }
 
         if($request->tipoD)
         {
-            $promoD=new Promocion;
-            $promoD->tipo='D';
-            $promoD->compra_min=$request->compra_minD;
-            $promoD->unidad_compra='prendas';
-            $promoD->descuento_de=$request->descuento_deD;
-            $promoD->unidad_descuento=$request->unidad_descuentoD;
-            $promoD->descuento_id=$descuento->id;
-            $promoD->save();
+            $promoD=Promocion::create(['tipo'=>'D','compra_min'=>$request->compra_minD,'unidad_compra'=>'prendas',
+                                        'descuento_de'=>$request->descuento_deD,
+                                        'unidad_descuento'=>$request->unidad_descuentoD,'descuento_id'=>$descuento->id]);
         }
 
         if($request->tipoE)
         {
-            $promoE=new Promocion;
-            $promoE->tipo='E';
-            $promoE->compra_min=$request->compra_minE;
-            $promoE->unidad_compra='prendas';
-            $promoE->descuento_de=$request->descuento_deE;
-            $promoE->unidad_descuento='sigpesos';
-            $promoE->descuento_id=$descuento->id;
-            $promoE->save();
+            $promoE=Promocion::create(['tipo'=>'E','compra_min'=>$request->compra_minE,'unidad_compra'=>'prendas',
+                                        'descuento_de'=>$request->descuento_deE,'unidad_descuento'=>'sigpesos',
+                                        'descuento_id'=>$descuento->id]);
         }
 
         if($request->tipoF)
         {
-            $promoF=new Promocion;
-            $promoF->tipo='F';
-            $promoF->compra_min=0;
-            $promoF->unidad_compra='$';
-            $promoF->descuento_de=$request->descuento_deF;
-            $promoF->unidad_descuento=$request->unidad_descuentoF;
-            $promoF->descuento_id=$descuento->id;
-            $promoF->save();
+            $promoF=Promocion::create(['tipo'=>'F','compra_min'=>0,'unidad_compra'=>'$',
+                                        'descuento_de'=>$request->descuento_deF,
+                                        'unidad_descuento'=>$request->unidad_descuentoF,'descuento_id'=>$descuento->id]);
         }
 
         return redirect()->route('descuentos.index');

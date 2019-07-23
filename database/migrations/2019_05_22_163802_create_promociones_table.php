@@ -21,7 +21,7 @@ class CreatePromocionesTable extends Migration
             $table->integer('descuento_de');
             $table->string('unidad_descuento');
             $table->integer('descuento_id')->unsigned();
-            $table->foreign('descuento_id')->references('id')->on('descuentos');
+            $table->foreign('descuento_id')->references('id')->on('descuentos')->onDelete('cascade');
             $table->timestamps();
         });
     }

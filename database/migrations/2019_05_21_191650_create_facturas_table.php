@@ -31,7 +31,7 @@ class CreateFacturasTable extends Migration
             $table->string('municipio');
             $table->string('estado');
             $table->string('cp');
-            $table->foreign('venta_id')->references('id')->on('ventas');
+            $table->foreign('venta_id')->references('id')->on('ventas')->onDelete('cascade');
             $table->timestamps();
         });
     }

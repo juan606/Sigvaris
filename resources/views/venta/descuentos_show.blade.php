@@ -73,10 +73,14 @@
                     @endif
 
                     @if ($descuento->promociones->where('tipo','F')->first())
-                        <div class="form-group col-10">
+                        <div class="row">
                             <label>Descuento de empleado: </label>
-                            <input type="text" class="form-group col-1" name="descuento_deF" id="descuento_deF" value="{{ $descuento->promociones->where('tipo','F')->first()->descuento_de }}" readonly="">
-                            <input type="text" class="form-group col-1" value="{{ $descuento->promociones->where('tipo','F')->first()->unidad_descuento }}" readonly="">
+                            <div class="col-2 pr-0">
+                                <input type="text" class="form-control" name="descuento_deF" id="descuento_deF" value="{{ $descuento->promociones->where('tipo','F')->first()->descuento_de }}" readonly="">
+                            </div>
+                            <div class="col-1 pl-0">
+                                <input type="text" class="form-control" value="{{ $descuento->promociones->where('tipo','F')->first()->unidad_descuento }}" readonly="">
+                            </div>
                         </div>
                     @endif
                 </div>

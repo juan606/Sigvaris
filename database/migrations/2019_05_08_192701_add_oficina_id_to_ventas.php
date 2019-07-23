@@ -15,7 +15,7 @@ class AddOficinaIdToVentas extends Migration
     {
         Schema::table('ventas', function (Blueprint $table) {
             $table->integer('oficina_id')->unsigned()->nullable();
-            $table->foreign('oficina_id')->references('id')->on('oficinas');
+            $table->foreign('oficina_id')->references('id')->on('oficinas')->onDelete('cascade');
         });
     }
 
@@ -27,7 +27,7 @@ class AddOficinaIdToVentas extends Migration
     public function down()
     {
         Schema::table('ventas', function (Blueprint $table) {
-             $table->dropColumn('oficina_id');
+             $table->dropForeign(['oficina_id']);
         });
     }
 }

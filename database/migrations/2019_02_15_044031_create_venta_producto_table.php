@@ -16,10 +16,11 @@ class CreateVentaProductoTable extends Migration
         Schema::create('producto_venta', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('venta_id')->unsigned();
-            $table->foreign('venta_id')->references('id')->on('ventas')->onDelete('cascade');;
+            $table->foreign('venta_id')->references('id')->on('ventas')->onDelete('cascade');
             $table->integer('producto_id')->unsigned();
             $table->foreign('producto_id')->references('id')->on('productos');
             $table->integer('cantidad');
+            $table->decimal('precio',8,2);
             $table->timestamps();
         });
     }

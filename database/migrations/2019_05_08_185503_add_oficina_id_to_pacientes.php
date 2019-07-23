@@ -27,7 +27,7 @@ class AddOficinaIdToPacientes extends Migration
     public function down()
     {
         Schema::table('pacientes', function (Blueprint $table) {
-            $table->dropColumn('oficina_id');
+            $table->dropForeign(['oficina_id']);
         });
     }
 }

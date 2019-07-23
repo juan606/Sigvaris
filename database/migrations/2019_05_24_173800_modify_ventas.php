@@ -16,8 +16,8 @@ class ModifyVentas extends Migration
         Schema::table('ventas', function (Blueprint $table){
             $table->integer('sigpesos')->nullable();
             $table->integer('promocion_id')->unsigned()->nullable();
-            $table->foreign('promocion_id')->references('id')->on('promociones');
-            $table->integer('descuento_id')->unsigned()->nullable()  ->change();
+            $table->foreign('promocion_id')->references('id')->on('promociones')->onDelete('cascade');
+            $table->integer('descuento_id')->unsigned()->nullable()->change();
         });
     }
 
@@ -30,8 +30,8 @@ class ModifyVentas extends Migration
     {
         Schema::table('ventas', function (Blueprint $table) {
             $table->dropColumn('sigpesos');
-            $table->dropColumn('promocion_id');
-            $table->integer('descuento_id')->unsigned()->nullable(false)->change();
+            $table->dropForeign(['promocion_id']);
+            $table->integer('descuento_id')->unsigned()->change();
         });
     }
 }
