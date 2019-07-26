@@ -68,6 +68,11 @@ class FileController extends Controller
                 }
     			if (!empty($arr)) {
                     // dd($arr);
+                    $registros = Producto::get();
+                    foreach ($registros as $registro) {
+                        Producto::destroy($registro->id);
+                    }
+                    
                     Producto::insert($arr);
                     Alert::success('Archivo subido correctamente.');
     				return redirect()->back();
