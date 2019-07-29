@@ -236,9 +236,24 @@
                     </div>
 
                 </div>
-                <div class="row" style="display: none;" id="div-prod">
-                    <div class="col-sm-6">
-                        <table class="table table-responsive table-hover" id="productos">
+                <div  style="display: none;" id="div-prod">
+                        <div class="col-4">
+                            <div class="form-group">
+                                <label>Descuento en productos: </label>
+                                <div class="row">
+                                    <div class="col-6 pr-0">
+                                        <input type="number" class="form-control" name="descuento_deG" id="descuento_deG">
+                                    </div>
+                                    <div class="col-6 pl-0">
+                                        <select class="form-control" name="unidad_descuentoG" id="unidad_descuentoG">
+                                                <option value="%">%</option>                  
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <table class="table table-hover display" id="table-productos">
                             <thead>
                                 <tr>
                                     <th>SKU</th>
@@ -257,6 +272,7 @@
                                 @else
                                 @foreach($productos as $producto)
                                 <tr>
+                                    <input type="hidden" id="producto_a_agregar{{$loop->index}}" value="{{$producto}}">
                                     <td>{{$producto->sku}}</td>
                                     <td>{{$producto->descripcion}}</td>
                                     <td>{{$producto->line}}</td>
@@ -265,16 +281,7 @@
                                     <td>${{$producto->precio_publico}}</td>
                                     <td>${{$producto->precio_publico_iva}}</td>
                                     <td>
-                                        <a href="{{route('productos.show', ['producto'=>$producto])}}"
-                                            class="btn btn-primary btn-sm"><i class="fas fa-eye"></i><strong> Ver</strong></a>
-                                        <a href="{{route('productos.edit', ['producto'=>$producto])}}"
-                                            class="btn btn-warning btn-sm"><i class="fas fa-edit"></i><strong> Editar</strong></a>
-                                        <form role="form" name="productoborrar" id="form-doctor" method="POST"
-                                            action="{{ route('productos.destroy', ['producto'=>$producto]) }}" name="form">
-                                            {{ csrf_field() }}
-                                            {{ method_field('DELETE') }}
-                                            <button type="submit" class="btn btn-danger btn-sm"><i class="far fa-trash-alt"></i><strong> Borrar</strong></button>
-                                        </form>
+                                        <button type="button" class="btn btn-success boton_agregar" onclick="agregarProducto('#producto_a_agregar{{$loop->index}}')"><i class="fas fa-plus"></i></button>
                                     </td>
                                 </tr>
                                 @endforeach
@@ -282,8 +289,26 @@
 
                             </tbody>
                         </table>
-                    </div>
                 </div>
+                <div class="row">
+                        <h3>Productos Seleccionados</h3>
+                        <div class="col-12">
+                            <table class="table">
+                                <thead>
+                                    <tr>
+                                        <th>Producto</th>
+                                        <th>Precio Unitario</th>
+                                        <th>Precio Unitario + IVA</th>
+                                        <th>Subtotal</th>
+                                        <th>Quitar</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="tbody_productos">
+                                    {{-- <div id="tbody_productos"></div> --}}
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
                 <div class="row">
                     <div class="col-3 pt-4 m-auto">
                         <button type="submit" class="btn btn-success btn-md btn-block">Agregar</button>
@@ -294,8 +319,12 @@
     </div>
 </div>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
+<script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.js"></script>
+<script type="text/javascript" src="https://cdn.datatables.net/1.10.19/js/dataTables.bootstrap4.min.js"></script>
 <script type="text/javascript">
     $(document).ready(function(){
+        $('#table-productos').DataTable();
+
         $('#tipoA').change(function(){
             if(this.checked)
             {
@@ -377,5 +406,34 @@
                 $('#div-prod').prop('style', 'display: none;');
         });
     });
+
+    function agregarProducto(p){
+        let producto = JSON.parse($(p).val());
+        // alert(producto);
+        $('#tbody_productos')
+        .append(`
+        <tr id="producto_agregado${producto.id}">
+            <td>
+                <input class="form-control" type="hidden" name="producto_id[]" value="${producto.id}">
+                ${producto.descripcion}
+            </td>
+            <td class="precio_individual">
+                $${producto.precio_publico}
+            </td>
+            <td>$${producto.precio_publico_iva}</td>
+            <td class="precio_total">
+                $${producto.precio_publico}
+            </td>
+            <td>
+                <button onclick="quitarProducto('#producto_agregado${producto.id}')" type="button" class="btn btn-danger boton_quitar">
+                    <i class="fas fa-minus"></i>
+                </button>
+            </td>
+        </tr>`);
+        cambiarTotalVenta();
+    }
+    function quitarProducto(p){
+        $(p).remove();
+    }
 </script>
 @endsection

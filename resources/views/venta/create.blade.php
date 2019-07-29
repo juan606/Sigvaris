@@ -49,6 +49,8 @@
                                 <thead>
                                     <tr>
                                         <th>SKU</th>
+                                        <th>UPC</th>
+                                        <th>swiss ID</th>
                                         <th>Producto</th>
                                         <th>Precio</th>
                                         <th>Precio con iva</th>
@@ -60,6 +62,8 @@
                                     <tr>
                                         <input type="hidden" id="producto_a_agregar{{$loop->index}}" value="{{$producto}}">
                                         <td>{{$producto->sku}}</td>
+                                        <td>{{$producto->upc}}</td>
+                                        <td>{{$producto->swiss_id}}</td>
                                         <td>{{$producto->descripcion}}</td>
                                         <td>${{$producto->precio_publico}}</td>
                                         <td>${{$producto->precio_publico_iva}}</td>

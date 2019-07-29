@@ -74,14 +74,47 @@
 
                     @if ($descuento->promociones->where('tipo','F')->first())
                         <div class="row">
-                            <label>Descuento de empleado: </label>
                             <div class="col-2 pr-0">
+                                <label>Descuento de empleado: </label>
                                 <input type="text" class="form-control" name="descuento_deF" id="descuento_deF" value="{{ $descuento->promociones->where('tipo','F')->first()->descuento_de }}" readonly="">
                             </div>
                             <div class="col-1 pl-0">
                                 <input type="text" class="form-control" value="{{ $descuento->promociones->where('tipo','F')->first()->unidad_descuento }}" readonly="">
                             </div>
                         </div>
+                    @endif
+                     @if ($descuento->promocionesProductos->count()>0)
+                        <div class="row">
+                            <label class="form-check-label">Descuento en Productos: </label>
+                            <div class="col-2 pr-0">
+                                <input type="text" class="form-control" name="descuento_deG" id="descuento_deG" value="{{ $descuento->promocionesProductos[0]->descuento }}" readonly="">
+                            </div>
+                            <div class="col-1 pl-0">
+                                <input type="text" class="form-control" value="{{ $descuento->promocionesProductos[0]->unidad_descuento }}" readonly="">
+                            </div>
+                        </div>
+                        <h3>Productos Seleccionados</h3>
+                        <table class="table table-responsive">
+                            <thead>
+                                <tr>
+                                    <th>Producto</th>
+                                    <th>Precio Unitario</th>
+                                    <th>Precio Unitario + IVA</th>
+                                    <th>Subtotal</th>
+                                    <!--<th>Quitar</th>-->
+                                </tr>
+                            </thead>
+                            <tbody id="tbody_productos">
+                                @foreach($descuento->promocionesProductos as $prod)
+                                <tr>
+                                    <td>{{ $prod->producto->descripcion }}</td>
+                                    <td>{{ $prod->producto->precio_publico }}</td>
+                                    <td>{{ $prod->producto->precio_publico_iva }}</td>
+                                    <td>{{ $prod->producto->precio_publico }}</td>
+                                </tr>
+                                @endforeach
+                            </tbody>
+                        </table>
                     @endif
                 </div>
             </div>

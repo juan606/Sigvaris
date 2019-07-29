@@ -22,4 +22,8 @@ class Descuento extends Model
     public function promociones(){
         return $this->hasMany('App\Promocion');
     }
+
+    public function promocionesProductos(){
+        return $this->hasMany('App\PromocionEnProducto');
+    }
 }

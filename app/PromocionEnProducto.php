@@ -22,8 +22,8 @@ class PromocionEnProducto extends Model
     	return $this->belongsTo('App\Descuento', 'descuento_id');
     }
 
-    public function productos()
+    public function producto()
     {
-    	return $this->belongsToMany('App\Producto', 'producto_id');
+    	return $this->belongsTo('App\Producto', 'producto_id');
     }
 }

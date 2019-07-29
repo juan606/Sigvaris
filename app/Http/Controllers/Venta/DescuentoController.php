@@ -6,6 +6,7 @@ use App\Descuento;
 use App\Promocion;
 use App\Paciente;
 use App\Producto;
+use App\PromocionEnProducto;
 use DateInterval;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
@@ -45,7 +46,8 @@ class DescuentoController extends Controller
      */
     public function create()
     {
-        return view('venta.descuentos_create');
+        $productos = Producto::get();
+        return view('venta.descuentos_create', ['productos' => $productos]);
     }
 
     /**
@@ -55,7 +57,8 @@ class DescuentoController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
-    {                
+    {
+        //dd($request->all())           ;
         $descuento = Descuento::create($request->all());
         if($request->tipoA)
         {
@@ -97,6 +100,13 @@ class DescuentoController extends Controller
             $promoF=Promocion::create(['tipo'=>'F','compra_min'=>0,'unidad_compra'=>'$',
                                         'descuento_de'=>$request->descuento_deF,
                                         'unidad_descuento'=>$request->unidad_descuentoF,'descuento_id'=>$descuento->id]);
+        }
+        if($request->tipoG)
+        {
+            for ($i=0; $i < count($request->producto_id); $i++) { 
+                $promoG = PromocionEnProducto::create(['descuento_id'=>$descuento->id, 'producto_id'=>$request->producto_id[$i],
+                                                       'descuento'=>$request->descuento_deG, 'unidad_descuento'=>$request->unidad_descuentoG]);
+            }
         }
 
         return redirect()->route('descuentos.index');
