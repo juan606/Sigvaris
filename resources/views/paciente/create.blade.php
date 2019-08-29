@@ -5,7 +5,7 @@
     <div class="card-header">
         <div class="row">
             <div class="col-4">
-                <h4>Datos del Paciente:</h4>
+                <h4>Datos del Paciente aqui:</h4>
             </div>
             <div class="col-4 text-center">
                 <a href="{{ route('pacientes.index') }}" class="btn btn-primary">
@@ -163,14 +163,17 @@ $('input').change( function(){
     
     if( $('#nacimiento').val() ){
         var date = new Date( $('#nacimiento').val() );
-        const dia = date.getDate();
-        const mes = date.getMonth()+1;
+        var dia = ("0" + date.getDate()).slice(-2);
+        dia = parseInt(dia)+1;
+        dia = dia.toString();
+        const mes = ("0" + (date.getMonth() + 1)).slice(-2);
         const anio = date.getFullYear().toString().substr(-2);
         const rfc_paterno = $('#paterno').val().substr(0,2);
         const rfc_materno = $('#materno').val().substr(0,1);
         const rfc_nombre = $('#nombre').val().substr(0,1);
-        const rfc_completo = rfc_paterno+rfc_materno+rfc_nombre+anio+mes+dia;
-        $('#rfc').val( rfc_paterno+rfc_materno+rfc_nombre+anio+mes+dia );
+        var rfc_completo = rfc_paterno+rfc_materno+rfc_nombre+anio+mes+dia;
+        rfc_completo = rfc_completo.toUpperCase();
+        $('#rfc').val( rfc_completo );
 
     }
 
