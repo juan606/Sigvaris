@@ -67,5 +67,14 @@ class Empleado extends Model
     public function user(){
       return $this->hasOne('App/User');
     }
+
+    /**
+     * Scope methods
+     */
+
+    public function scopeNoUsers($query){
+        $users_id = User::whereNotNull('empleado_id')->pluck('empleado_id')->all();
+        return $query->whereNotIn('id',$users_id);
+    }
     
 }

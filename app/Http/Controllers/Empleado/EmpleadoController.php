@@ -71,6 +71,19 @@ class EmpleadoController extends Controller
      */
     public function store(Request $request)
     {
+        // dd($request->input());
+
+        $otro_rfc = Empleado::where('rfc',$request->input('rfc'))->first();
+        $otro_email = Empleado::where('email',$request->input('email'))->first();
+        
+        if($otro_rfc){
+            return redirect()->back()->with('error','El rfc ingresado ya existe.');
+        }
+
+        if($otro_email){
+            return redirect()->back()->with('error','El email ingresado ya existe.');
+        }
+
         $empleado = Empleado::create($request->all());
         return redirect()->route('empleados.show', ['empleado' => $empleado])->with('success', 'Empleado Creado');
     }

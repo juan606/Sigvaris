@@ -17,36 +17,47 @@
     <form role="form" name="Form" onsubmit="return validateForm()" id="form-cliente" method="POST" action="{{ route('pacientes.store') }}" name="form">
         {{ csrf_field() }}
         <div class="card-body">
+            @if (session('error'))
+                <div class="row">
+                    <div class="col-12">
+                        <div class="alert alert-danger">
+                            {{session('error')}}
+                        </div>
+                    </div>
+                </div>
+            @endif
             <div class="row">
                 <div class="col-3 form-group">
                     <label class="control-label">✱Nombre:</label>
-                    <input type="text" name="nombre" class="form-control" required="">
+                    <input type="text" name="nombre" class="form-control" required="" id="nombre">
                 </div>
                 <div class="col-3 form-group">
                     <label class="control-label">✱Apellido Paterno:</label>
-                    <input type="text" name="paterno" class="form-control" required="">
+                    <input type="text" name="paterno" class="form-control" required="" id="paterno">
                 </div>
                 <div class="col-3 form-group">
                     <label class="control-label">✱Apellido Materno:</label>
-                    <input type="text" name="materno" class="form-control" required="">
+                    <input type="text" name="materno" class="form-control" required="" id="materno">
                 </div>
                 <div class="col-3 form-group">
                     <label class="control-label">Celular:</label>
                     <input type="number" name="celular" class="form-control">
                 </div>
-            </div>
-            <div class="row">
                 <div class="col-3 form-group">
                     <label class="control-label">Correo:</label>
                     <input type="email" name="mail" class="form-control">
                 </div>
                 <div class="col-3 form-group">
                     <label class="control-label">Fecha nacimiento:</label>
-                    <input type="date" name="nacimiento" class="form-control">
+                    <input type="date" name="nacimiento" class="form-control" required id="nacimiento">
                 </div>
                 <div class="col-3 form-group">
-                    <label class="control-label">RFC:</label>
-                    <input type="text" name="rfc" class="form-control">
+                    <label class="control-label">✱ RFC:</label>
+                    <input type="text" name="rfc" class="form-control" required id="rfc">
+                </div>
+                <div class="col-3 form-group">
+                    <label class="control-label">Homoclave:</label>
+                    <input type="text" name="homoclave" class="form-control">
                 </div>
                 <div class="form-group col-3">
                     <label for="nivel_id">Nivel:</label>
@@ -56,8 +67,6 @@
                         @endforeach
                     </select>
                 </div>
-            </div>
-            <div class="row">
                 <div class="col-3 form-group">
                     <label class="control-label">Teléfono:</label>
                     <input type="text" name="telefono" class="form-control">
@@ -72,6 +81,43 @@
                     <label class="control-label">Otro doctor nombre:</label>
                     <input type="text" name="otro_doctor" class="form-control">
                 </div>
+            </div>
+            {{-- Lista de doctores --}}
+            <h6 class="text-center">LISTA PARA ASIGNAR DOCTOR</h6>
+            <div class="row">
+                <div class="col-12 col-md-2"></div>
+                <div class="col-12 col-md-8">
+                        <div class="col-12">
+                                <table class="table table-hover table-striped table-bordered" style="margin-bottom: 0;" id="listaEmpleados">
+                                        <thead>
+                                            <tr class="info">
+                                                <th>#</th>
+                                                <th>Nombre</th>
+                                                <th>Apellido paterno</th>
+                                                <th>Apellido materno</th>
+                                                <th>Acción</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            @foreach($doctores as $key => $doctor)
+                                                <tr>
+                                                    <td>{{$key+1}}</td>
+                                                    <td>{{$doctor->nombre}}</td>
+                                                    <td>{{$doctor->apellidopaterno}}</td>
+                                                    <td>{{$doctor->apellidomaterno}}</td>
+                                                    <td>
+                                                        <button type="button" class="btn btn-success asignar" id-doctor={{$doctor->id}}>
+                                                            Asignar
+                                                        </button>
+                                                    </td>
+                                                </tr>
+                                            @endforeach
+                                        </tbody>
+                                        
+                                        </table>
+                        </div>
+                </div>
+                <div class="col-12 col-md-2"></div>
             </div>
         </div>
         <div class="card-footer">
@@ -102,8 +148,35 @@
 
 </script> --}}
 
+<script src="https://code.jquery.com/jquery-3.3.1.js"></script>    
+<script src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
+<script src="https://cdn.datatables.net/1.10.19/js/dataTables.bootstrap4.min.js"></script>
+<script>
+    $(document).ready(function() {
+        $('#listaEmpleados').DataTable();
+    } );
+</script>
 
 <script>
+
+$('input').change( function(){
+    
+    if( $('#nacimiento').val() ){
+        var date = new Date( $('#nacimiento').val() );
+        const dia = date.getDate();
+        const mes = date.getMonth()+1;
+        const anio = date.getFullYear().toString().substr(-2);
+        const rfc_paterno = $('#paterno').val().substr(0,2);
+        const rfc_materno = $('#materno').val().substr(0,1);
+        const rfc_nombre = $('#nombre').val().substr(0,1);
+        const rfc_completo = rfc_paterno+rfc_materno+rfc_nombre+anio+mes+dia;
+        $('#rfc').val( rfc_paterno+rfc_materno+rfc_nombre+anio+mes+dia );
+
+    }
+
+    // alert($("#nacimiento").val());
+} );
+
 $('#otro_doctor').hide();
     $('#doctor_id').change(function () {
         if($(this).val() == 'otro'){
@@ -130,5 +203,12 @@ $('#otro_doctor').hide();
     }).done(function (resultado) {
         $("#doctor_id").html(resultado);
     });
+
+
+$('.asignar').click( function(){
+    const doctor_id = $(this).attr('id-doctor');
+    $('#doctor_id').val(doctor_id);
+} );
+
 </script>
 @endsection

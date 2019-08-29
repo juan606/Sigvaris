@@ -72,7 +72,7 @@
 	</form>
 </div>
 
-<div class="container p-4" id="tab">
+{{-- <div class="container p-4" id="tab">
 	<form role="form" id="form-cliente" method="POST" action="{{ route('proveedores.store') }}" name="form">
 		{{ csrf_field() }}
 		<div role="application" class="panel panel-group" >
@@ -160,7 +160,7 @@
 			</div>
 		</div>
 	</div>
-</form>
+</form> --}}
 </div>
 <script>
 // $(document).ready(function(){

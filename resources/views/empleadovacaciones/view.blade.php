@@ -23,40 +23,59 @@
 			<form role="form" method="POST" action="{{ route('empleados.vacaciones.store',['empleado'=>$empleado]) }}">
 				{{ csrf_field() }}
 				<input type="hidden" name="empleado_id" value="{{$empleado->id }}">
-				<div class="col-xs-12 offset-md-2 mt-3">
-				<div class="form-group col-xs-4">
-						<label class="control-label" for="fechainicio" id="lbl_vacaciones"><i class="fa fa-asterisk" aria-hidden="true"></i>Fecha de Inicio:</label>
-						<input type="date" class="form-control" id="id_vacaciones" name="fechainicio">
+				{{-- <div class="col-xs-12 offset-md-2 mt-3"> --}}
+					<div class="row">
+						{{-- Fecha inicio vacaciones --}}
+						<div class="col-12 col-md-4">
+							<div class="form-group">
+								<label class="control-label" for="fechainicio" id="lbl_vacaciones"><i class="fa fa-asterisk" aria-hidden="true"></i>Fecha de Inicio:</label>
+								<input type="date" class="form-control" id="id_vacaciones" name="fechainicio">
+							</div>
+						</div>
+						{{-- Fecha de fin de vacaciones --}}
+						<div class="col-12 col-md-4">
+							<div class="form-group">
+								<label class="control-label" for="fechafin" id="lbl_vacaciones"><i class="fa fa-asterisk" aria-hidden="true"></i>Fecha de Fin:</label>
+								<input type="date" class="form-control" id="id_vacaciones_fin" name="fechafin">
+							</div>
+						</div>
+						{{-- Numero de dias de vacaciones --}}
+						<div class="col-12 col-md-4">
+							<div class="form-group">
+								<label class="control-label" for="diastomados">Número de días de vacaciones:</label>
+								<input type="text" class="form-control" id="dias_vac" name="diastomados">
+							</div>
+						</div>
+						{{-- Dias restantes de vacaciones --}}
+						<div class="col-12 col-md-4">
+							<div class="form-group">
+								<label class="control-label" for="diasrestantes">Días vacaiones restantes:</label>
+								<input type="text" class="form-control" id="dias_vac_rest" name="diasrestantes">
+							</div>
+						</div>
+						{{-- Periodo de vacaciones --}}
+						<div class="col-12 col-md-4">
+							<div class="form-group">
+								<label class="control-label" for="periodo1">Periodo de:</label>
+								<input type="text" class="form-control" id="dias_vac_rest" name="periodo1">
+							</div>
+						</div>
+						{{-- Hasta el dia de vacaciones --}}
+						<div class="col-12 col-md-4">
+							<div class="form-group">
+								<label>al día : </label>
+								<input type="text" class="form-control" id="dias_vac_rest" name="periodo2">
+							</div>
+						</div>
+						{{-- Dias totales de vacaciones --}}
+						<div class="col-12 col-md-4">
+							<div class="form-group">
+								<label class="" for="dias_vac_rest">Días totales: </label>
+								<input type="text" class="form-control" id="dias_vac_rest" name="diastotal">
+							</div>
+						</div>
 					</div>
-				<div class="form-group col-xs-4">
-						<label class="control-label" for="fechafin" id="lbl_vacaciones"><i class="fa fa-asterisk" aria-hidden="true"></i>Fecha de Fin:</label>
-						<input type="date" class="form-control" id="id_vacaciones_fin" name="fechafin">
-					</div>
-				
-				</div>
-				<div class="col-xs-12 offset-md-2 mt-3">
-							<div class="form-group col-xs-4">
-	    					<label class="control-label" for="diastomados">Número de días de vacaciones:</label>
-	    					<input type="text" class="form-control" id="dias_vac" name="diastomados">
-	  			</div>
-				</div>
-				<div class="col-xs-12 offset-md-2 mt-3">
-							<div class="form-group col-xs-4">
-	    					<label class="control-label" for="diasrestantes">Días vacaiones restantes:</label>
-	    					<input type="text" class="form-control" id="dias_vac_rest" name="diasrestantes">
-	  			</div>
-				</div>
-				<div class="col-xs-12 offset-md-2 mt-6">
-					<div class="form-group col-xs-2">
-						<label class="" for="periodo1">Periodo de:<input type="text" class="form-control" id="dias_vac_rest" name="periodo1"></label> 
-					</div>
-						<div class="form-group col-xs-2">
-							<label>al día : </label><input type="text" class="form-control" id="dias_vac_rest" name="periodo2">
-						 </div>
-						<div class="form-group col-xs-2">
-						<label class="" for="dias_vac_rest">Días totales: </label> <input type="text" class="form-control" id="dias_vac_rest" name="diastotal">
-					</div>
-				</div>
+					
 				<button type="submit" class="btn btn-success">Guardar</button>
 				
 			</form>

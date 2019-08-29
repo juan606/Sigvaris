@@ -16,6 +16,7 @@ class Paciente extends Model
         'paterno',
         'nacimiento',
         'rfc',
+        'homoclave',
         'celular',
         'telefono',
         'mail',
