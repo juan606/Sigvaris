@@ -96,3 +96,15 @@ Route::get('/home', 'HomeController@index')->name('home');
 Route::post('/pembayaran/print', 'PembayaranController@print')->name('pembayaran.print');
 Route::post('receipt/print','ReceiptController@printReceipt');
 Route::get('emp/{id}','Empleado\EmpleadoController@getEmpleado');
+
+
+// Reportes
+Route::get('reportes/2','Reporte\ReporteController@dos')->name('reportes.2');
+Route::post('reportes/2','Reporte\ReporteController@dos')->name('reportes.2');
+Route::get('reportes/4','Reporte\ReporteController@cuatro')->name('reportes.4');
+Route::post('reportes/4','Reporte\ReporteController@cuatro')->name('reportes.4');
+Route::get('reportes/7','Reporte\ReporteController@siete')->name('reportes.7');
+
+
+
+Route::get('pruebas','Prueba\PruebaController@index');

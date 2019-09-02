@@ -149,6 +149,23 @@
                             <a class="dropdown-item" href="{{route('usuarios.index')}}"><span>Usuarios</span><i class="fa fa-search float-right"></i></a>
                 @endif
             @endif
+
+            {{-- @if (Auth::user()->role->roles || Auth::user()->role->usuarios) --}}
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown">
+                            Reportes
+                        </a>
+                        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                {{-- @if (Auth::user()->role->roles) --}}
+                            <a class="dropdown-item" href="{{route('reportes.2')}}"><span>2,3</span><i class="fa fa-search float-right"></i></a>
+                {{-- @endif --}}
+                {{-- @if (Auth::user()->role->usuarios) --}}
+                            <a class="dropdown-item" href="{{route('reportes.4')}}"><span>4,5,6</span><i class="fa fa-search float-right"></i></a>
+                            <a class="dropdown-item" href="{{route('reportes.7')}}"><span>7</span><i class="fa fa-search float-right"></i></a>
+                {{-- @endif --}}
+            {{-- @endif --}}
+
+
                     </div>
                 </li>
             <a  class="btn btn-info btn-sm" href="{{ url('logout') }}">
