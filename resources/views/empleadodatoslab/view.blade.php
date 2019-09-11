@@ -15,9 +15,9 @@
 			<li role="presentation" class="nav-item"><a href="{{ route('empleados.faltas.index',['empleado'=>$empleado]) }}" class="nav-link">Administrativo:</a></li>
 		</ul>
 	</div>
-	<div class="panel-default">
-		<div class="panel-heading"><h5><strong>Laborales:</strong></h5></div>
-		<div class="panel-body">
+	<div class="card">
+		<div class="card-header"><h5><strong>Laborales:</strong></h5></div>
+		<div class="card-body">
 			<div class="form-row">
 				<div class="form-group col-3">
 					<label class="control-label" for="fechacontratacion">Fecha de contratación:</label>
@@ -29,7 +29,6 @@
 				</div>
 				<div class="form-group col-3">
 					<label class="control-label" for="area">Área:</label>
-					
 					<dd>{{ $area->nombre }}</dd>
 				</div>
 				

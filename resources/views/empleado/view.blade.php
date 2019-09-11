@@ -2,8 +2,8 @@
 @section('content')
 <div class="container-fluid">
 	<div role="application" class="panel panel-group">
-		<div class="panel-default">
-			<div class="panel-heading">
+		<div class="card">
+			<div class="card-header">
 				<div class="row">
 					<div class="col-4">
 						<h4>Datos del Empleado:</h4>
@@ -20,28 +20,26 @@
 					</div>
 				</div>
 			</div>
-			<div class="panel-body">
-				<div class="row my-4">
+			<div class="card-body">
+				<div class="row">
 					<div class="col-4">
-						<label class="control-label" for="appaterno">Apellido Paterno:</label>
+						<label class="control-label" for="appaterno"> <strong>Apellido Paterno:</strong> </label>
 						<dd>{{ $empleado->appaterno }}</dd>
 					</div>
 					<div class="col-4">
-						<label class="control-label" for="apmaterno">Apellido Materno:</label>
+						<label class="control-label" for="apmaterno"> <strong>Apellido Materno:</strong> </label>
 						<dd>{{ $empleado->apmaterno }}</dd>
 					</div>
 					<div class="col-4">
-						<label class="control-label" for="nombre">Nombre(s):</label>
+						<label class="control-label" for="nombre"> <strong>Nombre(s):</strong> </label>
 						<dd>{{ $empleado->nombre }}</dd>
 					</div>
-				</div>
-				<div class="row my-4">
-					<div class="col-4 offset-2">
-						<label class="control-label" for="rfc">RFC:</label>
+					<div class="col-4">
+						<label class="control-label" for="rfc"> <strong>RFC:</strong> </label>
 						<dd>{{ $empleado->rfc }}</dd>
 					</div>
 					<div class="col-4">
-						<label class="control-label" for="rfc">Oficina:</label>
+						<label class="control-label" for="rfc"> <strong>Oficina:</strong> </label>
 						<dd>{{ $empleado->oficina->nombre }}</dd>
 					</div>
 				</div>
@@ -55,15 +53,15 @@
 			<li role="presentation" class="nav-item"><a href="{{ route('empleados.vacaciones.index', ['empleado' => $empleado]) }}" class="nav-link">Vacaciones:</a></li>
 			<li role="presentation" class="nav-item"><a href="{{ route('empleados.faltas.index', ['empleado' => $empleado]) }}" class="nav-link">Administrativo:</a></li>
 		</ul>
-		<div class="panel-default">
-			<div class="panel-heading">
+		<div class="card">
+			<div class="card-header">
 				<div class="row">
 					<div class="col-4">
 						<h5>Datos Generales:</h5>
 					</div>
 				</div>
 			</div>
-			<div class="panel-body">
+			<div class="card-body">
 				<div class="row">
 					<div class="form-group col-3">
 						<label class="control-label" for="telefono">Teléfono:</label>

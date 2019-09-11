@@ -7,8 +7,6 @@
 
 			<li role="presentation" class="nav-item"><a href="{{ route('empleados.datoslaborales.index',['empleado'=>$empleado]) }}" class="nav-link">Laborales:</a></li>
 
-			
-
 			<li role="presentation" class="nav-item"><a href="{{ route('empleados.emergencias.index',['empleado'=>$empleado]) }}" class="nav-link active">Emergencias:</a></li>
 
 			<li role="presentation" class="nav-item"><a href="{{ route('empleados.vacaciones.index',['empleado'=>$empleado]) }}" class="nav-link">Vacaciones:</a></li>
@@ -16,9 +14,9 @@
 			<li role="presentation" class="nav-item"><a href="{{ route('empleados.faltas.index',['empleado'=>$empleado]) }}" class="nav-link">Administrativo:</a></li>
 		</ul>
 	</div>
-	<div class="panel-default">
-		<div class="panel-heading"><h5>Emergencias:</h5></div>
-		<div class="panel-body">
+	<div class="card">
+		<div class="card-header"><h5>Emergencias:</h5></div>
+		<div class="card-body">
 			@if ($edit == true)
 				{{-- true expr --}}
 			<form role="form" method="POST" action="{{ route('empleados.emergencias.update',['emergencia'=>$emergencias, 'empleado'=>$empleado]) }}">
@@ -73,10 +71,10 @@
 				<div class="row">
 					{{-- Input enfermedades --}}
 					<div class="col-12 col-md-4">
-							<div class="form-group">
-									<label class="control-label" for="enfermedades" id="lbl_enf">Enfermedades:</label>
-									<textarea class="form-control" id="enfermedades" name="enfermedades" maxlength="500" >{{ $emergencias->enfermedades }}</textarea>
-								</div>
+						<div class="form-group">
+							<label class="control-label" for="enfermedades" id="lbl_enf">Enfermedades:</label>
+							<textarea class="form-control" id="enfermedades" name="enfermedades" maxlength="500" >{{ $emergencias->enfermedades }}</textarea>
+						</div>
 					</div>
 					{{-- Input alergias --}}
 					<div class="col-12 col-md-4">

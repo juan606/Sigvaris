@@ -60,7 +60,7 @@ class PacienteController extends Controller
     public function create()
     {
         $niveles = Nivel::get();
-        $doctores = Doctor::get();
+        $doctores = Doctor::where('activo', '!=', '0')->get();
         return view('paciente.create', ['niveles'=>$niveles, 'doctores'=>$doctores]);
     }
 

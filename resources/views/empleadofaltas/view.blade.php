@@ -16,10 +16,10 @@
 			<li role="presentation" class="nav-item"><a href="{{ route('empleados.faltas.index',['empleado'=>$empleado]) }}" class="nav-link active">Administrativo:</a></li>
 		</ul>
 	</div>
-	<div class="panel-default">
-		<div class="panel-heading"><h5>Administrativo:
+	<div class="card">
+		<div class="card-header"><h5>Administrativo:
 		&nbsp;&nbsp;&nbsp;&nbsp; <i class="fa fa-asterisk" aria-hidden="true"></i>Campos Requeridos</h5></div>
-		<div class="panel-body">
+		<div class="card-body">
 			<form role="for" method="POST" action="{{ route('empleados.faltas.store',['empleado'=>$empleado]) }}">
 				{{ csrf_field() }}
 				<input type="hidden" name="empleado_id" value="{{$empleado->id}}">

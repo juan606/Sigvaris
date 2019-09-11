@@ -2,18 +2,16 @@
 <table class="table table-hover table-striped table-bordered" style="margin-bottom: 0;" id="listaEmpleados">
     <thead>
         <tr class="info">
-            <th># prendas</th>
+            <th>Fecha</th>
             <th># pacientes</th>
         </tr>
     </thead>
     <tbody>
-        @foreach($dataList as $key => $data)
-            @if (isset($dataList[$key]))
-                <tr>
-                    <td>{{$key}}</td>
-                    <td>{{$data}}</td>
-                </tr>
-            @endif
+        @foreach($pacientes as $key => $paciente)
+            <tr>
+                <td>{{$paciente->created_at}}</td>
+                <td>2</td>
+            </tr>
         @endforeach
     </tbody>    
 </table>

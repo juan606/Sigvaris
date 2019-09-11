@@ -1,8 +1,8 @@
 @extends('layouts.infoempleado')
 @section('infoempleado')
 	{{-- expr --}}
-	<div class="container">
-
+	<br>
+	{{-- <div class="container"> --}}
 		<div>
 			<ul class="nav nav-pills nav-justified">
 				<li role="presentation" class="nav-item"><a href="{{ route('empleados.show',['empleado'=>$empleado]) }}"  class="nav-link">Generales:</a></li>
@@ -18,10 +18,10 @@
 				<li role="presentation" class="nav-item"><a href="{{ route('empleados.faltas.index',['empleado'=>$empleado]) }}" class="nav-link">Administrativo:</a></li>
 			</ul>
 		</div>
-		<div class="panel-default">
-			<div class="panel-heading"><h5>Estudios:
+		<div class="card">
+			<div class="card-header"><h5>Estudios:
 			&nbsp;&nbsp;&nbsp;&nbsp; <i class="fa fa-asterisk" aria-hidden="true"></i>Campos Requeridos</h5></div>
-			<div class="panel-body">
+			<div class="card-body">
 				@if ($edit == true)
 					{{-- expr --}}
 					<form role="form" method="POST" action="{{ route('empleados.estudios.update',['estudios'=>$estudios,'empleado'=>$empleado]) }}">
@@ -74,8 +74,6 @@
 							<label class="control-label" for="cedula1" id="lbl_cedula"><i class="fa fa-asterisk" aria-hidden="true"></i>Número de Cédula:</label>
 							<input type="text" class="form-control" id="cedula1" name="cedula1" value="{{ $estudios->cedula1 }}">
 						</div>
-					</div>
-					<div class="row">
 						<div class="form-group col-3">
 							<label class="control-label" for="escolaridad2" id="lbl_escolaridad2"><i class="fa fa-asterisk" aria-hidden="true"></i>Escolaridad 2:</label>
 							<select type="select" name="escolaridad2" class="form-control" id="escolaridad2">
@@ -117,8 +115,7 @@
 							<label class="control-label" for="cedula2" id="lbl_cedula2"><i class="fa fa-asterisk" aria-hidden="true"></i>Número de Cédula:</label>
 							<input type="text" class="form-control" id="cedula2" name="cedula2" value="{{ $estudios->cedula2 }}">
 						</div>
-					</div>
-					<div class="row">
+
 						<div class="form-group col-3">
 							<label class="control-label" for="idioma1" id="lbl_idioma">Idioma:</label>
 							<select type="select" name="idioma1" class="form-control" id="idioma1">
@@ -169,8 +166,7 @@
 								@endif>Alto</option>
 							</select>
 						</div>
-					</div>
-					<div class="row">
+
 						<div class="form-group col-3">
 							<label class="control-label" for="idioma2" id="lbl_idioma">Idioma:</label>
 							<select type="select" name="idioma2" class="form-control" id="idioma2">
@@ -221,8 +217,7 @@
 								@endif>Alto</option>
 							</select>
 						</div>
-					</div>
-					<div class="row">
+
 						<div class="form-group col-3">
 							<label class="control-label" for="idioma3" id="lbl_idioma">Idioma:</label>
 							<select type="select" name="idioma3" class="form-control" id="idioma3">
@@ -273,8 +268,7 @@
 								@endif>Alto</option>
 							</select>
 						</div>
-					</div>
-					<div class="row">
+
 						<div class="form-group col-4">
 							<label class="control-label" for="curso1" id="lbl_curso"><i class="fa fa-asterisk" aria-hidden="true"></i>Curso:</label>
 							<input type="text" class="form-control" id="id_curso1" name="curso1" value="{{ $estudios->curso1 }}">
@@ -317,5 +311,5 @@
 					</form>
 			</div>
 		</div>
-	</div>
+	{{-- </div> --}}
 @endsection

@@ -3,8 +3,8 @@
 
 <div class="container-fluid">
 	<div class="panel panel-group">
-		<div class="panel-default">
-			<div class="panel-heading">
+		<div class="card">
+			<div class="card-header">
 				<div class="row">
 					<div class="col-4">
 						<h4>Empleados:</h4>
@@ -23,7 +23,7 @@
 
 				</div>
 			</div>
-			<div class="panel-body">
+			<div class="card-body">
 				<div class="row">
 					<div class="col-12">
 						@if(count($empleados) > 0)

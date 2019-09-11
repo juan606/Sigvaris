@@ -1,22 +1,17 @@
 <table class="table table-hover table-striped table-bordered" style="margin-bottom: 0;" id="conSku">
     <thead>
         <tr class="info">
-            <th>N°</th>
-            <th>Fecha</th>
             <th>Sku</th>
-            <th># prendas</th>
             <th># pacientes</th>
         </tr>
     </thead>
     <tbody>
-        {{-- @foreach($empleados as $key => $empleado) --}}
+        @foreach($sku_y_num_pacentes as $key => $sku_y_num_pacentes)
             <tr>
-                <td>1</td>
-                <td>2</td>
-                <td>3</td>
-                <td>4</td>
+                <td>{{$key}}</td>
+                <td>{{$sku_y_num_pacentes}}</td>
             </tr>
-        {{-- @endforeach --}}
+        @endforeach
     </tbody>    
 </table>
 

@@ -99,6 +99,33 @@ Route::get('emp/{id}','Empleado\EmpleadoController@getEmpleado');
 
 
 // Reportes
+Route::get('reportes/1','Reporte\ReporteController@uno')->name('reportes.1');
+Route::post('reportes/1','Reporte\ReporteController@uno')->name('reportes.1');
+
+Route::get('reportes/2','Reporte\ReporteController@dos')->name('reportes.2');
+Route::post('reportes/2','Reporte\ReporteController@dos')->name('reportes.2');
+
+Route::get('reportes/3','Reporte\ReporteController@tres')->name('reportes.3');
+Route::post('reportes/3','Reporte\ReporteController@tres')->name('reportes.3');
+
+Route::get('reportes/4a','Reporte\ReporteController@cuatroa')->name('reportes.4a');
+Route::post('reportes/4a','Reporte\ReporteController@cuatroa')->name('reportes.4a');
+
+Route::get('reportes/4b','Reporte\ReporteController@cuatrob')->name('reportes.4b');
+Route::post('reportes/4b','Reporte\ReporteController@cuatrob')->name('reportes.4b');
+
+Route::get('reportes/4c','Reporte\ReporteController@cuatroc')->name('reportes.4c');
+Route::post('reportes/4c','Reporte\ReporteController@cuatroc')->name('reportes.4c');
+
+Route::get('reportes/5','Reporte\ReporteController@cinco')->name('reportes.5');
+Route::post('reportes/5','Reporte\ReporteController@cinco')->name('reportes.5');
+
+Route::get('reportes/9','Reporte\ReporteController@nueve')->name('reportes.9');
+Route::post('reportes/9','Reporte\ReporteController@nueve')->name('reportes.9');
+
+Route::get('reportes/10','Reporte\ReporteController@diez')->name('reportes.10');
+Route::post('reportes/10','Reporte\ReporteController@diez')->name('reportes.10');
+
 Route::get('reportes/2','Reporte\ReporteController@dos')->name('reportes.2');
 Route::post('reportes/2','Reporte\ReporteController@dos')->name('reportes.2');
 Route::get('reportes/4','Reporte\ReporteController@cuatro')->name('reportes.4');

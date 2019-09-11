@@ -157,11 +157,15 @@
                         </a>
                         <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                 {{-- @if (Auth::user()->role->roles) --}}
-                            <a class="dropdown-item" href="{{route('reportes.2')}}"><span>2,3</span><i class="fa fa-search float-right"></i></a>
-                {{-- @endif --}}
-                {{-- @if (Auth::user()->role->usuarios) --}}
-                            <a class="dropdown-item" href="{{route('reportes.4')}}"><span>4,5,6</span><i class="fa fa-search float-right"></i></a>
-                            <a class="dropdown-item" href="{{route('reportes.7')}}"><span>7</span><i class="fa fa-search float-right"></i></a>
+                            <a class="dropdown-item" href="{{route('reportes.1')}}"><span>1</span><i class="fa fa-search float-right"></i></a>
+                            <a class="dropdown-item" href="{{route('reportes.2')}}"><span>2</span><i class="fa fa-search float-right"></i></a>
+                            <a class="dropdown-item" href="{{route('reportes.3')}}"><span>3</span><i class="fa fa-search float-right"></i></a>
+                            <a class="dropdown-item" href="{{route('reportes.4a')}}"><span>4a</span><i class="fa fa-search float-right"></i></a>
+                            <a class="dropdown-item" href="{{route('reportes.4b')}}"><span>4b</span><i class="fa fa-search float-right"></i></a>
+                            <a class="dropdown-item" href="{{route('reportes.4c')}}"><span>4c</span><i class="fa fa-search float-right"></i></a>
+                            <a class="dropdown-item" href="{{route('reportes.5')}}"><span>5,6</span><i class="fa fa-search float-right"></i></a>
+                            <a class="dropdown-item" href="{{route('reportes.9')}}"><span>9</span><i class="fa fa-search float-right"></i></a>
+                            <a class="dropdown-item" href="{{route('reportes.10')}}"><span>10</span><i class="fa fa-search float-right"></i></a>
                 {{-- @endif --}}
             {{-- @endif --}}
 
