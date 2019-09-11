@@ -163,6 +163,7 @@
                             <a class="dropdown-item" href="{{route('reportes.4a')}}"><span>4a</span><i class="fa fa-search float-right"></i></a>
                             <a class="dropdown-item" href="{{route('reportes.4b')}}"><span>4b</span><i class="fa fa-search float-right"></i></a>
                             <a class="dropdown-item" href="{{route('reportes.4c')}}"><span>4c</span><i class="fa fa-search float-right"></i></a>
+                            <a class="dropdown-item" href="{{route('reportes.4d')}}"><span>4d</span><i class="fa fa-search float-right"></i></a>
                             <a class="dropdown-item" href="{{route('reportes.5')}}"><span>5,6</span><i class="fa fa-search float-right"></i></a>
                             <a class="dropdown-item" href="{{route('reportes.9')}}"><span>9</span><i class="fa fa-search float-right"></i></a>
                             <a class="dropdown-item" href="{{route('reportes.10')}}"><span>10</span><i class="fa fa-search float-right"></i></a>

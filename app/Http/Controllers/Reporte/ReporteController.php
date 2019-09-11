@@ -65,7 +65,7 @@ class ReporteController extends Controller
     }
 
     public function tres(Request $request){
-
+        return view('reportes.tres');
     }
 
     public function cuatroa(Request $request){
@@ -107,7 +107,23 @@ class ReporteController extends Controller
     }
 
     public function cuatroc(Request $request){
-        return view('reportes.cuatroc');
+
+        $meses = null;
+        $anios = null;
+        $skus = null;
+
+        if($request->input()){
+            $meses = $request->input('mes');
+            $anios = $request->input('anio');
+
+            $skus = array_unique(Producto::pluck('sku')->toArray());
+        }
+
+        return view('reportes.cuatroc',compact('meses','anios','skus'));
+    }
+
+    public function cuatrod(Request $request){
+        return view('reportes.cuatrod');
     }
 
     public function cinco(Request $request){

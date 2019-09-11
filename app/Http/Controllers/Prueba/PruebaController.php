@@ -15,9 +15,17 @@ class PruebaController extends Controller
     public function index()
     {
 
-        // GROUP BY DATE
-        return Paciente::has('ventas')->orderBy('created_at')->get()->groupBy(function($date) {
-            return Carbon::parse($date->created_at)->format('Y-d-m');
-        });
+        return Venta::
+                whereYear('fecha',2019)->
+                whereMonth('fecha',8)->
+                with('productos')->
+                get()->
+                pluck('productos')->
+                flatten()->
+                where('sku','sku1');
+
+        // return Paciente::orWhereMont('created');
+        // return Paciente::orWhereMonth('created_at',7)->orWhereMonth('created_at',8)->get();
+        
     }
 }

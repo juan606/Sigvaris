@@ -117,6 +117,9 @@ Route::post('reportes/4b','Reporte\ReporteController@cuatrob')->name('reportes.4
 Route::get('reportes/4c','Reporte\ReporteController@cuatroc')->name('reportes.4c');
 Route::post('reportes/4c','Reporte\ReporteController@cuatroc')->name('reportes.4c');
 
+Route::get('reportes/4d','Reporte\ReporteController@cuatrod')->name('reportes.4d');
+Route::post('reportes/4d','Reporte\ReporteController@cuatrod')->name('reportes.4d');
+
 Route::get('reportes/5','Reporte\ReporteController@cinco')->name('reportes.5');
 Route::post('reportes/5','Reporte\ReporteController@cinco')->name('reportes.5');
 
