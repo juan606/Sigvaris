@@ -3,7 +3,6 @@
 <div class="container">
     <div class="card">
         
-        <form class="" action="{{route('descuentos.update',['descuento'=>$descuento])}}" method="post">
             <div class="card-header">
                 <h1>Descuento</h1>
             </div>
@@ -83,24 +82,26 @@
                             </div>
                         </div>
                     @endif
-                     @if ($descuento->promocionesProductos->count()>0)
+                    @if ($descuento->promocionesProductos->count()>0)
                         <div class="row">
-                            <label class="form-check-label">Descuento en Productos: </label>
-                            <div class="col-2 pr-0">
-                                <input type="text" class="form-control" name="descuento_deG" id="descuento_deG" value="{{ $descuento->promocionesProductos[0]->descuento }}" readonly="">
-                            </div>
-                            <div class="col-1 pl-0">
-                                <input type="text" class="form-control" value="{{ $descuento->promocionesProductos[0]->unidad_descuento }}" readonly="">
+                            <div class="col-sm-3">
+                                <label class="form-check-label">Descuento en Productos: </label>
+                                <div class="input-group mb-3">
+                                    <input type="text" class="form-control" name="descuento_deG" id="descuento_deG" value="{{ $descuento->promocionesProductos[0]->descuento }}" readonly="" aria-label="Monto del descueto aplicado">
+                                    <div class="input-group-append">
+                                        <span class="input-group-text">{{ $descuento->promocionesProductos[0]->unidad_descuento }}</span>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                         <h3>Productos Seleccionados</h3>
-                        <table class="table table-responsive">
+                        <table class="table table-responsive-sm">
                             <thead>
                                 <tr>
-                                    <th>Producto</th>
-                                    <th>Precio Unitario</th>
-                                    <th>Precio Unitario + IVA</th>
-                                    <th>Subtotal</th>
+                                    <th scope="col">Producto</th>
+                                    <th scope="col">Precio Unitario</th>
+                                    <th scope="col">Precio Unitario + IVA</th>
+                                    <th scope="col">Subtotal</th>
                                     <!--<th>Quitar</th>-->
                                 </tr>
                             </thead>
@@ -118,6 +119,5 @@
                     @endif
                 </div>
             </div>
-        </form>
 </div>
 @endsection

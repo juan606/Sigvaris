@@ -36,7 +36,7 @@ class DescuentoController extends Controller
     }
     public function index()
     {   
-        return view('venta.descuentos', ['descuentos'=>Descuento::get()]);
+        return view('venta.descuentos.descuentos', ['descuentos'=>Descuento::get()]);
     }
 
     /**
@@ -47,7 +47,7 @@ class DescuentoController extends Controller
     public function create()
     {
         $productos = Producto::get();
-        return view('venta.descuentos_create', ['productos' => $productos]);
+        return view('venta.descuentos.descuentos_create', ['productos' => $productos]);
     }
 
     /**
@@ -123,7 +123,7 @@ class DescuentoController extends Controller
         //dd(date("z",strtotime($descuento->inicio)));
         // dd($descuento->promociones->where('tipo','A')->first()->compra_min);
         //dd($descuento->promociones->where('tipo','B')->first());
-        return view('venta.descuentos_show',['descuento'=>$descuento]);
+        return view('venta.descuentos.descuentos_show',['descuento'=>$descuento]);
     }
 
     /**
@@ -134,7 +134,10 @@ class DescuentoController extends Controller
      */
     public function edit(Descuento $descuento)
     {
-        return view('venta.descuentos_edit',['descuento'=>$descuento]);
+        if (count($descuento->promocionesProductos) > 0) {
+            return view('venta.descuentos.edit_Descuento_Prod',['descuento'=>$descuento]);
+        }
+        return view('venta.descuentos.descuentos_edit',['descuento'=>$descuento]);
     }
 
     /**
