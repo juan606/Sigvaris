@@ -8,14 +8,15 @@ class Paciente extends Model
 {
     protected $table = 'pacientes';
     public $timestamps = true;
-    
+
     protected $fillable = [
-    	'id',
-    	'nombre',
-    	'materno',
+        'id',
+        'nombre',
+        'materno',
         'paterno',
         'nacimiento',
         'rfc',
+        'homoclave',
         'celular',
         'telefono',
         'mail',
@@ -25,44 +26,83 @@ class Paciente extends Model
         'oficina_id'
     ];
 
-    public function consultorios(){
+    public function consultorios()
+    {
         return $this->morphMany('App\Consultorio', 'consultable');
     }
 
-    public function doctor(){
-        return $this->belongsTo(Doctor::class,'doctor_id');
+    public function doctor()
+    {
+        return $this->belongsTo(Doctor::class, 'doctor_id');
     }
 
-    public function crms(){
+    public function crms()
+    {
         return $this->hasMany('App\Crm');
     }
 
-    public function tallas(){
+    public function tallas()
+    {
         return $this->hasMany('App\Talla');
     }
 
-    public function historial(){
+    public function historial()
+    {
         return $this->hasMany('App\RegistroHistorial');
     }
-    public function tutor(){
+    public function tutor()
+    {
         return $this->hasOne('App\Tutor');
     }
 
-    public function ventas(){
+    public function ventas()
+    {
         return $this->hasMany('App\Venta');
     }
 
-    public function nivel(){
-        return $this->belongsTo(Nivel::class,'nivel_id');
+    public function nivel()
+    {
+        return $this->belongsTo(Nivel::class, 'nivel_id');
     }
 
-    public function oficina(){
+    public function oficina()
+    {
         return $this->belongsTo('App\Oficina');
+    }
+
+    /**
+     * Collections from relationship
+     */
+
+    public function productos(){
+        return $this->ventas()->with('productos')->get()->pluck('productos')->flatten();
     }
 
     public function getFullnameAttribute()
     {
         return $this->nombre . ' ' . $this->paterno . ' ' . $this->materno;
     }
+
+    public function totalProductos(){
+        $ventas = Venta::where('paciente_id',$this->id)->get();
+
+        $total_productos = 0;
+        foreach($ventas as $venta){
+            $total_productos+=count($venta->productos()->get());
+        }
+
+        return $total_productos;
+    }
+
+    /**
+     * Scope methos
+     */
+
+     public function scopeNoCompradores($query){
+        // public function scopeNoUsers($query){
+            $pacientes_id = Venta::whereNotNull('paciente_id')->pluck('paciente_id')->all();
+            return $query->whereNotIn('id',$pacientes_id);
+        // }
+     }
 
 }

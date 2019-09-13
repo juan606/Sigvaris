@@ -1,6 +1,6 @@
 @extends('layouts.infoempleado')
 @section('infoempleado')
-
+<br>
 <ul class="nav nav-pills nav-justified">
 	<li role="presentation" class=""><a href="{{ route('empleados.show', ['empleado' => $empleado]) }}"  class="nav-link">Generales:</a></li>
 	<li role="presentation" class="nav-item"><a href="{{ route('empleados.datoslaborales.index', ['empleado' => $empleado]) }}" class="nav-link active">Laborales:</a></li>
@@ -9,22 +9,22 @@
 	<li role="presentation" class="nav-item"><a href="{{ route('empleados.vacaciones.index', ['empleado' => $empleado]) }}" class="nav-link">Vacaciones:</a></li>
 	<li role="presentation" class="nav-item"><a href="{{ route('empleados.faltas.index', ['empleado' => $empleado]) }}" class="nav-link">Administrativo:</a></li>
 </ul>
-<div class="panel-default">
-	<div class="panel-heading">
+<div class="card">
+	<div class="card-header">
 		<div class="row">
 			<div class="col-4">
 				<h5>Datos Laborales:</h5>
 			</div>
 		</div>
 	</div>
-@if($edit)
-	<form role="form" method="POST" action="{{ route('empleados.datoslaborales.store', ['empleado' => $empleado]) }}">
-		{{ csrf_field() }}
-@else
-	<form role="form" method="POST" action="{{ route('empleados.datoslaborales.store', ['empleado' => $empleado]) }}">
-		{{ csrf_field() }}
-@endif
-		<div class="panel-body">
+	@if($edit)
+		<form role="form" method="POST" action="{{ route('empleados.datoslaborales.store', ['empleado' => $empleado]) }}">
+			{{ csrf_field() }}
+	@else
+		<form role="form" method="POST" action="{{ route('empleados.datoslaborales.store', ['empleado' => $empleado]) }}">
+			{{ csrf_field() }}
+	@endif
+		<div class="card-body">
 			<input type="hidden" name="empleado_id" value="{{ $empleado->id }}">
 			<div class="row">
 				<div class="form-group col-3">
@@ -146,15 +146,16 @@
 				</div>
 			</div>
 		</div>
-		<div class="panel-default">
-			<div class="panel-heading">
+		<br>
+		<div class="card">
+			<div class="card-header">
 				<div class="row">
 					<div class="col-4">
 						<h5>Datos de Baja:</h5>
 					</div>
 				</div>
 			</div>
-			<div class="panel-body">
+			<div class="card-body">
 				<div class="row">
 					<div class="col-3">
 						<label class="control-label" for="fechabaja">Fecha de la baja:</label>

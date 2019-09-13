@@ -8,6 +8,7 @@ use App\Nivel;
 use UxWeb\SweetAlert\SweetAlert as Alert;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Dotenv\Validator;
 use Illuminate\Support\Facades\Auth;
 
 class PacienteController extends Controller
@@ -59,7 +60,8 @@ class PacienteController extends Controller
     public function create()
     {
         $niveles = Nivel::get();
-        return view('paciente.create', ['niveles'=>$niveles]);
+        $doctores = Doctor::where('activo', '!=', '0')->get();
+        return view('paciente.create', ['niveles'=>$niveles, 'doctores'=>$doctores]);
     }
 
     /**
@@ -70,6 +72,23 @@ class PacienteController extends Controller
      */
     public function store(Request $request)
     {   
+        // dd($request->telefono);
+
+        $hay_rfc = Paciente::where('rfc',$request->input('rfc'))->first();
+
+        if( is_null($request->mail) ){
+            if(is_null($request->celular)){
+                if( is_null($request->telefono) ){
+                    // dd('aqui cayó');
+                    return redirect()->back()->with('error', 'Debes ingresar al menos una forma de contacto (telefono, celular o correo).');
+                }
+            }
+        }
+
+        if($hay_rfc){
+            return redirect()->back()->with('error', 'El rfc ingresado ya existe.');
+        }
+
         //dd(session()->get('oficina'));
         if($request->rfc && $request->nacimiento)
         {
@@ -99,6 +118,7 @@ class PacienteController extends Controller
                 'paterno'=>$request->paterno,
                 'nacimiento'=>$request->nacimiento,
                 'rfc'=>strtolower($rfc),
+                'homoclave'=>$request->homoclave,
                 'celular'=>$request->celular,
                 'telefono'=>$request->telefono,
                 'mail'=>$request->mail,

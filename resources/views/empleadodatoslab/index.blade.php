@@ -24,9 +24,9 @@
 		@if ($datoslab !=null)
             
 			
-<div class="panel panel-default">
-      <div class="panel-heading" align="center"><strong>Datos Laborales Actuales</strong></div>
-      <div class="panel-body" >
+<div class="card">
+      <div class="card-header" align="center"><strong>Datos Laborales Actuales</strong></div>
+      <div class="card-body" >
 
       	<div class="row"> 
 
@@ -140,15 +140,13 @@
 
 
         <div align="right">
-      	<a class="btn btn-success btn-md" href="{{ route('empleados.datoslaborales.edit',['empleado'=>$empleado,'actual'=>$datoslab]) }}">
+      		<a class="btn btn-success btn-md" href="{{ route('empleados.datoslaborales.edit',['empleado'=>$empleado,'actual'=>$datoslab]) }}">
 				<strong>Agregar</strong>
-			</a></div>
+			</a>
+		</div>
 
-      </div>
-    </div>
-
-<div class="well well-sm" align="center"><strong>Historial Laboral</strong></div>
-    <table class="table table-striped table-bordered table-hover" style="color:rgb(51,51,51); border-collapse: collapse; margin-bottom: 0px;">
+		<div class="well well-sm" align="center"><strong>Historial Laboral</strong></div>
+<table class="table table-striped table-bordered table-hover" style="color:rgb(51,51,51); border-collapse: collapse; margin-bottom: 0px;">
 				<thead>
 					<tr class="info">
 						<th>Área</th>
@@ -370,5 +368,10 @@
 		@endif
 
 
+
+
+
+      </div>
+    </div>
 
 @endsection

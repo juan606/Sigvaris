@@ -48,8 +48,8 @@ class UserController extends Controller
     public function create()
     {
         $roles = Role::get();
-        $empleados=Empleado::get();
-        return view('users.create', ['roles'=>$roles,'empleados'=>$empleados]);
+        $empleadosNoUsers=Empleado::noUsers()->get();
+        return view('users.create', ['roles'=>$roles,'empleados'=>$empleadosNoUsers]);
     }
 
     /**
