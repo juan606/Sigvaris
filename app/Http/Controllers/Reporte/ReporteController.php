@@ -113,6 +113,8 @@ class ReporteController extends Controller
     public function cuatroa(Request $request)
     {
 
+        $comprasPorCliente = array();
+
         if ($request->input()) {
             // dd($request->input(''));
             $fechaInicial = $request->input('fechaInicial');
@@ -128,11 +130,9 @@ class ReporteController extends Controller
 
             // dd(array_count_values($comprasPorCliente));
             $comprasPorCliente = array_count_values($comprasPorCliente);
-
-            return view('reportes.cuatroa', compact('comprasPorCliente'));
         }
 
-        return view('reportes.cuatroa');
+        return view('reportes.cuatroa',compact('comprasPorCliente'));
     }
 
     public function cuatrob(Request $request)
