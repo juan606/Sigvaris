@@ -42,7 +42,7 @@
                         @foreach($doctores as $key => $pacientes)
                         {{-- {{dd($doctores)}} --}}
                             <tr>
-                                <td>{{ App\Doctor::find($key)->nombre }} {{ App\Doctor::find($key)->apellidopaterno }} {{ App\Doctor::find($key)->apellidomaterno }}</td>
+                                <td>{{ !App\Doctor::find($key) ? : App\Doctor::find($key)->nombre }} {{ !App\Doctor::find($key) ? : App\Doctor::find($key)->apellidopaterno }} {{ !App\Doctor::find($key) ? : App\Doctor::find($key)->apellidomaterno }}</td>
                                 <td>{{count($pacientes)}}</td>
                             </tr>
                         @endforeach
