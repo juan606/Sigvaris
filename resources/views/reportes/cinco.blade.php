@@ -40,52 +40,105 @@
             </form>
         </div>
         {{-- @if ( isset($pacientes_sin_compra) ) --}}
-            {{-- Lista de pacientes --}}
-            <div class="card-body">
-                <table class="table table-hover table-striped table-bordered" style="margin-bottom: 0;" id="listaEmpleados">
-                    <thead>
-                        <tr class="info">
-                            <th>mes</th>
-                            @foreach ($anios as $anio)
-                                <th>{{$anio}}</th>
-                            @endforeach
-                        </tr>
-                        
-                    </thead>
-                    <tbody>
-                        
-                            @foreach ($meses as $mes)
-                                <tr>
-                                    <td>{{$mes}}</td>
-                                    @foreach($anios as $key => $anio)
-                                    {{--  --}}
-                                    @if ($opcion == "primeraVez")
-                                    <td>{{count(App\Paciente::whereYear('created_at',$anio)->whereMonth('created_at',$mes)->has('ventas')->get())}}</td>
-                                    @else
-                                    <td>{{count(App\Paciente::whereYear('created_at',$anio)->whereMonth('created_at',$mes)->doesnthave('ventas')->get())}}</td>
-                                    @endif
-                                    
-                                    @endforeach
-                                </tr>
-                            @endforeach
+        {{-- TABLA DE PACIENTES --}}
+        <div class="card-body">
+            <table class="table table-hover table-striped table-bordered" style="margin-bottom: 0;" id="tabla">
+                <thead>
+                    <tr class="info">
+                        <th>mes</th>
+                        @foreach ($anios as $anio)
+                            <th>{{$anio}}</th>
+                        @endforeach
+                    </tr>
+                    
+                </thead>
+                <tbody>
+                    
+                        @foreach ($meses as $mes)
+                            <tr>
+                                <td>{{$mes}}</td>
+                                @foreach($anios as $key => $anio)
+                                {{--  --}}
+                                @if ($opcion == "primeraVez")
+                                <td>{{count(App\Paciente::whereYear('created_at',$anio)->whereMonth('created_at',$mes)->doesnthave('ventas')->get())}}</td>
+                                @else
+                                <td>{{count(App\Paciente::whereYear('created_at',$anio)->whereMonth('created_at',$mes)->has('ventas')->get())}}</td>
+                                @endif
+                                
+                                @endforeach
+                            </tr>
+                        @endforeach
 
-                            
                         
-                    </tbody>    
-                </table>
-            </div>
+                    
+                </tbody>    
+            </table>
+        </div>
         {{-- @endif --}}
+        {{-- GRAFICA DE PACIENTES --}}
+        <div class="card-body">
+            <canvas id="canvas" height="280" width="600"></canvas>
+        </div>
     </div>
 </div>
 
-
+{{-- SCRIPTS PARA BUSQUEDA EN TABLA --}}
 <script src="https://code.jquery.com/jquery-3.3.1.js"></script>    
-<script src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
-<script src="https://cdn.datatables.net/1.10.19/js/dataTables.bootstrap4.min.js"></script>
+<script src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js" defer></script>
+<script src="https://cdn.datatables.net/1.10.19/js/dataTables.bootstrap4.min.js" defer></script>
 <script>
     $(document).ready(function() {
-        $('#listaEmpleados').DataTable();
+        $('#tabla').DataTable();
     } );
 </script>
+
+
+{{-- SCRIPTS PARA GRAFICAR TABLAS --}}
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.12.3/js/bootstrap-select.min.js" charset="utf-8"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.6.0/Chart.bundle.js" charset="utf-8"></script>
+<script>
+var url = "{{url('stock/chart')}}";
+// var Years = new Array("2019", "2020", "2021");
+var Years = <?php echo json_encode($anios) ?>;
+var Labels = new Array("l1", "l2", "l3");
+// var Prices = new Array("100", "200", "300");
+var Prices = <?php echo json_encode($numPacientesPorAnio) ?>;
+
+$(document).ready(function(){
+    // $.get(url, function(response){
+    // response.forEach(function(data){
+    //     Years.push(data.stockYear);
+    //     Labels.push(data.stockName);
+    //     Prices.push(data.stockPrice);
+    // });
+
+
+    var ctx = document.getElementById("canvas").getContext('2d');
+        var myChart = new Chart(ctx, {
+            type: 'bar',
+            data: {
+                labels:Years,
+                datasets: [{
+                    label: 'Total de pacientes',
+                    data: Prices,
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                scales: {
+                    yAxes: [{
+                        ticks: {
+                            beginAtZero:true
+                        }
+                    }]
+                }
+            }
+        });
+    // });
+});
+</script>
+
 
 @endsection

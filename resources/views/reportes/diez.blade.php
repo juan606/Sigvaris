@@ -29,7 +29,7 @@
             </form>
         </div>
         {{-- @if ( isset($pacientes_sin_compra) ) --}}
-            {{-- Lista de pacientes --}}
+            {{-- TABLA DOCTORES --}}
             <div class="card-body">
                 <table class="table table-hover table-striped table-bordered" style="margin-bottom: 0;" id="listaEmpleados">
                     <thead>
@@ -40,13 +40,18 @@
                     </thead>
                     <tbody>
                         @foreach($doctores as $key => $pacientes)
+                        {{-- {{dd($doctores)}} --}}
                             <tr>
-                                <td>{{$key}}</td>
+                                <td>{{ App\Doctor::find($key)->nombre }} {{ App\Doctor::find($key)->apellidopaterno }} {{ App\Doctor::find($key)->apellidomaterno }}</td>
                                 <td>{{count($pacientes)}}</td>
                             </tr>
                         @endforeach
                     </tbody>    
                 </table>
+            </div>
+            {{-- GRAFICA DE TABLA --}}
+            <div class="card-body">
+                <canvas id="canvas" height="280" width="600"></canvas>
             </div>
         {{-- @endif --}}
     </div>
@@ -54,12 +59,69 @@
 
 
 <script src="https://code.jquery.com/jquery-3.3.1.js"></script>    
-<script src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
-<script src="https://cdn.datatables.net/1.10.19/js/dataTables.bootstrap4.min.js"></script>
+<script src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js" defer></script>
+<script src="https://cdn.datatables.net/1.10.19/js/dataTables.bootstrap4.min.js" defer></script>
 <script>
     $(document).ready(function() {
         $('#listaEmpleados').DataTable();
     } );
 </script>
+
+{{-- SCRIPTS PARA GRAFICAR TABLAS --}}
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.12.3/js/bootstrap-select.min.js" charset="utf-8"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.6.0/Chart.bundle.js" charset="utf-8"></script>
+<script>
+var url = "{{url('stock/chart')}}";
+var Years = <?php echo json_encode($nombresDoctores) ?>;
+var Labels = new Array("l1", "l2", "l3");
+var Prices = <?php echo json_encode($numRecomendadosPorDoctor) ?>;
+var doctores = <?php echo json_encode($doctores) ?>;
+
+$(document).ready(function(){
+    // $.get(url, function(response){
+    // response.forEach(function(data){
+    //     Years.push(data.stockYear);
+    //     Labels.push(data.stockName);
+    //     Prices.push(data.stockPrice);
+    // });
+
+    console.log(doctores);
+
+    for (const key in doctores) {
+        if (doctores.hasOwnProperty(key)) {
+            const element = doctores[key];
+            Years.push(element.length);
+        }
+    }
+
+    console.log(Years);
+
+    var ctx = document.getElementById("canvas").getContext('2d');
+        var myChart = new Chart(ctx, {
+            type: 'bar',
+            data: {
+                labels:Years,
+                datasets: [{
+                    label: 'Total de pacientes',
+                    data: Prices,
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                scales: {
+                    yAxes: [{
+                        ticks: {
+                            beginAtZero:true
+                        }
+                    }]
+                }
+            }
+        });
+    // });
+});
+</script>
+
 
 @endsection
