@@ -167,6 +167,7 @@
                             <a class="dropdown-item" href="{{route('reportes.5')}}"><span>5,6</span><i class="fa fa-search float-right"></i></a>
                             <a class="dropdown-item" href="{{route('reportes.9')}}"><span>9</span><i class="fa fa-search float-right"></i></a>
                             <a class="dropdown-item" href="{{route('reportes.10')}}"><span>10</span><i class="fa fa-search float-right"></i></a>
+                            <a class="dropdown-item" href="{{route('reportes.oficinas')}}"><span>oficinas</span><i class="fa fa-search float-right"></i></a>
                 {{-- @endif --}}
             {{-- @endif --}}
 

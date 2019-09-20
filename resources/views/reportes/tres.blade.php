@@ -23,30 +23,38 @@
                     <button class="btn btn-primary">Buscar</button>
                 </form>
             </div>
-            @if ( isset($ventas) )
+            @if ( isset($arregloFechasConVentas) )
             {{-- LISTA DE PACIENTES --}}
             <div class="card-body">
                 <table class="table table-hover table-striped table-bordered" style="margin-bottom: 0;" id="listaEmpleados">
                     <thead>
                         <tr class="info">
                             <th>Fecha</th>
-                            <th>Total</th>
+                            <th># Pacientes</th>
+                            <th># Prendas</th>
                         </tr>
                     </thead>
                     <tbody>
                         {{-- @foreach($ventas as $paciente_id => $ventasPorFecha) --}}
-                            @foreach ($rangoDias as $diaActal)
+                            @for ($i = 0; $i < count($arregloFechasConVentas); $i++)
+                                
                                 <tr>
-                                    <td>{{$diaActal}}</td>
-                                    <td>{{ count( $ventas->where('fecha',$diaActal)->pluck('productos')->flatten() ) }}</td>
+                                    <td>{{$arregloFechasConVentas[$i]}}</td>
+                                    <td>{{$arregloTotalPacientesConUnProducto[$i]}}</td>
+                                    <td>1</td>
                                 </tr>
-                            @endforeach
+                                <tr>
+                                    <td>{{$arregloFechasConVentas[$i]}}</td>
+                                    <td>{{$arregloTotalPacientesConMasDeUnProducto[$i]}}</td>
+                                    <td>>1</td>
+                                </tr>
+                            @endfor
                         {{-- @endforeach --}}
                     </tbody>    
                 </table>
             </div>
             {{-- INFORMACION GENERAL DE LA BUSQUEDA --}}
-            <div class="card-body">
+            {{-- <div class="card-body">
                 <div class="row">
                     <div class="col-12 col-md-4">
                         <div class="form-group">
@@ -61,7 +69,7 @@
                         </div>
                     </div>
                 </div>
-            </div>
+            </div> --}}
             @endif
         </div>
     </div>

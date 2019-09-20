@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Reporte;
 use App\Doctor;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Oficina;
 use App\Paciente;
 use App\Producto;
 use App\Venta;
@@ -84,30 +85,58 @@ class ReporteController extends Controller
 
         $ventas = null;
         $rangoDias = null;
+        $arregloTotalPacientesConUnProducto = array();
+        $arregloTotalPacientesConMasDeUnProducto = array();
 
         if ($request->input()) {
 
             $fechaInicial = $request->input('fechaInicial');
             $fechaFinal = $request->input('fechaFinal');
 
-            $currentDate = strtotime($fechaInicial);
-            $rangoDias = [];
+            // OBTENEMOS ARREGLO DE LAS FECHAS CON VENTAS
+            $arregloFechasConVentas = Venta::where('created_at', '>=', $fechaInicial)
+                ->where('created_at', '<=', $fechaFinal)
+                ->orderBy('fecha')
+                ->pluck('fecha')
+                ->all();
+            $arregloFechasConVentas = array_unique($arregloFechasConVentas);
+            $arregloFechasConVentas = array_values($arregloFechasConVentas);
 
-            while ($currentDate <= strtotime($fechaFinal)) {
-                $formatted = date("Y-m-d", $currentDate);
-                $currentDate = strtotime("+1 day", $currentDate);
-                $rangoDias[] = $formatted;
+            // POR CADA FECHA OBTENEMOS A LOS PACIENTES CON UN PRODUCTO COMPRADO
+            foreach ($arregloFechasConVentas as $key => $fecha) {
+                $totalPacientesConUnProducto = Venta::where('fecha', $fecha)
+                    ->has('productos', '=', 1)
+                    ->with('paciente')
+                    ->get()
+                    ->pluck('paciente')
+                    ->flatten();
+                $totalPacientesConUnProducto = count($totalPacientesConUnProducto);
+                $arregloTotalPacientesConUnProducto[] = $totalPacientesConUnProducto;
             }
+            $arregloTotalPacientesConUnProducto = array_values($arregloTotalPacientesConUnProducto);
 
-            $ventas = Venta::where('fecha', '>=', $request->input('fechaInicial'))
-                ->where('fecha', '<=', $request->input('fechaFinal'))
-                ->with('productos')
-                ->get();
+            // POR CADA FECHA OBTENEMOS A LOS PACIENTES CON MAS DE UN PRODUCTO COMPRADO
+            foreach ($arregloFechasConVentas as $key => $fecha) {
+                $totalPacientesConMasDeUnProducto = Venta::where('fecha', $fecha)
+                    ->has('productos', '>', 1)
+                    ->with('paciente')
+                    ->get()
+                    ->pluck('paciente_id')
+                    ->flatten()
+                    ->toArray();
+                $totalPacientesConMasDeUnProducto = array_unique($totalPacientesConMasDeUnProducto);
+                $totalPacientesConUnProducto = count($totalPacientesConMasDeUnProducto);
+                $arregloTotalPacientesConMasDeUnProducto[] = $totalPacientesConUnProducto;
+            }
+            $arregloTotalPacientesConMasDeUnProducto = array_values($arregloTotalPacientesConMasDeUnProducto);
 
-            // return $ventas;
+            // dd($arregloFechasConVentas);
+            // dd($arregloTotalPacientesConMasDeUnProducto);
+            // dd($arregloTotalPacientesConMasDeUnProducto);
+
         }
 
-        return view('reportes.tres', compact('ventas', 'rangoDias'));
+        return view('reportes.tres', compact('arregloFechasConVentas', 'arregloTotalPacientesConUnProducto', 'arregloTotalPacientesConMasDeUnProducto'));
     }
 
     public function cuatroa(Request $request)
@@ -132,41 +161,88 @@ class ReporteController extends Controller
             $comprasPorCliente = array_count_values($comprasPorCliente);
         }
 
-        return view('reportes.cuatroa',compact('comprasPorCliente'));
+        return view('reportes.cuatroa', compact('comprasPorCliente'));
     }
 
     public function cuatrob(Request $request)
     {
 
-        if ($request->input()) {
+        $arrayNumPacientesDeSku = array();
+        $arrayNumPacientes = array();
+        $arrayNumPrendasVendidasDeSkus = array();
+        $arrayMesesYAnios = array();
+        $skus = array();
 
-            // dd($request->input());
+        if ($request->input()) {
 
             $fechaInicial = $request->input('fechaInicial');
             $fechaFinal = $request->input('fechaFinal');
 
-            $skus = Producto::distinct()->pluck('sku')->all();
-
+            // VENTAS DENTRO DEL INTERVALO DE FECHAS SOLICITADAS
             $ventas = Venta::where('fecha', '>=', $fechaInicial)
                 ->where('fecha', '<=', $fechaFinal)
                 ->with('productos')
-                ->with('paciente')
+                // ->orderBy('fecha')
                 ->get();
 
-            // return $ventas;
+            // SKUS DE LOS PRODUCTOS
+            $skus = $ventas->pluck('productos')->flatten();
+            $skus = array_unique($skus->pluck('sku')->toArray());
+            $skus = array_values($skus);
 
-            $ventas = $ventas->groupBy('fecha');
+            // OBTENEMOS EL ARREGLO DEL TOTAL DE PRENDAS POR SKU
+            foreach ($skus as $sku) {
+                $totalVentasDeSku = Venta::where('fecha', '>=', $fechaInicial)
+                    // ->orderBy('fecha')
+                    ->where('fecha', '<=', $fechaFinal)
+                    ->withCount([
+                        'productos' => function ($query) use ($sku) {
+                            $query->where('sku', $sku);
+                        }
+                    ])
+                    ->get();
 
-            // return $ventas;
+                // OBTENEMOS LAS PRENDAS VENDIDAS DEL SKU
+                $totalVentasDeSku2 = $totalVentasDeSku->pluck('productos_count')->toArray();
+                $arrayNumPrendasVendidasDeSkus[] = array_values(array_unique($totalVentasDeSku2));
+            }
 
-            $ventas = $ventas->transform(function ($item, $k) {
-                return $item->groupBy('productos_id');
-            });
 
-            return $ventas;
+
+            // OBTENEMOS EL ARREGLO DEL TOTAL DE PRENDAS POR SKU
+            foreach ($skus as $key => $sku) {
+                $clientesConSku = [];
+                foreach($arrayNumPrendasVendidasDeSkus[$key] as $numPrendasVendidas){
+                    $totalVentasDeSku = Venta::where('fecha', '>=', $fechaInicial)
+                    // ->orderBy('fecha')
+                    ->where('fecha', '<=', $fechaFinal)
+                    ->withCount([
+                        'productos' => function ($query) use ($sku) {
+                            $query->where('sku', $sku);
+                        }
+                    ])
+                    ->get();
+
+                    $totalVentasDeSku = $totalVentasDeSku->where('productos_count',$numPrendasVendidas);
+                    // dd($totalVentasDeSku);
+                    $totalClientesConCantidadSku = $totalVentasDeSku->pluck('paciente_id')->toArray();
+                    $totalClientesConCantidadSku = array_unique($totalClientesConCantidadSku);
+                    $totalClientesConCantidadSku = count($totalClientesConCantidadSku);
+                    // dd($totalClientesConCantidadSku);
+                    $clientesConSku[] = $totalClientesConCantidadSku;
+                    // dd($totalClientesConCantidadSku);
+                }
+                $arrayNumPacientes[] = $clientesConSku;
+            }
+
+            // dd($arrayNumPrendasVendidasDeSkus);
+
         }
 
-        return view('reportes.cuatrob');
+        // dd($arrayNumPrendasVendidasDeSkus);
+        // dd($arrayNumPacientes);
+
+        return view('reportes.cuatrob', compact('skus', 'arrayNumPrendasVendidasDeSkus', 'arrayNumPacientes'));
     }
 
     public function cuatroc(Request $request)
@@ -195,7 +271,7 @@ class ReporteController extends Controller
             $skus = array_unique(Producto::pluck('sku')->toArray());
         }
 
-        return view('reportes.cuatroc', compact('meses', 'anios', 'skus','totalVentasPorMesYAnio','arrayMesesYAnios'));
+        return view('reportes.cuatroc', compact('meses', 'anios', 'skus', 'totalVentasPorMesYAnio', 'arrayMesesYAnios'));
     }
 
     public function cuatrod(Request $request)
@@ -346,6 +422,46 @@ class ReporteController extends Controller
 
         // $doctores = $doctores->toArray();
         return view('reportes.diez', compact('doctores', 'pacientesPorDoctor', 'numRecomendadosPorDoctor', 'nombresDoctores'));
+    }
+
+    public function oficinas(Request $request)
+    {
+
+        $ventasPorDia = array();
+        $arregloDiasQueVendieron = array();
+        $oficina_nombre = null;
+
+        // OBTENEMOS TODAS LAS OFICINAS
+        $oficinas = Oficina::get();
+
+        if ($request->input()) {
+
+            // OBTENEMOS TODOS LOS INPUTS
+            $fechaInicial = $request->input('fechaInicial');
+            $fechaFinal = $request->input('fechaFinal');
+            $oficina_id = $request->input('oficinaId');
+
+            $oficina_nombre = Oficina::find($oficina_id)->nombre;
+
+            // 
+            $currentDate = strtotime($fechaInicial);
+            while ($currentDate <= strtotime($fechaFinal)) {
+                $formatted = date("Y-m-d", $currentDate);
+                $totalVentasDelDia = count(Venta::where('fecha', 'LIKE', '%' . $formatted . '%')->where('oficina_id', $oficina_id)->with('productos')->get()->pluck('productos')->flatten());
+
+                if ($totalVentasDelDia != 0) {
+                    $ventasPorDia[] = $totalVentasDelDia;
+                    $arregloDiasQueVendieron[] = $formatted;
+                }
+
+                $currentDate = strtotime("+1 day", $currentDate);
+            }
+
+            // dd($ventasPorDia);   
+            // dd($arregloDiasQueVendieron);         
+        }
+
+        return view('reportes.oficinas', compact('oficinas', 'ventasPorDia', 'arregloDiasQueVendieron', 'oficina_nombre'));
     }
 
     public function dosAnt(Request $request)

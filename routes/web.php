@@ -129,6 +129,9 @@ Route::post('reportes/9','Reporte\ReporteController@nueve')->name('reportes.9');
 Route::get('reportes/10','Reporte\ReporteController@diez')->name('reportes.10');
 Route::post('reportes/10','Reporte\ReporteController@diez')->name('reportes.10');
 
+Route::get('reportes/oficinas','Reporte\ReporteController@oficinas')->name('reportes.oficinas');
+Route::post('reportes/oficinas','Reporte\ReporteController@oficinas')->name('reportes.oficinas');
+
 Route::get('reportes/2','Reporte\ReporteController@dos')->name('reportes.2');
 Route::post('reportes/2','Reporte\ReporteController@dos')->name('reportes.2');
 Route::get('reportes/4','Reporte\ReporteController@cuatro')->name('reportes.4');
