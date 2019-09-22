@@ -87,6 +87,8 @@ class ReporteController extends Controller
         $rangoDias = null;
         $arregloTotalPacientesConUnProducto = array();
         $arregloTotalPacientesConMasDeUnProducto = array();
+        $arregloFechasConVentas = array();
+        $arregloSumaPacientes = array();
 
         if ($request->input()) {
 
@@ -134,9 +136,12 @@ class ReporteController extends Controller
             // dd($arregloTotalPacientesConMasDeUnProducto);
             // dd($arregloTotalPacientesConMasDeUnProducto);
 
+            $arregloSumaPacientes[] = array_sum ( $arregloTotalPacientesConUnProducto );
+            $arregloSumaPacientes[] = array_sum ( $arregloTotalPacientesConMasDeUnProducto );
+
         }
 
-        return view('reportes.tres', compact('arregloFechasConVentas', 'arregloTotalPacientesConUnProducto', 'arregloTotalPacientesConMasDeUnProducto'));
+        return view('reportes.tres', compact('arregloFechasConVentas', 'arregloTotalPacientesConUnProducto', 'arregloTotalPacientesConMasDeUnProducto','arregloSumaPacientes'));
     }
 
     public function cuatroa(Request $request)
@@ -252,7 +257,7 @@ class ReporteController extends Controller
         $anios = null;
         $skus = null;
         $arrayMesesYAnios = array();
-        $totalVentasPorMesYAnio = array();
+        $arregloTotalVentasPorMesYAnio = array();
 
         if ($request->input()) {
             $meses = $request->input('mes');
@@ -261,17 +266,39 @@ class ReporteController extends Controller
             for ($i = 0; $i < count($meses); $i++) {
                 $arrayMesesYAnios[] = $meses[$i] . "-" . $anios[$i];
 
-                $totalVentasPorMesYAnio[] = count(Venta::whereYear('fecha', $anios[$i])->whereMonth('fecha', $meses[$i])->with('productos')->get()->pluck('productos')->flatten());
-                // $totalVentasPorMesYAnio[] = count( Venta::whereYear('') );
+                $totalVentaPorMesYanio = Venta::whereYear('fecha', $anios[$i])
+                ->whereMonth('fecha', $meses[$i]);
+
+                if($request->input('sku')){
+                    $sku = $request->input('sku');
+                    $totalVentaPorMesYanio = $totalVentaPorMesYanio->with(['productos' => function ($query) use($sku) {
+                        $query->where('sku', $sku);
+                    }]);
+                }else{
+                    $totalVentaPorMesYanio = $totalVentaPorMesYanio->with('productos');
+                }
+
+                $arregloTotalVentasPorMesYAnio[] = count(
+                    $totalVentaPorMesYanio
+                    ->get()
+                    ->pluck('productos')
+                    ->flatten()
+                );
+                // $arregloTotalVentasPorMesYAnio[] = count( Venta::whereYear('') );
 
             }
 
-            // dd($totalVentasPorMesYAnio);
+            // dd($arregloTotalVentasPorMesYAnio);
 
-            $skus = array_unique(Producto::pluck('sku')->toArray());
+            if($request->input('sku')){
+                $skus = array_unique(Producto::where('sku',$sku)->pluck('sku')->toArray());
+                // dd($skus);
+            }else{
+                $skus = array_unique(Producto::pluck('sku')->toArray());
+            }
         }
 
-        return view('reportes.cuatroc', compact('meses', 'anios', 'skus', 'totalVentasPorMesYAnio', 'arrayMesesYAnios'));
+        return view('reportes.cuatroc', compact('meses', 'anios', 'skus', 'arregloTotalVentasPorMesYAnio', 'arrayMesesYAnios'));
     }
 
     public function cuatrod(Request $request)

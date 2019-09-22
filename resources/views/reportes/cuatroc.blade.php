@@ -34,8 +34,20 @@
                         </div>
                     </div>
                 </div>
-                
-                <button class="btn btn-primary">Buscar</button>
+                {{-- Input para buscar con sku --}}
+                <div class="row">
+                    <div class="col-3 mb-2">
+                        <div class="input-group">
+                            <div class="input-group-prepend">
+                                <div class="input-group-text">Sku</div>
+                            </div>
+                            <input type="text" class="form-control" name="sku">
+                        </div>
+                    </div>
+                    <div class="col-3 mb-2">
+                        <button class="btn btn-primary">Buscar</button>
+                    </div>
+                </div>
             </form>
         </div>
         @if ( isset($anios) )
@@ -54,17 +66,22 @@
                     <tbody>
                         @foreach($skus as $sku)
                             <tr class="text-center">
+                                {{-- COLUMNA DE DATOS DE SKUS --}}
                                 <td>{{$sku}}</td>
+                                {{-- COLUMNA DE DATOS POR DE CADA FECHA --}}
                                 @for ($i = 0; $i < count($anios); $i++)
                                 <td>{{count(App\Venta::whereYear('fecha',$anios[$i])->whereMonth('fecha',$meses[$i])->with('productos')->get()->pluck('productos')->flatten()->where('sku',$sku))}}</td>
                                 @endfor
-                                <td class="text-success">{{count(App\Venta::with('productos')->get()->pluck('productos')->flatten()->where('sku',$sku))}}</td>                          
+                                {{-- COLUMNA DE DATOS DEL TOTAL DE CADA SKU--}}
+                                <td class="text-success">{{count(App\Venta::whereYear('fecha',$anios)->with('productos')->get()->pluck('productos')->flatten()->where('sku',$sku))}}</td>                          
                             </tr>
                         @endforeach
                             <tr class="text-center">
                                 <td><strong>TOTAL</strong></td>
                                 @for ($i = 0; $i < count($anios); $i++)
-                                <td class="text-success">{{count(App\Venta::whereYear('fecha',$anios[$i])->whereMonth('fecha',$meses[$i])->with('productos')->get()->pluck('productos')->flatten())}}</td>
+                                <td class="text-success">{{count(App\Venta::whereYear('fecha',$anios[$i])->whereMonth('fecha',$meses[$i])->with(['productos' => function ($query) use($skus) {
+                                        $query->whereIn('sku', $skus);
+                                    }])->get()->pluck('productos')->flatten())}}</td>
                                 @endfor
                                 <td></td>
                             </tr>
@@ -148,8 +165,8 @@ var ctx = canvas.getContext('2d');
 var arrayMesesYAnios = {!! json_encode($arrayMesesYAnios) !!};
 arrayMesesYAnios = Object.values(arrayMesesYAnios);
 
-var totalVentasPorMesYAnio = {!! json_encode($totalVentasPorMesYAnio) !!};
-totalVentasPorMesYAnio = Object.values(totalVentasPorMesYAnio);
+var arregloTotalVentasPorMesYAnio = {!! json_encode($arregloTotalVentasPorMesYAnio) !!};
+arregloTotalVentasPorMesYAnio = Object.values(arregloTotalVentasPorMesYAnio);
 
 // Global Options:
 Chart.defaults.global.defaultFontColor = 'black';
@@ -177,7 +194,7 @@ var data = {
       pointRadius: 4,
       pointHitRadius: 10,
       // notice the gap in the data and the spanGaps: true
-      data: totalVentasPorMesYAnio,
+      data: arregloTotalVentasPorMesYAnio,
       spanGaps: true,
     }
   ]

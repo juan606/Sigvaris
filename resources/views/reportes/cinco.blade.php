@@ -117,7 +117,7 @@ $(document).ready(function(){
 
     var ctx = document.getElementById("canvas").getContext('2d');
         var myChart = new Chart(ctx, {
-            type: 'bar',
+            type: 'line',
             data: {
                 labels:Years,
                 datasets: [{
