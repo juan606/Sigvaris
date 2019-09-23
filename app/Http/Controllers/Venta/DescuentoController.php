@@ -12,7 +12,7 @@ use Carbon\Carbon;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
-
+use phpDocumentor\Reflection\DocBlock\Tags\Return_;
 
 class DescuentoController extends Controller
 {
@@ -58,7 +58,6 @@ class DescuentoController extends Controller
      */
     public function store(Request $request)
     {
-        //dd($request->all())           ;
         $descuento = Descuento::create($request->all());
         if($request->tipoA)
         {
@@ -104,6 +103,7 @@ class DescuentoController extends Controller
         if($request->tipoG)
         {
             for ($i=0; $i < count($request->producto_id); $i++) { 
+                // dd($request->descuento_deG);
                 $promoG = PromocionEnProducto::create(['descuento_id'=>$descuento->id, 'producto_id'=>$request->producto_id[$i],
                                                        'descuento'=>$request->descuento_deG, 'unidad_descuento'=>$request->unidad_descuentoG]);
             }
@@ -245,7 +245,9 @@ class DescuentoController extends Controller
       //     'paciente_id'=>$request->paciente_id,
       //     'total_productos'=>$request->total_productos
       // );
-      // return response()->json($response); 
+      // return response()->json($response);
+
+        // return $promocion->tipo;
         switch ($promocion->tipo) {
             case 'A':
                 if($request->total_productos>=$promocion->compra_min)

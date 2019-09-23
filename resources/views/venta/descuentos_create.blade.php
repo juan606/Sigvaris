@@ -242,7 +242,7 @@
                                 <label>Descuento en productos: </label>
                                 <div class="row">
                                     <div class="col-6 pr-0">
-                                        <input type="number" class="form-control" name="descuento_deG" id="descuento_deG">
+                                        <input type="number" class="form-control" name="descuento_deG" id="descuento_deG" value="0">
                                     </div>
                                     <div class="col-6 pl-0">
                                         <select class="form-control" name="unidad_descuentoG" id="unidad_descuentoG">

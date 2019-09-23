@@ -318,11 +318,15 @@
 
         $('#promo_id').change(function(){
             var id=$('#promo_id').val();
+
+            // SI NO HAY PROMOCION QUITAMOS EL DESCUENTO
             if(!id)
             {
                 $('#descuento').val(0);
                 $('#sigpesos').val(0);
             }
+
+            // OBTENEMOS DATOS DE LA COMPRA
             var paciente_id=$('#paciente_id').val();
             var total_productos=parseInt(0);
             var subtotal=parseFloat($('#subtotal').val());
@@ -332,11 +336,14 @@
             $('#total').val(subtotal+iva-des-sigpesos);
             var productos_id=[];
             var cantidad_id=[];
+
+            // OBTENEMOS LA SUMA DE TODAS LAS CANTIDADES DE PRODUCTOS
             $('[name="cantidad[]"]').each(function(){
                 total_productos+=parseInt($(this).val());
                 cantidad_id.push($(this).val());
             });
 
+            // OBTENEMOS EL ID DE LOS PRODUCTOS DE LA POSIBLE COMPRA
             $('[name="producto_id[]"]').each(function(){
                 productos_id.push($(this).val());
             }); 
@@ -351,7 +358,8 @@
                     "cantidad_id":cantidad_id
                 },
                 dataType:'json',
-                success: function(res){                    
+                success: function(res){
+                    // alert(res);                  
                     if(res.status){                       
                         $('#descuento').val(res.total);
                         $('#sigpesos').val(res.sigpesos);
