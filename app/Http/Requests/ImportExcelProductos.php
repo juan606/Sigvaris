@@ -13,7 +13,7 @@ class ImportExcelProductos extends FormRequest
      */
     public function authorize()
     {
-        return false;
+        return true;
     }
 
     /**
@@ -24,7 +24,7 @@ class ImportExcelProductos extends FormRequest
     public function rules()
     {
         return [
-            //
+            'sample_file' => 'file|required|mimes:xlsx,xls'
         ];
     }
 }
