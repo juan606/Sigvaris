@@ -52,6 +52,7 @@ class ProductoController extends Controller
      */
     public function store(Request $request)
     {
+        // dd($request->input('stock'));
         $producto = Producto::create($request->all());
         return redirect()->route('productos.index');
     }

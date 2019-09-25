@@ -60,9 +60,14 @@ Route::get('get_promos/{descuento}','Venta\DescuentoController@getPromos');
 Route::post('calcular_descuento/{promocion}','Venta\DescuentoController@getDescuento');
 Route::get('obtener_sigpesos/{paciente}','Venta\DescuentoController@getSigpesos');
 
+Route::get('productos/inventario', 'Inventario\InventarioController@index')->name('productos.inventario');
+Route::get('productos/inventario/historial', 'Inventario\InventarioController@historial')->name('productos.inventario.historial');
+Route::get('productos/inventario/modificar/{id}', 'Inventario\InventarioController@edit')->name('producto.inventario.modificar');
+Route::post('productos/inventario/update', 'Inventario\InventarioController@update')->name('producto.inventario.update');
 Route::resource('contratos','Precargas\TipoContratoController');
 Route::resource('descuentos', 'Venta\DescuentoController');
 Route::resource('productos', 'Producto\ProductoController');
+
 Route::get('import-export-csv-excel', array('as' => 'excel.import', 'uses' => 'FileController@importExportExcelORCSV'));
 Route::post('import-csv-excel', array('as' => 'import-csv-excel', 'uses' => 'FileController@importFileIntoDB'));
 Route::get('download-excel-file/{type}', array('as' => 'excel-file', 'uses' => 'FileController@downloadExcelFile'));

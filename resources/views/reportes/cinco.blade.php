@@ -79,6 +79,10 @@
         <div class="card-body">
             <canvas id="canvas" height="280" width="600"></canvas>
         </div>
+        {{-- BOTÓN DE DESCARGA PDF --}}
+        <div class="card-body">
+            <button class="btn btn-success" id="download-pdf">Descargar PDF</button>
+        </div>
     </div>
 </div>
 
@@ -91,6 +95,9 @@
         $('#tabla').DataTable();
     } );
 </script>
+
+{{-- SCRIPT PARA DESCARGAR EN PDF --}}
+<script src="//cdnjs.cloudflare.com/ajax/libs/jspdf/1.3.3/jspdf.min.js"></script>
 
 
 {{-- SCRIPTS PARA GRAFICAR TABLAS --}}
@@ -116,6 +123,7 @@ $(document).ready(function(){
 
 
     var ctx = document.getElementById("canvas").getContext('2d');
+    ctx.fillStyle = "#FFFFFF";
         var myChart = new Chart(ctx, {
             type: 'line',
             data: {
@@ -136,8 +144,29 @@ $(document).ready(function(){
                 }
             }
         });
-    // });
+
+//add event listener to 2nd button
+document.getElementById('download-pdf').addEventListener("click", downloadPDF2);
+
+//download pdf form hidden canvas
+function downloadPDF2() {
+	var newCanvas = document.querySelector('#canvas');
+
+  //create image from dummy canvas
+	var newCanvasImg = newCanvas.toDataURL("image/png", 1.0);
+  
+  	//creates PDF from img
+	var doc = new jsPDF('landscape');
+	doc.setFontSize(20);
+	doc.text(10, 10, "Pacientes por año");
+	doc.addImage(newCanvasImg, 'PNG', 10, 10, 280, 150 );
+	doc.save('pacientes-por-anio.pdf');
+ }
+
 });
+
+
+
 </script>
 
 

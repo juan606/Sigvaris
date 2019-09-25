@@ -337,7 +337,7 @@
             var productos_id=[];
             var cantidad_id=[];
 
-            // OBTENEMOS LA SUMA DE TODAS LAS CANTIDADES DE PRODUCTOS
+            // OBTENEMOS LA SUMA DE TODAS LAS CANTIDADES DE TODOS PRODUCTOS
             $('[name="cantidad[]"]').each(function(){
                 total_productos+=parseInt($(this).val());
                 cantidad_id.push($(this).val());
@@ -376,6 +376,11 @@
                         swal("No aplica el descuento");
                         $('#promo_id option:eq(0)').prop('selected',true);
                     }
+                },
+                error: function(e){
+                    alert('Error');
+                    console.log(e);
+                    
                 }
 
             });

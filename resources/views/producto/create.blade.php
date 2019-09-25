@@ -19,7 +19,7 @@
                 {{ csrf_field() }}
                 <div class="card-body">
                     <div class="row">
-                        <div class="col-2 form-group">
+                        <div class="col-3 form-group">
                             <label class="control-label">✱SKU:</label>
                             <input type="text" name="sku" class="form-control" required="">
                         </div>
@@ -27,18 +27,23 @@
                             <label class="control-label">Descripcion:</label>
                             <input type="text" name="descripcion" class="form-control">
                         </div>
-                        <div class="col-2 form-group">
+                        <div class="col-3 form-group">
                             <label class="control-label">✱Precio Distribuidor:</label>
                             <input type="text" name="precio_distribuidor" class="form-control" required="">
                         </div>
-                        <div class="col-2 form-group">
+                        <div class="col-3 form-group">
                             <label class="control-label">✱Precio público S/IVA:</label>
                             <input type="text" name="precio_publico" class="form-control" required="" id="precio">
+                        </div>
+                        <div class="col-3 form-group">
+                            <label class="control-label">✱Stock:</label>
+                            <input type="number" name="stock" class="form-control" step="1" required="" id="stock">
                         </div>
                         <div class="col-3 form-group">
                             <label class="control-label">✱Precio público C/IVA:</label>
                             <input type="number" name="precio_publico_iva" class="form-control" step="0.01" required="" id="precio_iva" readonly="">
                         </div>
+                        <input type="hidden" name="oficina_id" value="{{session('oficina')}}">
                     </div>
                 </div>
                 <div class="card-footer">

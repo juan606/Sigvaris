@@ -57,7 +57,7 @@ class VentaController extends Controller
      */
     public function store(Request $request)
     {
-        //dd($request->all());
+        // dd($request->input());
         $venta = new Venta($request->all());
         $venta->promocion_id=$request->promo_id;
         if(session()->get('oficina'))
@@ -66,6 +66,7 @@ class VentaController extends Controller
         for($i = 0; $i < sizeof($request->cantidad); $i++){
             $producto = Producto::find($request->producto_id[$i]);
             $venta->productos()->attach($producto->id, ['cantidad'=>$request->cantidad[$i], 'precio' =>$producto->precio_publico, 'created_at' => date('Y-m-d'), 'updated_at' => date('Y-m-d') ]);
+            $producto->decrement('stock',$request->cantidad[$i]);
         }
         return redirect()->route('ventas.index');
     }

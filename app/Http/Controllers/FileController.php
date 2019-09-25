@@ -39,27 +39,32 @@ class FileController extends Controller
     	if($request->hasFile('sample_file')) {
     		//$path = $request->file('sample_file')->getPathName();
             //$data = \Excel::load($path, null, null, true, null)->get();
+
+            // OBTENEMOS LOS DATOS DEL EXCEL
             $data = Excel::toArray(new ProductImport, request()->file('sample_file'));
             $Precios = $data[1];
             $data = $data[0];
             unset($Precios[0]);
             unset($data[0]);
+
+
     		if(count($data)) {
                 try{
+                    // OBTENEMOS LOS PRODUCTOS DEL EXCEL
                     foreach ($data as $row) {
                         $indice = $this->buscarPreciosenExcel($Precios, count($Precios), $row[0]);
                         if($indice != -1){
                             $arr[] = [
                                 'sku' => $row[0],
                                 'descripcion' => $row[1],
+                                'line'=>$row[2],
+                                'upc'=>$row[3],
+                                'swiss_id'=>$row[4],
                                 //'precio_distribuidor' => number_format($row->distribuidor, 2, '.', ''),
                                 'precio_publico' => number_format($Precios[$indice][1], 2, '.', ''),
                                 'precio_publico_iva' => number_format($Precios[$indice][2], 2, '.', ''),
-                                'created_at' => date('Y-m-d h:m:s'),
-                                'updated_at' => date('Y-m-d h:m:s'),
-                                'line'=>$row[2],
-                                'upc'=>$row[3],
-                                'swiss_id'=>$row[4]
+                                'stock'=>$row[7],
+                                'oficina_id'=>session('oficina')
                             ];
                         }
                     }
@@ -68,12 +73,17 @@ class FileController extends Controller
                 }
     			if (!empty($arr)) {
                     // dd($arr);
-                    $registros = Producto::get();
-                    foreach ($registros as $registro) {
-                        Producto::destroy($registro->id);
-                    }
+                    // $registros = Producto::get();
+                    // foreach ($registros as $registro) {
+                    //     Producto::destroy($registro->id);
+                    // }
                     
-                    Producto::insert($arr);
+                    // Producto::insert($arr);
+
+                    foreach($arr as $producto ){
+                        Producto::updateOrCreate($producto);
+                    }
+
                     Alert::success('Archivo subido correctamente.');
     				return redirect()->back();
                 } else
@@ -82,7 +92,6 @@ class FileController extends Controller
             } else
     		return redirect()->back()->withErrors(['error', 'Error al subir el archivo.']);
         } else
-            return('No se subio ningun archivo');
     		return redirect()->back()->withErrors(['error', 'No se subio ningun archivo']);
     	return redirect()->back()->withErrors(['error', 'Error al subir el archivo.']);
     }

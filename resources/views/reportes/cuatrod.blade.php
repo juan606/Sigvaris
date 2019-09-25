@@ -3,7 +3,7 @@
     <div class="container">
         <div class="card">
             <div class="card-header">
-                <h3>Prendas vendidas por paciente</h3>
+                <h3>Prendas vendidas por año</h3>
             </div>
             {{-- Buscador de pacientes --}}
             <div class="card-body">
@@ -57,9 +57,16 @@
                 <div class="card-body">
                     <canvas id="canvas" height="280" width="600"></canvas>
                 </div>
+                {{-- BOTÓN DE DESCARGA PDF --}}
+                <div class="card-body">
+                    <button class="btn btn-success" id="download-pdf">Descargar PDF</button>
+                </div>
             @endif
         </div>
     </div>
+
+{{-- SCRIPT PARA DESCARGAR EN PDF --}}
+<script src="//cdnjs.cloudflare.com/ajax/libs/jspdf/1.3.3/jspdf.min.js"></script>
 
 {{-- SCRIPTS PARA GRAFICAR DE TABLA --}}
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
@@ -71,6 +78,7 @@
 
 var canvas = document.getElementById("canvas");
 var ctx = canvas.getContext('2d');
+ctx.fillStyle = "#FFFFFF";
 
 var datasets = new Array();
 
@@ -84,8 +92,6 @@ for (const i in aniosSolicitados) {
     if (aniosSolicitados.hasOwnProperty(i)) {
         
         const anio = aniosSolicitados[i];
-       
-        console.log('anio',anio);
 
         const color = getRandomColor();    
         
@@ -127,14 +133,12 @@ function getRandomColor() {
   return color;
 }
 
-console.log(datasets);
-
 // Global Options:
 Chart.defaults.global.defaultFontColor = 'black';
 Chart.defaults.global.defaultFontSize = 16;
 
 var data = {
-  labels: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"],
+  labels: ["Ene", "Feb", "Mar", "Abr", "May", "Jun", "Jul", "Ago", "Sep", "Oct", "Nov", "Dic"],
   datasets: datasets
 };
 
@@ -147,7 +151,7 @@ var options = {
                 },
                 scaleLabel: {
                      display: true,
-                     labelString: 'Moola',
+                     labelString: 'Ventas vs Mes',
                      fontSize: 20 
                   }
             }]            
@@ -160,6 +164,24 @@ var myBarChart = new Chart(ctx, {
   data: data,
   options: options
 });
+
+//add event listener to 2nd button
+document.getElementById('download-pdf').addEventListener("click", downloadPDF2);
+
+//download pdf form hidden canvas
+function downloadPDF2() {
+	var newCanvas = document.querySelector('#canvas');
+
+  //create image from dummy canvas
+	var newCanvasImg = newCanvas.toDataURL("image/png", 1.0);
+  
+  	//creates PDF from img
+	var doc = new jsPDF('landscape');
+	doc.setFontSize(20);
+	doc.text(10, 10, "Prendas vendidas por año");
+	doc.addImage(newCanvasImg, 'PNG', 10, 10, 280, 150 );
+	doc.save('prendas-vendidas-por-anio.pdf');
+ }
 
 </script>
 

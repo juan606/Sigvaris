@@ -105,6 +105,10 @@
             <div class="card-body">
                 <canvas id="canvas" height="280" width="600"></canvas>
             </div>
+            {{-- BOTÓN DE DESCARGA PDF --}}
+            <div class="card-body">
+                <button class="btn btn-success" id="download-pdf">Descargar PDF</button>
+            </div>
         @endif
     </div>
 </div>
@@ -151,6 +155,9 @@ $("#restarInput").click(function(){
 
 </script>
 
+{{-- SCRIPT PARA DESCARGAR EN PDF --}}
+<script src="//cdnjs.cloudflare.com/ajax/libs/jspdf/1.3.3/jspdf.min.js"></script>
+
 {{-- SCRIPTS PARA GRAFICAR DE TABLA --}}
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
@@ -161,6 +168,7 @@ $("#restarInput").click(function(){
 
 var canvas = document.getElementById("canvas");
 var ctx = canvas.getContext('2d');
+ctx.fillStyle = "#FFFFFF";
 
 var arrayMesesYAnios = {!! json_encode($arrayMesesYAnios) !!};
 arrayMesesYAnios = Object.values(arrayMesesYAnios);
@@ -175,7 +183,7 @@ Chart.defaults.global.defaultFontSize = 16;
 var data = {
   labels: arrayMesesYAnios,
   datasets: [{
-      label: "Numero de pacientes",
+      label: "Numero de ventas",
       fill: false,
       lineTension: 0.1,
       backgroundColor: "rgba(50,200,50,0.9)",
@@ -209,7 +217,7 @@ var options = {
                 },
                 scaleLabel: {
                      display: true,
-                     labelString: 'Número de pacientes vs compras realizadas',
+                     labelString: 'Número de ventas vs Fecha',
                      fontSize: 20 
                   }
             }]            
@@ -222,6 +230,24 @@ var myBarChart = new Chart(ctx, {
   data: data,
   options: options
 });
+
+//add event listener to 2nd button
+document.getElementById('download-pdf').addEventListener("click", downloadPDF2);
+
+//download pdf form hidden canvas
+function downloadPDF2() {
+	var newCanvas = document.querySelector('#canvas');
+
+  //create image from dummy canvas
+	var newCanvasImg = newCanvas.toDataURL("image/png", 1.0);
+  
+  	//creates PDF from img
+	var doc = new jsPDF('landscape');
+	doc.setFontSize(20);
+	doc.text(10, 10, "Prendas vendidas por SKU y fecha");
+	doc.addImage(newCanvasImg, 'PNG', 10, 10, 280, 150 );
+	doc.save('prendas-vendidas-por-sku-y-fecha.pdf');
+ }
 
 </script>
 

@@ -16,7 +16,12 @@ class Producto extends Model
         'cantidad',
         'precio_distribuidor',
         'precio_publico',
-        'precio_publico_iva'
+        'precio_publico_iva',
+        'stock',
+        'upc',
+        'swiss_id',
+        'line',
+        'oficina_id'
     ];
 
     public function ventas(){

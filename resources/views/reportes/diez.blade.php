@@ -87,8 +87,6 @@ $(document).ready(function(){
     //     Prices.push(data.stockPrice);
     // });
 
-    console.log(doctores);
-
     for (const key in doctores) {
         if (doctores.hasOwnProperty(key)) {
             const element = doctores[key];
@@ -96,29 +94,27 @@ $(document).ready(function(){
         }
     }
 
-    console.log(Years);
-
     var ctx = document.getElementById("canvas").getContext('2d');
-        var myChart = new Chart(ctx, {
-            type: 'line',
-            data: {
-                labels:Years,
-                datasets: [{
-                    label: 'Total de pacientes',
-                    data: Prices,
-                    borderWidth: 1
-                }]
-            },
-            options: {
-                scales: {
-                    yAxes: [{
-                        ticks: {
-                            beginAtZero:true
-                        }
-                    }]
-                }
-            }
-        });
+        // var myChart = new Chart(ctx, {
+        //     type: 'line',
+        //     data: {
+        //         labels:Years,
+        //         datasets: [{
+        //             label: 'Total de pacientes',
+        //             data: Prices,
+        //             borderWidth: 1
+        //         }]
+        //     },
+        //     options: {
+        //         scales: {
+        //             yAxes: [{
+        //                 ticks: {
+        //                     beginAtZero:true
+        //                 }
+        //             }]
+        //         }
+        //     }
+        // });
     // });
 });
 </script>

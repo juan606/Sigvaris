@@ -74,11 +74,18 @@
             </div>
             {{-- GRAFICA DE TABLA --}}
             <div class="card-body">
-                <canvas id="canvas" height="280" width="600"></canvas>
+                <canvas id="canvas" height="1120" width="2400"></canvas>
+            </div>
+            {{-- BOTÓN DE DESCARGA PDF --}}
+            <div class="card-body">
+                <button class="btn btn-success" id="download-pdf">Descargar PDF</button>
             </div>
         @endif
     </div>
 </div>
+
+{{-- SCRIPT PARA DESCARGAR EN PDF --}}
+<script src="//cdnjs.cloudflare.com/ajax/libs/jspdf/1.3.3/jspdf.min.js"></script>
 
 {{-- SCRIPTS PARA GRAFICAR DE TABLA --}}
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
@@ -90,6 +97,7 @@
 
 var canvas = document.getElementById("canvas");
 var ctx = canvas.getContext('2d');
+ctx.fillStyle = "#FFFFFF";
 
 var datasets = new Array();
 
@@ -150,7 +158,7 @@ var options = {
                 },
                 scaleLabel: {
                      display: true,
-                     labelString: 'Moola',
+                     labelString: 'Ventas vs Fecha',
                      fontSize: 20 
                   }
             }]            
@@ -163,6 +171,24 @@ var myBarChart = new Chart(ctx, {
   data: data,
   options: options
 });
+
+//add event listener to 2nd button
+document.getElementById('download-pdf').addEventListener("click", downloadPDF2);
+
+//download pdf form hidden canvas
+function downloadPDF2() {
+	var newCanvas = document.querySelector('#canvas');
+
+  //create image from dummy canvas
+	var newCanvasImg = newCanvas.toDataURL("image/png", 1.0);
+  
+  	//creates PDF from img
+	var doc = new jsPDF('landscape');
+	doc.setFontSize(20);
+	doc.text(10, 10, "Ventas por oficina");
+	doc.addImage(newCanvasImg, 'PNG', 10, 10, 280, 150 );
+	doc.save('ventas-por-oficina.pdf');
+ }
 
 </script>
 
