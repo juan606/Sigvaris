@@ -97,8 +97,8 @@
                     <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                         <a class="dropdown-item" href="{{route('productos.create')}}"><span>Alta</span><i class="fa fa-plus float-right"></i></a>
                         <a class="dropdown-item" href="{{route('productos.index')}}"><span>Buscar</span><i class="fa fa-search float-right"></i></a>
-                        <a class="dropdown-item" href="{{ url('import-export-csv-excel') }}"><span>Excel</span><i class="fa fa-search float-right"></i></a>
-                        <a class="dropdown-item" href="{{ route('productos.inventario') }}"><span>Inventario</span><i class="fa fa-search float-right"></i></a>
+                        <a class="dropdown-item" href="{{ url('import-export-csv-excel') }}"><span>Excel</span><i class="fa fa-file-excel float-right" aria-hidden="true"></i></a>
+                        <a class="dropdown-item" href="{{ route('productos.inventario') }}"><span>Inventario</span><i class="fa fa-history float-right" aria-hidden="true"></i></a>
                         <a class="dropdown-item" href="{{ route('productos.inventario.historial') }}"><span>Historial</span><i class="fa fa-search float-right"></i></a>
                     </div>
                 </li>    

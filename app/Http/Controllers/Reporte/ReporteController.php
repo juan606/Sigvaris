@@ -50,13 +50,11 @@ class ReporteController extends Controller
     {
 
         if ($request->input()) {
-            // return Paciente::find(2)->ventas()->with('productos')->get()->pluck('productos')->flatten();
 
+            // OBTENEMOS EL RANGO DE FECHAS SOLICITADOS
             $fechaInicial = $request->input('fechaInicial');
             $fechaFinal = $request->input('fechaFinal');
-            // $ventas = Venta::
-            //     where('fecha','>=',$fechaInicial)->with('productos')->with('paciente')->where('fecha','<=',$fechaFinal)->get();
-            // return $ventas;
+
 
             $ventasPorFechaPorPaciente = Venta::where('fecha', '>=', $fechaInicial)->where('fecha', '<=', $fechaFinal)->withCount('productos')->get()->groupBy('paciente_id')
                 ->transform(function ($item, $k) {

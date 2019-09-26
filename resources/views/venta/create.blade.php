@@ -5,6 +5,7 @@
 <div class="container">
     <div class="card">
         <div class="card-header">
+            {{-- CABECERA DE LA SECCIÓN --}}
             <div class="row">
                 <div class="col-4">
                     <h4>Punto de venta</h4>
@@ -111,8 +112,8 @@
 
                     <div class="row mb-3" id="promo">
                         <div class="col-4 offset-4 form-group">
-                            <label for="promo_id">Promocion</label>
-                            <select class="form-control" name="promo_id" id="promo_id">
+                            <label for="promocion_id">Promocion</label>
+                            <select class="form-control" name="promocion_id" id="promocion_id">
                                 <option value="">Selecciona...</option>                               
                             </select>
                         </div>
@@ -169,23 +170,23 @@
                             <div class="input-group-prepend">
                                 <span class="input-group-text">Total: $ </span>
                             </div>
-                            <input type="number" required="" class="form-control" name="total" id="total" value="0" min="1" step="0.01" readonly="">
+                            <input type="number" required="" class="form-control" name="total" id="total" value="0" min="1" step="0.01" readonly>
                         </div>
                     </div>
-                </div>
-                <div class="card-footer">
-                    <div class="row">
-                        <div class="col-4 offset-4 text-center">
-                            <button type="submit" class="btn btn-success">
-                                <i class="fa fa-check"></i> Guardar
-                            </button>
-                        </div>
-                        <div class="col-4 text-right text-danger">
-                            ✱Campos Requeridos.
+                    </div>
+                    <div class="card-footer">
+                        <div class="row">
+                            <div class="col-4 offset-4 text-center">
+                                <button type="submit" class="btn btn-success">
+                                    <i class="fa fa-check"></i> Guardar
+                                </button>
+                            </div>
+                            <div class="col-4 text-right text-danger">
+                                ✱Campos Requeridos.
+                            </div>
                         </div>
                     </div>
-                </div>
-            </form>
+                </form>
             <div class="col-4 offset-4 text-center">
 {{--                 <form action="{{ route('pembayaran.print') }}" method="POST">                
                     <input type="hidden" name="_token" class="form-control" value="{!! csrf_token() !!}"> --}}
@@ -239,7 +240,7 @@
             total += parseFloat(e.innerText);
             console.log(total);
         });
-        $('#promo_id option:eq(0)').prop('selected',true);
+        $('#promocion_id option:eq(0)').prop('selected',true);
         $('#descuento').val(0);
         $('#sigpesos').val(0);
         $('#subtotal').val(total.toFixed(2));
@@ -310,14 +311,14 @@
                 type:'GET',
                 dataType:'html',
                 success: function(res){
-                    $('#promo_id').html(res);
+                    $('#promocion_id').html(res);
 
                 }
             });
         });
 
-        $('#promo_id').change(function(){
-            var id=$('#promo_id').val();
+        $('#promocion_id').change(function(){
+            var id=$('#promocion_id').val();
 
             // SI NO HAY PROMOCION QUITAMOS EL DESCUENTO
             if(!id)
@@ -374,7 +375,7 @@
                     else
                     {
                         swal("No aplica el descuento");
-                        $('#promo_id option:eq(0)').prop('selected',true);
+                        $('#promocion_id option:eq(0)').prop('selected',true);
                     }
                 },
                 error: function(e){
@@ -386,15 +387,15 @@
             });
         });
        
-        $('#paciente_id').change(function(){
+        $('#paciente_id').change( async function(){
             var id=$(this).val();
-            $('#promo_id option:eq(0)').prop('selected',true);
+            $('#promocion_id option:eq(0)').prop('selected',true);
             $('#descuento').val(0);
             $('#sigpesos').val(0);
             var subtotal=parseFloat($('#subtotal').val());
             var iva=parseFloat($('#iva').val());
             var des=parseFloat($('#descuento').val());
-            $.ajax({
+            await $.ajax({
                 url:"{{ url('/obtener_sigpesos') }}/"+id,
                 type:'GET',
                 dataType:'text',
@@ -403,13 +404,20 @@
                 }
 
             });
-            if((subtotal+iva-des)<sigpesos)
+
+            // console.log('subtotal',subtotal);
+            // console.log('iva',iva);
+            // console.log('des',des);
+            // console.log('sigpesos', $('#sigpesos_usar').val() );
+
+            if((subtotal+iva-des)<$('#sigpesos_usar').val())
             {
                 $('#total').val(0);
             }
             else
             {
-                $('#total').val(subtotal+iva-des-sigpesos);
+                $('#total').val(subtotal+iva-des-$('#sigpesos_usar').val());
+                console.log('total',$('#sigpesos_usar').val())
             }
             
         });

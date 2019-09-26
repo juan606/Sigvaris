@@ -64,7 +64,7 @@ Route::get('productos/inventario', 'Inventario\InventarioController@index')->nam
 Route::get('productos/inventario/historial', 'Inventario\InventarioController@historial')->name('productos.inventario.historial');
 Route::get('productos/inventario/modificar/{id}', 'Inventario\InventarioController@edit')->name('producto.inventario.modificar');
 Route::post('productos/inventario/update', 'Inventario\InventarioController@update')->name('producto.inventario.update');
-Route::resource('contratos','Precargas\TipoContratoController');
+Route::resource('contratos','Precargas\TipoContratoController')->middleware('precargas.role');
 Route::resource('descuentos', 'Venta\DescuentoController');
 Route::resource('productos', 'Producto\ProductoController');
 
@@ -87,7 +87,7 @@ Route::resource('giros', 'Giro\GiroController', ['except' => 'show']);
 Route::resource('areas','Area\AreaController', ['except'=>'show']);
 Route::resource('puestos','Puesto\PuestoController', ['except'=>'show']);
 Route::resource('bancos','Banco\BancoController', ['except'=>'show']);
-Route::resource('bajas','Precargas\TipoBajaController');
+Route::resource('bajas','Precargas\TipoBajaController')->middleware('precargas.role');
 
 Route::resource('roles','Role\RoleController');
 //Route::get('roles/{role}/destroy','Role\RoleController@destroy');

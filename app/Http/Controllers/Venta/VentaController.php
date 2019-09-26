@@ -11,14 +11,22 @@ use App\Doctor;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
+use App\Services\Ventas\RealizarVentaProductosService;
 
 class VentaController extends Controller
 {
+
+    public function __construct(RealizarVentaProductosService $realizarVentaProductos)
+    {
+        $this->realizarVentaProductosService = $realizarVentaProductos;
+    }
+
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
+    
     public function index()
     {
         $medicos = Doctor::get();
@@ -57,17 +65,18 @@ class VentaController extends Controller
      */
     public function store(Request $request)
     {
-        // dd($request->input());
+
+        // PREPARAR DATOS DE LA VENTA
         $venta = new Venta($request->all());
-        $venta->promocion_id=$request->promo_id;
-        if(session()->get('oficina'))
-            $venta->oficina_id=session()->get('oficina');
-        $venta->save();
-        for($i = 0; $i < sizeof($request->cantidad); $i++){
-            $producto = Producto::find($request->producto_id[$i]);
-            $venta->productos()->attach($producto->id, ['cantidad'=>$request->cantidad[$i], 'precio' =>$producto->precio_publico, 'created_at' => date('Y-m-d'), 'updated_at' => date('Y-m-d') ]);
-            $producto->decrement('stock',$request->cantidad[$i]);
-        }
+        $venta->oficina_id=session()->get('oficina');
+        $productos = Producto::find($request->producto_id);
+
+        // dd(Producto::find($request->producto_id));
+
+        // REALIZAR VENTA
+        $this->realizarVentaProductosService->make($venta, $productos, $request);
+        
+        // REDIRIGIR A LAS VENTAS REALIZADAS
         return redirect()->route('ventas.index');
     }
 
@@ -79,7 +88,6 @@ class VentaController extends Controller
      */
     public function show(Venta $venta)
     {
-        //dd($venta->productos);
         return view('venta.show', ['venta'=>$venta]);
     }
 
@@ -123,7 +131,8 @@ class VentaController extends Controller
     {
         $prod = [];
         $ventasxprenda = [];
-        // Obtencion de las ventas por numero de piezas
+
+        // OBTENEMOS LAS PRENDAS POR EL NUMERO DE PIEZAS
         if($request->num_prendas != "" && $request->num_prendas != "0"){
             $ventas = Venta::with('paciente','descuento')->where('fecha','<=',$request->hasta)->where('fecha','>=',$request->desde)->get();
             foreach ($ventas as $v) {
