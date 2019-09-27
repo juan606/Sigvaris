@@ -417,6 +417,7 @@ class ReporteController extends Controller
             // DOCTORES QUE SE ENCUENTRAN EN LAS FECHAS SOLICITADAS
             $doctores = Paciente::where('updated_at', '>=', $fechaInicial)
                 ->where('updated_at', '<=', $fechaFinal . " 23:59:59")
+                ->whereHas('doctor')
                 ->with('doctor')
                 ->orderBy('id')
                 ->get()
@@ -427,19 +428,13 @@ class ReporteController extends Controller
             // NUM. DE RECOMENDACION POR DOCTOR
             $numRecomendadosPorDoctor = [];
             foreach ($doctores as $key => $doctor) {
-
-                $doctor = Doctor::find($key);
-
-                if($doctor->pacientes()->get()){
-                    $numRecomendadosPorDoctor[] = $doctor
+                
+                $numRecomendadosPorDoctor[] = Doctor::find($key)
                     ->pacientes()
                     ->where('updated_at', '>=', $fechaInicial)
                     ->where('updated_at', '<=', $fechaFinal . " 23:59:59")
                     ->get()
                     ->count();
-                }else{
-                    $numRecomendadosPorDoctor[] = 0;
-                }
             }
 
             // NOMBRES DOCTORES:
