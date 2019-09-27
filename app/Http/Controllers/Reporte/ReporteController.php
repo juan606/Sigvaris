@@ -427,12 +427,19 @@ class ReporteController extends Controller
             // NUM. DE RECOMENDACION POR DOCTOR
             $numRecomendadosPorDoctor = [];
             foreach ($doctores as $key => $doctor) {
-                $numRecomendadosPorDoctor[] = Doctor::find($key)
+
+                $doctor = Doctor::find($key);
+
+                if($doctor->pacientes()->get()){
+                    $numRecomendadosPorDoctor[] = $doctor
                     ->pacientes()
                     ->where('updated_at', '>=', $fechaInicial)
                     ->where('updated_at', '<=', $fechaFinal . " 23:59:59")
                     ->get()
                     ->count();
+                }else{
+                    $numRecomendadosPorDoctor[] = 0;
+                }
             }
 
             // NOMBRES DOCTORES:
