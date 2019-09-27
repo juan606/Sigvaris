@@ -405,11 +405,6 @@
 
             });
 
-            // console.log('subtotal',subtotal);
-            // console.log('iva',iva);
-            // console.log('des',des);
-            // console.log('sigpesos', $('#sigpesos_usar').val() );
-
             if((subtotal+iva-des)<$('#sigpesos_usar').val())
             {
                 $('#total').val(0);
@@ -421,11 +416,6 @@
             }
             
         });
-
-        // $('#subtotal').change(function(){
-        //     console.log('cambio subtotal');
-        //     $('#iva').val($('#subtotal').val()*0.16);
-        // });
     });
 
    
