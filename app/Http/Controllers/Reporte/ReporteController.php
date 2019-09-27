@@ -94,8 +94,8 @@ class ReporteController extends Controller
             $fechaFinal = $request->input('fechaFinal');
 
             // OBTENEMOS ARREGLO DE LAS FECHAS CON VENTAS
-            $arregloFechasConVentas = Venta::where('created_at', '>=', $fechaInicial)
-                ->where('created_at', '<=', $fechaFinal)
+            $arregloFechasConVentas = Venta::where('fecha', '>=', $fechaInicial)
+                ->where('fecha', '<=', $fechaFinal)
                 ->orderBy('fecha')
                 ->pluck('fecha')
                 ->all();
