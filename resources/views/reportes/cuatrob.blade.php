@@ -23,26 +23,52 @@
                 <button class="btn btn-primary">Buscar</button>
             </form>
         </div>
-        @if ( isset($skus) )
+        @if ( isset($skusConVentas) )
         {{-- TABLA --}}
         <div class="card-body">
             <table class="table table-hover table-striped table-bordered" style="margin-bottom: 0;" id="listaEmpleados">
                 <thead>
                     <tr class="info">
-                        <th># Paciente</th>
-                        <th># Prendas</th>
                         <th>SKU</th>
+                        <th>NUM. PACIENTES</th>
+                        <th>NUM. PRENDAS</th>
+                        <th>% DE VENTA</th>
                     </tr>
                 </thead>
                 <tbody>
-                    @foreach($skus as $key => $sku)
-                        @foreach ($arrayNumPrendasVendidasDeSkus[$key] as $key2 => $prendasVendidasDeSku)
+                    @foreach($skusConVentas as $key => $sku)
                         <tr>
-                            <td>{{$arrayNumPacientes[$key][$key2]}}</td>
-                            <td>{{$prendasVendidasDeSku}}</td>
-                            <td>{{$sku}}</td>
+                            <td>{{$key}}</td>
+                            <td>
+                                {{
+                                    $sku->pluck('ventas')
+                                        ->flatten()
+                                        ->pluck('paciente_id')
+                                        ->flatten()
+                                        ->unique()
+                                        ->count()    
+                                }}
+                            </td>
+                            <td>{{
+                                $sku->pluck('ventas')
+                                    ->flatten()
+                                    ->pluck('pivot')
+                                    ->flatten()
+                                    ->pluck('cantidad')
+                                    ->sum()
+                                }}
+                            </td>
+                            <td>
+                                {{
+                                    round($sku->pluck('ventas')
+                                    ->flatten()
+                                    ->pluck('pivot')
+                                    ->flatten()
+                                    ->pluck('cantidad')
+                                    ->sum()/$totalPrendasVendidas*100,2)    
+                                }}
+                            </td>
                         </tr>
-                        @endforeach
                     @endforeach
                 </tbody>    
             </table>
@@ -75,77 +101,6 @@
     $(document).ready(function() {
         $('#listaEmpleados').DataTable();
     } );
-</script>
-
-{{-- SCRIPTS PARA GRAFICAR DE TABLA --}}
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.12.3/js/bootstrap-select.min.js" charset="utf-8"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.6.0/Chart.bundle.js" charset="utf-8"></script>
-
-<script>
-
-var canvas = document.getElementById("canvas");
-var ctx = canvas.getContext('2d');
-
-
-
-
-// Global Options:
-Chart.defaults.global.defaultFontColor = 'black';
-Chart.defaults.global.defaultFontSize = 16;
-
-var data = {
-  labels: ['1','2','3'],
-  datasets: [{
-      label: "Numero de pacientes",
-      fill: false,
-      lineTension: 0.1,
-      backgroundColor: "rgba(50,200,50,0.9)",
-      borderColor: "rgba(50,200,50,0.9)", // The main line color
-      borderCapStyle: 'square',
-      borderDash: [], // try [5, 15] for instance
-      borderDashOffset: 0.0,
-      borderJoinStyle: 'miter',
-      pointBorderColor: "black",
-      pointBackgroundColor: "white",
-      pointBorderWidth: 1,
-      pointHoverRadius: 8,
-      pointHoverBackgroundColor: "red",
-      pointHoverBorderColor: "brown",
-      pointHoverBorderWidth: 2,
-      pointRadius: 4,
-      pointHitRadius: 10,
-      // notice the gap in the data and the spanGaps: true
-      data: ['1','2','3'],
-      spanGaps: true,
-    }
-  ]
-};
-
-// Notice the scaleLabel at the same level as Ticks
-var options = {
-  scales: {
-            yAxes: [{
-                ticks: {
-                    beginAtZero:true
-                },
-                scaleLabel: {
-                     display: true,
-                     labelString: 'Número de pacientes vs compras realizadas',
-                     fontSize: 20 
-                  }
-            }]            
-        }  
-};
-
-// Chart declaration:
-var myBarChart = new Chart(ctx, {
-  type: 'line',
-  data: data,
-  options: options
-});
-
 </script>
 
 @endsection

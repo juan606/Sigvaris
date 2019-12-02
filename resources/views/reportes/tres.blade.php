@@ -8,20 +8,68 @@
             </div>
             {{-- CONTENEDOR BUSCADOR DE PACIENTES --}}
             <div class="card-body">
-                <form action="{{route('reportes.3')}}" method="POST" class="form-inline">
+                    
+                <form action="{{route('reportes.3')}}" method="POST">
+                        <div class="row">
                     @csrf
-                    {{-- INPUT DE FECHA INICIAL --}}
-                    <div class="form-group mr-3">
-                        <label for="fechaInicial"></label>
-                        <input type="date" class="form-control" name="fechaInicial" value="{{Request::old('fechaInicial')}}" id="fechaInicial" required>
+                        <div class="col-12">
+                            <div class="form-check form-check-inline">
+                                <input type="radio" class="form-check-input" name="opcionBusqueda" required id="opcionDia" value="dia">
+                                <label for="opcionDia">Día</label>
+                            </div>
+                            <div class="form-check form-check-inline">
+                                <input type="radio" class="form-check-input" name="opcionBusqueda" required id="opcionSemana" value="semana">
+                                <label for="opcionDia">Semana</label>
+                            </div>
+                            <div class="form-check form-check-inline">
+                                <input type="radio" class="form-check-input" name="opcionBusqueda" required id="opcionMes" value="mes">
+                                <label for="opcionMes">Mes</label>
+                            </div>
+                            <div class="form-check form-check-inline">
+                                <input type="radio" class="form-check-input" name="opcionBusqueda" required id="opcionTrimestre" value="trimestre">
+                                <label for="opcionTrimestre">Trimestre</label>
+                            </div>
+                        </div>
+
+                        <div class="col-12">
+                            <div class="row" id="contenedorInputsBusqueda">
+
+                            </div>
+                        </div>
+                        <div class="col-12">
+                            <div class="row">
+                                <div class="col-12 col-md-4">
+                                    <div class="for-group mr-4">
+                                        <label for="oficinaId"></label>
+                                        <select name="oficina_id" id="selectOficina" class="form-control">
+                                            <option value="">Todas</option>
+                                            @foreach ($oficinas as $oficina)
+                                                <option value="{{$oficina->id}}">{{$oficina->nombre}}</option>
+                                            @endforeach
+                                        </select>
+                                    </div>
+                                </div>
+                                {{-- Input fitter --}}
+                                <div class="form-group mr-4">
+                                    <label for="fitters"></label>
+                                    <select name="empleadoFitterId" class="form-control" id="selectEmpleadosFitter">
+                                        <option value="">Todos</option>
+                                        @foreach ($empleadosFitter as $empleadoFitter)
+                                            <option value="{{$empleadoFitter->id}}">
+                                                {{$empleadoFitter->nombre}} {{$empleadoFitter->appaterno}} {{$empleadoFitter->apmaterno}}
+                                            </option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                                <div class="col-12 col-md-4 mt-3">
+                                    <button class="btn btn-primary">Buscar</button>
+                                </div>
+                            </div>
+                            
+                        </div>
                     </div>
-                    {{-- INPUT DE FECHA FINAL --}}
-                    <div class="form-group mr-4">
-                        <label for="fechaFinal"></label>
-                        <input type="date" class="form-control" name="fechaFinal" id="fechaFinal" value="{{Request::old('fechaFinal')}}" required>
-                    </div>
-                    <button class="btn btn-primary">Buscar</button>
                 </form>
+            
             </div>
             @if ( isset($arregloFechasConVentas) )
             {{-- LISTA DE PACIENTES --}}
@@ -81,6 +129,8 @@
             @endif
         </div>
     </div>
+
+<script src="{{ URL::asset('js/handleFitters.js') }}"></script>
 
 {{-- SCRIPT PARA DESCARGAR EN PDF --}}
 <script src="//cdnjs.cloudflare.com/ajax/libs/jspdf/1.3.3/jspdf.min.js"></script>
@@ -172,6 +222,133 @@ function downloadPDF2() {
 	doc.addImage(newCanvasImg, 'PNG', 10, 10, 280, 150 );
 	doc.save('prendas-vendidas.pdf');
  }
+
+</script>
+
+<script>
+
+function mostrarInputsBusquedaDia(){
+
+    $('#contenedorInputsBusqueda').html(`
+
+    <div class="col-12 col-md-4">
+
+        <div class="form-group mr-3">
+            <label for="fechaInicial"></label>
+            <input type="date" class="form-control" name="fechaInicial" value="{{Request::old('fechaInicial')}}" id="fechaInicial" required>
+        </div>
+
+    </div>
+
+    
+    {{-- INPUT DE FECHA FINAL --}}
+
+    <div class="col-12 col-md-4">
+
+        <div class="form-group mr-4">
+            <label for="fechaFinal"></label>
+            <input type="date" class="form-control" name="fechaFinal" id="fechaFinal" value="{{Request::old('fechaFinal')}}" required>
+        </div>
+
+    </div>
+    
+    `);
+
+}
+
+function mostrarInputsBusquedaSemana(){
+    $('#contenedorInputsBusqueda').html(`
+    
+    <div class="col-12 col-md-4">
+
+        <div class="form-group mr-3">
+            <label for="fechaInicial"></label>
+            <input type="date" class="form-control" name="fechaInicial" id="fechaInicial" required>
+        </div>
+
+    </div>
+
+    <div class="col-12 col-md-4">
+
+        <div class="form-group mr-3">
+            <label for="fechaFinal"></label>
+            <input type="date" class="form-control" name="fechaFinal" id="fechaFinal" required>
+        </div>
+
+    </div>
+    
+    `);
+}
+
+function mostrarInputsBusquedaMes(){
+    $('#contenedorInputsBusqueda').html(`
+    
+    <div class="col-12 col-md-4">
+
+        <div class="form-group mr-3">
+            <label for="mesInicial"></label>
+            <input type="month" class="form-control" name="mesInicial" id="mesInicial" required>
+        </div>
+
+    </div>
+
+    <div class="col-12 col-md-4">
+
+        <div class="form-group mr-3">
+            <label for="mesFinal"></label>
+            <input type="month" class="form-control" name="mesFinal" id="mesFinal" required>
+        </div>
+
+    </div>
+    
+    `);
+}
+
+function mostrarInputsBusquedaTrimestre(){
+    $('#contenedorInputsBusqueda').html(`
+    
+    <div class="col-12 col-md-4">
+
+        <div class="form-group mr-3">
+            <label for="mesInicial"></label>
+            <input type="month" class="form-control" name="mesInicial" id="mesInicial" required>
+        </div>
+
+    </div>
+    
+    `);
+}
+
+function mostrarInputsBusqueda(OPCION){
+
+    if(OPCION == 'dia'){
+        mostrarInputsBusquedaDia();
+    }else if(OPCION == 'semana'){
+        mostrarInputsBusquedaSemana();
+    }else if(OPCION == 'mes'){
+        mostrarInputsBusquedaMes();
+    }else if(OPCION == 'trimestre'){
+        mostrarInputsBusquedaTrimestre();
+    }
+
+}
+
+$(document).ready(function(){
+
+mostrarInputsBusqueda();
+
+$(document).on('change', 'input[name=opcionBusqueda]', function(){
+    const OPCION = $(this).val();
+    mostrarInputsBusqueda(OPCION);
+});
+
+
+});
+
+$(document).on('change', '#selectOficina', function(){
+        const OFICINA_ID = $(this).val();
+        actualizarOpcionesFitters(OFICINA_ID);
+    });
 
 </script>
 

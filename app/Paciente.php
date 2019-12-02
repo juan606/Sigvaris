@@ -99,10 +99,7 @@ class Paciente extends Model
      */
 
      public function scopeNoCompradores($query){
-        // public function scopeNoUsers($query){
-            $pacientes_id = Venta::whereNotNull('paciente_id')->pluck('paciente_id')->all();
-            return $query->whereNotIn('id',$pacientes_id);
-        // }
+            return $query->doesntHave('ventas');
      }
 
 }

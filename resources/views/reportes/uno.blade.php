@@ -20,6 +20,28 @@
                     <label for="fechaFinal"></label>
                     <input type="date" class="form-control" name="fechaFinal" id="fechaFinal" required>
                 </div>
+                {{-- Input oficina --}}
+                <div class="form-group mr-4">
+                    <label for="oficina_id"></label>
+                    <select name="oficinaId" class="form-control" id="selectOficina">
+                        <option value="">Todas</option>
+                        @foreach ($oficinas as $oficina)
+                            <option value="{{$oficina->id}}">{{$oficina->nombre}}</option>
+                        @endforeach
+                    </select>
+                </div>
+                {{-- Input fitter --}}
+                <div class="form-group mr-4">
+                    <label for="fitters"></label>
+                    <select name="empleadoFitterId" class="form-control" id="selectEmpleadosFitter">
+                        <option value="">Todos</option>
+                        @foreach ($empleadosFitter as $empleadoFitter)
+                            <option value="{{$empleadoFitter->id}}">
+                                {{$empleadoFitter->nombre}} {{$empleadoFitter->appaterno}} {{$empleadoFitter->apmaterno}}
+                            </option>
+                        @endforeach
+                    </select>
+                </div>
                 <button class="btn btn-primary">Buscar</button>
             </form>
         </div>
@@ -79,6 +101,8 @@
     </div>
 </div>
 
+<script src="{{ URL::asset('js/handleFitters.js') }}"></script>
+
 <script src="//cdnjs.cloudflare.com/ajax/libs/jspdf/1.3.3/jspdf.min.js"></script>
 
 <script src="https://code.jquery.com/jquery-3.3.1.js"></script>    
@@ -102,13 +126,43 @@ var Years = <?php echo json_encode($fechas_pacientes_sin_compra) ?>;
 var Labels = new Array("l1", "l2", "l3");
 var Prices = <?php echo json_encode($num_pacientes_por_fecha) ?>;
 
+//download pdf form hidden canvas
+function downloadPDF2() {
+	var newCanvas = document.querySelector('#canvas');
+
+  //create image from dummy canvas
+	var newCanvasImg = newCanvas.toDataURL("image/png", 1.0);
+  
+  	//creates PDF from img
+	var doc = new jsPDF('landscape');
+	doc.setFontSize(20);
+	doc.text(15, 15, "Pacientes sin compras");
+	doc.addImage(newCanvasImg, 'PNG', 10, 10, 280, 150 );
+	doc.save('pacientes-sin-compras.pdf');
+ }
+
+
+
+/**
+* ==========================
+* EVENTOS
+* ==========================
+*/
+
+//add event listener to 2nd button
+// document.getElementById('download-pdf').addEventListener("click", downloadPDF2);
+
+$(document).on('click', '#download-pdf', function(){
+    downloadPDF2();
+});
+
+
+$(document).on('change', '#selectOficina', function(){
+    const OFICINA_ID = $(this).val();
+    actualizarOpcionesFitters(OFICINA_ID);
+});
+
 $(document).ready(function(){
-    // $.get(url, function(response){
-    // response.forEach(function(data){
-    //     Years.push(data.stockYear);
-    //     Labels.push(data.stockName);
-    //     Prices.push(data.stockPrice);
-    // });
 
     var ctx = document.getElementById("canvas").getContext('2d');
 
@@ -136,24 +190,6 @@ $(document).ready(function(){
         });
     // });
 });
-
-//add event listener to 2nd button
-document.getElementById('download-pdf').addEventListener("click", downloadPDF2);
-
-//download pdf form hidden canvas
-function downloadPDF2() {
-	var newCanvas = document.querySelector('#canvas');
-
-  //create image from dummy canvas
-	var newCanvasImg = newCanvas.toDataURL("image/png", 1.0);
-  
-  	//creates PDF from img
-	var doc = new jsPDF('landscape');
-	doc.setFontSize(20);
-	doc.text(15, 15, "Pacientes sin compras");
-	doc.addImage(newCanvasImg, 'PNG', 10, 10, 280, 150 );
-	doc.save('pacientes-sin-compras.pdf');
- }
 
 </script>
 

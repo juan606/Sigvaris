@@ -28,22 +28,69 @@
                 <button class="btn btn-primary">Buscar</button>
             </form>
         </div>
-        {{-- @if ( isset($pacientes_sin_compra) ) --}}
+        @if ( count($doctores) )
             {{-- TABLA DOCTORES --}}
             <div class="card-body">
-                <table class="table table-hover table-striped table-bordered" style="margin-bottom: 0;" id="listaEmpleados">
+                <table class="table table-hover table-striped table-bordered table-responsive" style="margin-bottom: 0;" id="listaEmpleados">
                     <thead>
                         <tr class="info">
-                            <th>Médico</th>
-                            <th># recomendados</th>
+                            <th rowspan="2">Doctor</th>
+
+                            @foreach ($mesesSolicitados as $mes)
+                                <th colspan="2">{{$mesesString[$mes]}}</th>
+                            @endforeach
+
+                            <th colspan="2">Total</th>
+                        </tr>
+                        <tr>
+                            @foreach ($mesesSolicitados as $mes)
+                                <th>1° vez</th>
+                                <th>Recompra</th>
+                            @endforeach
+                            <th>1° vez</th>
+                            <th>Recompra</th>
                         </tr>
                     </thead>
                     <tbody>
-                        @foreach($doctores as $key => $pacientes)
+                        @foreach($doctores as $key => $doctor)
                         {{-- {{dd($doctores)}} --}}
                             <tr>
-                                <td>{{ !App\Doctor::find($key) ? : App\Doctor::find($key)->nombre }} {{ !App\Doctor::find($key) ? : App\Doctor::find($key)->apellidopaterno }} {{ !App\Doctor::find($key) ? : App\Doctor::find($key)->apellidomaterno }}</td>
-                                <td>{{count($pacientes)}}</td>
+                                <td>{{$doctor->nombre}}</td>
+                                @foreach ($mesesSolicitados as $mes)
+                                    <th>
+                                        {{-- {{dd($mesesSolicitados)}} --}}
+                                        {{
+                                            $doctor
+                                                ->pacientes()
+                                                ->withCount("ventas")
+                                                // SOLO PACIENTES CON VENTAS EN EL RANGO DE TIEMPO
+                                                ->whereHas('ventas', function(\Illuminate\Database\Eloquent\Builder $query) use($mes){
+                                                    $query->where('fecha','>=','2019-'.$mes.'-1')
+                                                        ->where('fecha', '<=', '2019-'.$mes.'-31');
+                                                })
+                                                // SOLO PACIENTES CON MENOS DE UNA VENTA
+                                                ->having('ventas_count', '<=', 1)
+                                                ->get()
+                                                ->count()
+                                        }}
+                                    </th>
+                                    <th>{{
+                                        $doctor
+                                            ->pacientes()
+                                            ->withCount("ventas")
+                                            ->with('ventas')
+                                            // SOLO PACIENTES CON VENTAS EN EL RANGO DE TIEMPO
+                                            ->whereHas('ventas', function (\Illuminate\Database\Eloquent\Builder $query) use ($mes) {
+                                                $query->where('fecha', '>=', '2019-'.$mes.'-1')
+                                                    ->where('fecha', '<=', '2019-'.$mes.'-31');
+                                            })
+                                            // SOLO PACIENTES CON MAS DE UNA VENTA
+                                            ->having('ventas_count', '>=', 2)
+                                            ->get()->count()
+                                        }}</th>
+                                @endforeach
+                                <td>-</td>
+                                <td>-</td>
                             </tr>
                         @endforeach
                     </tbody>    
@@ -53,7 +100,7 @@
             <div class="card-body">
                 <canvas id="canvas" height="280" width="600"></canvas>
             </div>
-        {{-- @endif --}}
+        @endif
     </div>
 </div>
 
@@ -68,56 +115,6 @@
 </script>
 
 {{-- SCRIPTS PARA GRAFICAR TABLAS --}}
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.12.3/js/bootstrap-select.min.js" charset="utf-8"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.6.0/Chart.bundle.js" charset="utf-8"></script>
-<script>
-var url = "{{url('stock/chart')}}";
-var Years = <?php echo json_encode($nombresDoctores) ?>;
-var Labels = new Array("l1", "l2", "l3");
-var Prices = <?php echo json_encode($numRecomendadosPorDoctor) ?>;
-var doctores = <?php echo json_encode($doctores) ?>;
-
-$(document).ready(function(){
-    // $.get(url, function(response){
-    // response.forEach(function(data){
-    //     Years.push(data.stockYear);
-    //     Labels.push(data.stockName);
-    //     Prices.push(data.stockPrice);
-    // });
-
-    for (const key in doctores) {
-        if (doctores.hasOwnProperty(key)) {
-            const element = doctores[key];
-            Years.push(element.length);
-        }
-    }
-
-    var ctx = document.getElementById("canvas").getContext('2d');
-        // var myChart = new Chart(ctx, {
-        //     type: 'line',
-        //     data: {
-        //         labels:Years,
-        //         datasets: [{
-        //             label: 'Total de pacientes',
-        //             data: Prices,
-        //             borderWidth: 1
-        //         }]
-        //     },
-        //     options: {
-        //         scales: {
-        //             yAxes: [{
-        //                 ticks: {
-        //                     beginAtZero:true
-        //                 }
-        //             }]
-        //         }
-        //     }
-        // });
-    // });
-});
-</script>
 
 
 @endsection

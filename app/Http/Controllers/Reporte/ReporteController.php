@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Reporte;
 
 use App\Doctor;
+use App\Empleado;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Oficina;
@@ -10,6 +11,7 @@ use App\Paciente;
 use App\Producto;
 use App\Venta;
 use Carbon\Carbon;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Facades\DB;
 
 class ReporteController extends Controller
@@ -18,18 +20,42 @@ class ReporteController extends Controller
     public function uno(Request $request)
     {
 
+        // dd($request->input());
+
         $pacientes_sin_compra = null;
         $fechas_pacientes_sin_compra = null;
         $num_pacientes_por_fecha = null;
+        $empleadosFitter = Empleado::fitters()->get();
+
+        $oficinas = Oficina::get();
 
         if ($request->input()) {
+
             $fechaInicial = $request->input('fechaInicial');
             $fechaFinal = $request->input('fechaFinal');
-            $pacientes_sin_compra = Paciente::noCompradores()
-                ->where('created_at', '>=', $fechaInicial)
-                ->where('created_at', '<=', $fechaFinal)
-                ->orderBy('created_at', 'asc')
-                ->get();
+
+            if ($request->empleadoFitterId) {
+
+                $pacientes_sin_compra = Empleado::where('id', $request->empleadoFitterId)
+                    ->first()
+                    ->pacientes()
+                    ->with('ventas')
+                    ->whereDoesntHave('ventas', function(Builder $query) use($request){
+                        return $query->where('fecha', '>=', $request->fechaInicial)
+                            ->where('fecha','<=',$request->fechaFinal);
+                    });
+            }else{
+                $pacientes_sin_compra = Paciente::noCompradores();
+            }
+
+            // SI SE SOLICITA UNA OFICINA EN ESPECIFICO, LA BUSCAMOS
+            if ($request->oficinaId) {
+                // dd($request->oficinaId);
+                $pacientes_sin_compra = $pacientes_sin_compra
+                    ->where('oficina_id', $request->oficinaId);
+            }
+
+            $pacientes_sin_compra = $pacientes_sin_compra->get();
 
             // ARREGLO DE FECHAS DE LOS PACIENTES QUE NO COMPRARON
             $fechas_pacientes_sin_compra = $pacientes_sin_compra;
@@ -43,20 +69,42 @@ class ReporteController extends Controller
             });
         }
 
-        return view('reportes.uno', compact('pacientes_sin_compra', 'fechas_pacientes_sin_compra', 'num_pacientes_por_fecha'));
+        return view('reportes.uno', compact('pacientes_sin_compra', 'fechas_pacientes_sin_compra', 'num_pacientes_por_fecha', 'oficinas', 'empleadosFitter'));
     }
 
     public function dos(Request $request)
     {
 
+        $oficinas = Oficina::get();
+
+        $empleadosFitter = Empleado::fitters()->get();
+
+        // dd($empleadosFitter);
+
         if ($request->input()) {
+
+            // dd($request->input());
 
             // OBTENEMOS EL RANGO DE FECHAS SOLICITADOS
             $fechaInicial = $request->input('fechaInicial');
             $fechaFinal = $request->input('fechaFinal');
 
 
-            $ventasPorFechaPorPaciente = Venta::where('fecha', '>=', $fechaInicial)->where('fecha', '<=', $fechaFinal)->withCount('productos')->get()->groupBy('paciente_id')
+            $ventasPorFechaPorPaciente = Venta::where('fecha', '>=', $fechaInicial)
+                ->where('fecha', '<=', $fechaFinal)
+                ->withCount('productos');
+
+            if ($request->oficinaId) {
+                $ventasPorFechaPorPaciente->where('oficina_id', $request->oficinaId);
+            }
+
+            if ($request->empleadoFitterId) {
+                $ventasPorFechaPorPaciente->where('empleado_id', $request->empleadoFitterId);
+            }
+
+
+            $ventasPorFechaPorPaciente = $ventasPorFechaPorPaciente->get()
+                ->groupBy('paciente_id')
                 ->transform(function ($item, $k) {
                     return $item->groupBy(function ($date) {
                         return Carbon::parse($date->fecha)->format('Y-m-d'); // grouping by years
@@ -65,21 +113,24 @@ class ReporteController extends Controller
                 });
 
             foreach ($ventasPorFechaPorPaciente as $venta) {
-                $prendasVendidasPorPaciente =  $venta->pluck('productos_count')->flatten()->sum();
-                // return $prendas;
-                // return array_sum($prendas);
+                $prendasVendidasPorPaciente =  $venta
+                    ->pluck('productos_count')
+                    ->flatten()
+                    ->sum();
             }
 
             // return $ventasPorFechaPorPaciente;
 
-            return view('reportes.dos', compact('ventasPorFechaPorPaciente'));
+            return view('reportes.dos', compact('ventasPorFechaPorPaciente', 'oficinas', 'empleadosFitter'));
         }
 
-        return view('reportes.dos');
+        return view('reportes.dos', compact('oficinas', 'empleadosFitter'));
     }
 
     public function tres(Request $request)
     {
+        $oficinas = Oficina::get();
+        $empleadosFitter = Empleado::fitters()->get();
 
         $ventas = null;
         $rangoDias = null;
@@ -90,17 +141,62 @@ class ReporteController extends Controller
 
         if ($request->input()) {
 
-            $fechaInicial = $request->input('fechaInicial');
-            $fechaFinal = $request->input('fechaFinal');
+            if ($request->opcionBusqueda == 'dia') {
+                // OBTENEMOS EL DÍA DE INICIO Y DÍA DE FIN
+                $fechaInicial = $request->input('fechaInicial');
+                $fechaFinal = $request->input('fechaFinal');
 
-            // OBTENEMOS ARREGLO DE LAS FECHAS CON VENTAS
-            $arregloFechasConVentas = Venta::where('fecha', '>=', $fechaInicial)
-                ->where('fecha', '<=', $fechaFinal)
-                ->orderBy('fecha')
+                // OBTENEMOS ARREGLO DE LAS FECHAS CON VENTAS
+                $arregloFechasConVentas = Venta::where('fecha', '>=', $fechaInicial)
+                    ->where('fecha', '<=', $fechaFinal);
+            } else if ($request->opcionBusqueda == "semana") {
+
+                $fechaInicial = Carbon::parse($request->fechaInicial)->startOfWeek()->toDateString();
+                $fechaFinal = Carbon::parse($request->fechaFinal)->endOfWeek()->toDateString();
+
+                $arregloFechasConVentas = Venta::where('fecha', '>=', $fechaInicial)
+                    ->where('fecha', '<=', $fechaFinal);
+            } else if ($request->opcionBusqueda == 'mes') {
+                $mesInicial = explode("-", $request->mesInicial)[1];
+                $anioInicial = explode("-", $request->mesInicial)[0];
+                $mesFinal = explode("-", $request->mesFinal)[1];
+                $anioFinal = explode("-", $request->mesFinal)[0];
+
+                $arregloFechasConVentas = Venta::whereYear('fecha', '>=', $anioInicial)
+                    ->whereYear('fecha', '<=', $anioFinal)
+                    ->whereMonth('fecha', '>=', $mesInicial)
+                    ->whereMonth('fecha', '<=', $mesFinal);
+            } else if ($request->opcionBusqueda == 'trimestre') {
+
+                $mesInicial = explode("-", $request->mesInicial)[1];
+                $anioInicial = explode("-", $request->mesInicial)[0];
+                $fechaFinal = Carbon::parse($anioInicial . "-" . $mesInicial . "-01")->addMonths(3)->format('Y-m-d');
+                $mesFinal = explode("-", $fechaFinal)[1];
+                $anioFinal = explode("-", $fechaFinal)[0];
+
+                $arregloFechasConVentas = Venta::whereYear('fecha', '>=', $anioInicial)
+                    ->whereYear('fecha', '<=', $anioFinal)
+                    ->whereMonth('fecha', '>=', $mesInicial)
+                    ->whereMonth('fecha', '<=', $mesFinal);
+            }
+
+            if ($request->empleadoFitterId) {
+                $arregloFechasConVentas = $arregloFechasConVentas->where('empleado_id', $request->empleadoFitterId);
+            }
+
+            if ($request->oficina_id) {
+                $arregloFechasConVentas = $arregloFechasConVentas
+                    ->where('oficina_id', $request->oficina_id);
+            }
+
+            $arregloFechasConVentas = $arregloFechasConVentas->orderBy('fecha')
                 ->pluck('fecha')
                 ->all();
+
             $arregloFechasConVentas = array_unique($arregloFechasConVentas);
             $arregloFechasConVentas = array_values($arregloFechasConVentas);
+
+            // dd($arregloFechasConVentas);
 
             // POR CADA FECHA OBTENEMOS A LOS PACIENTES CON UN PRODUCTO COMPRADO
             foreach ($arregloFechasConVentas as $key => $fecha) {
@@ -134,118 +230,83 @@ class ReporteController extends Controller
             // dd($arregloTotalPacientesConMasDeUnProducto);
             // dd($arregloTotalPacientesConMasDeUnProducto);
 
-            $arregloSumaPacientes[] = array_sum ( $arregloTotalPacientesConUnProducto );
-            $arregloSumaPacientes[] = array_sum ( $arregloTotalPacientesConMasDeUnProducto );
-
+            $arregloSumaPacientes[] = array_sum($arregloTotalPacientesConUnProducto);
+            $arregloSumaPacientes[] = array_sum($arregloTotalPacientesConMasDeUnProducto);
         }
 
-        return view('reportes.tres', compact('arregloFechasConVentas', 'arregloTotalPacientesConUnProducto', 'arregloTotalPacientesConMasDeUnProducto','arregloSumaPacientes'));
+        return view('reportes.tres', compact('arregloFechasConVentas', 'arregloTotalPacientesConUnProducto', 'arregloTotalPacientesConMasDeUnProducto', 'arregloSumaPacientes', 'oficinas', 'empleadosFitter'));
     }
 
     public function cuatroa(Request $request)
     {
 
-        $comprasPorCliente = array();
+        $pacientesConCompra = array();
+        $totalProductosCompras = 0;
+        $rangoFechas = array();
 
         if ($request->input()) {
-            // dd($request->input(''));
-            $fechaInicial = $request->input('fechaInicial');
-            $fechaFinal = $request->input('fechaFinal');
 
-            $pacientesConCompra = Paciente::has('ventas')->get();
+            // OBTENEMOS EL PERIODO DE TIEMPO DE BUSQUEDA
+            $rangoFechas = array(
+                "inicio" => $request->fechaInicial,
+                "fin" => $request->fechaFinal
+            );
 
-            foreach ($pacientesConCompra as $paciente) {
-                $comprasPorCliente[] = count(
-                    $paciente->ventas()->where('fecha', '>=', $fechaInicial)->where('fecha', '<=', $fechaFinal)->with('productos')->get()->pluck('productos')->flatten()
-                );
-            }
+            // OBTENEMOS LOS PACIENTES CON COMPRAS
+            $pacientesConCompra = Paciente::whereHas('ventas', function (Builder $query) use ($request) {
+                $query->where('fecha', '>=', $request->fechaInicial)
+                    ->where('fecha', '<=', $request->fechaFinal);
+            })
+                ->with('ventas.productos')
+                ->get();
 
-            // dd(array_count_values($comprasPorCliente));
-            $comprasPorCliente = array_count_values($comprasPorCliente);
+            $totalProductosCompras = $pacientesConCompra
+                ->pluck('ventas')
+                ->flatten()
+                ->where('fecha', '>=', $rangoFechas["inicio"])
+                ->where('fecha', '<=', $rangoFechas["fin"])
+                ->pluck('productos')
+                ->flatten()
+                ->pluck('pivot')
+                ->flatten()
+                ->pluck('cantidad')->sum();
         }
 
-        return view('reportes.cuatroa', compact('comprasPorCliente'));
+        return view('reportes.cuatroa', compact('pacientesConCompra', 'rangoFechas', 'totalProductosCompras'));
     }
 
     public function cuatrob(Request $request)
     {
 
-        $arrayNumPacientesDeSku = array();
-        $arrayNumPacientes = array();
-        $arrayNumPrendasVendidasDeSkus = array();
-        $arrayMesesYAnios = array();
-        $skus = array();
+        $skusConVentas = array();
+        $totalPrendasVendidas = 0;
 
         if ($request->input()) {
 
-            $fechaInicial = $request->input('fechaInicial');
-            $fechaFinal = $request->input('fechaFinal');
+            // SKUS CON VENTAS EN EL INTERVALO SOLICITADO
+            $skusConVentas = Producto::with(['ventas' => function ($query) use ($request) {
+                return $query->where('fecha', '>=', $request->fechaInicial)
+                    ->where('fecha', '<=', $request->fechaFinal);
+            }, 'ventas.paciente'])
+                ->whereHas('ventas', function (Builder $query) use ($request) {
+                    return $query->where('fecha', '>=', $request->fechaInicial)
+                        ->where('fecha', '<=', $request->fechaFinal);
+                })
+                ->get()
+                ->groupBy('sku');
 
-            // VENTAS DENTRO DEL INTERVALO DE FECHAS SOLICITADAS
-            $ventas = Venta::where('fecha', '>=', $fechaInicial)
-                ->where('fecha', '<=', $fechaFinal)
-                ->with('productos')
-                // ->orderBy('fecha')
-                ->get();
+            $totalPrendasVendidas = $skusConVentas->flatten()
+                ->pluck('ventas')
+                ->flatten()
+                ->pluck('pivot')
+                ->flatten()
+                ->pluck('cantidad')
+                ->sum();
 
-            // SKUS DE LOS PRODUCTOS
-            $skus = $ventas->pluck('productos')->flatten();
-            $skus = array_unique($skus->pluck('sku')->toArray());
-            $skus = array_values($skus);
-
-            // OBTENEMOS EL ARREGLO DEL TOTAL DE PRENDAS POR SKU
-            foreach ($skus as $sku) {
-                $totalVentasDeSku = Venta::where('fecha', '>=', $fechaInicial)
-                    // ->orderBy('fecha')
-                    ->where('fecha', '<=', $fechaFinal)
-                    ->withCount([
-                        'productos' => function ($query) use ($sku) {
-                            $query->where('sku', $sku);
-                        }
-                    ])
-                    ->get();
-
-                // OBTENEMOS LAS PRENDAS VENDIDAS DEL SKU
-                $totalVentasDeSku2 = $totalVentasDeSku->pluck('productos_count')->toArray();
-                $arrayNumPrendasVendidasDeSkus[] = array_values(array_unique($totalVentasDeSku2));
-            }
-
-
-
-            // OBTENEMOS EL ARREGLO DEL TOTAL DE PRENDAS POR SKU
-            foreach ($skus as $key => $sku) {
-                $clientesConSku = [];
-                foreach($arrayNumPrendasVendidasDeSkus[$key] as $numPrendasVendidas){
-                    $totalVentasDeSku = Venta::where('fecha', '>=', $fechaInicial)
-                    // ->orderBy('fecha')
-                    ->where('fecha', '<=', $fechaFinal)
-                    ->withCount([
-                        'productos' => function ($query) use ($sku) {
-                            $query->where('sku', $sku);
-                        }
-                    ])
-                    ->get();
-
-                    $totalVentasDeSku = $totalVentasDeSku->where('productos_count',$numPrendasVendidas);
-                    // dd($totalVentasDeSku);
-                    $totalClientesConCantidadSku = $totalVentasDeSku->pluck('paciente_id')->toArray();
-                    $totalClientesConCantidadSku = array_unique($totalClientesConCantidadSku);
-                    $totalClientesConCantidadSku = count($totalClientesConCantidadSku);
-                    // dd($totalClientesConCantidadSku);
-                    $clientesConSku[] = $totalClientesConCantidadSku;
-                    // dd($totalClientesConCantidadSku);
-                }
-                $arrayNumPacientes[] = $clientesConSku;
-            }
-
-            // dd($arrayNumPrendasVendidasDeSkus);
-
+            // return $skusConVentas->flatten()->pluck('ventas')->flatten()->pluck('pivot');
         }
 
-        // dd($arrayNumPrendasVendidasDeSkus);
-        // dd($arrayNumPacientes);
-
-        return view('reportes.cuatrob', compact('skus', 'arrayNumPrendasVendidasDeSkus', 'arrayNumPacientes'));
+        return view('reportes.cuatrob', compact('skusConVentas', 'totalPrendasVendidas'));
     }
 
     public function cuatroc(Request $request)
@@ -265,22 +326,22 @@ class ReporteController extends Controller
                 $arrayMesesYAnios[] = $meses[$i] . "-" . $anios[$i];
 
                 $totalVentaPorMesYanio = Venta::whereYear('fecha', $anios[$i])
-                ->whereMonth('fecha', $meses[$i]);
+                    ->whereMonth('fecha', $meses[$i]);
 
-                if($request->input('sku')){
+                if ($request->input('sku')) {
                     $sku = $request->input('sku');
-                    $totalVentaPorMesYanio = $totalVentaPorMesYanio->with(['productos' => function ($query) use($sku) {
+                    $totalVentaPorMesYanio = $totalVentaPorMesYanio->with(['productos' => function ($query) use ($sku) {
                         $query->where('sku', $sku);
                     }]);
-                }else{
+                } else {
                     $totalVentaPorMesYanio = $totalVentaPorMesYanio->with('productos');
                 }
 
                 $arregloTotalVentasPorMesYAnio[] = count(
                     $totalVentaPorMesYanio
-                    ->get()
-                    ->pluck('productos')
-                    ->flatten()
+                        ->get()
+                        ->pluck('productos')
+                        ->flatten()
                 );
                 // $arregloTotalVentasPorMesYAnio[] = count( Venta::whereYear('') );
 
@@ -288,10 +349,10 @@ class ReporteController extends Controller
 
             // dd($arregloTotalVentasPorMesYAnio);
 
-            if($request->input('sku')){
-                $skus = array_unique(Producto::where('sku',$sku)->pluck('sku')->toArray());
+            if ($request->input('sku')) {
+                $skus = array_unique(Producto::where('sku', $sku)->pluck('sku')->toArray());
                 // dd($skus);
-            }else{
+            } else {
                 $skus = array_unique(Producto::pluck('sku')->toArray());
             }
         }
@@ -404,91 +465,47 @@ class ReporteController extends Controller
     public function diez(Request $request)
     {
 
-        $doctores = Paciente::with('doctor')->get()->pluck('doctor')->flatten()->groupBy('id');
-        $pacientesPorDoctor = null;
-        $numRecomendadosPorDoctor = null;
-        $nombresDoctores = null;
-        $nombresDoctores = null;
+        $mesesSolicitados = [];
 
-        if ($request->input()) {
-            $fechaInicial = $request->input('fechaInicial');
-            $fechaFinal = $request->input('fechaFinal');
-
-            // DOCTORES QUE SE ENCUENTRAN EN LAS FECHAS SOLICITADAS
-            $doctores = Paciente::where('updated_at', '>=', $fechaInicial)
-                ->where('updated_at', '<=', $fechaFinal . " 23:59:59")
-                ->whereHas('doctor')
-                ->with('doctor')
-                ->orderBy('id')
-                ->get()
-                ->pluck('doctor')
-                ->flatten()
-                ->groupBy('id');
-
-            // NUM. DE RECOMENDACION POR DOCTOR
-            $numRecomendadosPorDoctor = [];
-            foreach ($doctores as $key => $doctor) {
-                
-                $numRecomendadosPorDoctor[] = Doctor::find($key)
-                    ->pacientes()
-                    ->where('updated_at', '>=', $fechaInicial)
-                    ->where('updated_at', '<=', $fechaFinal . " 23:59:59")
-                    ->get()
-                    ->count();
-            }
-
-            // NOMBRES DOCTORES:
-            $nombresDoctores = [];
-            foreach ($doctores as $doctor_id => $value) {
-                $nombresDoctores[] = Doctor::find($doctor_id)->nombre . " " . Doctor::find($doctor_id)->apellidopaterno . " " . Doctor::find($doctor_id)->apellidomaterno . " ";
-            }
-            // dd($nombresDoctores);
-
-            // $nombresDoctores = $nombresDoctores->toArray();
-        }
-
-        // $doctores = $doctores->toArray();
-        return view('reportes.diez', compact('doctores', 'pacientesPorDoctor', 'numRecomendadosPorDoctor', 'nombresDoctores'));
-    }
-
-    public function oficinas(Request $request)
-    {
-
-        $ventasPorDia = array();
-        $arregloDiasQueVendieron = array();
-        $oficina_nombre = null;
-
-        // OBTENEMOS TODAS LAS OFICINAS
-        $oficinas = Oficina::get();
+        $mesesString = array(
+            "01" => "Enero",
+            "02" => "Febrero",
+            "03" => "Marzo",
+            "04" => "Abril",
+            "05" => "Mayo",
+            "06" => "Junio",
+            "07" => "Julio",
+            "08" => "Agosto",
+            "09" => "Septiembre",
+            "10" => "Octubre",
+            "11" => "Noviembre",
+            "12" => "Diciembre"
+        );
+        $doctores = collect();
 
         if ($request->input()) {
 
-            // OBTENEMOS TODOS LOS INPUTS
-            $fechaInicial = $request->input('fechaInicial');
-            $fechaFinal = $request->input('fechaFinal');
-            $oficina_id = $request->input('oficinaId');
+            $mesInicio = explode("-", $request->fechaInicial)[1];
+            $mesFinal = explode("-", $request->fechaFinal)[1];
 
-            $oficina_nombre = Oficina::find($oficina_id)->nombre;
+            for ($i = $mesInicio; $i <= $mesFinal; $i++) {
 
-            // 
-            $currentDate = strtotime($fechaInicial);
-            while ($currentDate <= strtotime($fechaFinal)) {
-                $formatted = date("Y-m-d", $currentDate);
-                $totalVentasDelDia = count(Venta::where('fecha', 'LIKE', '%' . $formatted . '%')->where('oficina_id', $oficina_id)->with('productos')->get()->pluck('productos')->flatten());
+                $numMes = (int) $i;
+                // dd($numMes);
 
-                if ($totalVentasDelDia != 0) {
-                    $ventasPorDia[] = $totalVentasDelDia;
-                    $arregloDiasQueVendieron[] = $formatted;
+                if ($i < 10) {
+                    $mesesSolicitados[] = "0" . $numMes;
+                } else {
+                    $mesesSolicitados[] = (string) $numMes;
                 }
-
-                $currentDate = strtotime("+1 day", $currentDate);
             }
 
-            // dd($ventasPorDia);   
-            // dd($arregloDiasQueVendieron);         
+            // dd($mesesSolicitados);
+
+            $doctores = Doctor::get();
         }
 
-        return view('reportes.oficinas', compact('oficinas', 'ventasPorDia', 'arregloDiasQueVendieron', 'oficina_nombre'));
+        return view('reportes.diez', compact('doctores', 'mesesSolicitados', 'mesesString'));
     }
 
     public function dosAnt(Request $request)

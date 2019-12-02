@@ -252,7 +252,7 @@
         var iva=parseFloat($('#iva').val())
         var des=parseFloat($('#descuento').val());
         // console.log(des);       
-        console.log(subtotal+iva-des-sigpesos);
+        console.log('TOTAL ACTUALIZADO',subtotal+iva-des-sigpesos);
         $('#total').val(subtotal+iva-des-sigpesos);
         // $('#total').val('ola');
     }

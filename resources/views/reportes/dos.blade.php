@@ -19,6 +19,25 @@
                         <label for="fechaFinal"></label>
                         <input type="date" class="form-control" name="fechaFinal" id="fechaFinal" required>
                     </div>
+                    {{-- Input oficinaId --}}
+                    <div class="form-group mr-4">
+                        <label for="oficina_id"></label>
+                        <select name="oficinaId" class="form-control" id="selectOficina">
+                            <option value="">Todas</option>
+                            @foreach ($oficinas as $oficina)
+                                <option value="{{$oficina->id}}">{{$oficina->nombre}}</option>
+                            @endforeach
+                        </select>
+                    </div>
+                    {{-- SELECT EMPLEADOS FITTERS --}}
+                    <select name="empleadoFitterId" class="form-control mr-4" id="selectEmpleadosFitter">
+                        <option value="">Todos</option>
+                        @foreach ($empleadosFitter as $empleadoFitter)
+                            <option value="{{$empleadoFitter->id}}">
+                                {{$empleadoFitter->nombre}} {{$empleadoFitter->appaterno}} {{$empleadoFitter->apmaterno}}
+                            </option>
+                        @endforeach
+                    </select>
                     <button class="btn btn-primary">Buscar</button>
                 </form>
             </div>
@@ -46,8 +65,14 @@
                                         <td>{{App\Paciente::find($paciente_id)->nombre}}</td>
                                         <td>{{App\Paciente::find($paciente_id)->paterno}}</td>
                                         <td>{{App\Paciente::find($paciente_id)->materno}}</td>
-                                        <td>{{$ventas->pluck('productos_count')->flatten()->sum()}}</td>
-                                        {{-- <td>-</td> --}}
+                                        <td>{{
+                                            $ventas->pluck('productos')
+                                                ->flatten()
+                                                ->pluck('pivot')
+                                                ->flatten()
+                                                ->pluck('cantidad')
+                                                ->sum()
+                                            }}</td>
                                     </tr>
                                 @endforeach
                             @endforeach
@@ -57,4 +82,13 @@
             @endif
         </div>
     </div>
+
+<script src="{{ URL::asset('js/handleFitters.js') }}"></script>
+<script>
+    $(document).on('change', '#selectOficina', function(){
+        const OFICINA_ID = $(this).val();
+        actualizarOpcionesFitters(OFICINA_ID);
+    });
+</script>
+    
 @endsection

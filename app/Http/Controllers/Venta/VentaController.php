@@ -12,6 +12,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
 use App\Services\Ventas\RealizarVentaProductosService;
+use Illuminate\Support\Facades\Auth;
 
 class VentaController extends Controller
 {
@@ -66,12 +67,15 @@ class VentaController extends Controller
     public function store(Request $request)
     {
 
+        if(!isset($request->producto_id) || is_null($request->producto_id)){
+            return redirect()->back();
+        }
+
         // PREPARAR DATOS DE LA VENTA
         $venta = new Venta($request->all());
         $venta->oficina_id=session()->get('oficina');
+        $venta->empleado_id = Auth::user()->empleado->id;
         $productos = Producto::find($request->producto_id);
-
-        // dd(Producto::find($request->producto_id));
 
         // REALIZAR VENTA
         $this->realizarVentaProductosService->make($venta, $productos, $request);

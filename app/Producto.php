@@ -25,6 +25,6 @@ class Producto extends Model
     ];
 
     public function ventas(){
-        return $this->belongsToMany('App\Venta', 'producto_venta');
+        return $this->belongsToMany('App\Venta', 'producto_venta')->withPivot('cantidad','precio');
     }
 }

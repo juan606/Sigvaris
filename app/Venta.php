@@ -20,11 +20,12 @@ class Venta extends Model
         'created_at',
         'line',
         'upc',
-        'swiss_id'
+        'swiss_id',
+        'empleado_id'
     ];
 
     public function productos(){
-        return $this->belongsToMany('App\Producto', 'producto_venta')->withPivot('cantidad');
+        return $this->belongsToMany('App\Producto', 'producto_venta')->withPivot('cantidad','precio');
     }
 
     public function paciente(){
