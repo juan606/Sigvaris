@@ -10,22 +10,30 @@
         <div class="card-body">
             <form action="{{route('reportes.10')}}" method="POST" class="form-inline">
                 @csrf
-                {{-- Año inicial --}}
-                <div class="input-group mr-3">
-                    <div class="input-group-prepend">
-                        <div class="input-group-text">DE: </div>
+                <div class="row">
+                    <div class="col-12 col-sm-6 col-md-4 mt-2">
+                        {{-- Año inicial --}}
+                        <div class="input-group">
+                            <div class="input-group-prepend">
+                                <div class="input-group-text">DE: </div>
+                            </div>
+                            <input type="date" class="form-control" id="fechaInicial" name="fechaInicial" required>
+                        </div>
                     </div>
-                    <input type="date" class="form-control" id="fechaInicial" name="fechaInicial" required>
-                </div>
-                {{-- Año final --}}
-                <div class="input-group mr-3">
-                    {{-- <label for="anioFinal">A: </label> --}}
-                    <div class="input-group-prepend">
-                        <div class="input-group-text">A: </div>
+                    <div class="col-12 col-sm-6 col-md-4 mt-2">
+                        {{-- Año final --}}
+                        <div class="input-group">
+                            {{-- <label for="anioFinal">A: </label> --}}
+                            <div class="input-group-prepend">
+                                <div class="input-group-text">A: </div>
+                            </div>
+                            <input type="date" class="form-control" id="fechaFinal" name="fechaFinal" required>
+                        </div>
                     </div>
-                    <input type="date" class="form-control" id="fechaFinal" name="fechaFinal" required>
+                    <div class="col-12 col-sm-6 col-md-4 mt-2">
+                        <button class="btn btn-primary">Buscar</button>
+                    </div>
                 </div>
-                <button class="btn btn-primary">Buscar</button>
             </form>
         </div>
         @if ( count($doctores) )
@@ -65,7 +73,7 @@
                                                 ->withCount("ventas")
                                                 // SOLO PACIENTES CON VENTAS EN EL RANGO DE TIEMPO
                                                 ->whereHas('ventas', function(\Illuminate\Database\Eloquent\Builder $query) use($mes){
-                                                    $query->where('fecha','>=','2019-'.$mes.'-1')
+                                                    $query->where('fecha','>=','2019-'.$mes.'-01')
                                                         ->where('fecha', '<=', '2019-'.$mes.'-31');
                                                 })
                                                 // SOLO PACIENTES CON MENOS DE UNA VENTA

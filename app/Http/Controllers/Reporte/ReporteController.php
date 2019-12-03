@@ -40,11 +40,11 @@ class ReporteController extends Controller
                     ->first()
                     ->pacientes()
                     ->with('ventas')
-                    ->whereDoesntHave('ventas', function(Builder $query) use($request){
+                    ->whereDoesntHave('ventas', function (Builder $query) use ($request) {
                         return $query->where('fecha', '>=', $request->fechaInicial)
-                            ->where('fecha','<=',$request->fechaFinal);
+                            ->where('fecha', '<=', $request->fechaFinal);
                     });
-            }else{
+            } else {
                 $pacientes_sin_compra = Paciente::noCompradores();
             }
 

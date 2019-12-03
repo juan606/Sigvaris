@@ -18,7 +18,16 @@ use Illuminate\Support\Facades\DB;
 class PruebaController extends Controller
 {
 
-    public function index(){
-        return Empleado::find(3)->pacientes()->get();
+    public function index()
+    {
+        return Doctor::find(1)->pacientes()
+            ->whereHas('ventas', function (Builder $query) {
+                $query->where('fecha', '>=', '2019-01-01')
+                    ->where('fecha', '<=', '2019-12-31');
+            })
+            ->withCount("ventas")
+            ->with('ventas')
+            ->having('ventas_count', '<=', 1)
+            ->get();
     }
 }

@@ -24,12 +24,12 @@
                     <div class="row">
                         <div class="col-4 form-group">
                             <label for="paciente_id">✱Paciente</label>
-                            <select class="form-control" name="paciente_id" id="paciente_id"  required="">
-                                <option value="">Selecciona...</option>
-                                @foreach($pacientes as $pacien)
-                                <option {{$paciente && $paciente->id == $pacien->id ? "selected " : ""}} value="{{$pacien->id}}">{{$pacien->nombre}}</option>
-                                @endforeach
-                            </select>
+                                <select class="form-control" name="paciente_id" id="paciente_id"  required="">
+                                    <option value="">Selecciona...</option>
+                                    @foreach($pacientes as $pacien)
+                                        <option {{$paciente && $paciente->id == $pacien->id ? "selected " : ""}} value="{{$pacien->id}}">{{$pacien->nombre}}</option>
+                                    @endforeach
+                                </select>
                         </div>
                         <div class="col-4 form-group">
                             <label class="control-label">Fecha:</label>
@@ -39,6 +39,20 @@
                         <div class="col-4 form-group">
                             <label class="control-label">Folio:</label>
                             <input type="number" name="precio" class="form-control" readonly="" value="{{$folio}}">
+                        </div>
+                        <div class="col-4 form-group">
+                            <label class="control-label">Fitter:</label>
+                            {{-- {{dd($empleadosFitter)}} --}}
+                            @if (Auth::user()->id == 1 || Auth::user()->empleado->puesto->nombre != "fitter")                            
+                                <select name="empleado_id" id="" class="form-control" required>
+                                    <option value="">Seleccionar</option>
+                                    @foreach ($empleadosFitter as $empleadoFitter)
+                                        <option value="{{$empleadoFitter->id}}">
+                                            {{$empleadoFitter->nombre}} {{$empleadoFitter->appaterno}} {{$empleadoFitter->apmaterno}}
+                                        </option>
+                                    @endforeach
+                                </select>
+                            @endif
                         </div>
                     </div>
                     <hr>
@@ -124,7 +138,7 @@
                             <div class="input-group-prepend">
                                 <span class="input-group-text">Sigpesos ganados: </span>
                             </div>
-                            <input type="number" class="form-control" name="sigpesos" id="sigpesos" value="0" min="1" step="0.01" readonly="">
+                            <input type="number" class="form-control" name="sigpesos" id="sigpesos" value="0" min="0" step="0.01" readonly="">
                         </div>
                     </div>
 
@@ -133,7 +147,7 @@
                             <div class="input-group-prepend">
                                 <span class="input-group-text">Sigpesos a usar: </span>
                             </div>
-                            <input type="number" class="form-control" name="sigpesos_usar" id="sigpesos_usar" value="0" min="1" step="0.01" readonly="">
+                            <input type="number" class="form-control" name="sigpesos_usar" id="sigpesos_usar" value="0" min="0" step="0.01" readonly="">
                         </div>
                     </div>
 
@@ -251,7 +265,11 @@
         var subtotal=parseFloat($('#subtotal').val())
         var iva=parseFloat($('#iva').val())
         var des=parseFloat($('#descuento').val());
-        // console.log(des);       
+        // console.log(des);
+        console.log('SUBTOTAL', subtotal);
+        console.log('iva', iva);
+        console.log('des', des);
+        console.log('sigpesos', sigpesos);  
         console.log('TOTAL ACTUALIZADO',subtotal+iva-des-sigpesos);
         $('#total').val(subtotal+iva-des-sigpesos);
         // $('#total').val('ola');
@@ -398,9 +416,9 @@
             await $.ajax({
                 url:"{{ url('/obtener_sigpesos') }}/"+id,
                 type:'GET',
-                dataType:'text',
                 success: function(res){                    
                     var sigpesos=$('#sigpesos_usar').val(parseInt(res));
+                    console.log('sigpesos peticion',res);
                 }
 
             });

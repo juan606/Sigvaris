@@ -11,6 +11,7 @@ class RealizarVentaProductosService
 
     public function make($venta, $productos, $request)
     {
+        // dd('venta que será guardada'.$venta);
         // REALIZAMOS LA VENTA
         $venta->save();
 

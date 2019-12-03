@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Http\Controllers\Venta;
+
 use Carbon\Carbon;
 use App\Venta;
 use App\Paciente;
@@ -8,6 +9,7 @@ use App\Producto;
 use App\Descuento;
 use App\Promocion;
 use App\Doctor;
+use App\Empleado;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
@@ -27,15 +29,16 @@ class VentaController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    
+
     public function index()
     {
         $medicos = Doctor::get();
-        return view('venta.index_all', ['ventas'=>Venta::get(), 'medicos' =>$medicos]);
+        return view('venta.index_all', ['ventas' => Venta::get(), 'medicos' => $medicos]);
     }
 
-    public function indexConPaciente(Paciente $paciente){
-        return view('venta.index', ['ventas'=>$paciente->ventas,'paciente'=>$paciente]);
+    public function indexConPaciente(Paciente $paciente)
+    {
+        return view('venta.index', ['ventas' => $paciente->ventas, 'paciente' => $paciente]);
     }
 
     /**
@@ -45,18 +48,27 @@ class VentaController extends Controller
      */
     public function create()
     {
-        $hoy=Carbon::now()->toDateString();
-        $descuentos = Descuento::where('inicio','<=',$hoy)->where('fin','>=',$hoy)->get();
+        $hoy = Carbon::now()->toDateString();
+        $descuentos = Descuento::where('inicio', '<=', $hoy)->where('fin', '>=', $hoy)->get();
         $productos = Producto::get();
         $pacientes = Paciente::get();
-        return view('venta.create', ['pacientes'=>$pacientes, 'paciente'=>null, 'descuentos'=>$descuentos ,'productos'=>$productos,'folio'=>Venta::count()+1]);
+        $empleadosFitter = Empleado::fitters()->get();
+        return view('venta.create', [
+            'pacientes' => $pacientes,
+            'paciente' => null,
+            'descuentos' => $descuentos,
+            'productos' => $productos,
+            'folio' => Venta::count() + 1,
+            'empleadosFitter' => $empleadosFitter
+        ]);
     }
 
-    public function createConPaciente(Paciente $paciente){
+    public function createConPaciente(Paciente $paciente)
+    {
         $descuentos = Descuento::get();
         $productos = Producto::get();
         $pacientes = Paciente::get();
-        return view('venta.create', ['pacientes'=>$pacientes, 'paciente'=>$paciente, 'descuentos'=>$descuentos, 'productos'=>$productos,'folio'=>Venta::count()+1]);
+        return view('venta.create', ['pacientes' => $pacientes, 'paciente' => $paciente, 'descuentos' => $descuentos, 'productos' => $productos, 'folio' => Venta::count() + 1]);
     }
     /**
      * Store a newly created resource in storage.
@@ -67,19 +79,31 @@ class VentaController extends Controller
     public function store(Request $request)
     {
 
-        if(!isset($request->producto_id) || is_null($request->producto_id)){
+        if (!isset($request->producto_id) || is_null($request->producto_id)) {
             return redirect()->back();
         }
 
+        // dd('Si hay producto');
+
         // PREPARAR DATOS DE LA VENTA
         $venta = new Venta($request->all());
-        $venta->oficina_id=session()->get('oficina');
-        $venta->empleado_id = Auth::user()->empleado->id;
+        $venta->oficina_id = session()->get('oficina');
+
+        // GUARDAMOS EL FITTER DE LA VENTA
+        if ($request->empleado_id) {
+            $venta->empleado_id = $request->empleado_id;
+        } else {
+            $venta->empleado_id = Auth::user()->empleado->id;
+            // dd('Empleado fitter'.Auth::user()->empleado );
+        }
+
+        // dd('VENTA QUE SERÁ GUARDADA'.$venta);
+
         $productos = Producto::find($request->producto_id);
 
         // REALIZAR VENTA
         $this->realizarVentaProductosService->make($venta, $productos, $request);
-        
+
         // REDIRIGIR A LAS VENTAS REALIZADAS
         return redirect()->route('ventas.index');
     }
@@ -92,7 +116,7 @@ class VentaController extends Controller
      */
     public function show(Venta $venta)
     {
-        return view('venta.show', ['venta'=>$venta]);
+        return view('venta.show', ['venta' => $venta]);
     }
 
     /**
@@ -103,7 +127,7 @@ class VentaController extends Controller
      */
     public function edit(Venta $venta)
     {
-        return view('venta.edit', ['venta'=>$venta]);
+        return view('venta.edit', ['venta' => $venta]);
     }
 
     /**
@@ -116,7 +140,7 @@ class VentaController extends Controller
     public function update(Request $request, Venta $venta)
     {
         $venta->update($request->all());
-        return view('venta.show',['venta'=>$venta]);
+        return view('venta.show', ['venta' => $venta]);
     }
 
     /**
@@ -137,27 +161,26 @@ class VentaController extends Controller
         $ventasxprenda = [];
 
         // OBTENEMOS LAS PRENDAS POR EL NUMERO DE PIEZAS
-        if($request->num_prendas != "" && $request->num_prendas != "0"){
-            $ventas = Venta::with('paciente','descuento')->where('fecha','<=',$request->hasta)->where('fecha','>=',$request->desde)->get();
+        if ($request->num_prendas != "" && $request->num_prendas != "0") {
+            $ventas = Venta::with('paciente', 'descuento')->where('fecha', '<=', $request->hasta)->where('fecha', '>=', $request->desde)->get();
             foreach ($ventas as $v) {
-                if($v->productos->count() == $request->num_prendas)
+                if ($v->productos->count() == $request->num_prendas)
                     $ventasxprenda[] = $v;
             }
             $ventas = [];
             foreach ($ventasxprenda as $v)
                 $ventas[] = $v;
-        }
-        else
-            $ventas = Venta::with('paciente','descuento')->where('fecha','<=',$request->hasta)->where('fecha','>=',$request->desde)->get();
+        } else
+            $ventas = Venta::with('paciente', 'descuento')->where('fecha', '<=', $request->hasta)->where('fecha', '>=', $request->desde)->get();
 
         // Obtención de Las ventas que contengan la prenda o prendas que se introdujeron en el campo prenda
         $arr = [];
-        if($request->prenda != ""){
+        if ($request->prenda != "") {
             $query = $request->prenda;
-            $wordsquery = explode(' ',$query);
-            $total_ventas = Venta::where('fecha','<=',$request->hasta)->where('fecha','>=',$request->desde)->get();
+            $wordsquery = explode(' ', $query);
+            $total_ventas = Venta::where('fecha', '<=', $request->hasta)->where('fecha', '>=', $request->desde)->get();
             foreach ($total_ventas as $venta) {
-                $productos = $venta->productos()->where(function($q) use($wordsquery){
+                $productos = $venta->productos()->where(function ($q) use ($wordsquery) {
                     foreach ($wordsquery as $word) {
                         $q->orWhere('sku', 'LIKE', "%$word%")
                             ->orWhere('descripcion', 'LIKE', "%$word%")
@@ -167,7 +190,7 @@ class VentaController extends Controller
                             ->orWhere('swiss_id', 'LIKE', "%$word%");
                     }
                 })->get();
-                if ($productos->count() != 0) 
+                if ($productos->count() != 0)
                     $arr[] = $venta;
             }
             //dd($arr);
@@ -182,15 +205,14 @@ class VentaController extends Controller
                         $ventas_final[] = $venta;
                     }
                 }
-            }
-            else
+            } else
                 $ventas_final[] = $venta;
         }
 
         // Obtencion de las prendas MAS o MENOS vendidas
-        if($request->mas != "")
+        if ($request->mas != "")
             $consulta = DB::select("SELECT producto_id, SUM(cantidad) AS TotalVentas FROM producto_venta GROUP BY producto_id ORDER BY SUM(cantidad) DESC LIMIT 0 , 30 ");
-        elseif($request->menos != "")
+        elseif ($request->menos != "")
             $consulta = DB::select("SELECT producto_id, SUM(cantidad) AS TotalVentas FROM producto_venta GROUP BY producto_id ORDER BY SUM(cantidad) LIMIT 0 , 100 ");
         else
             $consulta = [];
@@ -202,13 +224,11 @@ class VentaController extends Controller
 
     public function getVentasClientes(Request $request)
     {
-        if($request->tipo == "primero"){
+        if ($request->tipo == "primero") {
             $consulta = DB::select("SELECT paciente_id FROM ventas GROUP BY paciente_id HAVING COUNT(*) = 1 ");
-        }
-        elseif ($request->tipo == "consecutivo") {
+        } elseif ($request->tipo == "consecutivo") {
             $consulta = DB::select("SELECT paciente_id FROM ventas GROUP BY paciente_id HAVING COUNT(*) > 1 ");
-        }
-        else{
+        } else {
             $consulta = [];
         }
 
@@ -216,36 +236,33 @@ class VentaController extends Controller
         foreach ($consulta as $paciente) {
             if ($request->desde && $request->hasta) {
                 $ventastemp = Venta::where('paciente_id', $paciente->paciente_id)
-                    ->where('fecha','<=',$request->hasta)->where('fecha','>=',$request->desde)
+                    ->where('fecha', '<=', $request->hasta)->where('fecha', '>=', $request->desde)
                     ->get();
-            }
-            else
+            } else
                 $ventastemp = Venta::where('paciente_id', $paciente->paciente_id)->get();
-            
+
             foreach ($ventastemp as $v) {
                 $cantidad = 0;
                 foreach ($v->productos as $prod) {
                     $cantidad += $prod->pivot->cantidad;
                 }
-                $ventas[] = ['venta' =>$v, 'cantidad' => $cantidad];
+                $ventas[] = ['venta' => $v, 'cantidad' => $cantidad];
             }
         }
         $suma_ventas = 0;
-        $sumatoria_pacientes=[];
+        $sumatoria_pacientes = [];
         foreach ($ventas as $vent) {
             $suma_ventas += $vent['venta']->total;
-            $val=1;
+            $val = 1;
             foreach ($sumatoria_pacientes as $p) {
-                if($p==$vent['venta']->paciente->id)
+                if ($p == $vent['venta']->paciente->id)
                     $val = 0;
             }
-            if($val)
-                array_push($sumatoria_pacientes,$vent['venta']->paciente->id);
+            if ($val)
+                array_push($sumatoria_pacientes, $vent['venta']->paciente->id);
         }
         $totalClientes = count($sumatoria_pacientes);
         return response()->json(["ventas" => $ventas, 'total' => $suma_ventas, 'suma_pacientes' => $totalClientes]);
-        
-
     }
 }
 
