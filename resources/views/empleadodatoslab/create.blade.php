@@ -183,18 +183,19 @@
 			</div>
 			<hr>
 			<div class="card-body" id="contenedorMetasFitter" style="display: none">
+				<h3>Metas del fitter</h3>
 				<div class="row">
 					<div class="col-12 col-sm-6 col-md-4 mt-2">
-						<label for="montoVentas">MONTO DE VENTAS</label>
-						<input type="number" step="0.01" class="form-control" name="montoVentas">
+						<label for="montoVentas" class="text-mutted text-uppercase">MONTO DE VENTAS</label>
+						<input type="number" step="0.01" class="form-control" name="monto_venta">
 					</div>
 					<div class="col-12 col-sm-6 col-md-4 mt-2">
-						<label for="numPacientesRecompra">NUM. PACIENTES RECOMPRA</label>
-						<input type="number" class="form-control" name="numPacientesRecompra">
+						<label for="numPacientesRecompra" class="text-mutted text-uppercase">NUM. PACIENTES RECOMPRA</label>
+						<input type="number" class="form-control" name="num_pacientes_recompra">
 					</div>
 					<div class="col-12 col-sm-6 col-md-4 mt-2">
-						<label for="numRecompras">NUM. RECOMPRAS</label>
-						<input type="number" class="form-control" name="numRecompras">
+						<label for="numRecompras" class="text-mutted text-uppercase">NUM. RECOMPRAS</label>
+						<input type="number" class="form-control" name="num_recompras">
 					</div>
 				</div>
 			</div>

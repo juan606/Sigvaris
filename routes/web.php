@@ -37,6 +37,9 @@ Route::resource('empleados.emergencias','Empleado\EmpleadosEmergenciasController
 Route::resource('empleados.vacaciones','Empleado\EmpleadosVacacionesController');
 Route::resource('empleados.faltas','Empleado\EmpleadosFaltasAdministrativasController');
 
+// METAS
+Route::resource('metas','MetaController');
+
 // CERTIFICACIONES
 route::resource('certificaciones', 'Certificacion\CertificacionController');
 

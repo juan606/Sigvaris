@@ -101,6 +101,10 @@ class Empleado extends Model
         });
     }
 
+    public function fitterMetas(){
+        return $this->hasMany('App\FitterMeta');
+    }
+
     /**
      * Scope methods
      */
