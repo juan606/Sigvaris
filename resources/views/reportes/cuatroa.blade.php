@@ -3,10 +3,11 @@
 
     <div class="container">
         <div class="card">
+            {{-- TITULO DEL REPORTE --}}
             <div class="card-header">
                 <h3>Reporte de prendas compradas</h3>
             </div>
-            {{-- Buscador de pacientes --}}
+            {{-- BUSCADOR PACIENTES --}}
             <div class="card-body">
                 <form action="{{route('reportes.4a')}}" method="POST" class="form-inline">
                     @csrf
@@ -23,40 +24,59 @@
                     <button class="btn btn-primary">Buscar</button>
                 </form>
             </div>
-            @if ( isset($comprasPorCliente) )
-                {{-- Lista de pacientes --}}
-                <div class="card-body">
-                    <table class="table table-hover table-striped table-bordered" style="margin-bottom: 0;" id="listaEmpleados">
-                        <thead>
-                            <tr class="info">
-                                <th># Compras</th>
-                                <th># Pacientes</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            @foreach($comprasPorCliente as $key => $compra)
-                                    <tr>
-                                        <td>{{$key}}</td>
-                                        <td>{{$compra}}</td>
-                                    </tr>
-                            @endforeach
-                        </tbody>    
-                    </table>
-                </div>
-                {{-- Resumen de información --}}
-                {{-- <div class="card-body">
-                    <div class="row">
-                        <div class="col-12 col-md-4"></div>
-                        <div class="col-12 col-md-4"></div>
-                        <div class="col-12 col-md-4">
-                            <h5 class="text-center">
-                                <strong>TOTAL DE PACIENTES</strong>
-                                <br>
-                                {{count($comprasPorCliente)}}
-                            </h5>
-                        </div>
+            @if ( isset($pacientesConCompra) )
+            {{-- TABLA PACIENTES --}}
+            <div class="card-body">
+                <table class="table table-hover table-striped table-bordered" style="margin-bottom: 0;" id="listaEmpleados">
+                    <thead>
+                        <tr class="info">
+                            <th>Paciente</th>
+                            <th># prendas</th>
+                            <th>Porcentaje</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach($pacientesConCompra as $key => $paciente)
+                                <tr>
+                                    <td>{{$paciente->nombre . " " . $paciente->paterno . " " . $paciente->materno}}</td>
+                                    <td>
+                                        {{
+                                            $paciente
+                                                ->ventas
+                                                ->where('fecha','>=',$rangoFechas["inicio"])
+                                                ->where('fecha', '<=',$rangoFechas["fin"])
+                                                ->pluck('productos')
+                                                ->flatten()
+                                                ->pluck('pivot')
+                                                ->flatten()
+                                                ->pluck('cantidad')->sum()
+                                        }}</td>
+                                    <td>
+                                        {{ round($paciente
+                                            ->ventas
+                                            ->where('fecha','>=',$rangoFechas["inicio"])
+                                            ->where('fecha', '<=',$rangoFechas["fin"])
+                                            ->pluck('productos')
+                                            ->flatten()
+                                            ->pluck('pivot')
+                                            ->flatten()
+                                            ->pluck('cantidad')->sum() / $totalProductosCompras * 100, 2) }}%
+                                    </td>
+                                </tr>
+                        @endforeach
+                    </tbody>    
+                </table>
+                <div class="row mt-3">
+                    <div class="col-3"></div>
+                    <div class="col-3"></div>
+                    <div class="col-3"></div>
+                    <div class="col-3">
+                        <label for="totalCompras" class="text-uppercase"><strong>Compras totales</strong></label>
+                        <input type="text" readonly value="{{$totalProductosCompras}}" class="form-control">
                     </div>
-                </div> --}}
+                </div>
+            </div>
+
             @endif
         </div>
     </div>

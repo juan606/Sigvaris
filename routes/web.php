@@ -37,6 +37,12 @@ Route::resource('empleados.emergencias','Empleado\EmpleadosEmergenciasController
 Route::resource('empleados.vacaciones','Empleado\EmpleadosVacacionesController');
 Route::resource('empleados.faltas','Empleado\EmpleadosFaltasAdministrativasController');
 
+// METAS
+Route::resource('metas','MetaController');
+
+// CERTIFICACIONES
+route::resource('certificaciones', 'Certificacion\CertificacionController');
+
 Route::get('empleados/{empleado}/EmpledoBaja','Empleado\EmpleadoBajaController@create');
 Route::post('empleados/{empleado}/EmpledoBaja/store','Empleado\EmpleadoBajaController@store');
 
@@ -60,12 +66,17 @@ Route::get('get_promos/{descuento}','Venta\DescuentoController@getPromos');
 Route::post('calcular_descuento/{promocion}','Venta\DescuentoController@getDescuento');
 Route::get('obtener_sigpesos/{paciente}','Venta\DescuentoController@getSigpesos');
 
-Route::resource('contratos','Precargas\TipoContratoController');
+Route::get('productos/inventario', 'Inventario\InventarioController@index')->name('productos.inventario');
+Route::get('productos/inventario/historial', 'Inventario\InventarioController@historial')->name('productos.inventario.historial');
+Route::get('productos/inventario/modificar/{id}', 'Inventario\InventarioController@edit')->name('producto.inventario.modificar');
+Route::post('productos/inventario/update', 'Inventario\InventarioController@update')->name('producto.inventario.update');
+Route::resource('contratos','Precargas\TipoContratoController')->middleware('precargas.role');
 Route::resource('descuentos', 'Venta\DescuentoController');
 Route::resource('productos', 'Producto\ProductoController');
-Route::get('import-export-csv-excel', array('as' => 'excel.import', 'uses' => 'FileController@importExportExcelORCSV'));
-Route::post('import-csv-excel', array('as' => 'import-csv-excel', 'uses' => 'FileController@importFileIntoDB'));
-Route::get('download-excel-file/{type}', array('as' => 'excel-file', 'uses' => 'FileController@downloadExcelFile'));
+
+Route::get('import-export-csv-excel', array('as' => 'excel.import', 'uses' => 'FileController@importExportExcelORCSV'))->middleware('productos.rol');
+Route::post('import-csv-excel', array('as' => 'import-csv-excel', 'uses' => 'FileController@importFileIntoDB'))->middleware('productos.rol');
+Route::get('download-excel-file/{type}', array('as' => 'excel-file', 'uses' => 'FileController@downloadExcelFile'))->middleware('productos.rol');
 
 Route::get('pacientes/{paciente}/ventas/historial', 'Venta\VentaController@indexConPaciente')->name('pacientes.historial');
 Route::get('pacientes/{paciente}/ventas', 'Venta\VentaController@createConPaciente')->name('pacientes.venta');
@@ -82,7 +93,7 @@ Route::resource('giros', 'Giro\GiroController', ['except' => 'show']);
 Route::resource('areas','Area\AreaController', ['except'=>'show']);
 Route::resource('puestos','Puesto\PuestoController', ['except'=>'show']);
 Route::resource('bancos','Banco\BancoController', ['except'=>'show']);
-Route::resource('bajas','Precargas\TipoBajaController');
+Route::resource('bajas','Precargas\TipoBajaController')->middleware('precargas.role');
 
 Route::resource('roles','Role\RoleController');
 //Route::get('roles/{role}/destroy','Role\RoleController@destroy');
@@ -129,6 +140,7 @@ Route::post('reportes/9','Reporte\ReporteController@nueve')->name('reportes.9');
 Route::get('reportes/10','Reporte\ReporteController@diez')->name('reportes.10');
 Route::post('reportes/10','Reporte\ReporteController@diez')->name('reportes.10');
 
+
 Route::get('reportes/2','Reporte\ReporteController@dos')->name('reportes.2');
 Route::post('reportes/2','Reporte\ReporteController@dos')->name('reportes.2');
 Route::get('reportes/4','Reporte\ReporteController@cuatro')->name('reportes.4');
@@ -138,3 +150,8 @@ Route::get('reportes/7','Reporte\ReporteController@siete')->name('reportes.7');
 
 
 Route::get('pruebas','Prueba\PruebaController@index');
+
+
+// APIS
+Route::get('api/empleados/fitters/','Empleado\EmpleadoController@getEmpleadosFitters');
+Route::get('api/empleados/fitters/{oficina}','Empleado\EmpleadoController@getEmpleadosFittersByOficina');

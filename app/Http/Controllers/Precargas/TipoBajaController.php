@@ -10,27 +10,16 @@ use Illuminate\Support\Facades\Auth;
 
 class TipoBajaController extends Controller
 {
-    
-    public function __construct(){
-        
-        $this->middleware(function ($request, $next) {
-            if(Auth::check()) {
-                $this->titulo = 'Tipo de Baja';
-                $this->agregar = 'bajas.create';
-                $this->guardar = 'bajas.store';
-                $this->editar ='bajas.edit';
-                $this->actualizar = 'bajas.update';
-                $this->borrar ='bajas.destroy';
-                $this->buscar = 'buscarbaja';   
-                if(Auth::user()->role->precargas)
-                {
-                    return $next($request);
-                }                
-             return redirect('/inicio');
-                 
-            }
-            return redirect('/'); 
-        });
+
+    public function __construct()
+    {
+        $this->titulo = 'Tipo de Baja';
+        $this->agregar = 'bajas.create';
+        $this->guardar = 'bajas.store';
+        $this->editar = 'bajas.edit';
+        $this->actualizar = 'bajas.update';
+        $this->borrar = 'bajas.destroy';
+        $this->buscar = 'buscarbaja';
     }
     /**
      * Display a listing of the resource.
@@ -41,7 +30,7 @@ class TipoBajaController extends Controller
     {
         //
         $bajas = TipoBaja::paginate(10);
-        return view('precargas.indexBajas',['bajas'=>$bajas, 'agregar'=>$this->agregar, 'editar'=>$this->editar,'borrar'=>$this->borrar,'titulo'=>$this->titulo,'buscar'=>$this->buscar]);
+        return view('precargas.indexBajas', ['bajas' => $bajas, 'agregar' => $this->agregar, 'editar' => $this->editar, 'borrar' => $this->borrar, 'titulo' => $this->titulo, 'buscar' => $this->buscar]);
     }
 
     /**
@@ -52,7 +41,7 @@ class TipoBajaController extends Controller
     public function create()
     {
         //
-         return view('precargas.createBajas',['titulo'=>$this->titulo,'guardar'=>$this->guardar]);
+        return view('precargas.createBajas', ['titulo' => $this->titulo, 'guardar' => $this->guardar]);
     }
 
     /**
@@ -89,7 +78,7 @@ class TipoBajaController extends Controller
     {
         //
         // dd($baja);
-        return view('precargas.editBajas',['baja'=>$baja, 'titulo'=>$this->titulo,'actualizar'=>$this->actualizar]);
+        return view('precargas.editBajas', ['baja' => $baja, 'titulo' => $this->titulo, 'actualizar' => $this->actualizar]);
     }
 
     /**
@@ -118,21 +107,23 @@ class TipoBajaController extends Controller
         $baja->delete();
         return redirect()->route('bajas.index');
     }
-    public function buscar(Request $request){
+    public function buscar(Request $request)
+    {
         $query = $request->input('query');
-        $wordsquery = explode(' ',$query);
-        $tipoBaja = TipoBaja::where(function ($q) use($wordsquery){
+        $wordsquery = explode(' ', $query);
+        $tipoBaja = TipoBaja::where(function ($q) use ($wordsquery) {
             foreach ($wordsquery as $word) {
                 # code...
-                $q->orWhere('nombre','LIKE',"%$word%")
-                    ->orWhere('descripcion','LIKE',"%$word%");
+                $q->orWhere('nombre', 'LIKE', "%$word%")
+                    ->orWhere('descripcion', 'LIKE', "%$word%");
             }
         })->paginate(50);
-        return view('precargas.index',['precargas'=>$tipoBaja, 'agregar'=>$this->agregar, 'editar'=>$this->editar,'borrar'=>$this->borrar,'titulo'=>$this->titulo,'buscar'=>$this->buscar]);
+        return view('precargas.index', ['precargas' => $tipoBaja, 'agregar' => $this->agregar, 'editar' => $this->editar, 'borrar' => $this->borrar, 'titulo' => $this->titulo, 'buscar' => $this->buscar]);
     }
 
-          public function getBajas(){
+    public function getBajas()
+    {
         $tipobajas = TipoBaja::get();
-        return view('precargas.select',['precargas'=>$tipobajas]);
+        return view('precargas.select', ['precargas' => $tipobajas]);
     }
 }

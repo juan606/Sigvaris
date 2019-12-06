@@ -51,6 +51,7 @@
                     </a>
                     <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                         <a class="dropdown-item" href="{{url('empleados/create')}}"><span>Alta</span><i class="fa fa-plus float-right"></i></a>
+                        <a class="dropdown-item" href="{{route('certificaciones.index')}}"><span>Certificaciones</span><i class="fa fa-plus float-right"></i></a>
                         <a class="dropdown-item" href="{{ url('empleados') }}"><span>Buscar</span><i class="fa fa-search float-right"></i></a>
                     </div>
                 </li>    
@@ -97,7 +98,9 @@
                     <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                         <a class="dropdown-item" href="{{route('productos.create')}}"><span>Alta</span><i class="fa fa-plus float-right"></i></a>
                         <a class="dropdown-item" href="{{route('productos.index')}}"><span>Buscar</span><i class="fa fa-search float-right"></i></a>
-                        <a class="dropdown-item" href="{{ url('import-export-csv-excel') }}"><span>Excel</span><i class="fa fa-search float-right"></i></a>
+                        <a class="dropdown-item" href="{{ url('import-export-csv-excel') }}"><span>Excel</span><i class="fa fa-file-excel float-right" aria-hidden="true"></i></a>
+                        <a class="dropdown-item" href="{{ route('productos.inventario') }}"><span>Inventario</span><i class="fa fa-history float-right" aria-hidden="true"></i></a>
+                        <a class="dropdown-item" href="{{ route('productos.inventario.historial') }}"><span>Historial</span><i class="fa fa-search float-right"></i></a>
                     </div>
                 </li>    
             @endif
@@ -157,16 +160,16 @@
                         </a>
                         <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                 {{-- @if (Auth::user()->role->roles) --}}
-                            <a class="dropdown-item" href="{{route('reportes.1')}}"><span>1</span><i class="fa fa-search float-right"></i></a>
-                            <a class="dropdown-item" href="{{route('reportes.2')}}"><span>2</span><i class="fa fa-search float-right"></i></a>
-                            <a class="dropdown-item" href="{{route('reportes.3')}}"><span>3</span><i class="fa fa-search float-right"></i></a>
-                            <a class="dropdown-item" href="{{route('reportes.4a')}}"><span>4a</span><i class="fa fa-search float-right"></i></a>
-                            <a class="dropdown-item" href="{{route('reportes.4b')}}"><span>4b</span><i class="fa fa-search float-right"></i></a>
-                            <a class="dropdown-item" href="{{route('reportes.4c')}}"><span>4c</span><i class="fa fa-search float-right"></i></a>
-                            <a class="dropdown-item" href="{{route('reportes.4d')}}"><span>4d</span><i class="fa fa-search float-right"></i></a>
-                            <a class="dropdown-item" href="{{route('reportes.5')}}"><span>5,6</span><i class="fa fa-search float-right"></i></a>
-                            <a class="dropdown-item" href="{{route('reportes.9')}}"><span>9</span><i class="fa fa-search float-right"></i></a>
-                            <a class="dropdown-item" href="{{route('reportes.10')}}"><span>10</span><i class="fa fa-search float-right"></i></a>
+                            <a class="dropdown-item" href="{{route('reportes.1')}}"><span>Pacientes que no compraron</span><i class="fa fa-search float-right"></i></a>
+                            <a class="dropdown-item" href="{{route('reportes.2')}}"><span>Prendas compradas por paciente</span><i class="fa fa-search float-right"></i></a>
+                            <a class="dropdown-item" href="{{route('reportes.3')}}"><span>Prendas vendidas por rango de fecha</span><i class="fa fa-search float-right"></i></a>
+                            <a class="dropdown-item" href="{{route('reportes.4a')}}"><span>Prendas compradas</span><i class="fa fa-search float-right"></i></a>
+                            <a class="dropdown-item" href="{{route('reportes.4b')}}"><span>Prendas por SKU</span><i class="fa fa-search float-right"></i></a>
+                            <a class="dropdown-item" href="{{route('reportes.4c')}}"><span>Prendas vendidas</span><i class="fa fa-search float-right"></i></a>
+                            <a class="dropdown-item" href="{{route('reportes.4d')}}"><span>Prendas vendidas por año</span><i class="fa fa-search float-right"></i></a>
+                            <a class="dropdown-item" href="{{route('reportes.5')}}"><span>Pacientes por año y mes</span><i class="fa fa-search float-right"></i></a>
+                            <a class="dropdown-item" href="{{route('reportes.9')}}"><span>Prendas vendidas por SKU</span><i class="fa fa-search float-right"></i></a>
+                            <a class="dropdown-item" href="{{route('reportes.10')}}"><span>Recomendaciones de doctor</span><i class="fa fa-search float-right"></i></a>
                 {{-- @endif --}}
             {{-- @endif --}}
 

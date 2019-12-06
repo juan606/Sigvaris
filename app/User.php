@@ -22,6 +22,6 @@ class User extends Authenticatable
     }
 
     public function empleado(){
-        return $this->belongsTo('App/Empleado');
+        return $this->belongsTo('App\Empleado');
     }
 }

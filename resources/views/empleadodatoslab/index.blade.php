@@ -145,7 +145,9 @@
 			</a>
 		</div>
 
-		<div class="well well-sm" align="center"><strong>Historial Laboral</strong></div>
+		<div class="well well-sm" align="center">
+			<h4 class="text-center">Historial laboral</h4>			
+		</div>
 <table class="table table-striped table-bordered table-hover" style="color:rgb(51,51,51); border-collapse: collapse; margin-bottom: 0px;">
 				<thead>
 					<tr class="info">
@@ -373,5 +375,65 @@
 
       </div>
     </div>
+
+	@if ($empleado->puesto->nombre == "fitter")
+
+
+		<div class="row">
+			<div class="col-12 mt-3">
+				<h4 class="text-center">Metas del fitter</h4>
+			</div>
+			<div class="col-12">
+				<div class="row">
+					<div class="col-12">
+						<button type="button" class="btn btn-success rounded-0" data-toggle="modal" data-target="#modalCrearMetaFitter">Agregar</button>
+					</div>
+				</div>
+			</div>
+			<div class="col-12 mt-3">
+				<table class="table table-striped table-bordered table-hover" style="color:rgb(51,51,51); border-collapse: collapse; margin-bottom: 0px;">
+					<thead>
+						<tr>
+							<td>
+								Fecha de inicio
+							</td>
+							<td>
+								monto de venta
+							</td>
+							<td>
+								número de pacientes de recompra
+							</td>
+							<td>
+								número de recompras
+							</td>
+						</tr>
+					</thead>
+					<tbody>
+						@each('componentes.empleados.tablas.metas_fitter', $empleado->fitterMetas, 'meta')
+						@foreach ($empleado->fitterMetas as $meta)
+						<tr class="active" data-toggle="modal" data-target="#meta_{{$meta->id}}">
+								<td>
+									{{$meta->fecha_inicio}}
+								</td>
+								<td>
+									{{$meta->monto_venta}}
+								</td>
+								<td>
+									{{$meta->num_pacientes_recompra}}
+								</td>
+								<td>
+									{{$meta->numero_recompras}}
+								</td>
+							</tr>
+						@endforeach
+						
+					</tbody>
+				</table>
+				<br>
+			</div>
+		</div>
+		@include('componentes.empleados.formularios.crear_meta_fitter', compact('empleado'))
+
+	@endif
 
 @endsection
