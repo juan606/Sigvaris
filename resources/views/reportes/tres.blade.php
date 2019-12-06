@@ -38,6 +38,7 @@
                         </div>
                         <div class="col-12">
                             <div class="row">
+                                {{-- INPUT OFICINA --}}
                                 <div class="col-12 col-md-4">
                                     <div class="for-group mr-4">
                                         <label for="oficinaId"></label>
@@ -346,9 +347,9 @@ $(document).on('change', 'input[name=opcionBusqueda]', function(){
 });
 
 $(document).on('change', '#selectOficina', function(){
-        const OFICINA_ID = $(this).val();
-        actualizarOpcionesFitters(OFICINA_ID);
-    });
+    const OFICINA_ID = $(this).val();
+    actualizarOpcionesFitters(OFICINA_ID);
+});
 
 </script>
 
