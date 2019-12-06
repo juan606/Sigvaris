@@ -240,11 +240,17 @@ class ReporteController extends Controller
     public function cuatroa(Request $request)
     {
 
+        // dd($request->input());
+
         $pacientesConCompra = array();
         $totalProductosCompras = 0;
         $rangoFechas = array();
+        $empleadosFitter = Empleado::fitters()->get();
+        $oficinas = Oficina::get();
 
         if ($request->input()) {
+
+            // dd($request->input());
 
             // OBTENEMOS EL PERIODO DE TIEMPO DE BUSQUEDA
             $rangoFechas = array(
@@ -256,9 +262,22 @@ class ReporteController extends Controller
             $pacientesConCompra = Paciente::whereHas('ventas', function (Builder $query) use ($request) {
                 $query->where('fecha', '>=', $request->fechaInicial)
                     ->where('fecha', '<=', $request->fechaFinal);
-            })
-                ->with('ventas.productos')
-                ->get();
+            });
+
+            if($request->oficina_id){
+                $pacientesConCompra = $pacientesConCompra->whereHas('ventas', function (Builder $query) use ($request) {
+                    $query->where('oficina_id',$request->oficina_id);
+                });
+            }
+
+            if($request->empleadoFitterId){
+                $pacientesConCompra = $pacientesConCompra->whereHas('ventas', function (Builder $query) use ($request) {
+                    $query->where('empleado_id',$request->empleadoFitterId);
+                });
+            }
+
+            $pacientesConCompra = $pacientesConCompra->with('ventas.productos')
+            ->get();
 
             $totalProductosCompras = $pacientesConCompra
                 ->pluck('ventas')
@@ -272,7 +291,7 @@ class ReporteController extends Controller
                 ->pluck('cantidad')->sum();
         }
 
-        return view('reportes.cuatroa', compact('pacientesConCompra', 'rangoFechas', 'totalProductosCompras'));
+        return view('reportes.cuatroa', compact('pacientesConCompra', 'rangoFechas', 'totalProductosCompras', 'empleadosFitter','oficinas'));
     }
 
     public function cuatrob(Request $request)
@@ -506,6 +525,10 @@ class ReporteController extends Controller
         }
 
         return view('reportes.diez', compact('doctores', 'mesesSolicitados', 'mesesString'));
+    }
+
+    public function once(){
+        return "reporte 11";
     }
 
     public function dosAnt(Request $request)

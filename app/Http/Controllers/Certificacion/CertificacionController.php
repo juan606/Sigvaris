@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Certificacion;
 
+use App\Curso;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
@@ -14,7 +15,8 @@ class CertificacionController extends Controller
      */
     public function index()
     {
-        return view('certificaciones.index');
+        $cursos = Curso::orderBy('id','desc')->get();
+        return view('certificaciones.index', compact('cursos'));
     }
 
     /**
@@ -24,7 +26,7 @@ class CertificacionController extends Controller
      */
     public function create()
     {
-        //
+        return view('certificaciones.create');
     }
 
     /**
@@ -35,7 +37,8 @@ class CertificacionController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $curso = Curso::create($request->input());
+        return redirect()->route('certificaciones.index')->with('success','El curso ha sido creado exitosamente.');
     }
 
     /**
@@ -80,6 +83,7 @@ class CertificacionController extends Controller
      */
     public function destroy($id)
     {
-        //
+        Curso::find($id)->delete();
+        return redirect()->route('certificaciones.index')->with('success','El curso ha sido eliminado exitosamente');
     }
 }

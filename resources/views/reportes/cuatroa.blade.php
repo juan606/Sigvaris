@@ -12,16 +12,44 @@
                 <form action="{{route('reportes.4a')}}" method="POST" class="form-inline">
                     @csrf
                     {{-- Input de fecha inicial --}}
-                    <div class="form-group mr-3">
-                        <label for="fechaInicial"></label>
-                        <input type="date" class="form-control" name="fechaInicial" id="fechaInicial" required>
+                    <div class="row">
+                        <div class="col-12 col-sm-6 col-md-4 mt-2">
+                            <label for="fechaInicial"></label>
+                            <input type="date" class="form-control" name="fechaInicial" id="fechaInicial" required>        
+                        </div>
+                        <div class="col-12 col-sm-6 col-md-4 mt-2">
+                            {{-- Input fecha final --}}
+                            <label for="fechaFinal"></label>
+                            <input type="date" class="form-control" name="fechaFinal" id="fechaFinal" required>
+                        </div>
+                        <div class="col-12 col-sm-6 col-md-4 mt-2">
+                            {{-- INPUT OFICINA --}}
+                            <label for="oficina"></label>
+                            <select name="oficina_id" id="selectOficina" class="form-control">
+                                <option value="">Todas</option>
+                                @foreach ($oficinas as $oficina)
+                                    <option value="{{$oficina->id}}">{{$oficina->nombre}}</option>
+                                @endforeach
+                            </select>
+                        </div>
+                        {{-- INPUT FITTER --}}
+                        <div class="col-12 col-sm-6 col-md-4 mt-2">
+                            <label for="fitters"></label>
+                            <select name="empleadoFitterId" class="form-control" id="selectEmpleadosFitter">
+                                <option value="">Todos</option>
+                                @foreach ($empleadosFitter as $empleadoFitter)
+                                    <option value="{{$empleadoFitter->id}}">
+                                        {{$empleadoFitter->nombre}} {{$empleadoFitter->appaterno}} {{$empleadoFitter->apmaterno}}
+                                    </option>
+                                @endforeach
+                            </select>
+                        </div>
+                        {{-- BOTON ENVIAR FORMULARIO --}}
+                        <div class="col-12 col-sm-6 col-md-4 mt-2">
+                            <button class="btn btn-primary">Buscar</button>
+                        </div>
                     </div>
-                    {{-- Input fecha final --}}
-                    <div class="form-group mr-4">
-                        <label for="fechaFinal"></label>
-                        <input type="date" class="form-control" name="fechaFinal" id="fechaFinal" required>
-                    </div>
-                    <button class="btn btn-primary">Buscar</button>
+                    
                 </form>
             </div>
             @if ( isset($pacientesConCompra) )
@@ -81,4 +109,14 @@
         </div>
     </div>
 
+<script src="{{ URL::asset('js/handleFitters.js') }}"></script>
+<script>
+
+$(document).on('change', '#selectOficina', function(){
+    const OFICINA_ID = $(this).val();
+    actualizarOpcionesFitters(OFICINA_ID);
+});
+
+</script>
+    
 @endsection
