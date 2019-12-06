@@ -28,45 +28,45 @@
                     @if ($descuento->promociones->where('tipo','A')->first())
                         <div class="form-group col-10">
                             <label>Compra: </label>
-                            <input type="text" class="form-group col-1" name="compra_minA" id="compra_minA" value="{{ $descuento->promociones->where('tipo','A')->first()->compra_min }}" readonly="">
+                            <label type="text">{{ $descuento->promociones->where('tipo','A')->first()->compra_min }}</label>
                             <label> Llevate: </label>
-                            <input type="text" class="form-group col-1" name="descuento_deA" id="descuento_deA" value="{{ $descuento->promociones->where('tipo','A')->first()->descuento_de }}" readonly="">
+                            <label type="text">{{ $descuento->promociones->where('tipo','A')->first()->descuento_de }}</label>
                         </div>
                     @endif 
                     
                     @if ($descuento->promociones->where('tipo','B')->first())
                         <div class="form-group col-10">
                             <label>Monto minimo de compra: </label>
-                            <input type="text" class="form-group col-1" name="compra_minB" id="compra_minB" value="{{ $descuento->promociones->where('tipo','B')->first()->compra_min }}" readonly="">
-                            <label>$ por un descuento de: </label>
-                            <input type="text" class="form-group col-1" name="descuento_deB" id="descuento_deB" value="{{ $descuento->promociones->where('tipo','B')->first()->descuento_de }}" readonly="">
-                            <input type="text" class="form-group col-1" value="{{ $descuento->promociones->where('tipo','B')->first()->unidad_descuento }}" readonly="">
+                            <label><b>${{ $descuento->promociones->where('tipo','B')->first()->compra_min }}</b></label>
+                            <label> por un descuento de: </label>
+                            <label><b>{{ $descuento->promociones->where('tipo','B')->first()->descuento_de }}</b></label>
+                            <label><b>{{ $descuento->promociones->where('tipo','B')->first()->unidad_descuento }}</b></label>
                         </div>  
                     @endif
                     @if ($descuento->promociones->where('tipo','C')->first())
                         <div class="form-group col-10">
                             <label>Descuento por cumpleaños </label>
-                            <input type="text" class="form-group col-1" name="descuento_deC" id="descuento_deC" value="{{ $descuento->promociones->where('tipo','C')->first()->descuento_de }}" readonly="">
-                            <input type="text" class="form-group col-1" value="{{ $descuento->promociones->where('tipo','C')->first()->unidad_descuento }}" readonly="">
+                            <label><b>{{ $descuento->promociones->where('tipo','C')->first()->descuento_de }}</b></label>
+                            <label><b>{{ $descuento->promociones->where('tipo','C')->first()->unidad_descuento }}</b></label>
                         </div>
                     @endif
 
                     @if ($descuento->promociones->where('tipo','D')->first())
                         <div class="form-group col-10">
                             <label>Monto minimo de prendas: </label>
-                            <input type="text" class="form-group col-1" name="compra_minD" id="compra_minD" value="{{ $descuento->promociones->where('tipo','D')->first()->compra_min }}" readonly="">
+                            <label><b>{{ $descuento->promociones->where('tipo','D')->first()->compra_min }}</b></label>
                             <label> por un descuento de: </label>
-                            <input type="text" class="form-group col-1" name="descuento_deD" id="descuento_deD" value="{{ $descuento->promociones->where('tipo','D')->first()->descuento_de }}" readonly="">
-                            <input type="text" class="form-group col-1" value="{{ $descuento->promociones->where('tipo','D')->first()->unidad_descuento }}" readonly="">
+                            <label><b>{{ $descuento->promociones->where('tipo','D')->first()->descuento_de }}</b></label>
+                            <label><b>{{ $descuento->promociones->where('tipo','D')->first()->unidad_descuento }}</b></label>
                         </div>
                     @endif
                         
                     @if ($descuento->promociones->where('tipo','E')->first())
                         <div class="form-group col-10">
                             <label>Monto minimo de prendas: </label>
-                            <input type="text" class="form-group col-1" name="compra_minE" id="compra_minE"  value="{{ $descuento->promociones->where('tipo','E')->first()->compra_min }}" readonly="">
+                            <label><b>{{ $descuento->promociones->where('tipo','E')->first()->compra_min }}</b></label>
                             <label> por: </label>
-                            <input type="text" class="form-group col-2" name="descuento_deE" id="descuento_deE" value="{{ $descuento->promociones->where('tipo','E')->first()->descuento_de }}" readonly="">
+                            <label><b>{{ $descuento->promociones->where('tipo','E')->first()->descuento_de }}</b></label>
                             <label>sigpesos</label>
                         </div>
                     @endif

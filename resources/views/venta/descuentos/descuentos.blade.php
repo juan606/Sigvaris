@@ -32,6 +32,7 @@
                             <th>Operacion</th>
                         </tr>
                     </thead>
+                    <tbody>
                     @foreach($descuentos as $descuento)
                     <tr>
                         <td>
@@ -67,11 +68,10 @@
                                     </form>
                                 </div>
                             </div>
-
+                        </td>
                     </tr>
-                    </td>
-                    </tbody>
                     @endforeach
+                    </tbody>
                 </table>
                 @endif
             </div>

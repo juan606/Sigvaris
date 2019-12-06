@@ -109,15 +109,15 @@
                 {{ csrf_field() }}
                 <div class="row">
                     <div class="form-group col-3">
-                        <label for="nombre">Nombre</label>
+                        <label for="nombre">Nombre *</label>
                         <input type="text" class="form-control" name="nombre" id="nombre" required="">
                     </div>
                     <div class="form-group col-3">
-                        <label for="inicio">De:</label>
+                        <label for="inicio">De: *</label>
                         <input type="date" class="form-control" name="inicio" id="inicio" required="">
                     </div>
                     <div class="form-group col-3">
-                        <label for="fin">A:</label>
+                        <label for="fin">A: *</label>
                         <input type="date" step="0.01" name="fin" class="form-control" id="fin" required="">
                     </div>   
                 </div>
@@ -136,7 +136,7 @@
                     <div class="col-4">
                         <div class="form-group">
                             <input type="checkbox" name="tipoB" id="tipoB">
-                            <label>Monto minimo de compra: </label>
+                            <label>Monto mínimo de compra: </label>
                             <input type="number" class="form-control" name="compra_minB" id="compra_minB" >
                             <label>$ por un descuento de: </label>
                             <div class="row">
@@ -173,7 +173,7 @@
                     <div class="col-4">
                         <div class="form-group">
                             <input type="checkbox" name="tipoD" id="tipoD">
-                            <label>Monto minimo de prendas: </label>
+                            <label>Monto mínimo de prendas: </label>
                             <input type="number" class="form-control" name="compra_minD" id="compra_minD">
                             <label> por un descuento de: </label>
                             <div class="row">
@@ -193,7 +193,7 @@
                     <div class="col-4">
                         <div class="form-group">
                             <input type="checkbox" name="tipoE" id="tipoE">
-                            <label>Monto minimo de prendas: </label>
+                            <label>Monto mínimo de prendas: </label>
                             <input type="number" class="form-control" name="compra_minE" id="compra_minE">
                             <label> por: </label>
                             <input type="number" class="form-control" name="descuento_deE" id="descuento_deE">
@@ -236,6 +236,7 @@
                     </div>
 
                 </div>
+                <h5>Los campos con <b>*</b> son obligatorios </h5>
                 <div  style="display: none;" id="div-prod">
                         <div class="col-4">
                             <div class="form-group">
@@ -323,7 +324,32 @@
 <script type="text/javascript" src="https://cdn.datatables.net/1.10.19/js/dataTables.bootstrap4.min.js"></script>
 <script type="text/javascript">
     $(document).ready(function(){
-        $('#table-productos').DataTable();
+        $('#table-productos').DataTable({
+            "language": {
+                "sProcessing": "Procesando...",
+                "sLengthMenu": "Mostrar _MENU_ registros",
+                "sZeroRecords": "No se encontraron resultados",
+                "sEmptyTable": "Ningún dato disponible en esta tabla",
+                "sInfo": "Mostrando registros del _START_ al _END_ de un total de _TOTAL_ registros",
+                "sInfoEmpty": "Mostrando registros del 0 al 0 de un total de 0 registros",
+                "sInfoFiltered": "(filtrado de un total de _MAX_ registros)",
+                "sInfoPostFix": "",
+                "sSearch": "Buscar:",
+                "sUrl": "",
+                "sInfoThousands": ",",
+                "sLoadingRecords": "Cargando...",
+                "oPaginate": {
+                    "sFirst": "Primero",
+                    "sLast": "Último",
+                    "sNext": "Siguiente",
+                    "sPrevious": "Anterior"
+                },
+                "oAria": {
+                    "sSortAscending": ": Activar para ordenar la columna de manera ascendente",
+                    "sSortDescending": ": Activar para ordenar la columna de manera descendente"
+                }
+            }
+        });
 
         $('#tipoA').change(function(){
             if(this.checked)

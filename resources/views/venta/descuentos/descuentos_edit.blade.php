@@ -26,6 +26,17 @@
                 </div>
                     <br>
                     <label>Tipo: </label>
+
+                    {{-- ###############    Tipo A    ######################--}}
+                    @if ($descuento->promociones->where('tipo','A')->first())
+                    <div class="form-group col-10">
+                        <input type="checkbox" name="tipoA" id="tipoA" checked="">
+                        <label>Compra: </label>
+                        <input type="number" class="form-group col-1" name="compra_minA" id="compra_minA" value="{{ $descuento->promociones->where('tipo','A')->first()->compra_min }}">
+                        <label> Llevate: </label>
+                        <input type="number" class="form-group col-1" name="descuento_deA" id="descuento_deA" value="{{ $descuento->promociones->where('tipo','A')->first()->descuento_de }}">
+                    </div>
+                    @else
                     <div class="form-group col-10">
                         <input type="checkbox" name="tipoA" id="tipoA">
                         <label>Compra: </label>
@@ -33,31 +44,58 @@
                         <label> Llevate: </label>
                         <input type="number" class="form-group col-1" name="descuento_deA" id="descuento_deA">
                     </div>
-
+                    @endif
+                    {{-- ###############    Tipo B    ######################--}}
+                    @if ($descuento->promociones->where('tipo','B')->first())
+                    <div class="form-group col-10">
+                        <input type="checkbox" name="tipoB" id="tipoB" checked="">
+                        <label>Monto minimo de compra: </label>
+                        <input type="number" class="form-group col-2" name="compra_minB" id="compra_minB" value="{{ $descuento->promociones->where('tipo','B')->first()->compra_min }}">
+                        <label>$ por un descuento de: </label>
+                        <input type="number" class="form-group col-1" name="descuento_deB" id="descuento_deB" value="{{ $descuento->promociones->where('tipo','B')->first()->descuento_de }}">
+                        <select class="form-group col-1" name="unidad_descuentoB" id="unidad_descuentoB"  required="">                               
+                                <option @if( $descuento->promociones->where('tipo','B')->first()->unidad_descuento == "$") selected @endif value="$">$</option>
+                                <option @if( $descuento->promociones->where('tipo','B')->first()->unidad_descuento == "%") selected @endif value="%">%</option> 
+                        </select>
+                    </div>
+                    @else
                     <div class="form-group col-10">
                         <input type="checkbox" name="tipoB" id="tipoB">
                         <label>Monto minimo de compra: </label>
                         <input type="number" class="form-group col-1" name="compra_minB" id="compra_minB" >
                         <label>$ por un descuento de: </label>
                         <input type="number" class="form-group col-1" name="descuento_deB" id="descuento_deB">
-                        <select class="form-group col-1" name="unidad_descuentoB" id="unidad_descuentoB"  required="">
-                                
-                               
+                        <select class="form-group col-1" name="unidad_descuentoB" id="unidad_descuentoB"  required="">                               
                                 <option value="$">$</option>
-                                <option value="%">%</option>
-                                
+                                <option value="%">%</option>                  
                         </select>
-                    </div>                    
+                    </div>
+                    @endif
+
+                    {{-- ###############    Tipo C    ######################--}}
+                    @if ($descuento->promociones->where('tipo','C')->first())
                     <div class="form-group col-10">
                         <input type="checkbox" name="tipoC" id="tipoC">
                         <label>Descuento por cumpleaños </label>
                         <input type="number" class="form-group col-1" name="descuento_deC" id="descuento_deC">
                         <select class="form-group col-1" name="unidad_descuentoC" id="unidad_descuentoC">
+                                <option @if( $descuento->promociones->where('tipo','B')->first()->unidad_descuento == "$") selected @endif value="$">$</option>
+                                <option @if( $descuento->promociones->where('tipo','B')->first()->unidad_descuento == "%") selected @endif value="%">%</option>
+                        </select>
+                    </div>
+                    @else
+                    <div class="form-group col-10">
+                        <input type="checkbox" name="tipoC" id="tipoC">
+                        <label>Descuento por cumpleaños </label>
+                        <input type="number" class="form-group col-1" name="descuento_deC" id="descuento_deC" value="">
+                        <select class="form-group col-1" name="unidad_descuentoC" id="unidad_descuentoC">
                                 <option value="$">$</option>
                                 <option value="%">%</option>
                         </select>
                     </div>
-
+                    @endif
+                    {{-- ###############    Tipo D    ######################--}}
+                    @if ($descuento->promociones->where('tipo','D')->first())
                     <div class="form-group col-10">
                         <input type="checkbox" name="tipoD" id="tipoD">
                         <label>Monto minimo de prendas: </label>
@@ -65,14 +103,24 @@
                         <label> por un descuento de: </label>
                         <input type="number" class="form-group col-1" name="descuento_deD" id="descuento_deD">
                         <select class="form-group col-1" name="unidad_descuentoD" id="unidad_descuentoD">
-                                
-                               
                                 <option value="$">$</option>
                                 <option value="%">%</option>
-                                
                         </select>
                     </div>
-
+                    @else
+                    <div class="form-group col-10">
+                        <input type="checkbox" name="tipoD" id="tipoD">
+                        <label>Monto minimo de prendas: </label>
+                        <input type="number" class="form-group col-1" name="compra_minD" id="compra_minD">
+                        <label> por un descuento de: </label>
+                        <input type="number" class="form-group col-1" name="descuento_deD" id="descuento_deD">
+                        <select class="form-group col-1" name="unidad_descuentoD" id="unidad_descuentoD">
+                                <option value="$">$</option>
+                                <option value="%">%</option>
+                        </select>
+                    </div>
+                    @endif
+                    {{-- ###############    Tipo E    ######################--}}
                     <div class="form-group col-10">
                         <input type="checkbox" name="tipoE" id="tipoE">
                         <label>Monto minimo de prendas: </label>
@@ -81,7 +129,7 @@
                         <input type="number" class="form-group col-2" name="descuento_deE" id="descuento_deE">
                         <label>sigpesos</label>
                     </div>
-
+                    {{-- ###############    Tipo F    ######################--}}
                     <div class="form-group col-10">
                         <input type="checkbox" name="tipoF" id="tipoF">
                         <label>Descuento de empleado: </label>
