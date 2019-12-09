@@ -288,7 +288,8 @@ function mostrarInputsBusquedaMes(){
 
         <div class="form-group mr-3">
             <label for="mesInicial"></label>
-            <input type="month" class="form-control" name="mesInicial" id="mesInicial" required>
+            <input type="month" class="form-control" name="mesInicial" id="mesInicial" placeholder="2019-04"
+                pattern="2[0-9]{3,3}-((0[1-9])|(1[012]))" title="Escriba una fecha valida AAAA-MM" required>
         </div>
 
     </div>
@@ -297,7 +298,8 @@ function mostrarInputsBusquedaMes(){
 
         <div class="form-group mr-3">
             <label for="mesFinal"></label>
-            <input type="month" class="form-control" name="mesFinal" id="mesFinal" required>
+            <input type="month" class="form-control" name="mesFinal" id="mesFinal" placeholder="2019-04"
+                pattern="2[0-9]{3,3}-((0[1-9])|(1[012]))" title="Escriba una fecha valida AAAA-MM" required>
         </div>
 
     </div>
@@ -312,7 +314,8 @@ function mostrarInputsBusquedaTrimestre(){
 
         <div class="form-group mr-3">
             <label for="mesInicial"></label>
-            <input type="month" class="form-control" name="mesInicial" id="mesInicial" required>
+            <input type="month" class="form-control" name="mesInicial" id="mesInicial" placeholder="2019-04"
+                pattern="2[0-9]{3,3}-((0[1-9])|(1[012]))" title="Escriba una fecha valida AAAA-MM" required>
         </div>
 
     </div>

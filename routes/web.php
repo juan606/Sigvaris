@@ -148,6 +148,8 @@ Route::post('reportes/2','Reporte\ReporteController@dos')->name('reportes.2');
 Route::get('reportes/4','Reporte\ReporteController@cuatro')->name('reportes.4');
 Route::post('reportes/4','Reporte\ReporteController@cuatro')->name('reportes.4');
 Route::get('reportes/7','Reporte\ReporteController@siete')->name('reportes.7');
+Route::get('reportes/metas','Reporte\ReporteController@reporteVentasfitter')->name('reportes.metas');
+Route::post('reportes/metas','Reporte\ReporteController@reporteVentasfitter')->name('reportes.metas');
 
 
 

@@ -6,28 +6,29 @@
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
-                </div>
-                <form action="{{route('metas.store')}}" method="POST">
+            </div>
+            <form action="{{route('metas.store')}}" method="POST">
                 <div class="modal-body">
                     @csrf
                     <div class="row">
                         <input type="hidden" name="empleado_id" value="{{$empleado->id}}">
-                            <div class="col-12 col-md-4 mt-2">
-                                <label for="fecha_inicio">Fecha de inicio</label>
-                                <input type="month" name="fecha_inicio" class="form-control" required min="{{date('Y-m')}}">
-                            </div>
-                            <div class="col-12 col-md-4 mt-2">
-                                <label for="monto_venta">Monto de la venta</label>
-                                <input type="number" min="0" step="0.01" name="monto_venta" class="form-control" required value="0">
-                            </div>
-                            <div class="col-12 col-md-4 mt-2">
-                                <label for="num_pacientes_recompra">Número de pacientes de recompra</label>
-                                <input type="number" min="0" name="num_pacientes_recompra" class="form-control" required value="0">
-                            </div>
-                            <div class="col-12 col-md-4 mt-2">
-                                <label for="numero_recompras">Número de recompras</label>
-                                <input type="number" min="0" step="0.01" name="numero_recompras" class="form-control" required value="0">
-                            </div>
+                        <div class="col-12 col-md-4 mt-2">
+                            <label for="fecha_inicio">Fecha de inicio</label>
+                            <input type="month" name="fecha_inicio" class="form-control" placeholder="2019-04"
+                                pattern="2[0-9]{3,3}-((0[1-9])|(1[012]))" title="Escriba una fecha valida AAAA-MM" required min="{{date('Y-m')}}">
+                        </div>
+                        <div class="col-12 col-md-4 mt-2">
+                            <label for="monto_venta">Monto de la venta</label>
+                            <input type="number" min="0" step="0.01" name="monto_venta" class="form-control" required value="0">
+                        </div>
+                        <div class="col-12 col-md-4 mt-2">
+                            <label for="num_pacientes_recompra">Número de pacientes de recompra</label>
+                            <input type="number" min="0" name="num_pacientes_recompra" class="form-control" required value="0">
+                        </div>
+                        <div class="col-12 col-md-4 mt-2">
+                            <label for="numero_recompras">Número de recompras</label>
+                            <input type="number" min="0" step="0.01" name="numero_recompras" class="form-control" required value="0">
+                        </div>
                     </div>
                 </div>
                 <div class="modal-footer">

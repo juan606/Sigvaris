@@ -14,4 +14,8 @@ class FitterMeta extends Model
         "fecha_inicio",
         "empleado_id",
     ];
+
+    public function empleado(){
+        return $this->hasOne('App\Empleado');
+    }
 }

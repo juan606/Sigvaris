@@ -43,14 +43,14 @@
 					<td>{{ $oficina->responsable }}</td>
 					<td>
 						<div class="row">
-							<div class="col-2">
+							<div class="col-4">
 								<a class="btn btn-warning" href="{{ route('oficinas.edit',['oficina'=>$oficina]) }}">
 									<strong>
 										<i class="far fa-edit"></i>
 									</strong>
 								</a>
 							</div>
-							<div class="col-2">
+							<div class="col-4">
 								<form role="form" method="POST" action="{{ route('oficinas.destroy',['oficina'=>$oficina]) }}">
 									{{ csrf_field() }}
 									<input type="hidden" name="_method" value="DELETE">

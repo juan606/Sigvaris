@@ -170,6 +170,7 @@
                             <a class="dropdown-item" href="{{route('reportes.5')}}"><span>Pacientes por año y mes</span><i class="fa fa-search float-right"></i></a>
                             <a class="dropdown-item" href="{{route('reportes.9')}}"><span>Prendas vendidas por SKU</span><i class="fa fa-search float-right"></i></a>
                             <a class="dropdown-item" href="{{route('reportes.10')}}"><span>Recomendaciones de doctor</span><i class="fa fa-search float-right"></i></a>
+                            <a class="dropdown-item" href="{{route('reportes.metas')}}"><span>Ventas de fitter</span><i class="fa fa-search float-right"></i></a>
                             {{-- <a class="dropdown-item" href="{{route('reportes.11')}}"><span>11</span><i class="fa fa-search float-right"></i></a> --}}
                 {{-- @endif --}}
             {{-- @endif --}}

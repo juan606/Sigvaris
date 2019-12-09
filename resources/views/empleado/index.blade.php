@@ -14,13 +14,14 @@
 							<i class="fa fa-plus" aria-hidden="true"></i><strong> Agregar Empleado</strong>
 						</a>
 					</div>
-			<div class="search-container">
-			    <form action="empleados">
-			      <input type="text" placeholder="Search.." name="search">
-			      <button type="submit"><i class="fa fa-search"></i></button>
-			    </form>
-			</div>					
-
+					<form action="empleados">
+					<div class="input-group">
+						  <input type="text" placeholder="Search.." name="search" class="form-control">
+						  <div class="input-group-append">
+						  	<button type="submit" class="btn btn-outline-secondary"><i class="fa fa-search"></i></button>
+						  </div>
+					</div>
+					</form>
 				</div>
 			</div>
 			<div class="card-body">
