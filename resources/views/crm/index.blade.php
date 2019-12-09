@@ -168,8 +168,8 @@
                                     </div>
                                 </div>
                                 <div class="modal-footer">
-                                    <button type="submit" form="ver_crm" id="cerrar_ver_crm_modal"
-                                        class="btn btn-danger">Cerrar</button>
+                                    {{-- <button type="submit" form="ver_crm" id="cerrar_ver_crm_modal"
+                                        class="btn btn-danger">Cerrar</button> --}}
                                 </div>
                             </div>
                         </div>
@@ -230,7 +230,10 @@
                         <td>{{$crm->estado->nombre}}</td>
                         <td>{{$crm->hora}}</td>
                         <td>
-                            <button type="button" onclick="mostrarCrm('{{$crm}}')" class="btn btn-primary">Ver</button>
+                                <button id="crear_crm_boton" type="button" class="btn btn-primary" data-toggle="modal" data-target="#ver_crm_modal" onclick="mostrarCrm('{{$crm}}')">
+                                <strong>Ver</strong>
+                            </button>
+                            {{-- <button type="button" onclick="mostrarCrm('{{$crm}}')" class="btn btn-primary botonMostrarCrm">Ver</button> --}}
                         </td>
                     </tr>
                     @endforeach
@@ -243,12 +246,18 @@
         </div>
     </div>
 </div>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+
 <script>
     $(document).ready(function () {
         $('#cerrar_ver_crm_modal').click(function () {
             $('#ver_crm_modal').modal('hide');
         });
+        
     });
+    
+
     function mostrarCrm(data) {
         var crm = JSON.parse(data);
         $('#observaciones').val(crm.observaciones);
@@ -259,13 +268,25 @@
         $('#forma_contacto').val(crm.forma_contacto);
         $('#estado').val(crm.estado.nombre);
         $('#hora').val(crm.hora);
-        $('#ver_crm_modal').modal('show');
+        // $('#ver_crm_modal').modal('show');
     }
 
 $("#botonBuscarCrms").click(function(){
     $("#formBusuqeda").submit();
 });
 
+$(document).on('click', '.botonMostrarCrm', function(){
+    $('#ver_crm_modal').modal('show');
+});
+
+</script>
+
+<script type="text/javascript">
+    $('document').ready(function () {
+        $('#managephoto').click(function () {
+                $('#myModal').modal('show');
+        });
+    });
 </script>
 
 @endsection
