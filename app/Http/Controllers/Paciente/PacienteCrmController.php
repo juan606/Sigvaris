@@ -41,17 +41,21 @@ class PacienteCrmController extends Controller
 
     public function indexWithFind(FindCrmRequest $request)
     {
+        $crms = Crm::with('paciente');
+        if ($request->fechaInicioBusqueda) {
+            $crms = $crms->where('fecha_aviso', '>=', $request->fechaInicioBusqueda);
+        }
 
-        $crms = Crm::where('fecha_aviso','>=',$request->fechaInicioBusqueda)
-            ->where('fecha_aviso','<=',$request->fechaFinBusqueda)
-            ->with('paciente')
-            ->get();
+        if ($request->fechaFinBusqueda) {
+            $crms = $crms->where('fecha_aviso', '<=', $request->fechaFinBusqueda);
+        }
+
+        $crms = $crms->get();
 
         $estados = Estado::get();
         $pacientes = Paciente::get();
 
         return view('crm.index', ['crms' => $crms, 'pacientes' => $pacientes, 'estados' => $estados]);
-
     }
 
     /**
