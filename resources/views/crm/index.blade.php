@@ -2,6 +2,12 @@
 @section('content')
 <div class="container mt-5">
     
+    @if ($errors->first())
+        <div class="alert alert-danger">
+            {{$errors->first()}}
+        </div>
+    @endif
+
     <input id="submenu" type="hidden" name="submenu" value="nav-crm">
     <div class="card">
         <div class="card-header ">
@@ -179,16 +185,16 @@
                 <div class="row">
                     <div class="col-12 col-sm-6 col-md-4">
                         <label for="desde" class="text-muted text-uppercase"><strong>Desde:</strong></label>
-                        <input type="date" class="form-control" name="fechaInicioBusqueda">
+                        <input type="date" class="form-control" name="fechaInicioBusqueda" required>
                     </div>
                     <div class="col-12 col-sm-6 col-md-4">
                         <label for="hasta" class="text-muted text-uppercase"><strong>Hasta:</strong></label>
-                        <input type="date" class="form-control" name="fechaFinBusqueda">
+                        <input type="date" class="form-control" name="fechaFinBusqueda" required>
                     </div>
                 </div>
                 <div class="row mt-2">
                     <div class="col-12">
-                        <a type="submit" class="btn btn-primary" id="botonBuscarCrms">Buscar</a>
+                        <a type="submit" class="btn btn-primary text-white border-0" id="botonBuscarCrms">Buscar</a>
                     </div>
                 </div>
             </form>
@@ -197,7 +203,7 @@
 
             <br>
 
-            <table class="table">
+            <table class="table table-responsive-md">
                 <thead>
                     <tr>
                         <th>Cliente</th>

@@ -8,6 +8,7 @@ use UxWeb\SweetAlert\SweetAlert as Alert;
 use App\Paciente;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Http\Requests\FindCrmRequest;
 use Illuminate\Support\Facades\Auth;
 
 class PacienteCrmController extends Controller
@@ -38,7 +39,7 @@ class PacienteCrmController extends Controller
         return view('crm.index', ['crms' => $crms, 'pacientes' => $pacientes, 'estados' => $estados]);
     }
 
-    public function indexWithFind(Request $request)
+    public function indexWithFind(FindCrmRequest $request)
     {
 
         $crms = Crm::where('fecha_aviso','>=',$request->fechaInicioBusqueda)
