@@ -1,7 +1,7 @@
 @extends('principal')
 @section('content')
 <div class="container mt-5">
-
+    
     <input id="submenu" type="hidden" name="submenu" value="nav-crm">
     <div class="card">
         <div class="card-header ">
@@ -173,6 +173,30 @@
             </div>
         </div>
         <div class="card-body">
+        
+            <form action="{{route('crm.indexWithFind')}}" method="POST" id="formBusuqeda">
+                @csrf
+                <div class="row">
+                    <div class="col-12 col-sm-6 col-md-4">
+                        <label for="desde" class="text-muted text-uppercase"><strong>Desde:</strong></label>
+                        <input type="date" class="form-control" name="fechaInicioBusqueda">
+                    </div>
+                    <div class="col-12 col-sm-6 col-md-4">
+                        <label for="hasta" class="text-muted text-uppercase"><strong>Hasta:</strong></label>
+                        <input type="date" class="form-control" name="fechaFinBusqueda">
+                    </div>
+                </div>
+                <div class="row mt-2">
+                    <div class="col-12">
+                        <a type="submit" class="btn btn-primary" id="botonBuscarCrms">Buscar</a>
+                    </div>
+                </div>
+            </form>
+
+            
+
+            <br>
+
             <table class="table">
                 <thead>
                     <tr>
@@ -231,5 +255,11 @@
         $('#hora').val(crm.hora);
         $('#ver_crm_modal').modal('show');
     }
+
+$("#botonBuscarCrms").click(function(){
+    $("#formBusuqeda").submit();
+});
+
 </script>
+
 @endsection

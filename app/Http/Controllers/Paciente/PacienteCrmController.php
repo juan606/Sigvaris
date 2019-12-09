@@ -18,17 +18,16 @@ class PacienteCrmController extends Controller
      * @return \Illuminate\Http\Response
      */
 
-    public function __construct() {
+    public function __construct()
+    {
         $this->middleware(function ($request, $next) {
-            if(Auth::check()) {
-                if(Auth::user()->role->crm)
-                {
+            if (Auth::check()) {
+                if (Auth::user()->role->crm) {
                     return $next($request);
-                }                
-              return redirect('/inicio');
-                 
+                }
+                return redirect('/inicio');
             }
-            return redirect('/');          
+            return redirect('/');
         });
     }
     public function index()
@@ -36,7 +35,22 @@ class PacienteCrmController extends Controller
         $estados = Estado::get();
         $pacientes = Paciente::get();
         $crms = Crm::get();
-        return view('crm.index', ['crms'=>$crms, 'pacientes'=>$pacientes, 'estados'=>$estados]);
+        return view('crm.index', ['crms' => $crms, 'pacientes' => $pacientes, 'estados' => $estados]);
+    }
+
+    public function indexWithFind(Request $request)
+    {
+
+        $crms = Crm::where('fecha_aviso','>=',$request->fechaInicioBusqueda)
+            ->where('fecha_aviso','<=',$request->fechaFinBusqueda)
+            ->with('paciente')
+            ->get();
+
+        $estados = Estado::get();
+        $pacientes = Paciente::get();
+
+        return view('crm.index', ['crms' => $crms, 'pacientes' => $pacientes, 'estados' => $estados]);
+
     }
 
     /**
@@ -45,9 +59,7 @@ class PacienteCrmController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function create()
-    {
-
-    }
+    { }
 
     /**
      * Store a newly created resource in storage.
@@ -58,10 +70,10 @@ class PacienteCrmController extends Controller
     public function store(Request $request)
     {
         $crm = Crm::create($request->all());
-        if($crm){
+        if ($crm) {
             Alert::success('Crm registrado subido correctamente.');
             return redirect()->route('crm.index');
-        }else{
+        } else {
             Alert::error('Error al registrar crm.');
             return redirect()->back();
         }
@@ -112,8 +124,9 @@ class PacienteCrmController extends Controller
         //
     }
 
-    public function getCrmCliente(Paciente $paciente){
+    public function getCrmCliente(Paciente $paciente)
+    {
         $estados = Estado::get();
-        return view('pacientecrm.index', ['paciente'=>$paciente, 'estados'=>$estados]);
+        return view('pacientecrm.index', ['paciente' => $paciente, 'estados' => $estados]);
     }
 }
