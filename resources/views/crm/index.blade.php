@@ -1,6 +1,12 @@
 @extends('principal')
 @section('content')
 <div class="container mt-5">
+    
+    @if ($errors->first())
+        <div class="alert alert-danger">
+            {{$errors->first()}}
+        </div>
+    @endif
 
     <input id="submenu" type="hidden" name="submenu" value="nav-crm">
     <div class="card">
@@ -162,8 +168,8 @@
                                     </div>
                                 </div>
                                 <div class="modal-footer">
-                                    <button type="submit" form="ver_crm" id="cerrar_ver_crm_modal"
-                                        class="btn btn-danger">Cerrar</button>
+                                    {{-- <button type="submit" form="ver_crm" id="cerrar_ver_crm_modal"
+                                        class="btn btn-danger">Cerrar</button> --}}
                                 </div>
                             </div>
                         </div>
@@ -173,7 +179,31 @@
             </div>
         </div>
         <div class="card-body">
-            <table class="table">
+        
+            <form action="{{route('crm.indexWithFind')}}" method="POST" id="formBusuqeda">
+                @csrf
+                <div class="row">
+                    <div class="col-12 col-sm-6 col-md-4">
+                        <label for="desde" class="text-muted text-uppercase"><strong>Desde:</strong></label>
+                        <input type="date" class="form-control" name="fechaInicioBusqueda" required>
+                    </div>
+                    <div class="col-12 col-sm-6 col-md-4">
+                        <label for="hasta" class="text-muted text-uppercase"><strong>Hasta:</strong></label>
+                        <input type="date" class="form-control" name="fechaFinBusqueda" required>
+                    </div>
+                </div>
+                <div class="row mt-2">
+                    <div class="col-12">
+                        <a type="submit" class="btn btn-primary text-white border-0" id="botonBuscarCrms">Buscar</a>
+                    </div>
+                </div>
+            </form>
+
+            
+
+            <br>
+
+            <table class="table table-responsive-md">
                 <thead>
                     <tr>
                         <th>Cliente</th>
@@ -200,7 +230,10 @@
                         <td>{{$crm->estado->nombre}}</td>
                         <td>{{$crm->hora}}</td>
                         <td>
-                            <button type="button" onclick="mostrarCrm('{{$crm}}')" class="btn btn-primary">Ver</button>
+                                <button id="crear_crm_boton" type="button" class="btn btn-primary" data-toggle="modal" data-target="#ver_crm_modal" onclick="mostrarCrm('{{$crm}}')">
+                                <strong>Ver</strong>
+                            </button>
+                            {{-- <button type="button" onclick="mostrarCrm('{{$crm}}')" class="btn btn-primary botonMostrarCrm">Ver</button> --}}
                         </td>
                     </tr>
                     @endforeach
@@ -213,12 +246,18 @@
         </div>
     </div>
 </div>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+
 <script>
     $(document).ready(function () {
         $('#cerrar_ver_crm_modal').click(function () {
             $('#ver_crm_modal').modal('hide');
         });
+        
     });
+    
+
     function mostrarCrm(data) {
         var crm = JSON.parse(data);
         $('#observaciones').val(crm.observaciones);
@@ -229,7 +268,25 @@
         $('#forma_contacto').val(crm.forma_contacto);
         $('#estado').val(crm.estado.nombre);
         $('#hora').val(crm.hora);
-        $('#ver_crm_modal').modal('show');
+        // $('#ver_crm_modal').modal('show');
     }
+
+$("#botonBuscarCrms").click(function(){
+    $("#formBusuqeda").submit();
+});
+
+$(document).on('click', '.botonMostrarCrm', function(){
+    $('#ver_crm_modal').modal('show');
+});
+
 </script>
+
+<script type="text/javascript">
+    $('document').ready(function () {
+        $('#managephoto').click(function () {
+                $('#myModal').modal('show');
+        });
+    });
+</script>
+
 @endsection

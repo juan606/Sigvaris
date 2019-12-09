@@ -8,6 +8,7 @@ use UxWeb\SweetAlert\SweetAlert as Alert;
 use App\Paciente;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Http\Requests\FindCrmRequest;
 use Illuminate\Support\Facades\Auth;
 
 class PacienteCrmController extends Controller
@@ -18,17 +19,16 @@ class PacienteCrmController extends Controller
      * @return \Illuminate\Http\Response
      */
 
-    public function __construct() {
+    public function __construct()
+    {
         $this->middleware(function ($request, $next) {
-            if(Auth::check()) {
-                if(Auth::user()->role->crm)
-                {
+            if (Auth::check()) {
+                if (Auth::user()->role->crm) {
                     return $next($request);
-                }                
-              return redirect('/inicio');
-                 
+                }
+                return redirect('/inicio');
             }
-            return redirect('/');          
+            return redirect('/');
         });
     }
     public function index()
@@ -36,7 +36,26 @@ class PacienteCrmController extends Controller
         $estados = Estado::get();
         $pacientes = Paciente::get();
         $crms = Crm::get();
-        return view('crm.index', ['crms'=>$crms, 'pacientes'=>$pacientes, 'estados'=>$estados]);
+        return view('crm.index', ['crms' => $crms, 'pacientes' => $pacientes, 'estados' => $estados]);
+    }
+
+    public function indexWithFind(FindCrmRequest $request)
+    {
+        $crms = Crm::with('paciente');
+        if ($request->fechaInicioBusqueda) {
+            $crms = $crms->where('fecha_aviso', '>=', $request->fechaInicioBusqueda);
+        }
+
+        if ($request->fechaFinBusqueda) {
+            $crms = $crms->where('fecha_aviso', '<=', $request->fechaFinBusqueda);
+        }
+
+        $crms = $crms->get();
+
+        $estados = Estado::get();
+        $pacientes = Paciente::get();
+
+        return view('crm.index', ['crms' => $crms, 'pacientes' => $pacientes, 'estados' => $estados]);
     }
 
     /**
@@ -45,9 +64,7 @@ class PacienteCrmController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function create()
-    {
-
-    }
+    { }
 
     /**
      * Store a newly created resource in storage.
@@ -58,10 +75,10 @@ class PacienteCrmController extends Controller
     public function store(Request $request)
     {
         $crm = Crm::create($request->all());
-        if($crm){
+        if ($crm) {
             Alert::success('Crm registrado subido correctamente.');
             return redirect()->route('crm.index');
-        }else{
+        } else {
             Alert::error('Error al registrar crm.');
             return redirect()->back();
         }
@@ -112,8 +129,9 @@ class PacienteCrmController extends Controller
         //
     }
 
-    public function getCrmCliente(Paciente $paciente){
+    public function getCrmCliente(Paciente $paciente)
+    {
         $estados = Estado::get();
-        return view('pacientecrm.index', ['paciente'=>$paciente, 'estados'=>$estados]);
+        return view('pacientecrm.index', ['paciente' => $paciente, 'estados' => $estados]);
     }
 }

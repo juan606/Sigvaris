@@ -54,6 +54,7 @@ Route::resource('pacientes', 'Paciente\PacienteController');
 // Route::get('pacientes','Paciente\PacienteController@index');
 Route::resource('pacientes.tallas', 'Paciente\PacienteTallaController');
 Route::resource('crm', 'Paciente\PacienteCrmController');
+Route::post('crm/index', 'Paciente\PacienteCrmController@indexWithFind')->name('crm.indexWithFind');
 Route::get('pacientes/{paciente}/crm', 'Paciente\PacienteCrmController@getCrmCliente')->name('getCrmsPorCliente');
 Route::resource('pacientes.tutores', 'Paciente\PacienteTutorController');
 Route::get('getDoctores','Doctor\DoctorController@getDoctores');
