@@ -650,7 +650,7 @@ class ReporteController extends Controller
 
             } else if($request->empleadoFitterId && !$fechaInOneMes){
                 // Rango de fechas en mas de un mes se genera por meses la informacion
-                $fitter = Empleado::findOrFail($request->empleadoFitterId);
+                $datosVentasMes = $this->getDatosVentaFitterMeses($fechaInicial, $fechaFinal, $fitter, $request);
 
             } else {
                 $pacientes_sin_compra = Paciente::noCompradores();
@@ -660,6 +660,17 @@ class ReporteController extends Controller
         return view('reportes.metasfitter', compact('oficinas', 'empleadosFitter', 'datosVentasMes', 'fitter'));
     }
 
+    /**
+     * Obtiene las ventas de un fitter con los datos de meta, valor y porcentaje para
+     * monto de ventas, pacientes que compran más de una prenda y pacientes de recompra.
+     * 
+     * @param date - $fechaInicial: de la busqueda
+     * @param date - $fechaFinal: fecha maxima de busqueda
+     * @param Empleado - $fitter: empleado del que se obtendran los datos
+     * @param Request - $request: datos del formulario para la busqueda
+     * 
+     * @return Array - datosVentasMes 
+     */
     private function getDatosVentaFitterXMes($fechaInicial, $fechaFinal, $fitter, $request)
     {
     
@@ -699,7 +710,7 @@ class ReporteController extends Controller
                 ];
             }
 
-            // --
+            // OBTENEMOS SI EN UNA VENTA EL PACIENTE HACE RECOMPRA
             if($venta->paciente->ventas->count() > 1) {
                 $datosVentasMes["recompras"][] = [
                     "meta"=> $metaFitter->numero_recompras,
@@ -745,5 +756,64 @@ class ReporteController extends Controller
         }
         $datosVentasMes["totales"]["recompras"] = ["valor" => $sumValor, "porcentaje" => $sumPorcentaje];
         return $datosVentasMes;
+    }
+
+    /**
+     * DESCRIPCION
+     * 
+     * @param date - $fechaInicial: de la busqueda
+     * @param date - $fechaFinal: fecha maxima de busqueda
+     * @param Empleado - $fitter: empleado del que se obtendran los datos
+     * @param Request - $request: datos del formulario para la busqueda
+     * 
+     * @return Array - datosVentasMes 
+     */
+    private function getDatosVentaFitterMeses($fechaInicial, $fechaFinal, $fitter, $request)
+    {
+        setlocale(LC_ALL, 'es_ES');
+        $mes = $fechaInicial->formatLocalized('%B');// mes en idioma español        
+
+        $datosVentasMes = [];
+        $fechaFinal = $fechaFinal->endOfMonth();
+
+        while ($fechaInicial->lessThanOrEqualTo($fechaFinal)) {
+            $datosMes = $this->getDatosVentaFitterXMes($fechaInicial, $fechaFinal, $fitter, $request);
+
+            if($datosMes["totales"]["montoVenta"]["valor"] !== 0){
+                $datosVentasMes[] = [
+                    "mes"   => ucfirst($fechaInicial->formatLocalized('%B')),
+                    "metas" => [
+                        "montoVenta" => $datosMes["montoVenta"][0]["meta"],
+                        "pacientes"  => $datosMes["pacientes"][0]["meta"],
+                        "recompras"  => $datosMes["recompras"][0]["meta"],
+                    ],
+                    $datosMes["totales"],                ];
+            }
+
+            $fechaInicial->addMonth();
+        }
+
+        $sumMonto = 0;
+        $sumPacientes = 0;
+        $sumRecompras = 0;
+        $sumMetas = [0, 0, 0];
+
+        foreach ($datosVentasMes as $row) {
+                $sumMonto += $row[0]["montoVenta"]["valor"];
+                $sumPacientes += $row[0]["pacientes"]["valor"];
+                $sumRecompras += $row[0]["recompras"]["valor"];
+                $sumMetas[0] += $row["metas"]["montoVenta"];
+                $sumMetas[1] += $row["metas"]["pacientes"];
+                $sumMetas[2] += $row["metas"]["recompras"];
+        }
+
+        $datosVentasMes["totales"] = [
+            "montoVenta" => [$sumMetas[0], $sumMonto, (($sumMonto * 100) / $sumMetas[0])],
+            "pacientes"  => [$sumMetas[1], $sumPacientes, (($sumPacientes * 100) / $sumMetas[1])],
+            "recompras"  => [$sumMetas[2], $sumRecompras, (($sumRecompras * 100) / $sumMetas[2])]
+        ];
+        return $datosVentasMes;
+
+        
     }
 }

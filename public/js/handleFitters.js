@@ -7,7 +7,7 @@ function anadirDefaultAOpcionesFitter(){
 
     $('#selectEmpleadosFitter').append(`
         <option value="">
-            todos
+            Todos
         </option>
     `);
 }
