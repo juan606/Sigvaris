@@ -643,10 +643,10 @@ class ReporteController extends Controller
             $difAnio = $fechaFinal->year - $fechaInicial->year;
             $difMes  = $fechaFinal->month - $fechaInicial->month;
             $fechaInOneMes = $difAnio === 0 && $difMes === 0 ? true : false;
-            $fitter = Empleado::findOrFail($request->empleadoFitterId);
+ pleadoFitterId && $fechaInOneMes) {
+                $datosVentasMes = $t           $fitter = Empleado::findOrFail($request->empleadoFitterId);
 
-            if ($request->empleadoFitterId && $fechaInOneMes) {
-                $datosVentasMes = $this->getDatosVentaFitterXMes($fechaInicial, $fechaFinal, $fitter, $request);
+            if ($request->emhis->getDatosVentaFitterXMes($fechaInicial, $fechaFinal, $fitter, $request);
 
             } else if($request->empleadoFitterId && !$fechaInOneMes){
                 // Rango de fechas en mas de un mes se genera por meses la informacion
@@ -759,7 +759,9 @@ class ReporteController extends Controller
     }
 
     /**
-     * DESCRIPCION
+     * Obtiene las ventas de un fitter en un rango de fechas de mas de un mes para 
+     * el monto de venta, pacientes con compra mayor a una prenda y pacientes de 
+     * recompra, asi como el total de cada uno de los campos.
      * 
      * @param date - $fechaInicial: de la busqueda
      * @param date - $fechaFinal: fecha maxima de busqueda
