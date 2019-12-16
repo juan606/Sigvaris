@@ -643,11 +643,10 @@ class ReporteController extends Controller
             $difAnio = $fechaFinal->year - $fechaInicial->year;
             $difMes  = $fechaFinal->month - $fechaInicial->month;
             $fechaInOneMes = $difAnio === 0 && $difMes === 0 ? true : false;
- pleadoFitterId && $fechaInOneMes) {
-                $datosVentasMes = $t           $fitter = Empleado::findOrFail($request->empleadoFitterId);
-
-            if ($request->emhis->getDatosVentaFitterXMes($fechaInicial, $fechaFinal, $fitter, $request);
-
+            $fitter = Empleado::findOrFail($request->empleadoFitterId);
+ 
+            if ($request->pleadoFitterId && $fechaInOneMes) {
+                $datosVentasMes = $this->getDatosVentaFitterXMes($fechaInicial, $fechaFinal, $fitter, $request);
             } else if($request->empleadoFitterId && !$fechaInOneMes){
                 // Rango de fechas en mas de un mes se genera por meses la informacion
                 $datosVentasMes = $this->getDatosVentaFitterMeses($fechaInicial, $fechaFinal, $fitter, $request);
