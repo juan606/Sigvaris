@@ -80,10 +80,11 @@ class VentaController extends Controller
     {
 
         if (!isset($request->producto_id) || is_null($request->producto_id)) {
-            return redirect()->back();
+            return redirect()
+                ->back()
+                ->withErrors(['No se seleccionó ningún producto.'])
+                ->withInput($request->input());
         }
-
-        // dd('Si hay producto');
 
         // PREPARAR DATOS DE LA VENTA
         $venta = new Venta($request->all());

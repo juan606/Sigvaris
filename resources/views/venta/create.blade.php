@@ -3,6 +3,11 @@
 @section('content')
 {{-- {{ dd($productos) }} --}}
 <div class="container">
+    @if ($errors->any())
+        <div class="alert alert-danger">
+            {{$errors->first()}}
+        </div>
+    @endif
     <div class="card">
         <div class="card-header">
             {{-- CABECERA DE LA SECCIÓN --}}
@@ -24,7 +29,6 @@
                     <div class="row">
                         <div class="col-4 form-group">
                             <label class="control-label">Fitter:</label>
-                            {{-- {{dd($empleadosFitter)}} --}}
                             @if (Auth::user()->id == 1 || Auth::user()->empleado->puesto->nombre != "fitter")                            
                                 <select name="empleado_id" id="" class="form-control" required>
                                     <option value="">Seleccionar</option>
@@ -126,26 +130,7 @@
                         </div>
                     </div>
 
-                    {{-- PROMOCIONES Y DESCUENTOS --}}
-                    <div class="row">
-                        {{-- INPUT DESCUENTO --}}
-                        <div class="col-12 col-sm-6 col-md-4">
-                                <label for="descuento_id" class="text-uppercase text-muted">Descuento</label>
-                                <select class="form-control" name="descuento_id" id="descuento_id" >
-                                    <option value="">Selecciona...</option>
-                                    @foreach ($descuentos as $descuento)
-                                        <option value="{{$descuento->id}}">{{$descuento->nombre}}</option>
-                                    @endforeach
-                                </select>                            
-                        </div>
-                        {{-- INPUT PROMOCIÓN --}}
-                        <div class="col-12 col-sm-6 col-md-4 form-group">
-                            <label for="promocion_id" class="text-uppercase text-muted">Promocion</label>
-                            <select class="form-control" name="promocion_id" id="promocion_id">
-                                <option value="">Selecciona...</option>                               
-                            </select>
-                        </div>
-                    </div>
+                    
 
                     {{-- DETALLES DE LA COMPRA --}}
                     <div class="row">
@@ -175,6 +160,29 @@
                                             </table>
                                         </div>
                                     </div>
+                                    <hr>
+
+                                    {{-- PROMOCIONES Y DESCUENTOS --}}
+                                    <div class="row">
+                                            {{-- INPUT DESCUENTO --}}
+                                            <div class="col-12 col-sm-6 col-md-4">
+                                                    <label for="descuento_id" class="text-uppercase text-muted">Descuento</label>
+                                                    <select class="form-control" name="descuento_id" id="descuento_id" >
+                                                        <option value="">Selecciona...</option>
+                                                        @foreach ($descuentos as $descuento)
+                                                            <option value="{{$descuento->id}}">{{$descuento->nombre}}</option>
+                                                        @endforeach
+                                                    </select>                            
+                                            </div>
+                                            {{-- INPUT PROMOCIÓN --}}
+                                            <div class="col-12 col-sm-6 col-md-4 form-group">
+                                                <label for="promocion_id" class="text-uppercase text-muted">Promocion</label>
+                                                <select class="form-control" name="promocion_id" id="promocion_id">
+                                                    <option value="">Selecciona...</option>                               
+                                                </select>
+                                            </div>
+                                        </div>
+
                                     <hr>
                                     <input type="hidden" name="paciente_id" id="paciente_id"  required>
                                     <div class="row">
