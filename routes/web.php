@@ -72,8 +72,8 @@ Route::get('productos/inventario/historial', 'Inventario\InventarioController@hi
 Route::get('productos/inventario/modificar/{id}', 'Inventario\InventarioController@edit')->name('producto.inventario.modificar');
 Route::post('productos/inventario/update', 'Inventario\InventarioController@update')->name('producto.inventario.update');
 Route::resource('contratos','Precargas\TipoContratoController')->middleware('precargas.role');
-Route::resource('descuentos', 'Venta\DescuentoController');
-Route::resource('productos', 'Producto\ProductoController');
+Route::resource('descuentos', 'Venta\DescuentoController')->middleware('productos.rol');
+Route::resource('productos', 'Producto\ProductoController')->middleware('productos.rol');
 
 Route::get('import-export-csv-excel', array('as' => 'excel.import', 'uses' => 'FileController@importExportExcelORCSV'))->middleware('productos.rol');
 Route::post('import-csv-excel', array('as' => 'import-csv-excel', 'uses' => 'FileController@importFileIntoDB'))->middleware('productos.rol');

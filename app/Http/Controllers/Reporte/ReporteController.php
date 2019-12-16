@@ -644,6 +644,7 @@ class ReporteController extends Controller
             $difMes  = $fechaFinal->month - $fechaInicial->month;
             $fechaInOneMes = $difAnio === 0 && $difMes === 0 ? true : false;
             $fitter = Empleado::findOrFail($request->empleadoFitterId);
+            $fitter = Empleado::findOrFail($request->empleadoFitterId);
  
             if ($request->pleadoFitterId && $fechaInOneMes) {
                 $datosVentasMes = $this->getDatosVentaFitterXMes($fechaInicial, $fechaFinal, $fitter, $request);
