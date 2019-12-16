@@ -23,24 +23,6 @@
                     {{ csrf_field() }}
                     <div class="row">
                         <div class="col-4 form-group">
-                            <label for="paciente_id">✱Paciente</label>
-                                <select class="form-control" name="paciente_id" id="paciente_id"  required="">
-                                    <option value="">Selecciona...</option>
-                                    @foreach($pacientes as $pacien)
-                                        <option {{$paciente && $paciente->id == $pacien->id ? "selected " : ""}} value="{{$pacien->id}}">{{$pacien->nombre}}</option>
-                                    @endforeach
-                                </select>
-                        </div>
-                        <div class="col-4 form-group">
-                            <label class="control-label">Fecha:</label>
-                            <input type="date" name="fecha" class="form-control" readonly="" value="{{date('Y-m-d')}}"
-                                required="">
-                        </div>
-                        <div class="col-4 form-group">
-                            <label class="control-label">Folio:</label>
-                            <input type="number" name="precio" class="form-control" readonly="" value="{{$folio}}">
-                        </div>
-                        <div class="col-4 form-group">
                             <label class="control-label">Fitter:</label>
                             {{-- {{dd($empleadosFitter)}} --}}
                             @if (Auth::user()->id == 1 || Auth::user()->empleado->puesto->nombre != "fitter")                            
@@ -56,155 +38,237 @@
                         </div>
                     </div>
                     <hr>
-                    <div class="row">
-                        <h3>Productos Existentes</h3>
+                    {{-- TABLA DE PACIENTES --}}
+                    <div class="row mb-4">
                         <div class="col-12">
-                            {{-- <input type="text" id="busqueda" placeholder="buscar productos.."> --}}
-                            <table class="table" id="productos">
-                                <thead>
-                                    <tr>
-                                        <th>SKU</th>
-                                        <th>UPC</th>
-                                        <th>swiss ID</th>
-                                        <th>Producto</th>
-                                        <th>Precio</th>
-                                        <th>Precio con iva</th>
-                                        <th>Agregar</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    @foreach($productos as $producto)
-                                    <tr>
-                                        <input type="hidden" id="producto_a_agregar{{$loop->index}}" value="{{$producto}}">
-                                        <td>{{$producto->sku}}</td>
-                                        <td>{{$producto->upc}}</td>
-                                        <td>{{$producto->swiss_id}}</td>
-                                        <td>{{$producto->descripcion}}</td>
-                                        <td>${{$producto->precio_publico}}</td>
-                                        <td>${{$producto->precio_publico_iva}}</td>
-                                        <td><button type="button" class="btn btn-success boton_agregar" onclick="agregarProducto('#producto_a_agregar{{$loop->index}}')"><i class="fas fa-plus"></i></button></td>
-                                    </tr>
+                            <div class="card rounded-0">
+                                <div class="card-header rounded-0">
+                                    <h3>Pacientes</h3>
+                                </div>
+                                <div class="card-body rounded-0">
+                                    <div class="table-responsive">
+                                        <table class="table" id="pacientes">
+                                            <thead>
+                                                <tr>
+                                                    <th>RFC</th>
+                                                    <th>Nombre</th>
+                                                    <th>Apellidos</th>
+                                                    <th>Teléfono</th>
+                                                    <th>Seleccionar</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                @foreach ($pacientes as $paciente)
+                                                    <tr>
+                                                        <td>{{$paciente->rfc}}</td>
+                                                        <td>
+                                                            <span pacienteId="{{$paciente->id}}" class="nombrePaciente">{{$paciente->nombre}}</span>
+                                                        </td>
+                                                        <td>
+                                                            <span pacienteId="{{$paciente->id}}" class="apellidosPaciente">{{$paciente->materno}} {{$paciente->paterno}}</span>
+                                                        </td>
+                                                        <td>{{$paciente->telefono}}</td>
+                                                        <td class="text-center">
+                                                            <button type="button" class="btn btn-success botonSeleccionCliente rounded-0" pacienteId="{{$paciente->id}}">
+                                                                <i class="fas fa-arrow-up"></i>
+                                                            </button>
+                                                        </td>
+                                                    </tr>
+                                                @endforeach
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    {{-- TABLA DE PRODUCTOS --}}
+                    <div class="row mb-4">
+                        <div class="col-12">
+                            <div class="card rounded-0">
+                                <div class="card-header rounded-0">
+                                    <h3>Productos</h3>
+                                </div>
+                                <div class="card-body rounded-0">
+                                    <div class="table-responsive">
+                                            <table class="table" id="productos">
+                                                    <thead>
+                                                        <tr>
+                                                            <th>SKU</th>
+                                                            <th>UPC</th>
+                                                            <th>swiss ID</th>
+                                                            <th>Producto</th>
+                                                            <th>Precio</th>
+                                                            <th>Precio con iva</th>
+                                                            <th>Agregar</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        @foreach($productos as $producto)
+                                                        <tr>
+                                                            <input type="hidden" id="producto_a_agregar{{$loop->index}}" value="{{$producto}}">
+                                                            <td>{{$producto->sku}}</td>
+                                                            <td>{{$producto->upc}}</td>
+                                                            <td>{{$producto->swiss_id}}</td>
+                                                            <td>{{$producto->descripcion}}</td>
+                                                            <td>${{$producto->precio_publico}}</td>
+                                                            <td>${{$producto->precio_publico_iva}}</td>
+                                                            <td><button type="button" class="btn btn-success boton_agregar" onclick="agregarProducto('#producto_a_agregar{{$loop->index}}')"><i class="fas fa-plus"></i></button></td>
+                                                        </tr>
+                                                        @endforeach
+                                                    </tbody>
+                                                </table>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    {{-- PROMOCIONES Y DESCUENTOS --}}
+                    <div class="row">
+                        {{-- INPUT DESCUENTO --}}
+                        <div class="col-12 col-sm-6 col-md-4">
+                                <label for="descuento_id" class="text-uppercase text-muted">Descuento</label>
+                                <select class="form-control" name="descuento_id" id="descuento_id" >
+                                    <option value="">Selecciona...</option>
+                                    @foreach ($descuentos as $descuento)
+                                        <option value="{{$descuento->id}}">{{$descuento->nombre}}</option>
                                     @endforeach
-                                </tbody>
-                            </table>
-                            {{-- {{$productos->links()}} --}}
+                                </select>                            
                         </div>
-                    </div>
-                    <hr>
-                    <div class="row">
-                        <h3>Productos Seleccionados</h3>
-                        <div class="col-12">
-                            <table class="table">
-                                <thead>
-                                    <tr>
-                                        <th>Cantidad</th>
-                                        <th>Producto</th>
-                                        <th>Precio Unitario</th>
-                                        <th>Precio Unitario + IVA</th>
-                                        <th>Subtotal</th>
-                                        <th>Quitar</th>
-                                    </tr>
-                                </thead>
-                                <tbody id="tbody_productos">
-                                    {{-- <div id="tbody_productos"></div> --}}
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
-                    <div class="row mb-3">
-                        <div class="col-4 offset-4 form-group">
-                            <label for="descuento_id">Descuento</label>
-                            <select class="form-control" name="descuento_id" id="descuento_id" >
-                                <option value="">Selecciona...</option>
-                                @foreach ($descuentos as $descuento)
-                                    <option value="{{$descuento->id}}">{{$descuento->nombre}}</option>
-                                @endforeach
-
-                            </select>                            
-                        </div>
-                    </div>
-
-                    <div class="row mb-3" id="promo">
-                        <div class="col-4 offset-4 form-group">
-                            <label for="promocion_id">Promocion</label>
+                        {{-- INPUT PROMOCIÓN --}}
+                        <div class="col-12 col-sm-6 col-md-4 form-group">
+                            <label for="promocion_id" class="text-uppercase text-muted">Promocion</label>
                             <select class="form-control" name="promocion_id" id="promocion_id">
                                 <option value="">Selecciona...</option>                               
                             </select>
                         </div>
                     </div>
 
-                    <div class="row mb-3">
-                        <div class="col-4 offset-4 input-group">
-                            <div class="input-group-prepend">
-                                <span class="input-group-text">Sigpesos ganados: </span>
-                            </div>
-                            <input type="number" class="form-control" name="sigpesos" id="sigpesos" value="0" min="0" step="0.01" readonly="">
-                        </div>
-                    </div>
-
-                    <div class="row mb-3">
-                        <div class="col-4 offset-4 input-group">
-                            <div class="input-group-prepend">
-                                <span class="input-group-text">Sigpesos a usar: </span>
-                            </div>
-                            <input type="number" class="form-control" name="sigpesos_usar" id="sigpesos_usar" value="0" min="0" step="0.01" readonly="">
-                        </div>
-                    </div>
-
-                    
-                    <div class="row mb-3">
-                        <div class="col-4 offset-4 input-group">
-                            <div class="input-group-prepend">
-                                <span class="input-group-text">Subtotal: $</span>
-                            </div>
-                            <input type="number" required="" class="form-control" name="subtotal" id="subtotal" value="0" min="1" step="0.01" readonly="">
-                        </div>
-                    </div>
-
-                    <div class="row mb-3">
-                        <div class="col-4 offset-4 input-group">
-                            <div class="input-group-prepend">
-                                <span class="input-group-text">Descuento: $</span>
-                            </div>
-                            <input type="number" required="" class="form-control" name="descuento" id="descuento" value="0" step="0.01" readonly="">
-                        </div>
-                    </div>
-
-                    <div class="row mb-3">
-                        <div class="col-4 offset-4 input-group">
-                            <div class="input-group-prepend">
-                                <span class="input-group-text">Iva: $</span>
-                            </div>
-                            <input type="number" required="" class="form-control" name="iva" id="iva" value="0" min="1" step="0.01" readonly="">
-                        </div>
-                    </div>
-                    
+                    {{-- DETALLES DE LA COMPRA --}}
                     <div class="row">
-                        <div class="col-4 offset-4 input-group">
-                            <div class="input-group-prepend">
-                                <span class="input-group-text">Total: $ </span>
+                        <div class="col-12">
+                            <div class="card rounded-0">
+                                <div class="card-header">
+                                    <h3>Detalles de la compra</h3>
+                                </div>
+                                {{-- TABLA DE PRODUCTOS SELECCIONADOS --}}
+                                <div class="card-body">
+                                    <div class="row">
+                                        <div class="col-12">
+                                            <table class="table">
+                                                <thead>
+                                                    <tr>
+                                                        <th>Cantidad</th>
+                                                        <th>Producto</th>
+                                                        <th>Precio Unitario</th>
+                                                        <th>Precio Unitario + IVA</th>
+                                                        <th>Subtotal</th>
+                                                        <th>Quitar</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody id="tbody_productos">
+                                                    {{-- <div id="tbody_productos"></div> --}}
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                    <hr>
+                                    <input type="hidden" name="paciente_id" id="paciente_id"  required>
+                                    <div class="row">
+                                        <div class="col-4 form-group">
+                                            <label for="" class="text-uppercase text-muted">Paciente: </label>
+                                            <input type="text" class="form-control" id="inputNombrePaciente" required readonly>
+                                        </div>
+                                        <div class="col-4 form-group">
+                                            <label for="" class="text-uppercase text-muted">Fecha: </label>
+                                            <input type="date" name="fecha" class="form-control" readonly="" value="{{date('Y-m-d')}}"
+                                                required="">
+                                        </div>
+                                        <div class="col-4 form-group">
+                                            <label for="" class="text-uppercase text-muted">Folio: </label>
+                                            <input type="number" name="precio" class="form-control" readonly="" value="{{$folio}}">
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        {{-- INPUT SIGPESOS GANADOS --}}
+                                        <div class="col-12 col-sm-6 col-md-4 mt-2">
+                                            
+                                            <label for="" class="text-uppercase text-muted">Sigpesos ganados: </label>
+                                            
+                                            <input type="number" class="form-control" name="sigpesos" id="sigpesos" value="0" min="0" step="0.01" readonly="">
+                                        </div>
+                                        {{-- INPUT SIGPESOS A USAR --}}
+                                        <div class="col-12 col-sm-6 col-md-4 mt-2">
+                                            
+                                            <label for="" class="text-uppercase text-muted">Sigpesos a usar: </label>
+                                            
+                                            <input type="number" class="form-control" name="sigpesos_usar" id="sigpesos_usar" value="0" min="0" step="0.01" readonly="">
+                                        </div>
+                                        {{-- INPUT SUBTOTAL --}}
+                                        <div class="col-12 col-sm-6 col-md-4 mt-2">
+                                            
+                                            <label for="" class="text-uppercase text-muted">Subtotal: $</label>
+                                            
+                                            <input type="number" required="" class="form-control" name="subtotal" id="subtotal" value="0" min="1" step="0.01" readonly="">
+                                        </div>
+                                        {{-- INPUT DESCUENTO --}}
+                                        <div class="col-12 col-sm-6 col-md-4 mt-2">
+                                            
+                                            <label for="" class="text-uppercase text-muted">Descuento: $</label>
+                                            
+                                            <input type="number" required="" class="form-control" name="descuento" id="descuento" value="0" step="0.01" readonly="">
+                                        </div>
+                                        {{-- INPUT IVA --}}
+                                        <div class="col-12 col-sm-6 col-md-4 mt-2">
+                                            
+                                            <label for="" class="text-uppercase text-muted">Iva: $</label>
+                                            
+                                            <input type="number" required="" class="form-control" name="iva" id="iva" value="0" min="1" step="0.01" readonly="">
+                                        </div>
+                                        {{-- INPUT TOTAL --}}
+                                        <div class="col-12 col-sm-6 col-md-4 mt-2">
+                                            
+                                            <label for="" class="text-uppercase text-muted">Total: $ </label>
+                                            
+                                            <input type="number" required="" class="form-control" name="total" id="total" value="0" min="1" step="0.01" readonly>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
-                            <input type="number" required="" class="form-control" name="total" id="total" value="0" min="1" step="0.01" readonly>
                         </div>
                     </div>
+
+                    <hr>
+
+                    {{-- BOTON GUARDAR --}}
+                    <div class="row">
+                        <div class="col-12">
+                            <button type="submit" class="btn btn-success rounded-0">
+                                <i class="fa fa-check"></i> Guardar
+                            </button>
+                        </div>
                     </div>
+
+                    </div>
+
+
+
                     <div class="card-footer">
                         <div class="row">
-                            <div class="col-4 offset-4 text-center">
-                                <button type="submit" class="btn btn-success">
-                                    <i class="fa fa-check"></i> Guardar
-                                </button>
-                            </div>
                             <div class="col-4 text-right text-danger">
                                 ✱Campos Requeridos.
                             </div>
                         </div>
                     </div>
+                    
                 </form>
             <div class="col-4 offset-4 text-center">
 {{--                 <form action="{{ route('pembayaran.print') }}" method="POST">                
                     <input type="hidden" name="_token" class="form-control" value="{!! csrf_token() !!}"> --}}
-                    <button type="submit" name="submit" class="btn btn-info">Imprimir</button>
+                    {{-- <button type="submit" name="submit" class="btn btn-info">Imprimir</button> --}}
                 {{-- </form> --}}
             </div>
         </div>
@@ -285,6 +349,35 @@
 
     $(document).ready(function () {
         $('#productos').DataTable({
+            pageLength : 3,
+            'language':{
+                "sProcessing":     "Procesando...",
+                "sLengthMenu":     "Mostrar _MENU_ registros",
+                "sZeroRecords":    "No se encontraron resultados",
+                "sEmptyTable":     "Ningún dato disponible en esta tabla",
+                "sInfo":           "Productos _START_ al _END_ de un total de _TOTAL_ ",
+                "sInfoEmpty":      "Productos 0 de un total de 0 ",
+                "sInfoFiltered":   "(filtrado de un total de _MAX_ registros)",
+                "sInfoPostFix":    "",
+                "sSearch":         "Buscar:",
+                "sUrl":            "",
+                "sInfoThousands":  ",",
+                "sLoadingRecords": "Cargando...",
+                "oPaginate": {
+                    "sFirst":    "Primero",
+                    "sLast":     "Último",
+                    "sNext":     "Siguiente",
+                    "sPrevious": "Anterior"
+                },
+                "oAria": {
+                    "sSortAscending":  ": Activar para ordenar la columna de manera ascendente",
+                    "sSortDescending": ": Activar para ordenar la columna de manera descendente"
+                }
+            }
+        });
+
+        $('#pacientes').DataTable({
+            pageLength : 3,
             'language':{
                 "sProcessing":     "Procesando...",
                 "sLengthMenu":     "Mostrar _MENU_ registros",
@@ -406,36 +499,57 @@
         });
        
         $('#paciente_id').change( async function(){
-            var id=$(this).val();
-            $('#promocion_id option:eq(0)').prop('selected',true);
-            $('#descuento').val(0);
-            $('#sigpesos').val(0);
-            var subtotal=parseFloat($('#subtotal').val());
-            var iva=parseFloat($('#iva').val());
-            var des=parseFloat($('#descuento').val());
-            await $.ajax({
-                url:"{{ url('/obtener_sigpesos') }}/"+id,
-                type:'GET',
-                success: function(res){                    
-                    var sigpesos=$('#sigpesos_usar').val(parseInt(res));
-                    console.log('sigpesos peticion',res);
-                }
-
-            });
-
-            if((subtotal+iva-des)<$('#sigpesos_usar').val())
-            {
-                $('#total').val(0);
-            }
-            else
-            {
-                $('#total').val(subtotal+iva-des-$('#sigpesos_usar').val());
-                console.log('total',$('#sigpesos_usar').val())
-            }
+            var pacienteId=$(this).val();
+            
             
         });
     });
 
    
+    $(document).on('click', '.botonSeleccionCliente', async function(){
+        
+        const pacienteId = $(this).attr('pacienteId');
+
+        const nombrePaciente = $(`.nombrePaciente[pacienteId=${pacienteId}]`).html();
+        const apellidosPaciente = $(`.apellidosPaciente[pacienteId=${pacienteId}]`).html();
+
+        console.log('datosPAciente: ',nombrePaciente,apellidosPaciente);
+
+        $('#inputNombrePaciente').val( nombrePaciente + " " + apellidosPaciente );
+
+        $('#paciente_id').val(pacienteId);
+        console.log( 'Cliente seleccionado: ', pacienteId );
+        $('#promocion_id option:eq(0)').prop('selected',true);
+        $('#descuento').val(0);
+        $('#sigpesos').val(0);
+        var subtotal=parseFloat($('#subtotal').val());
+        var iva=parseFloat($('#iva').val());
+        var des=parseFloat($('#descuento').val());
+        await $.ajax({
+            url:"{{ url('/obtener_sigpesos') }}/"+pacienteId,
+            type:'GET',
+            success: function(res){                    
+                var sigpesos=$('#sigpesos_usar').val(parseInt(res));
+                console.log('sigpesos peticion',res);
+            }
+
+        });
+
+        if((subtotal+iva-des)<$('#sigpesos_usar').val())
+        {
+            $('#total').val(0);
+        }
+        else
+        {
+            $('#total').val(subtotal+iva-des-$('#sigpesos_usar').val());
+            console.log('total',$('#sigpesos_usar').val())
+        }
+    });
+   
+    $(document).on('change', '#paciente_id', function(){
+        const pacienteId = $(this).val();
+        console.log('aqui');
+    });
+
 </script>
 @endsection

@@ -473,7 +473,6 @@ class DescuentoController extends Controller
 
     public function getSigpesos(Paciente $paciente)
     {
-        return 0;
         if(isset($paciente->ventas))
         {
             $intervalo = new DateInterval('P6M');
