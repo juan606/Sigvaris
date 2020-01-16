@@ -14,7 +14,7 @@ class ModifyVentasTable extends Migration
     public function up()
     {
         Schema::table('ventas', function (Blueprint $table) {
-            $table->integer('empleado_id');
+            //$table->integer('empleado_id');
         });
     }
 
@@ -26,7 +26,7 @@ class ModifyVentasTable extends Migration
     public function down()
     {
         Schema::table('ventas', function (Blueprint $table) {
-            $table->dropColumn('empleado_id');
+            //$table->dropColumn('empleado_id');
         });
     }
 }
