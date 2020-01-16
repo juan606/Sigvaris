@@ -79,6 +79,8 @@ Route::get('import-export-csv-excel', array('as' => 'excel.import', 'uses' => 'F
 Route::post('import-csv-excel', array('as' => 'import-csv-excel', 'uses' => 'FileController@importFileIntoDB'))->middleware('productos.rol');
 Route::get('download-excel-file/{type}', array('as' => 'excel-file', 'uses' => 'FileController@downloadExcelFile'))->middleware('productos.rol');
 
+
+
 Route::get('pacientes/{paciente}/ventas/historial', 'Venta\VentaController@indexConPaciente')->name('pacientes.historial');
 Route::get('pacientes/{paciente}/ventas', 'Venta\VentaController@createConPaciente')->name('pacientes.venta');
 
