@@ -58,7 +58,7 @@ Route::post('crm/index', 'Paciente\PacienteCrmController@indexWithFind')->name('
 Route::get('pacientes/{paciente}/crm', 'Paciente\PacienteCrmController@getCrmCliente')->name('getCrmsPorCliente');
 Route::resource('pacientes.tutores', 'Paciente\PacienteTutorController');
 Route::get('getDoctores','Doctor\DoctorController@getDoctores');
-
+Route::post('getTabla_modalidad', 'Paciente\PacienteCrmController@getCrmClienteCrm')->name('getTabla_modalidad');
 //FACTURAS
 Route::resource('facturas','Paciente\FacturaController');
 Route::get('ventas_from/{paciente}','Paciente\FacturaController@getVentas');

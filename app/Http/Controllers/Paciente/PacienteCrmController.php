@@ -74,6 +74,7 @@ class PacienteCrmController extends Controller
      */
     public function store(Request $request)
     {
+        //$request->input('paciente_id')=$request->input('paciente_id1');
         $crm = Crm::create($request->all());
         if ($crm) {
             Alert::success('Crm registrado subido correctamente.');
@@ -133,5 +134,37 @@ class PacienteCrmController extends Controller
     {
         $estados = Estado::get();
         return view('pacientecrm.index', ['paciente' => $paciente, 'estados' => $estados]);
+    }
+     public function getCrmClienteCrm(Request $request)
+    {
+        //$pacientes = Paciente::get();
+        //var_dump($request->input('id'));
+        $crmsCli = Crm::where('paciente_id',$request->input('id'))->get();
+        //$estados = Estado::get();
+        //dd($crmsCli);
+        $tablaUsuario='
+        <table class="table table-striped table-bordered table-hover" style="margin-bottom: 0px" id="tablaPacientes">
+        <tr class="info">
+            <th>Nombre</th>
+            <th>Creación</th>
+            <th>Fecha Aviso</th>
+            <th>Fecha Contacto</th>
+            <th>Forma Contacto</th>
+            <th>Estado</th>
+            <th>Hora</th>
+        </tr>';
+        foreach ($crmsCli as $cliente) {
+            $tablaUsuario.= "<tr class='active tupla' >";
+            $tablaUsuario.= "<td >".$request->input('nombre')."</td>"; 
+            $tablaUsuario.= "<td >".$cliente['created_at']."</td>";  
+            $tablaUsuario.= "<td >".$cliente['fecha_aviso']."</td>";     
+            $tablaUsuario.= "<td >".$cliente['fecha_contacto']."</td>";  
+            $tablaUsuario.= "<td >".$cliente['forma_contacto']."</td>";
+            $tablaUsuario.= "<td >".$cliente->estado['nombre']."</td>";    
+            $tablaUsuario.= "<td >".$cliente['hora']."</td>";  
+            $tablaUsuario.= "</tr>";
+        }
+        $tablaUsuario.="</table>";
+        return $tablaUsuario;
     }
 }
