@@ -74,23 +74,7 @@
                                                 </tr>
                                             </thead>
                                             <tbody>
-                                                @foreach ($pacientes as $paciente)
-                                                    <tr>
-                                                        <td>{{$paciente->rfc}}</td>
-                                                        <td>
-                                                            <span pacienteId="{{$paciente->id}}" class="nombrePaciente">{{$paciente->nombre}}</span>
-                                                        </td>
-                                                        <td>
-                                                            <span pacienteId="{{$paciente->id}}" class="apellidosPaciente">{{$paciente->materno}} {{$paciente->paterno}}</span>
-                                                        </td>
-                                                        <td>{{$paciente->telefono}}</td>
-                                                        <td class="text-center">
-                                                            <button type="button" class="btn btn-success botonSeleccionCliente rounded-0" pacienteId="{{$paciente->id}}">
-                                                                <i class="fas fa-arrow-up"></i>
-                                                            </button>
-                                                        </td>
-                                                    </tr>
-                                                @endforeach
+                                                
                                             </tbody>
                                         </table>
                                     </div>
@@ -131,18 +115,7 @@
                                                         </tr>
                                                     </thead>
                                                     <tbody>
-                                                        @foreach($productos as $producto)
-                                                        <tr>
-                                                            <input type="hidden" id="producto_a_agregar{{$loop->index}}" value="{{$producto}}">
-                                                            <td>{{$producto->sku}}</td>
-                                                            <td>{{$producto->upc}}</td>
-                                                            <td>{{$producto->swiss_id}}</td>
-                                                            <td>{{$producto->descripcion}}</td>
-                                                            <td>${{$producto->precio_publico}}</td>
-                                                            <td>${{$producto->precio_publico_iva}}</td>
-                                                            <td><button type="button" class="btn btn-success boton_agregar" onclick="agregarProducto('#producto_a_agregar{{$loop->index}}')"><i class="fas fa-plus"></i></button></td>
-                                                        </tr>
-                                                        @endforeach
+                                                        
                                                     </tbody>
                                                 </table>
                                     </div>
