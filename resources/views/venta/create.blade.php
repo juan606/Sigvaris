@@ -26,6 +26,7 @@
             <div class="card-body">
                 <form role="form" id="form-cliente" method="POST" action="{{ route('ventas.store') }}" name="form">
                     {{ csrf_field() }}
+                    
                     <div class="row">
                         <div class="col-4 form-group">
                             <label class="control-label">Fitter:</label>
@@ -41,13 +42,24 @@
                             @endif
                         </div>
                     </div>
+                    
                     <hr>
+                    
                     {{-- TABLA DE PACIENTES --}}
+                    @if (!isset($paciente))
                     <div class="row mb-4">
                         <div class="col-12">
                             <div class="card rounded-0">
                                 <div class="card-header rounded-0">
-                                    <h3>Pacientes</h3>
+                                    <div class="row">
+                                        <div class="col-sm-12 col-md-6" >
+                                            <h3>Pacientes</h3>
+                                        </div>
+                                        <div class="col-sm-12 col-md-6" >
+                                            <label>Buscar:<input type="search" id="BuscarPaciente"  >
+                                            </label>
+                                        </div>
+                                    </div>
                                 </div>
                                 <div class="card-body rounded-0">
                                     <div class="table-responsive">
@@ -86,14 +98,24 @@
                             </div>
                         </div>
                     </div>
-                    
+                    @endif
                     {{-- TABLA DE PRODUCTOS --}}
                     <div class="row mb-4">
                         <div class="col-12">
                             <div class="card rounded-0">
                                 <div class="card-header rounded-0">
-                                    <h3>Productos</h3>
+                                    <div class="row">
+                                        <div class="col-sm-12 col-md-6" >
+                                            <h3>Productos</h3>
+                                        </div>
+                                        <div class="col-sm-12 col-md-6" >
+                                            <label>Buscar:<input type="search" id="BuscarProducto"  >
+                                            </label>
+                                        </div>
+                                    </div>
                                 </div>
+                                
+                                    
                                 <div class="card-body rounded-0">
                                     <div class="table-responsive">
                                             <table class="table" id="productos">
@@ -356,35 +378,9 @@
     }
 
     $(document).ready(function () {
-        $('#productos').DataTable({
-            pageLength : 3,
-            'language':{
-                "sProcessing":     "Procesando...",
-                "sLengthMenu":     "Mostrar _MENU_ registros",
-                "sZeroRecords":    "No se encontraron resultados",
-                "sEmptyTable":     "Ningún dato disponible en esta tabla",
-                "sInfo":           "Productos _START_ al _END_ de un total de _TOTAL_ ",
-                "sInfoEmpty":      "Productos 0 de un total de 0 ",
-                "sInfoFiltered":   "(filtrado de un total de _MAX_ registros)",
-                "sInfoPostFix":    "",
-                "sSearch":         "Buscar:",
-                "sUrl":            "",
-                "sInfoThousands":  ",",
-                "sLoadingRecords": "Cargando...",
-                "oPaginate": {
-                    "sFirst":    "Primero",
-                    "sLast":     "Último",
-                    "sNext":     "Siguiente",
-                    "sPrevious": "Anterior"
-                },
-                "oAria": {
-                    "sSortAscending":  ": Activar para ordenar la columna de manera ascendente",
-                    "sSortDescending": ": Activar para ordenar la columna de manera descendente"
-                }
-            }
-        });
+        
 
-        $('#pacientes').DataTable({
+        /*$('#pacientes').DataTable({
             pageLength : 3,
             'language':{
                 "sProcessing":     "Procesando...",
@@ -410,10 +406,14 @@
                     "sSortDescending": ": Activar para ordenar la columna de manera descendente"
                 }
             }
-        });
+        });*/
     });
 </script>
+
 <script type="text/javascript">
+
+
+
     $(document).ready(function(){
 
         $('#descuento_id').change(function(){            
@@ -511,9 +511,91 @@
             
             
         });
+        
+        $('#BuscarPaciente').change( function() {
+            $("#pacientes").dataTable().fnDestroy();
+            //console.log($(this).val());
+            $('#pacientes').DataTable({
+                "ajax":{
+                    type: "POST",
+                    url:"/getPacientes_nombre",
+                    data: {"_token": $("meta[name='csrf-token']").attr("content"),
+                           "nombre" : $(this).val()
+                    }
+                },
+                "searching": false,
+                pageLength : 3,
+                'language':{
+                    "sProcessing":     "Procesando...",
+                    "sLengthMenu":     "Mostrar _MENU_ registros",
+                    "sZeroRecords":    "No se encontraron resultados",
+                    "sEmptyTable":     "Ningún dato disponible en esta tabla",
+                    "sInfo":           "Productos _START_ al _END_ de un total de _TOTAL_ ",
+                    "sInfoEmpty":      "Productos 0 de un total de 0 ",
+                    "sInfoFiltered":   "(filtrado de un total de _MAX_ registros)",
+                    "sInfoPostFix":    "",
+                    "sSearch":         "Buscar:",
+
+                    "sUrl":            "",
+                    "sInfoThousands":  ",",
+                    "sLoadingRecords": "Cargando...",
+                    "oPaginate": {
+                        "sFirst":    "Primero",
+                        "sLast":     "Último",
+                        "sNext":     "Siguiente",
+                        "sPrevious": "Anterior"
+                    },
+                    "oAria": {
+                        "sSortAscending":  ": Activar para ordenar la columna de manera ascendente",
+                        "sSortDescending": ": Activar para ordenar la columna de manera descendente"
+                    }
+                }
+            });
+        });
+
+        $('#BuscarProducto').change( function() {
+            $("#productos").dataTable().fnDestroy();
+           //console.log($(this).val());
+            $('#productos').DataTable({
+                "ajax":{
+                    type: "POST",
+                    url:"getProductos_nombre",
+                    data: {"_token": $("meta[name='csrf-token']").attr("content"),
+                           "nombre" : $(this).val()
+                    }
+                },
+                "searching": false,
+                pageLength : 3,
+                'language':{
+                    "sProcessing":     "Procesando...",
+                    "sLengthMenu":     "Mostrar _MENU_ registros",
+                    "sZeroRecords":    "No se encontraron resultados",
+                    "sEmptyTable":     "Ningún dato disponible en esta tabla",
+                    "sInfo":           "Productos _START_ al _END_ de un total de _TOTAL_ ",
+                    "sInfoEmpty":      "Productos 0 de un total de 0 ",
+                    "sInfoFiltered":   "(filtrado de un total de _MAX_ registros)",
+                    "sInfoPostFix":    "",
+                    "sSearch":         "Buscar:",
+
+                    "sUrl":            "",
+                    "sInfoThousands":  ",",
+                    "sLoadingRecords": "Cargando...",
+                    "oPaginate": {
+                        "sFirst":    "Primero",
+                        "sLast":     "Último",
+                        "sNext":     "Siguiente",
+                        "sPrevious": "Anterior"
+                    },
+                    "oAria": {
+                        "sSortAscending":  ": Activar para ordenar la columna de manera ascendente",
+                        "sSortDescending": ": Activar para ordenar la columna de manera descendente"
+                    }
+                }
+            });
+        });
     });
 
-   
+   @if(!isset($paciente))
     $(document).on('click', '.botonSeleccionCliente', async function(){
         
         const pacienteId = $(this).attr('pacienteId');
@@ -536,6 +618,64 @@
         await $.ajax({
             url:"{{ url('/obtener_sigpesos') }}/"+pacienteId,
             type:'GET',
+            success: function(res){
+                if (!isNaN(res)) {
+                    var sigpesos=$('#sigpesos_usar').val(parseInt(res));
+                console.log('sigpesos peticion',res);
+            }else{             
+                res=0;       
+                var sigpesos=$('#sigpesos_usar').val(parseInt(res));
+                console.log('sigpesos peticion',res);
+            }
+            }
+
+        });
+
+        if((subtotal+iva-des)<$('#sigpesos_usar').val())
+        {
+            $('#total').val(0);
+        }
+        else
+        {
+            $('#total').val(subtotal+iva-des-$('#sigpesos_usar').val());
+            console.log('total',$('#sigpesos_usar').val())
+        }
+    });
+   @endif
+    $(document).on('change', '#paciente_id', function(){
+        const pacienteId = $(this).val();
+        console.log('aqui');
+    });
+
+</script>
+@if(isset($paciente))
+
+<script type="text/javascript">
+
+   
+    $(document).ready(function(){
+
+        
+        const pacienteId = {{$paciente->id}};
+
+        const nombrePaciente = "{{ $paciente->nombre }}";
+        const apellidosPaciente = "{{ $paciente->paterno.' '.$paciente->materno }}";
+
+        console.log('datosPAciente: ',nombrePaciente,apellidosPaciente);
+
+        $('#inputNombrePaciente').val( nombrePaciente + " " + apellidosPaciente );
+
+        $('#paciente_id').val(pacienteId);
+        console.log( 'Cliente seleccionado: ', pacienteId );
+        $('#promocion_id option:eq(0)').prop('selected',true);
+        $('#descuento').val(0);
+        $('#sigpesos').val(0);
+        var subtotal=parseFloat($('#subtotal').val());
+        var iva=parseFloat($('#iva').val());
+        var des=parseFloat($('#descuento').val());
+         $.ajax({
+            url:"{{ url('/obtener_sigpesos') }}/"+pacienteId,
+            type:'GET',
             success: function(res){                    
                 var sigpesos=$('#sigpesos_usar').val(parseInt(res));
                 console.log('sigpesos peticion',res);
@@ -554,10 +694,7 @@
         }
     });
    
-    $(document).on('change', '#paciente_id', function(){
-        const pacienteId = $(this).val();
-        console.log('aqui');
-    });
 
 </script>
+@endif
 @endsection

@@ -137,34 +137,42 @@ class PacienteCrmController extends Controller
     }
      public function getCrmClienteCrm(Request $request)
     {
-        //$pacientes = Paciente::get();
+        $paciente = Paciente::where('id',$request->input('id'))->get();
         //var_dump($request->input('id'));
-        $crmsCli = Crm::where('paciente_id',$request->input('id'))->get();
-        //$estados = Estado::get();
+        $crmsCliente = Crm::where('paciente_id',$request->input('id'))->get();
+        $crms= Crm::get();
         //dd($crmsCli);
-        $tablaUsuario='
-        <table class="table table-striped table-bordered table-hover" style="margin-bottom: 0px" id="tablaPacientes">
-        <tr class="info">
-            <th>Nombre</th>
-            <th>Creación</th>
-            <th>Fecha Aviso</th>
-            <th>Fecha Contacto</th>
-            <th>Forma Contacto</th>
-            <th>Estado</th>
-            <th>Hora</th>
-        </tr>';
-        foreach ($crmsCli as $cliente) {
-            $tablaUsuario.= "<tr class='active tupla' >";
+        //$tablaUsuario = array( );
+        $tablaUsuario="";
+        foreach ($crmsCliente as $crm) {
+            $estados = Estado::where('id',$crm->estado_id)->get();
+            /**array_push ($tablaUsuario,[$request->input('nombre'), $crm->created_at ? $crm->created_at->format('d-m-Y') : null,$crm['fecha_aviso']
+                                       ,$crm['fecha_contacto'],$crm['forma_contacto'],$crm->estado['nombre']
+                                       ,$crm['hora']]) ;**/
+
+            
+             $tablaUsuario.= '<tr class="active tupla" title="Has Click Aquì para ver o modificar" style="cursor: pointer"  id="crear_crm_boton"  data-toggle="modal" data-target="#ver_crm_modal" onclick="mostrarCrmHistorial('.$crm->id.',\''.$crm->estado['nombre'].'\')">';
             $tablaUsuario.= "<td >".$request->input('nombre')."</td>"; 
-            $tablaUsuario.= "<td >".$cliente['created_at']."</td>";  
-            $tablaUsuario.= "<td >".$cliente['fecha_aviso']."</td>";     
-            $tablaUsuario.= "<td >".$cliente['fecha_contacto']."</td>";  
-            $tablaUsuario.= "<td >".$cliente['forma_contacto']."</td>";
-            $tablaUsuario.= "<td >".$cliente->estado['nombre']."</td>";    
-            $tablaUsuario.= "<td >".$cliente['hora']."</td>";  
+            $tablaUsuario.= "<td >".$crm['created_at']."</td>";  
+            $tablaUsuario.= "<td >".$crm['fecha_aviso']."</td>";     
+            $tablaUsuario.= "<td >".$crm['fecha_contacto']."</td>";  
+            $tablaUsuario.= "<td >".$crm['forma_contacto']."</td>";
+            $tablaUsuario.= "<td >".$crm->estado['nombre']."</td>";    
+            $tablaUsuario.= "<td >".$crm['hora']."</td>";  
             $tablaUsuario.= "</tr>";
         }
-        $tablaUsuario.="</table>";
+        //dd($tablaUsuario);
+        //$tablaUsuario.="</table>";
+
+        //return array('data' => $tablaUsuario );
         return $tablaUsuario;
+    }
+    public function getCrm(Request $request)
+    {
+        
+        $crm = Crm::where('id',$request->input('id'))->get();
+        $crm=$crm[0];
+        $paciente = Paciente::where('id',$crm->paciente_id)->get();
+        return json_encode([$crm,$paciente[0]]);
     }
 }

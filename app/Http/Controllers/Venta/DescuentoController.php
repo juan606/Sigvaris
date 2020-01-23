@@ -478,10 +478,17 @@ class DescuentoController extends Controller
             $intervalo = new DateInterval('P6M');
             $hoy=Carbon::now();
             $expira=$paciente->ventas->last()->created_at->add($intervalo);
-            if($expira>$hoy)
-                return $paciente->ventas->last()->sigpesos;
-            else
+            if($expira>$hoy){
+                if (isset($paciente->ventas->last()->sigpesos)) {
+                    return 0;
+                }else{
+                    return $paciente->ventas->last()->sigpesos;
+                }
+                
+            }
+            else{
                 return 0;
+            }
         }
         return 0;
     }

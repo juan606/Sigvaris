@@ -103,4 +103,19 @@ class ProductoController extends Controller
         $producto->delete();
         return redirect()->route('productos.index');
     }
+
+
+    public function getProductosNombre(Request $request)
+    {
+        $ajaxProductos=array();
+        $Productos=Producto::where('descripcion','like',$request->input('nombre').'%')->get();
+        //dd($Productos);
+        foreach ($Productos as $Producto) {
+            $Producto->descripcion=str_replace("'", "´", $Producto->descripcion);
+            array_push ($ajaxProductos,[$Producto->sku,$Producto->upc,$Producto->swiss_id,$Producto->descripcion,'$'.$Producto->precio_publico,'$'.$Producto->precio_publico_iva,'<input class="btn btn-success boton_agregar" type="hidden" id="producto_a_agregar'.$Producto->id.'" value=\''.json_encode($Producto).'\' onclick="agregarProducto(\'#producto_a_agregar'.$Producto->id.'\')">   </input> <button type="button" class="btn btn-success boton_agregar" onclick="agregarProducto(\'#producto_a_agregar'.$Producto->id.'\')"><i class="fas fa-plus"></i></button>']);
+        }
+        //dd($ajaxProductos);
+        return json_encode(['data'=> $ajaxProductos]);
+    }
+    
 }

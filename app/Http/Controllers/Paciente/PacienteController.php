@@ -241,4 +241,26 @@ class PacienteController extends Controller
         $pacientes = Paciente::paginate(10);
         return view('paciente.index', ['pacientes'=>$pacientes]);
     }
+
+    public function getPacienteNombre(Request $request)
+    {
+
+
+        $ajaxPaciente=array();
+        $Pacientes=Paciente::where('nombre','like',$request->input('nombre').'%')->get();
+        //dd($Productos);
+        foreach ($Pacientes as $Paciente) {
+            array_push ($ajaxPaciente,[ $Paciente->rfc,
+                                        '<span pacienteId="'.$Paciente->id.'" class="nombrePaciente">'.$Paciente->nombre.'</span>',
+                                        '<span pacienteId="'.$Paciente->id.'" class="apellidosPaciente">'.$Paciente->materno.' '.$Paciente->paterno.'</span>',
+                                        $Paciente->telefono,
+                                        '<button type="button" class="btn btn-success botonSeleccionCliente rounded-0" pacienteId="'.$Paciente->id.'">
+                                            <i class="fas fa-arrow-up"></i>
+                                        </button>'
+                                        ]);
+        }
+
+
+        return json_encode(['data'=> $ajaxPaciente]);
+    }
 }

@@ -1,6 +1,9 @@
 @extends('principal')
 @section('content')
 <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+<script src="https://code.jquery.com/jquery-3.3.1.js"></script>
+<script src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js" defer></script>
+<script src="https://cdn.datatables.net/1.10.19/js/dataTables.bootstrap4.min.js" defer></script>
 <div class="container mt-5">
     
     @if ($errors->first())
@@ -31,9 +34,7 @@
                                 </div>
                                 <div class="modal-body" >
                                    
-                                        <div id="tablaUsuario_Crm">
-                                            
-                                        </div>
+                                        
                                     
                                 </div>
                                 <div class="modal-footer">
@@ -139,6 +140,12 @@
                                         Ver C.R.M.
                                     </h4>
                                 </div>
+                                
+                                <div class="modal-body">
+                                    <div class="form-row">
+                                        
+                                         
+                                    </div>
                                 <div class="form-row">
                                             <div class="form-group col-4 offset-4">
                                                     <label for="actual">Paciente</label>
@@ -149,7 +156,6 @@
                                                 name="paciente_id" value="" readonly="" style="display: none;">
                                                 </div>
                                     </div>
-                                <div class="modal-body">
                                     <div class="form-row">
                                         <div class="form-group col-4">
                                             <label for="actual">Fecha actual</label>
@@ -281,7 +287,7 @@
 
             <br>
 
-            <table class="table table-responsive-md table-bordered table-hover">
+            <table class="table table-responsive-md table-bordered table-hover" id="tableUser2" >
                 <thead>
                     <tr class="info">
                         <th>Paciente</th>
@@ -323,7 +329,7 @@
                         <td>
                             
                             <button id="crear_crm_boton" type="button" class="btn btn-success" data-toggle="modal" onclick="generarHistorial('{{ $pacientes->find($crm->paciente_id) }}')"
-                        data-target="#historial_crm_modal">
+                        >
                         <strong>Historial </strong>
                     </button>    
                             
@@ -336,19 +342,37 @@
                     
                 </tbody>
             </table>
+            <div class="tablaUsuario_Crm" id="tablaUsuario_Crm" style="display: none;" >
+                 <h4>C.R.M. Historial</h4>
+                <table class="table table-striped table-bordered table-hover" id="tablaPacientes">
+                    <thead>
+                    <tr class="info">
+                        <th>Nombre</th>
+                        <th>Creación</th>
+                        <th>Fecha Aviso</th>
+                        <th>Fecha Contacto</th>
+                        <th>Forma Contacto</th>
+                        <th>Estado</th>
+                        <th>Hora</th>
+                    </tr>
+                </thead>
+                    <tbody id="datostablas">
+
+                    </tbody>
+                </table>
+            </div>    
         </div>
         <div class="card-footer">
-
-        </div>
+  
     </div>
 </div>
 
-<script type="text/javascript"src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
 
 <script type="text/javascript">
     $(document).ready(function () {
         $('#cerrar_ver_crm_modal').click(function () {
             $('#ver_crm_modal').modal('hide');
+            
         });
         $('#vinculo').click(function() {
             
@@ -381,8 +405,56 @@
             $('#hora').attr('required', true);
             
         });
+       
     });
     
+    
+    function  mostrarCrmHistorial(id_crm,nomEstado){
+        var fecha = new Date(); //Fecha actual
+        $.ajax({
+             type: "POST",
+            data: {"_token": $("meta[name='csrf-token']").attr("content"),
+                           "id" : id_crm
+            },
+            url:"crm_especifico",
+
+            success: function (data) {
+                    var valores = JSON.parse(data);
+                    var paciente =valores[1];
+                    var crm=valores[0];
+                    //console.log(data->id);
+                    $('.paciente_id').val(paciente.id);
+                    $('#nombre').val(paciente.nombre);
+                    $('#telefono').val(paciente.telefono);
+                    $('#celular').val(paciente.celular);
+                    $('#mail').val(paciente.mail);
+                    $('#observaciones').val(crm.observaciones);
+                    $('#acuerdos').val(crm.acuerdos);
+                    $('#comentarios').val(crm.comentarios);
+                    $('#fecha_aviso').val(crm.fecha_aviso);
+                    $('#fecha_contacto').val(crm.fecha_contacto);
+                    $('#forma_contacto').val(crm.forma_contacto);
+                    $('#estado').val(nomEstado);
+                    $('#hora').val(crm.hora);
+                    $('#forma_contacto2').hide(100);
+                    $('#forma_contacto').show();
+                    $('#estado_id').val(crm.estado_id);
+                     $('#observaciones').attr('readonly', true);
+                    $('#acuerdos').attr('readonly', true);
+                    $('#comentarios').attr('readonly', true);
+                    $('#fecha_aviso').attr('readonly', true);
+                    $('#fecha_contacto').attr('readonly', true);
+                    $('#hora').attr('readonly', true);
+                    //$('#telefono').val(1111111111);
+                    //$('#celular').val(paciente.celular);
+                    //$('#mail').val(paciente.mail);
+                    $('#guardar_crm').hide(100);
+                    $('#cerrar_ver_crm_modal').hide(100);
+                    $('#vinculo').show();
+            }
+        
+    });
+    }
 
     function mostrarCrm(data,data2,data3) {
         
@@ -392,7 +464,7 @@
         var estado = JSON.parse(data3);
         
 
-         $('.paciente_id').val(paciente.id);
+        $('.paciente_id').val(paciente.id);
         $('#nombre').val(paciente.nombre);
         $('#telefono').val(paciente.telefono);
         $('#celular').val(paciente.celular);
@@ -440,10 +512,10 @@ $(document).on('click', '.botonMostrarCrm', function(){
       // Obtener la referencia del elemento body
       // Crea un elemento <table> y un elemento <tbody>
       //var crm = JSON.parse(data3);
+      $('#tablaUsuario_Crm').show();
       var paciente = JSON.parse(data1);
       // Obtener la referencia del elemento body
-
-      $.ajax({
+     $.ajax({
         type: "POST",
         data: {"_token": $("meta[name='csrf-token']").attr("content"),
                        "id" : paciente.id,
@@ -452,11 +524,79 @@ $(document).on('click', '.botonMostrarCrm', function(){
         url:"getTabla_modalidad",
 
         success: function (data) {
-                $("#tablaUsuario_Crm").html(data);
+                $("#datostablas").html(data);
         }
     });
+
+      /* $('#tablaPacientes').DataTable({
+            "ajax":{
+                type: "POST",
+                url:"getTabla_modalidad",
+                data: {"_token": $("meta[name='csrf-token']").attr("content"),
+                       "id" : paciente.id,
+                       "nombre": paciente.nombre
+        },
+            },
+            pageLength : 3,
+            'language':{
+                "sProcessing":     "Procesando...",
+                "sLengthMenu":     "Mostrar _MENU_ registros",
+                "sZeroRecords":    "No se encontraron resultados",
+                "sEmptyTable":     "Ningún dato disponible en esta tabla",
+                "sInfo":           "Productos _START_ al _END_ de un total de _TOTAL_ ",
+                "sInfoEmpty":      "Productos 0 de un total de 0 ",
+                "sInfoFiltered":   "(filtrado de un total de _MAX_ registros)",
+                "sInfoPostFix":    "",
+                "sSearch":         "Buscar:",
+                "sUrl":            "",
+                "sInfoThousands":  ",",
+                "sLoadingRecords": "Cargando...",
+                "oPaginate": {
+                    "sFirst":    "Primero",
+                    "sLast":     "Último",
+                    "sNext":     "Siguiente",
+                    "sPrevious": "Anterior"
+                },
+                "oAria": {
+                    "sSortAscending":  ": Activar para ordenar la columna de manera ascendente",
+                    "sSortDescending": ": Activar para ordenar la columna de manera descendente"
+                }
+            }
+        });*/
+   
  
     }
+    $(document).ready(function () {
+        $('#tableUser2').DataTable({
+            pageLength : 10,
+            'language':{
+                "sProcessing":     "Procesando...",
+                "sLengthMenu":     "Mostrar _MENU_ registros",
+                "sZeroRecords":    "No se encontraron resultados",
+                "sEmptyTable":     "Ningún dato disponible en esta tabla",
+                "sInfo":           "Productos _START_ al _END_ de un total de _TOTAL_ ",
+                "sInfoEmpty":      "Productos 0 de un total de 0 ",
+                "sInfoFiltered":   "(filtrado de un total de _MAX_ registros)",
+                "sInfoPostFix":    "",
+                "sSearch":         "Buscar:",
+                "sUrl":            "",
+                "sInfoThousands":  ",",
+                "sLoadingRecords": "Cargando...",
+                "oPaginate": {
+                    "sFirst":    "Primero",
+                    "sLast":     "Último",
+                    "sNext":     "Siguiente",
+                    "sPrevious": "Anterior"
+                },
+                "oAria": {
+                    "sSortAscending":  ": Activar para ordenar la columna de manera ascendente",
+                    "sSortDescending": ": Activar para ordenar la columna de manera descendente"
+                }
+            }
+        });
+         
+        
+    });
 </script>
 
 <script type="text/javascript">

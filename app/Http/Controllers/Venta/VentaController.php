@@ -50,11 +50,11 @@ class VentaController extends Controller
     {
         $hoy = Carbon::now()->toDateString();
         $descuentos = Descuento::where('inicio', '<=', $hoy)->where('fin', '>=', $hoy)->get();
-        $productos = Producto::get();
-        $pacientes = Paciente::get();
+        $productos = Producto::where('id','<',1)->get();
+        $pacientes = Paciente::where('id','<',1)->get();
         $empleadosFitter = Empleado::fitters()->get();
         return view('venta.create', [
-            'pacientes' => $pacientes,
+            'pacientes' => null,
             'paciente' => null,
             'descuentos' => $descuentos,
             'productos' => $productos,
@@ -65,10 +65,19 @@ class VentaController extends Controller
 
     public function createConPaciente(Paciente $paciente)
     {
-        $descuentos = Descuento::get();
-        $productos = Producto::get();
+        //dd($paciente);
+        $hoy = Carbon::now()->toDateString();
+        $descuentos = Descuento::where('inicio', '<=', $hoy)->where('fin', '>=', $hoy)->get();
+        $productos = Producto::where('id','<',1)->get();
         $pacientes = Paciente::get();
-        return view('venta.create', ['pacientes' => $pacientes, 'paciente' => $paciente, 'descuentos' => $descuentos, 'productos' => $productos, 'folio' => Venta::count() + 1]);
+        $empleadosFitter = Empleado::fitters()->get();
+        //dd($pacientes);
+        return view('venta.create', ['pacientes' => $pacientes, 
+                                    'paciente' => $paciente, 
+                                    'descuentos' => $descuentos, 
+                                    'productos' => $productos, 
+                                    'folio' => Venta::count() + 1,
+                                    'empleadosFitter' => $empleadosFitter]);
     }
     /**
      * Store a newly created resource in storage.

@@ -50,10 +50,14 @@ Route::get('getfaltas','Falta\FaltaController@getFaltas');
 Route::resource('faltas','Falta\FaltaController', ['except'=>'show']);
 Route::resource('niveles', 'Nivel\NivelController');
 
+
+Route::post('getPacientes_nombre','Paciente\PacienteController@getPacienteNombre');
+
 Route::resource('pacientes', 'Paciente\PacienteController');
 // Route::get('pacientes','Paciente\PacienteController@index');
 Route::resource('pacientes.tallas', 'Paciente\PacienteTallaController');
 Route::resource('crm', 'Paciente\PacienteCrmController');
+Route::post('crm_especifico','Paciente\PacienteCrmController@getCrm')->name('crm_especifico');
 Route::post('crm/index', 'Paciente\PacienteCrmController@indexWithFind')->name('crm.indexWithFind');
 Route::get('pacientes/{paciente}/crm', 'Paciente\PacienteCrmController@getCrmCliente')->name('getCrmsPorCliente');
 Route::resource('pacientes.tutores', 'Paciente\PacienteTutorController');
@@ -74,6 +78,9 @@ Route::post('productos/inventario/update', 'Inventario\InventarioController@upda
 Route::resource('contratos','Precargas\TipoContratoController')->middleware('precargas.role');
 Route::resource('descuentos', 'Venta\DescuentoController')->middleware('productos.rol');
 Route::resource('productos', 'Producto\ProductoController')->middleware('productos.rol');
+
+Route::post('ventas/getProductos_nombre','Producto\ProductoController@getProductosNombre')->name('ventas/getProductos_nombre');
+Route::post('pacientes/{id}/getProductos_nombre','Producto\ProductoController@getProductosNombre');
 
 Route::get('import-export-csv-excel', array('as' => 'excel.import', 'uses' => 'FileController@importExportExcelORCSV'))->middleware('productos.rol');
 Route::post('import-csv-excel', array('as' => 'import-csv-excel', 'uses' => 'FileController@importFileIntoDB'))->middleware('productos.rol');
