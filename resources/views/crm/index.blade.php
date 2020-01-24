@@ -188,16 +188,14 @@
                                         </div>
                                         <div class="form-group col-4">
                                             <label for="estado">Estado</label>
-                                            <input type="text" class="form-control" id="estado_id" name="estado_id" value="" style="display: none;"
-                                                readonly="">
-                                            <input type="text" class="form-control" id="estado" name="estado" value=""
-                                                readonly="">
-                                            <!--<select class="form-control" id="estado2" name="estado_id" required="" style="display: none;">
-                                                <option value="">Seleccionar</option>
-                                                    @foreach($estados as $estado)
-                                                    <option value="{{$estado->id}}">{{$estado->nombre}}</option>
-                                                    @endforeach
-                                                </select>-->
+                                            <input type="text" class="form-control" id="estado_id" name="estado_id" value="" style="display: none;" readonly="">
+                                            <input type="text" class="form-control" id="estado" name="estado" value="" readonly="">
+                                            <select class="form-control" id="estados" name="estados" required="" style="display: none;">
+                                            <option value="">Seleccionar</option>
+                                                @foreach($estados as $estado)
+                                                <option value="{{$estado->id}}" onclick="EstadoSelect({{$estado->id}})">{{$estado->nombre}}</option>
+                                                @endforeach
+                                            </select>
                                         </div>
                                         <div class="form-group col-4">
                                             <label for="hora">Hora</label>
@@ -395,7 +393,9 @@
             $('#guardar_crm').show();
             $('#cerrar_ver_crm_modal').show();
             $('#hora').val("");
-            
+            $('#estados').show();
+            $('#estado').hide(100);
+
             //$('#estado').removeAttr('disabled');
             $('#observaciones').attr('required', true);
             $('#acuerdos').attr('required', true);
@@ -405,10 +405,17 @@
             $('#hora').attr('required', true);
             
         });
+        $('#estados').change(function() {
+            $('#estado_id').val($(this).val());
+            console.log($('#estado_id').val());
+        });
        
     });
     
-    
+    function EstadoSelect(id){
+        
+
+    }
     function  mostrarCrmHistorial(id_crm,nomEstado){
         var fecha = new Date(); //Fecha actual
         $.ajax({
@@ -435,11 +442,11 @@
                     $('#fecha_contacto').val(crm.fecha_contacto);
                     $('#forma_contacto').val(crm.forma_contacto);
                     $('#estado').val(nomEstado);
+                    $('#estado_id').val(crm.estado_id);
                     $('#hora').val(crm.hora);
                     $('#forma_contacto2').hide(100);
                     $('#forma_contacto').show();
-                    $('#estado_id').val(crm.estado_id);
-                     $('#observaciones').attr('readonly', true);
+                    $('#observaciones').attr('readonly', true);
                     $('#acuerdos').attr('readonly', true);
                     $('#comentarios').attr('readonly', true);
                     $('#fecha_aviso').attr('readonly', true);
@@ -463,7 +470,7 @@
         var paciente = JSON.parse(data2);
         var estado = JSON.parse(data3);
         
-
+        //$('#estado_id').show();
         $('.paciente_id').val(paciente.id);
         $('#nombre').val(paciente.nombre);
         $('#telefono').val(paciente.telefono);
@@ -479,6 +486,9 @@
         $('#hora').val(crm.hora);
         $('#forma_contacto2').hide(100);
         $('#forma_contacto').show();
+        $('#estados').hide(100);
+        $('#estado').show();
+
         $('#estado_id').val(estado.id);
          $('#observaciones').attr('readonly', true);
         $('#acuerdos').attr('readonly', true);

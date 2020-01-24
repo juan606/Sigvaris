@@ -10,6 +10,7 @@ use App\Descuento;
 use App\Promocion;
 use App\Doctor;
 use App\Empleado;
+use App\Crm;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
@@ -87,7 +88,7 @@ class VentaController extends Controller
      */
     public function store(Request $request)
     {
-
+        //dd();
         if (!isset($request->producto_id) || is_null($request->producto_id)) {
             return redirect()
                 ->back()
@@ -110,10 +111,23 @@ class VentaController extends Controller
         // dd('VENTA QUE SERÁ GUARDADA'.$venta);
 
         $productos = Producto::find($request->producto_id);
+        //agrgar codigo para hacer crm 
 
         // REALIZAR VENTA
         $this->realizarVentaProductosService->make($venta, $productos, $request);
+        
+        $CRM = new Crm(
+                    array(
+                        'paciente_id' => $request->input('paciente_id'),
+                        'estado_id'   => 2,
+                        'hora'        => '00:00',
+                        'forma_contacto' => 'Telefono',
+                        'fecha_contacto' => date("Y").'-'.strval(date("m")+5).'-'.date('d'),
+                        'fecha_aviso' => date("Y").'-'.strval(date("m")+5).'-'.date('d')
 
+                    )
+                );
+        $CRM->save();
         // REDIRIGIR A LAS VENTAS REALIZADAS
         return redirect()->route('ventas.index');
     }
