@@ -108,7 +108,7 @@ class ProductoController extends Controller
     public function getProductosNombre(Request $request)
     {
         $ajaxProductos=array();
-        $Productos=Producto::where('descripcion','like',$request->input('nombre').'%')->get();
+        $Productos=Producto::where('sku','like',$request->input('nombre').'%')->get();
         //dd($Productos);
         foreach ($Productos as $Producto) {
             $Producto->descripcion=str_replace("'", "´", $Producto->descripcion);
