@@ -122,8 +122,8 @@ class VentaController extends Controller
                         'estado_id'   => 2,
                         'hora'        => '00:00',
                         'forma_contacto' => 'Telefono',
-                        'fecha_contacto' => date("Y").'-'.strval(date("m")+5).'-'.date('d'),
-                        'fecha_aviso' => date("Y").'-'.strval(date("m")+5).'-'.date('d')
+                        'fecha_contacto' => Carbon::now()->addMonths(5),
+                        'fecha_aviso' => Carbon::now()->addMonths(5)
 
                     )
                 );
