@@ -697,14 +697,14 @@ class ReporteController extends Controller
             // OBTENEMOS SI EN UNA VENTA SE COMPRA MAS DE UNA PRENDA
             if($venta->productos->count() > 1 || $venta->productos[0]->pivot->cantidad > 1){
                 $datosVentasMes["pacientes"][] = [
-                    "meta"  => $metaFitter->num_pacientes_recompra,
+                    "meta"  => $metaFitter ? $metaFitter->num_pacientes_recompra : 0,
                     "valor" => 1,
                     // TODO: ver si ese valor de 1 esta bien
                     "porcentaje" => ((100) / $metaFitter->num_pacientes_recompra)
                 ];
             } else {
                 $datosVentasMes["pacientes"][] = [
-                    "meta"=> $metaFitter->num_pacientes_recompra,
+                    "meta"=> $metaFitter ? $metaFitter->num_pacientes_recompra : 0,
                     "valor"=> "-",
                     "porcentaje"=> "-"
                 ];
@@ -713,13 +713,13 @@ class ReporteController extends Controller
             // OBTENEMOS SI EN UNA VENTA EL PACIENTE HACE RECOMPRA
             if($venta->paciente->ventas->count() > 1) {
                 $datosVentasMes["recompras"][] = [
-                    "meta"=> $metaFitter->numero_recompras,
+                    "meta"=> $metaFitter ? $metaFitter->numero_recompras : 0,
                     "valor"=> 1,
                     "porcentaje"=> ((100) / $metaFitter->numero_recompras)
                 ];
             } else {
                 $datosVentasMes["recompras"][] = [
-                    "meta"=> $metaFitter->numero_recompras,
+                    "meta"=> $metaFitter ? $metaFitter->numero_recompras : 0,
                     "valor"=> "-",
                     "porcentaje"=> "-"
                 ];   

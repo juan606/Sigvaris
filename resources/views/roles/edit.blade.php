@@ -103,6 +103,13 @@
                                     <span class="slider"></span>
                                 </label>
                             </li>
+                            <li class="list-group-item">
+                                Reportes
+                                <label class="switch ">
+                                    <input type="checkbox" name="permisos[reportes]" value="1" class="success">
+                                    <span class="slider"></span>
+                                </label>
+                            </li>
                         </ul>
                     </div>
 

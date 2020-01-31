@@ -153,13 +153,12 @@
                 @endif
             @endif
 
-            {{-- @if (Auth::user()->role->roles || Auth::user()->role->usuarios) --}}
+            @if (Auth::user()->role->reportes)
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown">
                             Reportes
                         </a>
                         <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                {{-- @if (Auth::user()->role->roles) --}}
                             <a class="dropdown-item" href="{{route('reportes.1')}}"><span>Pacientes que no compraron</span><i class="fa fa-search float-right"></i></a>
                             <a class="dropdown-item" href="{{route('reportes.2')}}"><span>Prendas compradas por paciente</span><i class="fa fa-search float-right"></i></a>
                             <a class="dropdown-item" href="{{route('reportes.3')}}"><span>Prendas vendidas por rango de fecha</span><i class="fa fa-search float-right"></i></a>
@@ -172,8 +171,7 @@
                             <a class="dropdown-item" href="{{route('reportes.10')}}"><span>Recomendaciones de doctor</span><i class="fa fa-search float-right"></i></a>
                             <a class="dropdown-item" href="{{route('reportes.metas')}}"><span>Ventas de fitter</span><i class="fa fa-search float-right"></i></a>
                             {{-- <a class="dropdown-item" href="{{route('reportes.11')}}"><span>11</span><i class="fa fa-search float-right"></i></a> --}}
-                {{-- @endif --}}
-            {{-- @endif --}}
+            @endif
 
 
                     </div>

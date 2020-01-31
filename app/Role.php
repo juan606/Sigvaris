@@ -23,7 +23,8 @@ class Role extends Model
         'oficinas',
         'usuarios',
         'roles',
-        'facturacion'
+        'facturacion',
+        'reportes'
     ];
 
     public function user(){

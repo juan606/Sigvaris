@@ -18,11 +18,11 @@ class CheckProductRoleToUser
     {
 
         if(!Auth::check()){
-            return redirect('/login');
+            return redirect('/');
         }
 
         if(!Auth::user()->role->productos){
-            return redirect('/');
+            return redirect('/inicio');
         }
 
         return $next($request);

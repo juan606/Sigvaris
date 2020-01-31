@@ -163,6 +163,7 @@ class RoleController extends Controller
         $usuarios = false;
         $facturacion = false;
         $roles = false;       
+        $reportes = false;       
         if(isset($perm['proveedores'])){
             $proveedores = true;
         }
@@ -199,6 +200,9 @@ class RoleController extends Controller
         if(isset($perm['roles'])){
             $roles = true;
         }        
+        if(isset($perm['reportes'])){
+            $reportes = true;
+        }        
         $role->nombre = $request->nombre;
         $role->proveedores = $proveedores;
         $role->pacientes = $pacientes;
@@ -212,6 +216,7 @@ class RoleController extends Controller
         $role->usuarios = $usuarios;
         $role->facturacion = $facturacion;
         $role->roles = $roles;
+        $role->reportes = $reportes;
         $role->save();        
         return $this->index();
     }
