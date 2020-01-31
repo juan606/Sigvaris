@@ -93,6 +93,8 @@ Route::get('pacientes/{paciente}/ventas', 'Venta\VentaController@createConPacien
 
 Route::post('get_ventas','Venta\VentaController@getVentas');
 Route::post('get-ventas-clientes','Venta\VentaController@getVentasClientes');
+Route::get('corte-caja/export', 'CorteCaja\CorteCajaController@export')->name('corte-caja.export');
+Route::resource('corte-caja', 'CorteCaja\CorteCajaController');
 Route::resource('ventas', 'Venta\VentaController');
 
 

@@ -41,7 +41,7 @@
                         <input type="text" class="form-control" id="apater" name="tel2" value="" >
                     </div>	
                     <div class="form-group col-4">
-                        <label class="control-label" for="amater">Teléfono 3:</label>
+                        <label class="control-label" for="amater">Días de consulta:</label>
                         <input type="text" class="form-control" id="amater" name="tel3" value="" >
                     </div>		
                 </div>
