@@ -53,6 +53,13 @@
                                     <input type="number" name="numProductosBaja" value="0" class="form-control" required>
                                 </div>
                             </div>
+                            {{-- INPUT CANTIDAD DE PRODUCTOS A DAR DE ALTA --}}
+                            <div class="col-12 col-md-4">
+                                <div class="form-group">
+                                    <label for="">PRODUCTOS A DAR DE ALTA</label>
+                                    <input type="number" name="numProductosAlta" value="0" class="form-control" required>
+                                </div>
+                            </div>
                         </div>
                         
                         <div class="row">

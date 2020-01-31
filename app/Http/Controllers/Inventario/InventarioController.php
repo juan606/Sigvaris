@@ -31,6 +31,7 @@ class InventarioController extends Controller
 
         $producto = Producto::find($request->input('productoId'));
         $stockNuevo = $producto->stock - $request->input('numProductosBaja');
+        $stockNuevo = $stockNuevo + $request->input('numProductosAlta');
 
         // AÑADIMOS EL CAMBIO DE INVENTARIO AL HISTORIAL
         $historialModificacionInventario = HistorialModificacionInventario::create([
@@ -38,7 +39,7 @@ class InventarioController extends Controller
             'producto_id' => $producto->id,
             'stock_anterior' => $producto->stock,
             'stock_nuevo' => $stockNuevo,
-            'motivo' => $request->input('motivoBaja'),
+            'motivo' => $request->input('motivo'),
         ]);
 
         // ACTUALIZAMOS LA INFORMACIÓN DEL PRODUCTO
@@ -49,6 +50,8 @@ class InventarioController extends Controller
             'upc' => $request->input('upc'),
             'stock' => $stockNuevo,
         ]);
+
+        $producto->save();
 
         return redirect()->route('productos.inventario')->with('status', '¡El inventario ha sido actualizado!');
     }

@@ -119,7 +119,7 @@ class VentaController extends Controller
         $CRM = new Crm(
                     array(
                         'paciente_id' => $request->input('paciente_id'),
-                        'estado_id'   => 2,
+                        'estado_id'   => 1,
                         'hora'        => '00:00',
                         'forma_contacto' => 'Telefono',
                         'fecha_contacto' => Carbon::now()->addMonths(5),
