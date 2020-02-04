@@ -79,8 +79,11 @@ Route::resource('contratos','Precargas\TipoContratoController')->middleware('pre
 Route::resource('descuentos', 'Venta\DescuentoController')->middleware('productos.rol');
 Route::resource('productos', 'Producto\ProductoController')->middleware('productos.rol');
 
+
+
 Route::post('ventas/getProductos_nombre','Producto\ProductoController@getProductosNombre')->name('ventas/getProductos_nombre');
 Route::post('pacientes/{id}/getProductos_nombre','Producto\ProductoController@getProductosNombre');
+Route::post('productos/getProductoExists','Producto\ProductoController@getProductoExists')->name('productos/getProductoExists');
 
 Route::get('import-export-csv-excel', array('as' => 'excel.import', 'uses' => 'FileController@importExportExcelORCSV'))->middleware('productos.rol');
 Route::post('import-csv-excel', array('as' => 'import-csv-excel', 'uses' => 'FileController@importFileIntoDB'))->middleware('productos.rol');
