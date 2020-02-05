@@ -53,7 +53,8 @@ class ProductoController extends Controller
     public function store(Request $request)
     {
         // dd($request->input('stock'));
-        $producto = Producto::create($request->all());
+        Producto::updateOrCreate(['sku'=>$request->input('sku')], $request->all());
+        //$producto = Producto::create($request->all());
         return redirect()->route('productos.index');
     }
 
@@ -120,6 +121,16 @@ class ProductoController extends Controller
         }
         //dd($ajaxProductos);
         return json_encode(['data'=> $ajaxProductos]);
+    }
+    public function getProductoExists(Request $request)
+    {
+        if (Producto::where('sku',$request->input('sku'))->exists()) {
+            return 1;
+        }else{
+            return 0;
+        }
+        //dd(Producto::where('sku',$request->input('sku'))->get());
+        //return Producto::where('sku',$request->input('sku'))->exists();
     }
     
 }

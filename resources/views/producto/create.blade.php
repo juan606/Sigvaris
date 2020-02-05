@@ -1,5 +1,6 @@
 @extends('principal')
 @section('content')
+<meta name="csrf-token" content="{{ Session::token() }}"> 
 <div class="container">
     <div class="card">
         <div class="card-header">
@@ -20,8 +21,11 @@
                 <div class="card-body">
                     <div class="row">
                         <div class="col-3 form-group">
-                            <label class="control-label">✱SKU:</label>
-                            <input type="text" name="sku" class="form-control" required="">
+                            <label id="No_repetido" class="control-label">✱SKU:</label>
+                            <div id="repetido" class=" text-danger" style="display: none;">
+                                ✱SKU repetido 
+                            </div>
+                            <input type="text" id="sku" name="sku" class="form-control" required="">
                         </div>
                         <div class="col-3 form-group">
                             <label class="control-label">Descripcion:</label>
@@ -65,7 +69,33 @@
 <script type="text/javascript">
     $('#precio').change(function(){
         $('#precio_iva').val((parseFloat($(this).val())*0.16)+parseFloat($(this).val()));
+
+        
     });
+    $('#sku').change( function() {
+            $.ajax({
+                url:"getProductoExists",
+                type:'POST',
+                data: {"_token": $("meta[name='csrf-token']").attr("content"),
+                    "sku":$("#sku").val()
+                },
+                dataType:'json',
+                success: function(res){
+                    if(res){
+                        $('#repetido').show();
+                        $('#No_repetido').hide();
+                    }else{
+                        $('#repetido').hide();
+                        $('#No_repetido').show();
+                    }
+                },
+                error: function(e){
+                    alert(e);
+                    console.log(e);
+                    
+                }
+            });
+        });
 </script>
 
 @endsection
