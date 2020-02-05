@@ -41,13 +41,14 @@ class PacienteController extends Controller
             $pacientes=Paciente::where(function($query)use($palabras_busqueda){
 
                 foreach ($palabras_busqueda as $palabra) {
-                    $query->where('nombre','like',"%$palabra%" )->orWhere('paterno','like',"%$palabra%")->orWhere('materno','like',"%$palabra%"); 
+                    $query->where('nombre','like',"$palabra%" )->orWhere('paterno','like',"$palabra%")->orWhere('materno','like',"$palabra%"); 
                 }
-            })->paginate(10);    
+            })->paginate(50);
+            $pacientes->appends(['search' => $request->search]);
         }
         else
         {
-            $pacientes = Paciente::paginate(10);    
+            $pacientes = Paciente::paginate(50);    
         }
         
         return view('paciente.index', ['pacientes'=> $pacientes]);
