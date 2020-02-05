@@ -76,7 +76,7 @@
 <script>
 
 $(document).ready(function(){
-	$('#tablaPacientes').DataTable();
+	// $('#tablaPacientes').DataTable();
 });
 
 </script>

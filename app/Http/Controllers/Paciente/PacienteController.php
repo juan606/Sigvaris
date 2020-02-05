@@ -38,7 +38,7 @@ class PacienteController extends Controller
         if($busqueda)
         {
             $palabras_busqueda=explode(" ",$busqueda);
-            $pacientes=Paciente::where(function($query)use($palabras_busqueda){
+            $pacientes=Paciente::orderBy('nombre','asc')->where(function($query)use($palabras_busqueda){
 
                 foreach ($palabras_busqueda as $palabra) {
                     $query->where('nombre','like',"$palabra%" )->orWhere('paterno','like',"$palabra%")->orWhere('materno','like',"$palabra%"); 
@@ -48,7 +48,7 @@ class PacienteController extends Controller
         }
         else
         {
-            $pacientes = Paciente::paginate(50);    
+            $pacientes = Paciente::orderBy('nombre','asc')->paginate(50);    
         }
         
         return view('paciente.index', ['pacientes'=> $pacientes]);
