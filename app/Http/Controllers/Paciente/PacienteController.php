@@ -35,10 +35,19 @@ class PacienteController extends Controller
     {
         $busqueda=$request->search;
         // $pacientes = Paciente::get();
+
+        
+        if($request->ordenar_por){
+            $pacientes = Paciente::orderBy($request->ordenar_por,'asc');
+        }else{
+            $pacientes = Paciente::orderBy('nombre','adc');
+        }
+
         if($busqueda)
         {
+            // dd($request->ordenar_por);
             $palabras_busqueda=explode(" ",$busqueda);
-            $pacientes=Paciente::orderBy('nombre','asc')->where(function($query)use($palabras_busqueda){
+            $pacientes=$pacientes->where(function($query)use($palabras_busqueda){
 
                 foreach ($palabras_busqueda as $palabra) {
                     $query->where('nombre','like',"$palabra%" )->orWhere('paterno','like',"$palabra%")->orWhere('materno','like',"$palabra%"); 
@@ -48,8 +57,10 @@ class PacienteController extends Controller
         }
         else
         {
-            $pacientes = Paciente::orderBy('nombre','asc')->paginate(10);    
+            $pacientes = $pacientes->paginate(10);    
         }
+
+        
         
         return view('paciente.index', ['pacientes'=> $pacientes]);
     }
