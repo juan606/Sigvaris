@@ -43,12 +43,12 @@ class PacienteController extends Controller
                 foreach ($palabras_busqueda as $palabra) {
                     $query->where('nombre','like',"$palabra%" )->orWhere('paterno','like',"$palabra%")->orWhere('materno','like',"$palabra%"); 
                 }
-            })->paginate(50);
+            })->paginate(10);
             $pacientes->appends(['search' => $request->search]);
         }
         else
         {
-            $pacientes = Paciente::orderBy('nombre','asc')->paginate(50);    
+            $pacientes = Paciente::orderBy('nombre','asc')->paginate(10);    
         }
         
         return view('paciente.index', ['pacientes'=> $pacientes]);
