@@ -260,7 +260,10 @@ class PacienteController extends Controller
 
 
         $ajaxPaciente=array();
-        $Pacientes=Paciente::where('nombre','like',$request->input('nombre').'%')->get();
+        $Pacientes=Paciente::where('nombre','like',$request->input('nombre').'%')
+        ->orWhere('paterno','like',$request->input('nombre').'%')    
+        ->orWhere('materno','like',$request->input('nombre').'%')    
+        ->get();
         //dd($Productos);
         foreach ($Pacientes as $Paciente) {
             array_push ($ajaxPaciente,[ $Paciente->rfc,
