@@ -12,13 +12,13 @@
 					<i class="fa fa-plus"></i><strong> Agregar Paciente</strong>
 				</a>
 			</div>
-			{{-- <div class="search-container">
+			<div class="search-container">
 			    <form action="/pacientes">
 			      <input type="text" placeholder="Search.." name="search">
 			      <button type="submit"><i class="fa fa-search"></i></button>
 			    </form>
 			  </div>
-			</div> --}}
+			</div>
 		</div>
 	</div>
 	<div class="card-body">
@@ -68,7 +68,7 @@
 						@endforeach
 					</tbody>
 				</table>
-				{{-- {{$pacientes->links()}} --}}
+				{{$pacientes->links()}}
 			</div>
 		</div>
 	</div>
