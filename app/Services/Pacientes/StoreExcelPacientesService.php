@@ -29,8 +29,8 @@ class StoreExcelPacientesService
             if (isset($row[5])) {
                 $Doctor= array(
                     'nombre' => $row[5],
-                    'apellidomaterno' => $row[6],
-                    'apellidopaterno' => $row[7],
+                    'apellidomaterno' => $row[7],
+                    'apellidopaterno' => $row[6],
                     //'celular' => $row[1],
                     //'mail' => $row[2],
                     //'nacimiento' => $row[2],

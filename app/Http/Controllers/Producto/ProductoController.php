@@ -124,7 +124,10 @@ class ProductoController extends Controller
     }
     public function getProductoExists(Request $request)
     {
-        if (Producto::where('sku',$request->input('sku'))->exists()) {
+        if (Producto::where('sku',$request->input('sku'))
+                    ->orWhere('upc',$request->input('sku'))
+                    ->orWhere('swiss_id',$request->input('sku'))
+                    ->exists()) {
             return 1;
         }else{
             return 0;

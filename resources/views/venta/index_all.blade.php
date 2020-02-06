@@ -85,12 +85,12 @@
                            }
                            if($val)
                            {
-                                array_push($sumatoria_pacientes,$venta->paciente->id);
+                                array_push($sumatoria_pacientes,$venta->paciente['id']);
                            }
                         @endphp
                         <tr>
                             <td>{{$venta->id}}</td>
-                            <td>{{$venta->paciente->fullname}}</td>
+                            <td>{{$venta->paciente['nombre']." ".$venta->paciente['paterno']." ".$venta->paciente['materno']}}</td>
                             <td>${{$venta->subtotal}}</td>
                             @if($venta->descuento)
                                 <td>{{$venta->descuento->nombre}}</td>

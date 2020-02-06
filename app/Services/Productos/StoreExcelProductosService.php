@@ -27,8 +27,11 @@ class StoreExcelProductosService
         try {
             // OBTENEMOS LOS PRODUCTOS DEL EXCEL
             foreach ($data as $row) {
-                $indice = $this->buscarPreciosenExcel($Precios, count($Precios), $row[0]);
-                if ($indice != -1) {
+               // $indice = $this->buscarPreciosenExcel($Precios, count($Precios), $row[0]);
+
+                //if ($indice != -1) {
+                    //dd($indice);
+                if (isset($row[7])) {
                     $arr[] = [
                         'sku' => $row[0],
                         'descripcion' => $row[1],
@@ -36,12 +39,26 @@ class StoreExcelProductosService
                         'upc' => $row[3],
                         'swiss_id' => $row[4],
                         //'precio_distribuidor' => number_format($row->distribuidor, 2, '.', ''),
-                        'precio_publico' => number_format($Precios[$indice][1], 2, '.', ''),
-                        'precio_publico_iva' => number_format($Precios[$indice][2], 2, '.', ''),
+                        'precio_publico' => number_format($row[5], 2, '.', ''),
+                        'precio_publico_iva' => number_format($row[6], 2, '.', ''),
                         'stock' => $row[7],
                         'oficina_id' => session('oficina')
                     ];
+                }else{
+                    $arr[] = [
+                        'sku' => $row[0],
+                        'descripcion' => $row[1],
+                        'line' => $row[2],
+                        'upc' => $row[3],
+                        'swiss_id' => $row[4],
+                        //'precio_distribuidor' => number_format($row->distribuidor, 2, '.', ''),
+                        'precio_publico' => number_format($row[5], 2, '.', ''),
+                        'precio_publico_iva' => number_format($row[6], 2, '.', ''),
+                        'oficina_id' => session('oficina')
+                    ];
                 }
+                    
+                //}
             }
         } catch (\ErrorException $ee) {
             return redirect()->back()->withErrors(['status', 'error_create']);
