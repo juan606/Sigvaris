@@ -74,25 +74,7 @@
                         @if(!$ventas)
                         <h3>No hay ventas registrados</h3>
                         @else
-                         @php
-                            $sumatoria_ventas=0;
-                            $sumatoria_pacientes=[];
-                        @endphp
                         @foreach($ventas as $venta)
-                            @php
-                               $sumatoria_ventas+=$venta->subtotal;
-                               $val=1;
-                               foreach ($sumatoria_pacientes as $p) {
-                                   if($p==$venta->paciente->id)
-                                   {
-                                        $val=0;
-                                   }
-                               }
-                               if($val)
-                               {
-                                    array_push($sumatoria_pacientes,$venta->paciente['id']);
-                               }
-                            @endphp
                             <tr>
                                 <td nowrap>{{$venta->id}}</td>
                                 <td nowrap>{{$venta->paciente['nombre']." ".$venta->paciente['paterno']." ".$venta->paciente['materno']}}</td>

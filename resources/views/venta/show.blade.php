@@ -113,8 +113,8 @@
                                         <tr>
                                             <td>{{$cambio->tipo_cambio}}</td>
                                             <td>{{$cambio->responsable->name}}</td>
-                                            <td>{{$cambio->productoEntregado->sku}}</td>
-                                            <td>{{$cambio->productoDevuelto->sku}}</td>
+                                            <td>{{$cambio->productoEntregado ? $cambio->productoEntregado->sku : 'N/D'}}</td>
+                                            <td>{{$cambio->productoEntregado ? $cambio->productoDevuelto->sku : 'N/D'}}</td>
                                         </tr>
                                         @endforeach
                                     </tbody>

@@ -13,7 +13,6 @@ class RealizarDevolucionService
 
     public function __construct(Request $request, Venta $venta)
     {
-        dd($request->input());
         $this->setVenta($venta);
         $this->setProductos($request);
         $this->anadirProductosAStock();
