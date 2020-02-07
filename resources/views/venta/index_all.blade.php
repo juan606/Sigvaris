@@ -64,6 +64,7 @@
                         <th>Fecha</th>
                         <th>Operación</th>
                         <th>Cambio físico</th>
+                        <th>Damage OOT</th>
                     </tr>
                 </thead>
                 <tbody id="ventas">
@@ -109,6 +110,9 @@
                             </td>
                             <td>
                                 <a href="{{route('ventas.cambio-fisico.create',['venta'=>$venta])}}" class="btn btn-warning">Cambio fisico</a>
+                            </td>
+                            <td>
+                                <a href="{{route('ventas.damage-oot.create',['venta'=>$venta])}}" class="btn btn-info">Damage OOT</a>
                             </td>
                         </tr>
                     @endforeach

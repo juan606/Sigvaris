@@ -34,6 +34,11 @@ class Venta extends Model
      * =============
      */
 
+    public function historialCambios()
+    {
+        return $this->hasMany('App\HistorialCambioVenta');
+    }
+
     public function productos()
     {
         return $this->belongsToMany('App\Producto', 'producto_venta')->withPivot('cantidad', 'precio');

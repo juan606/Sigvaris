@@ -30,75 +30,116 @@
                         <input type="number" class="form-control" value="{{$venta->id}}" readonly="">
                     </div>
                     @if ($venta->oficina_id)
-                        <div class="col-4 form-group">
-                            <label class="control-label">Oficina:</label>
-                            <input type="text" class="form-control" value="{{$venta->oficina->nombre}}" readonly="">
-                        </div>
+                    <div class="col-4 form-group">
+                        <label class="control-label">Oficina:</label>
+                        <input type="text" class="form-control" value="{{$venta->oficina->nombre}}" readonly="">
+                    </div>
                     @endif
                     {{-- <div class="col-4 form-group">
                         <label class="control-label">Oficina:</label>
                         <input type="text" class="form-control" value="{{$venta->oficina->nombre}}" readonly="">
-                    </div> --}}
+                </div> --}}
+            </div>
+            <div class="row">
+                <h5>Productos</h5>
+            </div>
+            <div class="row">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>Nombre</th>
+                            <th>Precio Individual</th>
+                            <th>Cantidad</th>
+                            <th>Precio total</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach($venta->productos as $producto)
+                        <tr>
+                            <td>{{$producto->descripcion}}</td>
+                            <td>{{$producto->precio_publico_iva}}</td>
+                            <td>{{$producto->pivot->cantidad}}</td>
+                            <td>{{$producto->precio_publico_iva * $producto->pivot->cantidad}}</td>
+                        </tr>
+                        @endforeach
+                    </tbody>
+                </table>
+            </div>
+            <div class="row">
+                <div class="col-4 form-group">
+                    <label class="control-label">Subtotal:</label>
+                    <input type="number" class="form-control" value="{{$venta->subtotal}}" readonly="">
                 </div>
-                <div class="row">
-                    <h5>Productos</h5>
-                </div>
-                <div class="row">
-                    <table class="table">
-                        <thead>
-                            <tr>
-                                <th>Nombre</th>
-                                <th>Precio Individual</th>
-                                <th>Cantidad</th>
-                                <th>Precio total</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            @foreach($venta->productos as $producto)
-                            <tr>
-                                <td>{{$producto->descripcion}}</td>
-                                <td>{{$producto->precio_publico_iva}}</td>
-                                <td>{{$producto->pivot->cantidad}}</td>
-                                <td>{{$producto->precio_publico_iva * $producto->pivot->cantidad}}</td>
-                            </tr>
-                            @endforeach
-                        </tbody>
-                    </table>
-                </div>
-                <div class="row">
-                    <div class="col-4 offset-4 form-group">
-                        <label class="control-label">Subtotal:</label>
-                        <input type="number" class="form-control" value="{{$venta->subtotal}}" readonly="">
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-4 offset-4 form-group">
-                        <label class="control-label">Descuento:</label>
-                        <input type="text" class="form-control" value="{{round($venta->subtotal-$venta->total+($venta->subtotal*0.16))}}" readonly="">
-                        {{-- @if ($venta->descuento)
+                <div class="col-4 form-group">
+                    <label class="control-label">Descuento:</label>
+                    <input type="text" class="form-control"
+                        value="{{round($venta->subtotal-$venta->total+($venta->subtotal*0.16))}}" readonly="">
+                    {{-- @if ($venta->descuento)
                             @if ($venta->promocion->tipo=='E')
                                 <input type="text" class="form-control" value="0" readonly="">
                             @else
-                                <input type="text" class="form-control" value="{{ $venta->subtotal-$venta->total+($venta->subtotal*0.16) }}" readonly="">
-                            @endif
-                            
-                        @else    
-                            <input type="text" class="form-control" value="0" readonly="">
-                        @endif --}}
-                        
-                    </div>
+                                <input type="text" class="form-control" value="{{ $venta->subtotal-$venta->total+($venta->subtotal*0.16) }}"
+                    readonly="">
+                    @endif
+
+                    @else
+                    <input type="text" class="form-control" value="0" readonly="">
+                    @endif --}}
+
                 </div>
-                <div class="row">
-                    <div class="col-4 offset-4 form-group">
-                        <label class="control-label">Total:</label>
-                        <input type="number" class="form-control" value="{{$venta->total}}" readonly="">
+                <div class="col-4 form-group">
+                    <label class="control-label">Total:</label>
+                    <input type="number" class="form-control" value="{{$venta->total}}" readonly="">
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-12">
+                    <h5 class="text-center text-uppercase text-muted">HISTORIAL DE CAMBIOS DE VENTA</h5>
+                    <div class="card">
+                        <div class="card-body">
+                            <div class="table-responsive">
+                                <table class="table table-hover table-striped table-bordered" style="margin-bottom: 0;"
+                                    id="tablaInventario">
+                                    <thead>
+                                        <tr class="info">
+                                            <th>TIPO CAMBIO</th>
+                                            <th>RESPONSABLE</th>
+                                            <th>PRODUCTO ENTREGADO</th>
+                                            <th>PRODUCTO DEVUELTO</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @foreach ($venta->historialCambios as $cambio)
+                                        <tr>
+                                            <td>{{$cambio->tipo_cambio}}</td>
+                                            <td>{{$cambio->responsable->name}}</td>
+                                            <td>{{$cambio->productoEntregado->sku}}</td>
+                                            <td>{{$cambio->productoDevuelto->sku}}</td>
+                                        </tr>
+                                        @endforeach
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
-            </form>
-
         </div>
+        </form>
 
     </div>
+
 </div>
+</div>
+
+
+<script src="https://code.jquery.com/jquery-3.3.1.js"></script>
+<script src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
+<script src="https://cdn.datatables.net/1.10.19/js/dataTables.bootstrap4.min.js"></script>
+<script>
+    $(document).ready(function() {
+        $('#tablaHistorialCambios').DataTable();
+    } );
+</script>
+
 @endsection

@@ -4,10 +4,10 @@ namespace App\Http\Controllers\Venta;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use App\Services\Ventas\StoreCambioFisicoService;
+use App\Services\Ventas\RealizarDevolucionPorDamageOOTService;
 use App\Venta;
 
-class CambioFisicoController extends Controller
+class DamageOOTController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -26,7 +26,9 @@ class CambioFisicoController extends Controller
      */
     public function create(Venta $venta)
     {
-        return view('venta.cambios_fisicos.create',compact('venta'));
+        $totalCambiosDePaciente = $venta->paciente->ventas->pluck('historialCambios')->flatten()->count();
+        // return $venta->productos()->first()->pivot;
+        return view('venta.damage_oot.create', compact('venta','totalCambiosDePaciente'));
     }
 
     /**
@@ -37,8 +39,8 @@ class CambioFisicoController extends Controller
      */
     public function store(Request $request, Venta $venta)
     {
-        $storeCambioFisicoService = new StoreCambioFisicoService($request, $venta);
-        return redirect()->route('ventas.index');
+        $RealizarDevolucionPorDamageOOTService = new RealizarDevolucionPorDamageOOTService($request, $venta);
+        return redirect()->back();
     }
 
     /**

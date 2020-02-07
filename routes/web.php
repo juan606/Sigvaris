@@ -99,6 +99,7 @@ Route::post('get-ventas-clientes','Venta\VentaController@getVentasClientes');
 Route::get('corte-caja/export', 'CorteCaja\CorteCajaController@export')->name('corte-caja.export');
 Route::resource('corte-caja', 'CorteCaja\CorteCajaController');
 Route::resource('ventas.cambio-fisico', 'Venta\CambioFisicoController');
+Route::resource('ventas.damage-oot', 'Venta\DamageOOTController');
 Route::resource('ventas', 'Venta\VentaController');
 
 
