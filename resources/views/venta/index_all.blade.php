@@ -54,7 +54,7 @@
                     <button class="btn btn-outline-secondary" type="button" id="reporte">Buscar</button>
                 </div>
             </div>
-            <table class="table" id="hventas">
+            <table class="table">
                 <thead>
                     <tr>
                         <th>Folio</th>
@@ -108,7 +108,7 @@
                             </td>
                         </tr>
                     @endforeach
-                    <thead>
+                    {{-- <thead>
                         <tr>
                             <th>Total ventas</th>
                             <th>Total clientes</th>
@@ -121,12 +121,13 @@
                             <td>{{count($sumatoria_pacientes)}}</td>
                             <td>${{$sumatoria_ventas}}</td>
                         </tr>
-                    </tbody>                          
+                    </tbody>                           --}}
                     @endif
-            
                 </tbody>
             </table>
 
+            {{$ventas->links()}}
+            
             <div class="row m-3">
                 <div class="col-sm-9 offset-sm-2">
                     <h3 style="display: none;" id="tituloP">Prendas Vendidas</h3>
@@ -135,8 +136,8 @@
                 </div>
             </div>
         </div>
-        @include('venta.rep_clientes')
-        @include('venta.rep_medicos')
+        {{-- @include('venta.rep_clientes') --}}
+        {{-- @include('venta.rep_medicos') --}}
     </div>
 </div>
 <script type="text/javascript">
