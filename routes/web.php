@@ -168,7 +168,7 @@ Route::get('reportes/metas','Reporte\ReporteController@reporteVentasfitter')->na
 Route::post('reportes/metas','Reporte\ReporteController@reporteVentasfitter')->name('reportes.metas');
 
 //Productos con daño
-Route::get('damage','Venta\DamageController@index');
+Route::get('ventas/{id}/damage','Venta\DamageController@index');
 Route::post('SerchProductoExit','Venta\DamageController@SerchProductoExit');
 
 

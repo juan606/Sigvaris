@@ -63,6 +63,7 @@
                         <th>Descuento</th>
                         <th>Fecha</th>
                         <th>Operación</th>
+                        <th>Damage</th>
                     </tr>
                 </thead>
                 <tbody id="ventas">
@@ -103,6 +104,14 @@
                                     <div class="col-auto pr-2">
                                         <a href="{{route('ventas.show', ['venta'=>$venta])}}"
                                             class="btn btn-primary"><i class="fas fa-eye"></i><strong> Ver</strong></a>
+                                    </div>
+                                </div>
+                            </td>
+                             <td>
+                                <div class="row">
+                                    <div class="col-auto pr-2">
+                                        <a href="{{url('ventas/'.$venta->id.'/damage')}}"
+                                            class="btn btn-primary"><i class="fas fa-eye"></i><strong> Damage</strong></a>
                                     </div>
                                 </div>
                             </td>

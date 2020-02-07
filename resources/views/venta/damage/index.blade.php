@@ -6,8 +6,14 @@
         <div class="card-header">
             <h4>DAMAGE</h4>
             <div class="input-group-prepend">
-                <span class="input-group-text" >Sku producto</span>              
-                <input type="text" class="form-control" id="Sku1" aria-describedby="basic-addon3">
+                <span class="input-group-text" >Sku producto</span>   
+                <select class="form-control" id="Sku1" >
+                        @foreach($Productos as $Producto)     
+                            <option value="0">Selecciona...</option>
+                            <option value="{{ $Producto->sku }}">{{ $Producto->sku }}</option>
+                        @endforeach
+                    </select>   
+                
             </div> 
         </div>
             
@@ -15,15 +21,11 @@
             <div class="row">
                 <div class="col-4 form-group">
                     <label for="" class="text-uppercase text-muted">Nombre: </label>
-                    <input type="text" class="form-control" id="sku" required readonly>
+                    <input type="text" class="form-control" id="nombre" value="{{ $Venta->paciente->nombre." ".$Venta->paciente->paterno." ".$Venta->paciente->materno}}"required readonly>
                 </div>
                 <div class="col-4 form-group">
                     <label for="" class="text-uppercase text-muted">RFC: </label>
-                    <input type="text" class="form-control" id="descripcion" required readonly>
-                </div>
-                <div class="col-4 form-group">
-                    <label for="" class="text-uppercase text-muted">Celcular: </label>
-                    <input type="number" id="precio_publico" class="form-control" required readonly>
+                    <input type="text" class="form-control" id="rcf"  value="{{ $Venta->paciente->rcf}}"required readonly>
                 </div>
             </div>
            <div class="row">
@@ -80,7 +82,7 @@
             data: {"_token": $("meta[name='csrf-token']").attr("content"),
                     "sku" : $('#Sku1').val()
             },
-            url:"SerchProductoExit",
+            url:"/SerchProductoExit",
 
             success: function (data) {
                 console.log(data.Ex);

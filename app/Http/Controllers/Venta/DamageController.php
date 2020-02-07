@@ -3,6 +3,8 @@
 namespace App\Http\Controllers\Venta;
 
 use App\Producto;
+use App\Venta;
+
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
@@ -10,9 +12,11 @@ class DamageController extends Controller
 {
     //
 
-    public function index()
+    public function index($id)
     {
-    	return view('damage.index');
+        $Venta=Venta::where('id',$id)->get();
+        $Productos=$Venta[0]->productos;
+    	return view('venta.damage.index', ['Productos'=>$Productos,'Venta'=>$Venta[0]]);
     }
 
     public function SerchProductoExit(Request $request){
