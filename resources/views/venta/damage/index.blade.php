@@ -51,21 +51,21 @@
                     <label for="" class="text-uppercase text-muted">Descripcion del daño : </label>
                     <select class="form-control" name="damage" id="damage" >
                         <option value="0">Selecciona...</option>
-                        <option value="1">defecto de fabrica</option>
-                        <option value="2">hilo jalado</option>
-                        <option value="3">hilos sueltos</option>
-                        <option value="4">roto</option>
-                        <option value="5">surcidos adicionales</option>
-                        <option value="6">silicon</option>
-                        <option value="7">producto no correspondo al código de caja</option>
-                        <option value="8">puente dañado</option>
+                        <option value="defecto de fabrica">defecto de fabrica</option>
+                        <option value="hilo jalado">hilo jalado</option>
+                        <option value="hilos sueltos">hilos sueltos</option>
+                        <option value="roto">roto</option>
+                        <option value="surcidos adicionales">surcidos adicionales</option>
+                        <option value="silicon">silicon</option>
+                        <option value="producto no correspondo al código de caja">producto no correspondo al código de caja</option>
+                        <option value="puente dañado">puente dañado</option>
                     </select>  
                 </div>
             </div>
 
             <div class="row">
                 <div class="col-sm-2 m-auto">
-                    <button class="btn btn-outline-secondary" type="button" id="reporte">Devolver</button>
+                    <button class="btn btn-outline-secondary" type="button" id="reporte" >Devolver</button>
                 </div>
             </div>
             
@@ -103,23 +103,26 @@
         
             });
         });
-    });
-
-    function Devolver(){
-        $.ajax({
+        $('.btn').click(function(){
+               $.ajax({
              type: "POST",
             data: {"_token": $("meta[name='csrf-token']").attr("content"),
                     "sku" : $('#sku').val(),
                     "damage" : $('#damage').val(),
-                    "id_usuario" : $('#id_usuario').val()
+                    "id_venta" : {{ $Venta->id}}
             },
-            url:"Devolucion_Damage",
+            url:"/Devolucion_Damage",
 
             success: function (data) {
-                
+                window.location="{{route('ventas.index')}}";
             }
         
-            });
+            }); 
+           });
+    });
+
+    function Devolver(){
+       
     }
 </script>
 @endsection
