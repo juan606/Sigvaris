@@ -100,6 +100,7 @@ Route::get('corte-caja/export', 'CorteCaja\CorteCajaController@export')->name('c
 Route::resource('corte-caja', 'CorteCaja\CorteCajaController');
 Route::resource('ventas.cambio-fisico', 'Venta\CambioFisicoController');
 Route::resource('ventas.damage-oot', 'Venta\DamageOOTController');
+Route::resource('ventas.devoluciones', 'Venta\DevolucionController');
 Route::resource('ventas', 'Venta\VentaController');
 
 

@@ -54,93 +54,99 @@
                     <button class="btn btn-outline-secondary" type="button" id="reporte">Buscar</button>
                 </div>
             </div>
-            <table class="table">
-                <thead>
-                    <tr>
-                        <th>Folio</th>
-                        <th>Cliente</th>
-                        <th>Total (sin IVA)</th>
-                        <th>Descuento</th>
-                        <th>Fecha</th>
-                        <th>Operación</th>
-                        <th>Damage</th>
-                        <th>Cambio físico</th>
-                        <th>Damage OOT</th>
-                    </tr>
-                </thead>
-                <tbody id="ventas">
-                    @if(!$ventas)
-                    <h3>No hay ventas registrados</h3>
-                    @else
-                     @php
-                        $sumatoria_ventas=0;
-                        $sumatoria_pacientes=[];
-                    @endphp
-                    @foreach($ventas as $venta)
-                        @php
-                           $sumatoria_ventas+=$venta->subtotal;
-                           $val=1;
-                           foreach ($sumatoria_pacientes as $p) {
-                               if($p==$venta->paciente->id)
-                               {
-                                    $val=0;
-                               }
-                           }
-                           if($val)
-                           {
-                                array_push($sumatoria_pacientes,$venta->paciente['id']);
-                           }
-                        @endphp
+            <div class="table-responsive">
+                <table class="table">
+                    <thead>
                         <tr>
-                            <td>{{$venta->id}}</td>
-                            <td>{{$venta->paciente['nombre']." ".$venta->paciente['paterno']." ".$venta->paciente['materno']}}</td>
-                            <td>${{$venta->subtotal}}</td>
-                            @if($venta->descuento)
-                                <td>{{$venta->descuento->nombre}}</td>
-                            @else
-                                <td></td>
-                            @endif
-                            <td>{{$venta->fecha}}</td>
-                            <td>
-                                <div class="row">
-                                    <div class="col-auto pr-2">
-                                        <a href="{{route('ventas.show', ['venta'=>$venta])}}"
-                                            class="btn btn-primary"><i class="fas fa-eye"></i><strong> Ver</strong></a>
-                                    </div>
-                                </div>
-                            </td>
-                             <td>
-                                <div class="row">
-                                    <div class="col-auto pr-2">
-                                        <a href="{{url('ventas/'.$venta->id.'/damage')}}"
-                                            class="btn btn-primary"><i class="fas fa-eye"></i><strong> Damage</strong></a>
-                                    </div>
-                                </div>
-                            <td>
-                                <a href="{{route('ventas.cambio-fisico.create',['venta'=>$venta])}}" class="btn btn-warning">Cambio fisico</a>
-                            </td>
-                            <td>
-                                <a href="{{route('ventas.damage-oot.create',['venta'=>$venta])}}" class="btn btn-info">Damage OOT</a>
-                            </td>
-                        </tr>
-                    @endforeach
-                    {{-- <thead>
-                        <tr>
-                            <th>Total ventas</th>
-                            <th>Total clientes</th>
-                            <th>Total $</th>
+                            <th>Folio</th>
+                            <th>Cliente</th>
+                            <th>Total (sin IVA)</th>
+                            <th>Descuento</th>
+                            <th>Fecha</th>
+                            <th>Operación</th>
+                            <th>Damage</th>
+                            <th>Cambio físico</th>
+                            <th>Damage OOT</th>
+                            <th>Devolución</th>
                         </tr>
                     </thead>
-                    <tbody id="resultados">
-                        <tr>
-                            <td>{{count($ventas)}}</td>
-                            <td>{{count($sumatoria_pacientes)}}</td>
-                            <td>${{$sumatoria_ventas}}</td>
-                        </tr>
-                    </tbody>                           --}}
-                    @endif
-                </tbody>
-            </table>
+                    <tbody id="ventas">
+                        @if(!$ventas)
+                        <h3>No hay ventas registrados</h3>
+                        @else
+                         @php
+                            $sumatoria_ventas=0;
+                            $sumatoria_pacientes=[];
+                        @endphp
+                        @foreach($ventas as $venta)
+                            @php
+                               $sumatoria_ventas+=$venta->subtotal;
+                               $val=1;
+                               foreach ($sumatoria_pacientes as $p) {
+                                   if($p==$venta->paciente->id)
+                                   {
+                                        $val=0;
+                                   }
+                               }
+                               if($val)
+                               {
+                                    array_push($sumatoria_pacientes,$venta->paciente['id']);
+                               }
+                            @endphp
+                            <tr>
+                                <td nowrap>{{$venta->id}}</td>
+                                <td nowrap>{{$venta->paciente['nombre']." ".$venta->paciente['paterno']." ".$venta->paciente['materno']}}</td>
+                                <td nowrap>${{$venta->subtotal}}</td>
+                                @if($venta->descuento)
+                                    <td nowrap>{{$venta->descuento->nombre}}</td>
+                                @else
+                                    <td nowrap></td>
+                                @endif
+                                <td nowrap>{{$venta->fecha}}</td>
+                                <td nowrap>
+                                    <div class="row">
+                                        <div class="col-auto pr-2">
+                                            <a href="{{route('ventas.show', ['venta'=>$venta])}}"
+                                                class="btn btn-primary"><i class="fas fa-eye"></i><strong> Ver</strong></a>
+                                        </div>
+                                    </div>
+                                </td>
+                                 <td nowrap>
+                                    <div class="row">
+                                        <div class="col-auto pr-2">
+                                            <a href="{{url('ventas/'.$venta->id.'/damage')}}"
+                                                class="btn btn-primary"><i class="fas fa-eye"></i><strong> Damage</strong></a>
+                                        </div>
+                                    </div>
+                                <td nowrap>
+                                    <a href="{{route('ventas.cambio-fisico.create',['venta'=>$venta])}}" class="btn btn-warning">Cambio fisico</a>
+                                </td>
+                                <td nowrap>
+                                    <a href="{{route('ventas.damage-oot.create',['venta'=>$venta])}}" class="btn btn-info">Damage OOT</a>
+                                </td>
+                                <td nowrap>
+                                    <a href="{{route('ventas.devoluciones.create',['venta'=>$venta])}}" class="btn btn-info">Devolución</a>
+                                </td>
+                            </tr>
+                        @endforeach
+                        {{-- <thead>
+                            <tr>
+                                <th>Total ventas</th>
+                                <th>Total clientes</th>
+                                <th>Total $</th>
+                            </tr>
+                        </thead>
+                        <tbody id="resultados">
+                            <tr>
+                                <td>{{count($ventas)}}</td>
+                                <td>{{count($sumatoria_pacientes)}}</td>
+                                <td>${{$sumatoria_ventas}}</td>
+                            </tr>
+                        </tbody>                           --}}
+                        @endif
+                    </tbody>
+                </table>
+            </div>
 
             {{$ventas->links()}}
             
