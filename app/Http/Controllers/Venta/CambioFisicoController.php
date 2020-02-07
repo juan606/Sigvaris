@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Venta;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Services\Ventas\StoreCambioFisicoService;
+use App\Venta;
 
 class CambioFisicoController extends Controller
 {
@@ -23,9 +24,9 @@ class CambioFisicoController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create(Venta $venta)
     {
-        return view('venta.cambios_fisicos.create');
+        return view('venta.cambios_fisicos.create',compact('venta'));
     }
 
     /**

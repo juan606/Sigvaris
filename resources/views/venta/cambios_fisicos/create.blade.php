@@ -7,7 +7,7 @@
             <h4 class="text-center text-uppercase text-muted">CAMBIO FÍSICO DE PRODUCTO</h4>
             <div class="card">
                 <div class="card-body">
-                    <form action="{{route('cambio-fisico.store')}}" method="POST">
+                    <form action="{{route('ventas.cambio-fisico.store',['venta'=>$venta->id])}}" method="POST">
                         @csrf
                         <div class="row">
                             <div class="col-12 col-md-6 mt-2">

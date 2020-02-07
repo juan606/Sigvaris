@@ -64,6 +64,7 @@
                         <th>Fecha</th>
                         <th>Operación</th>
                         <th>Damage</th>
+                        <th>Cambio físico</th>
                     </tr>
                 </thead>
                 <tbody id="ventas">
@@ -114,6 +115,8 @@
                                             class="btn btn-primary"><i class="fas fa-eye"></i><strong> Damage</strong></a>
                                     </div>
                                 </div>
+                            <td>
+                                <a href="{{route('ventas.cambio-fisico.create',['venta'=>$venta])}}" class="btn btn-warning">Cambio fisico</a>
                             </td>
                         </tr>
                     @endforeach
