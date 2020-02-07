@@ -167,6 +167,9 @@ Route::get('reportes/7','Reporte\ReporteController@siete')->name('reportes.7');
 Route::get('reportes/metas','Reporte\ReporteController@reporteVentasfitter')->name('reportes.metas');
 Route::post('reportes/metas','Reporte\ReporteController@reporteVentasfitter')->name('reportes.metas');
 
+//Productos con daño
+Route::get('damage','Venta\DamageController@index');
+Route::post('SerchProductoExit','Venta\DamageController@SerchProductoExit');
 
 
 Route::get('pruebas','Prueba\PruebaController@index');

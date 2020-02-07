@@ -179,7 +179,34 @@
                                                 </select>
                                             </div>
                                         </div>
-
+                                    {{-- Pagos Y tarjeta --}}
+                                    <div class="row">
+                                        {{-- INPUT Tipo de pago --}}
+                                        <div class="col-12 col-sm-6 col-md-4">
+                                                <label for="tipoPago" class="text-uppercase text-muted">Tipo de pago</label>
+                                                <select class="form-control" name="tipoPago" id="tipoPago" >
+                                                    <option value="0">Selecciona...</option>
+                                                    <option value="1">Efectivo</option>
+                                                    <option value="2">Tajeta</option>
+                                                </select>                            
+                                        </div>
+                                        {{-- INPUT tarjeta --}}
+                                        
+                                        <div id="tar1" class="col-12 col-sm-6 col-md-4 form-group" style="display: none;">
+                                            <label for="banco" class="text-uppercase text-muted">Banco</label>
+                                            <select class="form-control" name="banco" id="banco">
+                                                <option value="">Selecciona...</option> 
+                                                <option value="SANTANDER">SANTANDER</option> 
+                                                <option value="AMEX">AMEX</option>                          
+                                            </select>
+                                        </div>
+                                        {{-- INPUT numeros de  tarjeta --}}
+                                        <div id="tar2" class="col-12 col-sm-6 col-md-4 form-group" style="display: none;">
+                                            <label for="" class="text-uppercase text-muted">Ultimos 4 digitos de tarjeta</label>
+                                            <input type="text" class="form-control" id="digitos_targeta" name="digitos_targeta" >
+                                        </div>
+                                        
+                                    </div>
                                     <hr>
                                     <input type="hidden" name="paciente_id" id="paciente_id"  required>
                                     <div class="row">
@@ -372,7 +399,20 @@
 
     $(document).ready(function () {
         
+        $('#tipoPago').change(function(){  
+            console.log('Entra');
+            if ($('#tipoPago').val()==2) {
+                $('#tar1').show();
+                $('#tar2').show();
+                $('#digitos_targeta').required;
+            }else{
+                $('#banco').val(null);
+                $('#digitos_targeta').val(null);
+                $('#tar1').hide();
+                $('#tar2').hide();
+            }
 
+        });
         /*$('#pacientes').DataTable({
             pageLength : 3,
             'language':{

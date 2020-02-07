@@ -22,7 +22,10 @@ class Venta extends Model
         'line',
         'upc',
         'swiss_id',
-        'empleado_id'
+        'empleado_id',
+        'tipoPago',
+        'banco',
+        'digitos_targeta'
     ];
 
     /**
