@@ -40,7 +40,7 @@ class RealizarDevolucionService
     {
         foreach($this->productos as $producto){
             HistorialCambioVenta::create([
-                'tipo_cambio' => 'DAMAGE OOT',
+                'tipo_cambio' => 'DEVOLUCIÓN',
                 'responsable_id' => Auth::user()->id,
                 'venta_id' => $this->venta->id,
                 'producto_entregado_id' => null,
