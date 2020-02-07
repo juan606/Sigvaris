@@ -23,7 +23,7 @@
                         <div class="col-3 form-group">
                             <label id="No_repetido" class="control-label">✱SKU:</label>
                             <div id="repetido" class=" text-danger" style="display: none;">
-                                ✱SKU repetido 
+                                ✱SKU repetido, no debe coincidir con UPC ni con Swiss ID existente 
                             </div>
                             <input type="text" id="sku" name="sku" class="form-control" required="">
                         </div>

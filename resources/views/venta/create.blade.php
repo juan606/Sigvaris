@@ -2,6 +2,8 @@
 <meta name="csrf-token" content="{{ csrf_token() }}" />
 @section('content')
 {{-- {{ dd($productos) }} --}}
+
+
 <div class="container">
     @if ($errors->any())
         <div class="alert alert-danger">
@@ -250,7 +252,7 @@
                     <div class="row">
                         <div class="col-12">
                             <button type="submit" class="btn btn-success rounded-0">
-                                <i class="fa fa-check"></i> Guardar
+                                <i class="fa fa-check"></i> Finalizar comprar
                             </button>
                         </div>
                     </div>
@@ -328,6 +330,24 @@
         let getIva = ($('#subtotal').val()*0.16);
         $('#iva').val(getIva.toFixed(2));
         //console.log(getIva.toFixed(2));
+        if ($('#sigpesos_usar').val()==null) {
+             $.ajax({
+                url:"{{ url('/obtener_sigpesos') }}/"+pacienteId,
+                type:'GET',
+                success: function(res){
+                    if (!isNaN(res)&&res!="") {
+                        var sigpesos=$('#sigpesos_usar').val(parseInt(res));
+                    console.log('sigpesos peticione4444',res);
+                }else{             
+                    res=0;       
+                    var sigpesos=$('#sigpesos_usar').val(parseInt(res));
+                    console.log('sigpesos peticion5555',res);
+                }
+                }
+
+            });
+             console.log('sigpesos3rff', sigpesos);
+        }
         var sigpesos=parseInt($('#sigpesos_usar').val());
         var subtotal=parseFloat($('#subtotal').val())
         var iva=parseFloat($('#iva').val())
@@ -592,14 +612,14 @@
             url:"{{ url('/obtener_sigpesos') }}/"+pacienteId,
             type:'GET',
             success: function(res){
-                if (!isNaN(res)) {
+                if (!isNaN(res)&&res!="") {
                     var sigpesos=$('#sigpesos_usar').val(parseInt(res));
-                console.log('sigpesos peticion',res);
-            }else{             
-                res=0;       
-                var sigpesos=$('#sigpesos_usar').val(parseInt(res));
-                console.log('sigpesos peticion',res);
-            }
+                    console.log('sigpesos peticion00',res);
+                }else{             
+                    res=0;       
+                    var sigpesos=$('#sigpesos_usar').val(parseInt(res));
+                    console.log('sigpesos peticion111',res);
+                }
             }
 
         });
@@ -649,9 +669,15 @@
          $.ajax({
             url:"{{ url('/obtener_sigpesos') }}/"+pacienteId,
             type:'GET',
-            success: function(res){                    
-                var sigpesos=$('#sigpesos_usar').val(parseInt(res));
-                console.log('sigpesos peticion',res);
+            success: function(res){             
+                if (!isNaN(res)&&res!="") {
+                    var sigpesos=$('#sigpesos_usar').val(parseInt(res));
+                    console.log('sigpesos peticion00',res);
+                }else{             
+                    res=0;       
+                    var sigpesos=$('#sigpesos_usar').val(0);
+                    console.log('sigpesos peticion111',0);
+                }
             }
 
         });
