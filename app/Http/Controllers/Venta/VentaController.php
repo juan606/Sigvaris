@@ -34,7 +34,8 @@ class VentaController extends Controller
     public function index()
     {
         $medicos = Doctor::get();
-        return view('venta.index_all', ['ventas' => Venta::get(), 'medicos' => $medicos]);
+        $ventas = Venta::orderBy('fecha','desct')->paginate(5);
+        return view('venta.index_all', ['ventas' => $ventas, 'medicos' => $medicos]);
     }
 
     public function indexConPaciente(Paciente $paciente)
