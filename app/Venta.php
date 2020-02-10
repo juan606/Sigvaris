@@ -25,7 +25,9 @@ class Venta extends Model
         'empleado_id',
         'tipoPago',
         'banco',
-        'digitos_targeta'
+        'digitos_targeta',
+        'PagoTarjeta',
+        'PagoEfectivo'
     ];
 
     /**
@@ -66,6 +68,10 @@ class Venta extends Model
     public function promocion()
     {
         return $this->belongsTo('App\Promocion', 'promocion_id');
+    }
+    public function empleado()
+    {
+        return $this->belongsTo('App\Empleado', 'empleado_id');
     }
 
     /**

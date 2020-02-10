@@ -96,7 +96,20 @@ class VentaController extends Controller
                 ->withErrors(['No se seleccionó ningún producto.'])
                 ->withInput($request->input());
         }
-
+        //dd($request->PagoEfectivo+$request->PagoTarjeta==$request->total);
+        if (!($request->PagoEfectivo+$request->PagoTarjeta==round($request->total,2))) {
+            return redirect()
+                ->back()
+                ->withErrors(['Error con importes de motos en efectivo o tarjeta'])
+                ->withInput($request->input());
+        }
+        /*
+        if (!is_null($request->digitos_targeta) && ($request->digitos_targeta<1000)) {
+            return redirect()
+                ->back()
+                ->withErrors(['Error con ultimos 4 digitos de tarjeta'])
+                ->withInput($request->input());
+        }*/
         // PREPARAR DATOS DE LA VENTA
         $venta = new Venta($request->all());
         $venta->oficina_id = session()->get('oficina');

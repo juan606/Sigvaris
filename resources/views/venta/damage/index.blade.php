@@ -2,14 +2,20 @@
 
 @section('content')
 <div class="container">
+    @if ($errors->any())
+        <div class="alert alert-danger">
+            {{$errors->first()}}
+        </div>
+    @endif
     <div class="card">
         <div class="card-header">
             <h4>DAMAGE</h4>
             <div class="input-group-prepend">
                 <span class="input-group-text" >Sku producto</span>   
                 <select class="form-control" id="Sku1" >
+                    <option value="0">Selecciona...</option>
                         @foreach($Productos as $Producto)     
-                            <option value="0">Selecciona...</option>
+                            
                             <option value="{{ $Producto->sku }}">{{ $Producto->sku }}</option>
                         @endforeach
                     </select>   

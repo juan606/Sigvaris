@@ -188,6 +188,7 @@
                                                     <option value="0">Selecciona...</option>
                                                     <option value="1">Efectivo</option>
                                                     <option value="2">Tajeta</option>
+                                                    <option value="3">Combinado</option>
                                                 </select>                            
                                         </div>
                                         {{-- INPUT tarjeta --}}
@@ -206,6 +207,18 @@
                                             <input type="text" class="form-control" id="digitos_targeta" name="digitos_targeta" >
                                         </div>
                                         
+                                    </div>
+                                    {{-- P --}}
+                                    <div class="row">
+                                                                                {{-- INPUT numeros de  tarjeta --}}
+                                        <div id="tar4" class="col-12 col-sm-6 col-md-4 form-group" style="display: none;">
+                                            <label for="" class="text-uppercase text-muted">Monto de pago en efectivo</label>
+                                            <input type="text" class="form-control" id="PagoEfectivo" name="PagoEfectivo" >
+                                        </div>
+                                        <div id="tar5" class="col-12 col-sm-6 col-md-4 form-group" style="display: none;">
+                                            <label for="" class="text-uppercase text-muted">Monto de pago con tarjeta</label>
+                                            <input type="text" class="form-control" id="PagoTarjeta" name="PagoTarjeta" >
+                                        </div>
                                     </div>
                                     <hr>
                                     <input type="hidden" name="paciente_id" id="paciente_id"  required>
@@ -278,7 +291,7 @@
                     {{-- BOTON GUARDAR --}}
                     <div class="row">
                         <div class="col-12">
-                            <button type="submit" class="btn btn-success rounded-0">
+                            <button type="submit"  class="btn btn-success rounded-0">
                                 <i class="fa fa-check"></i> Finalizar comprar
                             </button>
                         </div>
@@ -385,7 +398,8 @@
         console.log('des', des);
         console.log('sigpesos', sigpesos);  
         console.log('TOTAL ACTUALIZADO',subtotal+iva-des-sigpesos);
-        $('#total').val(subtotal+iva-des-sigpesos);
+        var aux=subtotal+iva-des-sigpesos;
+        $('#total').val(aux.toFixed(2));
         // $('#total').val('ola');
     }
 
@@ -401,15 +415,33 @@
         
         $('#tipoPago').change(function(){  
             console.log('Entra');
-            if ($('#tipoPago').val()==2) {
+            if ($('#tipoPago').val()==2){
                 $('#tar1').show();
                 $('#tar2').show();
+                $('#tar5').show();
+                $('#tar4').hide();
                 $('#digitos_targeta').required;
+
+            }else if ($('#tipoPago').val()==3) {
+                $('#tar1').show();
+                $('#tar2').show();
+                $('#tar4').show();
+                $('#tar5').show();
+                $('#digitos_targeta').required;
+            }else if ($('#tipoPago').val()==1) {
+               $('#banco').val(null);
+                $('#digitos_targeta').val(null);
+                $('#tar1').hide();
+                $('#tar2').hide();
+                $('#tar4').show();
+                $('#tar5').hide();
             }else{
                 $('#banco').val(null);
                 $('#digitos_targeta').val(null);
                 $('#tar1').hide();
                 $('#tar2').hide();
+                $('#tar4').hide();
+                $('#tar5').hide();
             }
 
         });
@@ -457,7 +489,8 @@
             var iva=parseFloat($('#iva').val());
             var des=parseFloat($('#descuento').val());
             var sigpesos=parseInt($('#sigpesos_usar').val());
-            $('#total').val(subtotal+iva-des-sigpesos);
+            var aux=subtotal+iva-des-sigpesos;
+            $('#total').val(aux.toFixed(2));
             $.ajax({
                 url:"{{ url('/get_promos') }}/"+id,
                 type:'GET',
@@ -486,7 +519,8 @@
             var iva=parseFloat($('#iva').val());
             var des=parseFloat($('#descuento').val());
             var sigpesos=parseInt($('#sigpesos_usar').val());
-            $('#total').val(subtotal+iva-des-sigpesos);
+            var aux=subtotal+iva-des-sigpesos;
+            $('#total').val(aux.toFixed(2));
             var productos_id=[];
             var cantidad_id=[];
 
@@ -517,7 +551,8 @@
                         $('#descuento').val(res.total);
                         $('#sigpesos').val(res.sigpesos);
                         des=parseFloat($('#descuento').val());
-                        $('#total').val(subtotal+iva-des-sigpesos);
+                        var aux=subtotal+iva-des-sigpesos;
+                        $('#total').val(aux.toFixed(2));
                         if($('#total').val()<0)
                         {
                             $('#total').val(0);
@@ -670,7 +705,8 @@
         }
         else
         {
-            $('#total').val(subtotal+iva-des-$('#sigpesos_usar').val());
+            var aux=subtotal+iva-des-$('#sigpesos_usar').val();
+            $('#total').val(aux.toFixed(2));
             console.log('total',$('#sigpesos_usar').val())
         }
     });
@@ -728,7 +764,8 @@
         }
         else
         {
-            $('#total').val(subtotal+iva-des-$('#sigpesos_usar').val());
+            var aux=subtotal+iva-des-$('#sigpesos_usar').val();
+            $('#total').val(aux.toFixed(2));
             console.log('total',$('#sigpesos_usar').val())
         }
     });

@@ -93,13 +93,24 @@
                                         </div>
                                     </div>
                                 </td>
-                                 <td nowrap>
-                                    <div class="row">
-                                        <div class="col-auto pr-2">
-                                            <a href="{{url('ventas/'.$venta->id.'/damage')}}"
-                                                class="btn btn-primary"><i class="fas fa-eye"></i><strong> Damage</strong></a>
+                                @if(\Carbon\Carbon::parse($venta->fecha)->diffInDays(\Carbon\Carbon::parse(date('Y-m-d')))<31)
+                                    <td nowrap>
+                                        <div class="row">
+                                            <div class="col-auto pr-2">
+                                                <a href="{{url('ventas/'.$venta->id.'/damage')}}"
+                                                    class="btn btn-primary"><i class="fas fa-eye"></i><strong> Damage</strong></a>
+                                            </div>
                                         </div>
-                                    </div>
+                                    </td>
+                                     @else
+                                      <td nowrap>
+                                        <div class="row">
+                                            <div class="col-auto pr-2">
+                                                
+                                            </div>
+                                        </div>
+                                    </td>
+                                @endif
                                 <td nowrap>
                                     <a href="{{route('ventas.cambio-fisico.create',['venta'=>$venta])}}" class="btn btn-warning">Cambio fisico</a>
                                 </td>

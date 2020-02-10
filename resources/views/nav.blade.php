@@ -88,7 +88,7 @@
                         <a class="dropdown-item" href="{{route('ventas.index')}}"><span>Historial</span><i class="fa fa-search float-right"></i></a>
                         <a class="dropdown-item" href="{{route('corte-caja.index')}}"><span>Corte de caja</span><i class="fa fa-search float-right"></i></a>
                         {{-- <a class="dropdown-item" href="{{route('cambio-fisico.create')}}"><span>Cambio físico</span><i class="fa fa-search float-right"></i></a> --}}
-                        <a class="dropdown-item" href="{{url('/damage')}}"><span>Damage</span><i class="fa fa-search float-right"></i></a>
+                        {{--  <a class="dropdown-item" href="{{url('/damage')}}"><span>Damage</span><i class="fa fa-search float-right"></i></a>--}}
                         {{-- <a class="dropdown-item" href="{{route('cambio-fisico.create')}}"><span>Cambio físico</span><i class="fa fa-search float-right"></i></a> --}}
                     </div>
                 </li>    

@@ -7,7 +7,7 @@ use App\Venta;
 use App\Doctor;
 use App\HistorialCambioVenta;
 use Illuminate\Support\Facades\Auth;
-
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
@@ -34,6 +34,7 @@ class DamageController extends Controller
     }
     public function Devolucion_Damage(Request $request)
     {
+        
         $HistorialCambioVenta=new HistorialCambioVenta(
              array(
             'tipo_cambio'=>"Damage",
