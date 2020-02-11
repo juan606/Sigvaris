@@ -33,7 +33,7 @@
                         <div class="col-4 form-group">
                             <label class="control-label">Fitter:</label>
                             @if (Auth::user()->id == 1 || Auth::user()->empleado->puesto->nombre != "fitter")                            
-                                <select name="empleado_id" id="" class="form-control" required>
+                                <select name="empleado_id" id="empleado_id" class="form-control" required>
                                     <option value="">Seleccionar</option>
                                     @foreach ($empleadosFitter as $empleadoFitter)
                                         <option value="{{$empleadoFitter->id}}">
@@ -41,6 +41,8 @@
                                         </option>
                                     @endforeach
                                 </select>
+                            @else
+                             <input type="text" class="form-control" id="empleado_id" required readonly value=" {{Auth::user()->empleado->nombre}} {{Auth::user()->empleado->appaterno}} {{Auth::user()->empleado->apmaterno}}">
                             @endif
                         </div>
                     </div>
