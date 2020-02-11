@@ -13,10 +13,10 @@ class ModifyVentaTable extends Migration
      */
     public function up()
     {
-        Schema::table('ventas', function (Blueprint $table) {
-            $table->integer('PagoTarjeta')->unsigned()->nullable();
-            $table->integer('PagoEfectivo')->unsigned()->nullable();
-        });
+        //Schema::table('ventas', function (Blueprint $table) {
+        //    $table->integer('PagoTarjeta')->unsigned()->nullable();
+        //    $table->integer('PagoEfectivo')->unsigned()->nullable();
+        //});
     }
 
     /**
