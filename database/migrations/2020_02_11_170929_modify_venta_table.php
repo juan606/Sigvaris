@@ -24,8 +24,5 @@ class ModifyVentaTable extends Migration
      *
      * @return void
      */
-    public function down()
-    {
-        //
-    }
+    
 }
