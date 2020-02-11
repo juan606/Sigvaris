@@ -42,7 +42,8 @@
                                     @endforeach
                                 </select>
                             @else
-                             <input type="text" class="form-control" id="empleado_id" required readonly value=" {{Auth::user()->empleado->nombre}} {{Auth::user()->empleado->appaterno}} {{Auth::user()->empleado->apmaterno}}">
+                            <input type="text" class="form-control" id="empleado_id" required readonly value="{{Auth::user()->empleado->id}}" style="display: none;">
+                             <input type="text" class="form-control"  required readonly value=" {{Auth::user()->empleado->nombre}} {{Auth::user()->empleado->appaterno}} {{Auth::user()->empleado->apmaterno}}">
                             @endif
                         </div>
                     </div>
