@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class ModifyVentaTable extends Migration
+class ModifyVentasTable extends Migration
 {
     /**
      * Run the migrations.
