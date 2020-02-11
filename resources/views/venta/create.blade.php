@@ -219,6 +219,14 @@
                                             <label for="" class="text-uppercase text-muted">Monto de pago con tarjeta</label>
                                             <input type="text" class="form-control" id="PagoTarjeta" name="PagoTarjeta" >
                                         </div>
+                                        <div id="tar10" class="col-12 col-sm-6 col-md-4 form-group" style="display: none;">
+                                            <label for="banco" class="text-uppercase text-muted">Pago a meses</label>
+                                            <select class="form-control" name="mesesPago" id="banco">
+                                                <option value="0">Selecciona...</option> 
+                                                <option value="3">3 meses</option> 
+                                                <option value="6">6 meses</option>                          
+                                            </select>
+                                        </div>
                                     </div>
                                     <hr>
                                     <input type="hidden" name="paciente_id" id="paciente_id"  required>
@@ -419,6 +427,7 @@
                 $('#tar1').show();
                 $('#tar2').show();
                 $('#tar5').show();
+                $('#tar10').show();
                 $('#tar4').hide();
                 $('#digitos_targeta').required;
 
@@ -427,6 +436,8 @@
                 $('#tar2').show();
                 $('#tar4').show();
                 $('#tar5').show();
+                $('#tar10').show();
+                
                 $('#digitos_targeta').required;
             }else if ($('#tipoPago').val()==1) {
                $('#banco').val(null);
@@ -435,6 +446,7 @@
                 $('#tar2').hide();
                 $('#tar4').show();
                 $('#tar5').hide();
+                $('#tar10').hide();
             }else{
                 $('#banco').val(null);
                 $('#digitos_targeta').val(null);
@@ -442,6 +454,7 @@
                 $('#tar2').hide();
                 $('#tar4').hide();
                 $('#tar5').hide();
+                $('#tar10').hide();
             }
 
         });
@@ -546,16 +559,28 @@
                 },
                 dataType:'json',
                 success: function(res){
-                    // alert(res);                  
-                    if(res.status){                       
-                        $('#descuento').val(res.total);
-                        $('#sigpesos').val(res.sigpesos);
-                        des=parseFloat($('#descuento').val());
-                        var aux=subtotal+iva-des-sigpesos;
-                        $('#total').val(aux.toFixed(2));
-                        if($('#total').val()<0)
-                        {
-                            $('#total').val(0);
+                    //alert(res.sigpesos);                  
+                    if(res.status){
+                        if (res.status==1) {                       
+                            $('#descuento').val(res.total);
+                            $('#sigpesos').val(res.sigpesos);
+                            des=parseFloat($('#descuento').val());
+                            var aux=subtotal+iva-des-sigpesos;
+                            $('#total').val(aux.toFixed(2));
+                            if($('#total').val()<0)
+                            {
+                                $('#total').val(0);
+                            }
+                        }else{
+                            $('#descuento').val(res.total);
+                            $('#sigpesos').val(res.sigpesos);
+                            des=parseFloat($('#descuento').val());
+                            var aux=subtotal+iva-des-sigpesos;
+                            $('#total').val(aux.toFixed(2));
+                            if($('#total').val()<0)
+                            {
+                                $('#total').val(0);
+                            }
                         }
                         //$('#total').val()
                     }
@@ -687,6 +712,7 @@
             url:"{{ url('/obtener_sigpesos') }}/"+pacienteId,
             type:'GET',
             success: function(res){
+                 console.log('sigpesos peticion198711',res);
                 if (!isNaN(res)&&res!="") {
                     var sigpesos=$('#sigpesos_usar').val(parseInt(res));
                     console.log('sigpesos peticion00',res);
@@ -745,14 +771,14 @@
          $.ajax({
             url:"{{ url('/obtener_sigpesos') }}/"+pacienteId,
             type:'GET',
-            success: function(res){             
-                if (!isNaN(res)&&res!="") {
-                    var sigpesos=$('#sigpesos_usar').val(parseInt(res));
-                    console.log('sigpesos peticion00',res);
+            success: function(res34){   
+                if (!isNaN(res34)&&res34!="") {
+                    var sigpesos=$('#sigpesos_usar').val(parseInt(res34));
+                    console.log('sigpesos peticion00',res34);
                 }else{             
-                    res=0;       
+                    res34=0;       
                     var sigpesos=$('#sigpesos_usar').val(0);
-                    console.log('sigpesos peticion111',0);
+                    console.log('sigpesos peticion1199',0);
                 }
             }
 

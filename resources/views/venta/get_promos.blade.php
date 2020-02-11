@@ -20,7 +20,10 @@
         	    	@break
         	    @case('F')
         	    	Descuento de empleado: {{$promocion->descuento_de}}{{$promocion->unidad_descuento}}
-        	    	@break
+                    @break
+                @case('H')
+                    Monto minimo de compra: {{$promocion->compra_min}} por un descuento de {{$promocion->descuento_de}}{{$promocion->unidad_descuento}}
+                    @break
         	
         	    {{-- @default
         	            Default case... --}}

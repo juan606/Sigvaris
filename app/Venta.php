@@ -27,7 +27,8 @@ class Venta extends Model
         'banco',
         'digitos_targeta',
         'PagoTarjeta',
-        'PagoEfectivo'
+        'PagoEfectivo',
+        'mesesPago'
     ];
 
     /**

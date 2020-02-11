@@ -218,7 +218,17 @@
                             </div>
                         </div>
                     </div>
-
+                    <div class="col-4">
+                        <div class="form-group">
+                            <input type="checkbox" name="tipoH" id="tipoH">
+                            <label>Descuento en siguiente compra: </label><br>
+                            <label>Monto mínimo: </label>
+                            <input type="number" class="form-control" name="compra_minH" id="compra_minH">
+                            <label> por: </label>
+                            <input type="number" class="form-control" name="descuento_deH" id="descuento_deH">
+                            <label>sigpesos</label>
+                        </div>
+                    </div>
                     <div class="col-4">
 
                         <div class="form-group">

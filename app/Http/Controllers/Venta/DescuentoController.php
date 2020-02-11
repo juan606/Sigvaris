@@ -108,6 +108,14 @@ class DescuentoController extends Controller
                                                        'descuento'=>$request->descuento_deG, 'unidad_descuento'=>$request->unidad_descuentoG]);
             }
         }
+        if($request->tipoH)
+        {
+                // dd($request->descuento_deG);
+                $promoH=Promocion::create(['tipo'=>'H','compra_min'=>$request->compra_minH,'unidad_compra'=>'$',
+                                        'descuento_de'=>$request->descuento_deH,'unidad_descuento'=>'sigpesos',
+                                        'descuento_id'=>$descuento->id]);
+            
+        }
 
         return redirect()->route('descuentos.index');
     }
@@ -459,8 +467,36 @@ class DescuentoController extends Controller
                     'total'=>$total
                 ); 
             break;
-            
+            case 'H':
+                if($promocion->compra_min<$request->subtotal)
+                {
+
+                    // $sigpesos=Paciente::find($request->paciente_id)->ventas->last()->sigpesos;
+                    // if(!$sigpesos)
+                    // {
+                        $sigpesos=$promocion->descuento_de;
+                    //}
+                    //$productos=$request->total_productos;
+                    //while ($productos>=$promocion->compra_min) {
+                        // $pagar+=$promocion->compra_min;
+                    //    $productos-=$promocion->compra_min;
+                    //    $sigpesos+=$promocion->descuento_de;                        
+                    //}
+                    $response=array(
+                    'status'=>2,                    
+                    'sigpesos'=>$sigpesos,
+                    'total'=>0
+                ); 
+
+                }
+                else
+                {
+                    $response=array('status'=>0);
+                }
+
+            break;
             default:
+            echo "aqui entra";
                 $response=array(
                     'status'=>1,
                     'sigpesos'=>0,
@@ -473,23 +509,37 @@ class DescuentoController extends Controller
 
     public function getSigpesos(Paciente $paciente)
     {
+        //dd(isset($paciente->nacimiento));
+        if (isset($paciente->nacimiento)) {
+            if (\Carbon\Carbon::parse($paciente->nacimiento)->diffInDays(\Carbon\Carbon::parse(date('Y-m-d')))==0) {
+                # code...
+                $sigpesosCumpleaños=300;
+            }else{
+                $sigpesosCumpleaños=0;
+            }
+        }else{
+            $sigpesosCumpleaños=0;
+        }
+        
         if(isset($paciente->ventas))
         {
             $intervalo = new DateInterval('P6M');
             $hoy=Carbon::now();
             $expira=$paciente->ventas->last()->created_at->add($intervalo);
+            //dd($intervalo);
             if($expira>$hoy){
-                if (isset($paciente->ventas->last()->sigpesos)) {
-                    return 0;
+                if (!isset($paciente->ventas->last()->sigpesos)) {
+                    return $sigpesosCumpleaños;
                 }else{
-                    return $paciente->ventas->last()->sigpesos;
+                    return $sigpesosCumpleaños+$paciente->ventas->last()->sigpesos;
                 }
                 
             }
             else{
-                return 0;
+                return $sigpesosCumpleaños;
             }
         }
-        return 0;
+        return $sigpesosCumpleaños;
     }
+
 }
