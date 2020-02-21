@@ -241,6 +241,8 @@ class DescuentoController extends Controller
     public function destroy(Descuento $descuento)
     {
         //
+         $descuento->delete();
+         return view('venta.descuentos.descuentos', ['descuentos'=>Descuento::get()]);
     }
 
     public function getPromos(Descuento $descuento)
