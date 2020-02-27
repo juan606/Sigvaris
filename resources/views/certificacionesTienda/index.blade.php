@@ -1,6 +1,6 @@
-@extends('empleadoestudios.view')
+@extends('oficinas.edit')
 
-@section('infoempleadocurso')
+@section('curso')
 
 <div class="container">
     <div class="row">
@@ -44,7 +44,7 @@
                                     <td>{{$curso->instructor}}</td>
                                     <td>{{$curso->certificador}}</td>
                                     <td>
-                                          <form action="{{route('empleados.certificaciones.destroy',['empleado'=>$empleado,'id'=>$curso->id])}}" method="POST">
+                                          <form action="{{route('oficinas.certificaciones.destroy',['oficina'=>$oficina,'id'=>$curso->id])}}" method="POST">
                                             @csrf
                                             @method('DELETE')
                                             <button type="submit" class="btn btn-danger rounded-0">Eliminar</button>
@@ -58,9 +58,9 @@
             </div>
             
         </div>
-        <a href="{{route('empleados.certificaciones.create',['empleado'=>$empleado])}}" class="btn btn-success rounded-0">Crear nueva cerificacion para el empleado</a>
+        <a href="{{route('oficinas.certificaciones.create',['oficina'=>$oficina])}}" class="btn btn-success rounded-0">Crear nueva cerificacion para la tienda</a>
     </div>
     
 </div>
-    @yield('infoempleadocursocreat')
+    @yield('cursocreat')
 @endsection

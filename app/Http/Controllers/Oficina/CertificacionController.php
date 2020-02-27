@@ -1,7 +1,8 @@
 <?php
 
-namespace App\Http\Controllers\Certificacion;
+namespace App\Http\Controllers\Oficina;
 
+use App\Oficina;
 use App\Certificacionestienda;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
@@ -13,10 +14,10 @@ class CertificacionController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index(Empleado $empleado)
+    public function index(Oficina $oficina)
     {
-        $cursos = Certificacionestienda::get();
-        return view('certificacionesTienda.index', compact('cursos'));
+        $cursos = Certificacionestienda::where("oficina_id",$oficina->id)->get();
+        return view('certificacionesTienda.index', ['oficina'=>$oficina,'cursos'=>$cursos ]);
     }
 
     /**
@@ -24,9 +25,10 @@ class CertificacionController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create(Oficina $oficina)
     {
-        return view('certificacionesTienda.create');
+        $cursos = Certificacionestienda::where("oficina_id",$oficina->id)->get();
+        return view('certificacionesTienda.create', ['oficina'=>$oficina,'cursos'=>$cursos ]);
     }
 
     /**
@@ -35,10 +37,13 @@ class CertificacionController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(Request $request,Oficina $oficina)
     {
-        $curso = Curso::create($request->input());
-        return redirect()->route('certificacionesTienda.index')->with('success','El curso ha sido creado exitosamente.');
+        $curso = Certificacionestienda::create($request->input());
+
+        $cursos = Certificacionestienda::where("oficina_id",$oficina->id)->get();
+        return view('certificacionesTienda.index', ['oficina'=>$oficina,'cursos'=>$cursos ]);
+        //return redirect()->route('certificacionesTienda.index')->with('success','El curso ha sido creado exitosamente.');
     }
 
     /**
@@ -81,9 +86,11 @@ class CertificacionController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Oficina $oficina,$id)
     {
-        Curso::find($id)->delete();
-        return redirect()->route('certificacionesTienda.index')->with('success','El curso ha sido eliminado exitosamente');
+        Certificacionestienda::find($id)->delete();
+
+       $cursos = Certificacionestienda::where("oficina_id",$oficina->id)->get();
+        return view('certificacionesTienda.index', ['oficina'=>$oficina,'cursos'=>$cursos ]);
     }
 }

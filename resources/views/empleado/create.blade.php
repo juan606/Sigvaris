@@ -61,8 +61,12 @@
 			<ul class="nav nav-pills nav-justified">
 				<li role="presentation" class="nav-item"><a href="{{ route('empleados.show', ['empleado' => $empleado]) }}"  class="nav-link active">Generales:</a></li>
 				<li role="presentation" class="nav-item"><a href="{{ route('empleados.datoslaborales.index', ['empleado' => $empleado]) }}" class="nav-link">Laborales:</a></li>
+				<li role="presentation" class="nav-item"><a href="{{ route('empleados.estudios.index', ['empleado' => $empleado]) }}" class="nav-link">Estudios:</a></li>
 				<li role="presentation" class="nav-item"><a href="{{ route('empleados.emergencias.index', ['empleado' => $empleado]) }}" class="nav-link">Emergencias:</a></li>
 				<li role="presentation" class="nav-item"><a href="{{ route('empleados.vacaciones.index', ['empleado' => $empleado]) }}" class="nav-link">Vacaciones:</a></li>
+				<li role="presentation" class="nav-item"><a href="{{ route('empleados.faltasDH.index',['empleado'=>$empleado]) }}" class="nav-link">Faltas:</a></li>
+			
+			<li role="presentation" class="nav-item"><a href="{{ route('empleados.permisos.index',['empleado'=>$empleado]) }}" class="nav-link ">Permisos:</a></li>
 				<li role="presentation" class="nav-item"><a href="{{ route('empleados.faltas.index', ['empleado' => $empleado]) }}" class="nav-link">Administrativo:</a></li>
 			</ul>
 		</div>

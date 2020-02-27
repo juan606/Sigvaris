@@ -1,15 +1,15 @@
-@extends('certificaciones.index')
+@extends('certificacionesTienda.index')
 
-@section('infoempleadocursocreat')
+@section('cursocreat')
 
 <div class="container">
     <div class="card">
         <div class="card-header"><h5>Nueva certificación</h5></div>
         <div class="card-body">
-            <form action="{{route('empleados.certificaciones.store',['empleado'=>$empleado])}}" method="POST">
+            <form action="{{route('oficinas.certificaciones.store', ['oficina'=>$oficina])}}" method="POST">
                 @csrf
                 
-                <input type="text" name="id_empleado" id="id_empleado" class="form-control" style="display: none;" value="{{ $empleado->id }}"required>
+                <input type="text" name="oficina_id" id="oficina_id" class="form-control" style="display: none;" value="{{ $oficina->id }}"required>
                 <div class="row">
                     {{-- INPUT NOMBRE --}}
                     <div class="col-12 col-sm-6 col-md-4 mt-2">

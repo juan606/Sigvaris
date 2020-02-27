@@ -75,7 +75,7 @@
                             </label>
                         </li>
                         <li class="list-group-item">
-                            Oficinas
+                            Tiendas
                             <label class="switch ">
                                 <input disabled id="oficinas" type="checkbox" name="permisos[oficinas]" value="1"
                                     class="success">

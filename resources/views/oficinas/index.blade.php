@@ -5,7 +5,7 @@
 		<div class="card-header">
 			<div class="row">
 				<div class="col-6">
-					<h1>Oficinas</h1>
+					<h1>Tiendas</h1>
 				</div>
 				<div class="col-6">
 					<a class="btn btn-success" href="{{ route('oficinas.create') }}">
@@ -19,7 +19,7 @@
 		<div class="card-body">
 			@if ($oficinas->count() == 0)
 			{{-- true expr --}}
-			<label>No hay oficinas añadidas</label>
+			<label>No hay Tiendas añadidas</label>
 			@else
 			{{-- false expr --}}
 			<table id="precargas" class="table table-striped table-bordered table-hover"
@@ -44,7 +44,7 @@
 					<td>
 						<div class="row">
 							<div class="col-4">
-								<a class="btn btn-warning" href="{{ route('oficinas.edit',['oficina'=>$oficina]) }}">
+								<a class="btn btn-warning" href="{{ route('oficinas.certificaciones.index',['oficina'=>$oficina]) }}">
 									<strong>
 										<i class="far fa-edit"></i>
 									</strong>

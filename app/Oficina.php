@@ -27,4 +27,7 @@ class Oficina extends Model
     public function ventas(){
         return $this->hasMany('App\Venta');
     }
+    public function Certificacionestiendas(){
+        return $this->hasMany('App\Certificacionestienda');
+    }
 }

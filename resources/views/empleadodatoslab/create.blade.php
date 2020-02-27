@@ -4,9 +4,11 @@
 <ul class="nav nav-pills nav-justified">
 	<li role="presentation" class=""><a href="{{ route('empleados.show', ['empleado' => $empleado]) }}"  class="nav-link">Generales:</a></li>
 	<li role="presentation" class="nav-item"><a href="{{ route('empleados.datoslaborales.index', ['empleado' => $empleado]) }}" class="nav-link active">Laborales:</a></li>
-	<li role="presentation" class="nav-item"><a href="{{ route('empleados.estudios.index', ['empleado' => $empleado]) }}" class="nav-link">Estudios:</a></li>
+	<li role="presentation" class="nav-item"><a href="{{ route('empleados.certificaciones.index',['empleado'=>$empleado]) }}" class="nav-link ">Estudios:</a></li>
 	<li role="presentation" class="nav-item"><a href="{{ route('empleados.emergencias.index', ['empleado' => $empleado]) }}" class="nav-link">Emergencias:</a></li>
 	<li role="presentation" class="nav-item"><a href="{{ route('empleados.vacaciones.index', ['empleado' => $empleado]) }}" class="nav-link">Vacaciones:</a></li>
+	<li role="presentation" class="nav-item"><a href="{{ route('empleados.faltasDH.index',['empleado'=>$empleado]) }}" class="nav-link">Faltas:</a></li>
+	<li role="presentation" class="nav-item"><a href="{{ route('empleados.permisos.index',['empleado'=>$empleado]) }}" class="nav-link ">Permisos:</a></li>
 	<li role="presentation" class="nav-item"><a href="{{ route('empleados.faltas.index', ['empleado' => $empleado]) }}" class="nav-link">Administrativo:</a></li>
 </ul>
 <div class="card">
@@ -80,9 +82,20 @@
 				<div class="form-group col-3">
 					<label class="control-label" for="periodopaga">Periodicidad de Pago:</label>
 					<select type="select" class="form-control" name="periodopaga" id="periodopaga">
-						<option id="1" value="Semanal" @if ($datoslab->periodopaga == "Semanal") selected="selected" @endif>Semanal</option>
+						{{--< --option id="1" value="Semanal" @if ($datoslab->periodopaga == "Semanal") selected="selected" @endif>Semanal</option>
 						<option id="2" value="Quincenal" @if ($datoslab->periodopaga == "Quincenal") selected="selected" @endif>Quincenal</option>
-						<option id="3" value="Mensual" @if ($datoslab->periodopaga == "Mensual") selected="selected" @endif>Mensual</option>
+						<option id="3" value="Mensual" @if ($datoslab->periodopaga == "Mensual") selected="selected" @endif>Mensual</option>--}}
+						<option value="">Seleccionar</option>
+						<option value="01 - Diario"  @if ($datoslab->periodopaga == "Diario") selected="selected" @endif >01 - Diario</option>
+						<option value="02 - Semanal" @if ($datoslab->periodopaga == "Semanal") selected="selected" @endif >02 - Semanal</option>
+						<option value="03 - Catorcenal" @if ($datoslab->periodopaga == "Catorcenal") selected="selected" @endif >03 - Catorcenal</option>
+						<option value="04 - Quincenal" @if ($datoslab->periodopaga == "Quincenal") selected="selected" @endif >04 - Quincenal</option>
+						<option value="05 - Mensual" @if ($datoslab->periodopaga == "Mensual") selected="selected" @endif >05 - Mensual</option>
+						<option value="06 - Bimestral" @if ($datoslab->periodopaga == "Bimestral") selected="selected" @endif >06 - Bimestral</option>
+						<option value="07 - Unidad obra" @if ($datoslab->periodopaga == "Unidad obra") selected="selected" @endif >07 - Unidad obra</option>
+						<option value="08 - Comisión" @if ($datoslab->periodopaga == "Comisión") selected="selected" @endif >08 - Comisión</option>
+						<option value="09 - Precio alzado" @if ($datoslab->periodopaga == "Precio alzado") selected="selected" @endif >09 - Precio alzado</option>
+						<option value="99 - otra periodicidad" @if ($datoslab->periodopaga == "periodicidad") selected="selected" @endif >99 - otra periodicidad</option>
 					</select>
 				</div>
 			</div>
@@ -90,15 +103,31 @@
 				<div class="form-group col-3">
 					<label class="control-label" for="prestaciones">Prestaciones:</label>
 					<select class="form-control" type="select" name="prestaciones" id="prestaciones">
-						<option id="1" value="De Ley" @if ($datoslab->prestaciones == "De Ley") selected="selected" @endif>De Ley</option>
+						<option value="De Ley De" @if ($datoslab->prestaciones == "De Ley De") selected="selected" @endif>De Ley</option>
+	                    <option value="De Ley Sup" @if ($datoslab->prestaciones == "De Ley Sup") selected="selected" @endif>Superiores a la ley</option>
+	                    <option value="De Ley Sin" @if ($datoslab->prestaciones == "De Ley Sin") selected="selected" @endif>Sin prestaciones</option>
+						<!--<option id="1" value="De Ley" @if ($datoslab->prestaciones == "De Ley") selected="selected" @endif>De Ley</option>-->
 					</select>
 				</div>
 				<div class="form-group col-3">
 					<label class="control-label" for="regimen">Régimen de Contratación:</label>
 					<select class="form-control" type="select" name="regimen" id="regimen" value="{{ $datoslab->regimen }}">
-						<option id="1" value="Sueldos y Salarios" @if ($datoslab->regimen == "Sueldos y Salarios") selected="selected" @endif>Sueldos y Salarios</option>
+						{{-- <option id="1" value="Sueldos y Salarios" @if ($datoslab->regimen == "Sueldos y Salarios") selected="selected" @endif>Sueldos y Salarios</option>
 						<option id="2" value="Jubilados" @if ($datoslab->regimen == "Jubilados") selected="selected" @endif>Jubilados</option>
-						<option id="3" value="Pensionados" @if ($datoslab->regimen == "Pensionados") selected="selected" @endif>Pensionados</option>
+						<option id="3" value="Pensionados" @if ($datoslab->regimen == "Pensionados") selected="selected" @endif>Pensionados</option>--}}
+						<option value="">Seleccionar</option>
+						<option value="02 - Sueldos" @if ($datoslab->regimen == "Sueldos") selected="selected" @endif>02 - Sueldos</option>
+						<option value="03 - Jubilados" @if ($datoslab->regimen == "Jubilados") selected="selected" @endif>03 - Jubilados</option>
+						<option value="04 - Pensionados" @if ($datoslab->regimen == "Pensionados") selected="selected" @endif>04 - Pensionados</option>
+						<option value="05 - Asimilados Miembros Sociedades Cooperativas Produccion" @if ($datoslab->regimen == "Asimilados Miembros Sociedades Cooperativas Produccion") selected="selected" @endif>05 - Asimilados Miembros Sociedades Cooperativas Producción</option>
+						<option value="06 - Asimilados Integrantes Sociedades Asociaciones Civiles" @if ($datoslab->regimen == "Asimilados Integrantes Sociedades Asociaciones Civiles") selected="selected" @endif>06 - Asimilados Integrantes Sociedades Asociaciones Civiles</option>
+						<option value="07 - Asimilados Miembros consejos" @if ($datoslab->regimen == "Asimilados Miembros consejos") selected="selected" @endif>07 - Asimilados Miembros consejos</option>
+						<option value="08 - Asimilados comisionistas" @if ($datoslab->regimen == "Asimilados comisionistas") selected="selected" @endif>08 - Asimilados comisionistas</option>
+						<option value="09 - Asimilados - Honorarios" @if ($datoslab->regimen == "Asimilados - Honorarios") selected="selected" @endif>09 - Asimilados - Honorarios</option>
+						<option value="10 - Asimilados acciones" @if ($datoslab->regimen == "Asimilados acciones") selected="selected" @endif>10 - Asimilados acciones</option>
+						<option value="11 - Asimilados otros" @if ($datoslab->regimen == "Asimilados otros") selected="selected" @endif>11 - Asimilados otros</option>
+						<option value="99 - Otro Regimen" @if ($datoslab->regimen == "Otro Regimen") selected="selected" @endif>99 - Otro Regimen</option>
+
 					</select>
 				</div>
 				<div class="form-group col-3">

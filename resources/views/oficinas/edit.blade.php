@@ -6,7 +6,7 @@
 		<form role="form" method="POST" action="{{ route('oficinas.update', ['oficina'=>$oficina]) }}">
         <input type="hidden" name="_method" value="PUT">
 			<div class="card-header">
-				<h1>Nueva Oficina </h1>
+				<h1>Nueva Tienda </h1>
 			</div>
 			<div class="card-body">
 				{{ csrf_field() }}
@@ -30,9 +30,10 @@
 					<strong>Guardar</strong>
 				</button>
 			</div>
-	</div>
-
+	
+			
 	</form>
+	@yield('curso')
 </div>
 
 @endsection

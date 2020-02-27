@@ -9,11 +9,15 @@
 	
 				<li role="presentation" class="nav-item"><a href="{{ route('empleados.datoslaborales.index',['empleado'=>$empleado]) }}" class="nav-link">Laborales:</a></li>
 	
-				<li role="presentation" class="nav-item"><a href="{{ route('empleados.estudios.index',['empleado'=>$empleado]) }}" class="nav-link active">Estudios:</a></li>
+				<li role="presentation" class="nav-item"><a href="{{ route('empleados.certificaciones.index',['empleado'=>$empleado]) }}" class="nav-link active">Estudios:</a></li>
 	
 				<li role="presentation" class="nav-item"><a href="{{ route('empleados.emergencias.index',['empleado'=>$empleado]) }}" class="nav-link">Emergencias:</a></li>
 	
 				<li role="presentation" class="nav-item"><a href="{{ route('empleados.vacaciones.index',['empleado'=>$empleado]) }}" class="nav-link">Vacaciones:</a></li>
+
+				<li role="presentation" class="nav-item"><a href="{{ route('empleados.faltasDH.index',['empleado'=>$empleado]) }}" class="nav-link">Faltas:</a></li>
+			
+			<li role="presentation" class="nav-item"><a href="{{ route('empleados.permisos.index',['empleado'=>$empleado]) }}" class="nav-link ">Permisos:</a></li>
 	
 				<li role="presentation" class="nav-item"><a href="{{ route('empleados.faltas.index',['empleado'=>$empleado]) }}" class="nav-link">Administrativo:</a></li>
 			</ul>
@@ -255,27 +259,29 @@
 							<label class="control-label" for="nivel3" id="lbl_nivel">Nivel:</label>
 							<select type="select" name="nivel3" class="form-control" id="nivel3">
 								<option id="1" value="Básico" @if ($estudios->nivel3 == "Básico")
-									{{-- expr --}}
+									
 									selected="selected" 
 								@endif>Básico</option>
 								<option id="2" value="Medio" @if ($estudios->nivel3 == "Medio")
-									{{-- expr --}}
+									
 									selected="selected" 
 								@endif>Medio</option>
 								<option id="3" value="Alto" @if ($estudios->nivel3 == "Alto")
-									{{-- expr --}}
+									
 									selected="selected" 
 								@endif>Alto</option>
 							</select>
 						</div>
-
-						<div class="form-group col-4">
+						{{--
+ --						<div class="form-group col-4">
 							<label class="control-label" for="curso1" id="lbl_curso"><i class="fa fa-asterisk" aria-hidden="true"></i>Curso:</label>
-							<input type="text" class="form-control" id="id_curso1" name="curso1" value="{{ $estudios->curso1 }}">
+							<select id="id_curso1" name="curso1" class="form-control">
+							</select>
+							<!--<input type="text" class="form-control" id="id_curso1" name="curso1" value="{{ $estudios->curso1 }}">-->
 							<div class="boton checkbox-disabled">
 								<label>
 							<input id="boton-toggle" type="checkbox" data-toggle="toggle" data-on="Sí" data-off="No" data-style="ios" name="certificado1" @if ($estudios->certificado1 == 1)
-								{{-- expr --}}
+								
 								checked="checked"
 							@endif> ¿Certificación?
 							</label>
@@ -283,11 +289,13 @@
 					</div>
 					<div class="form-group col-4">
 							<label class="control-label" for="curso2" id="lbl_curso">Curso 2:</label>
-							<input type="text" class="form-control" id="id_curso2" name="curso2" value="{{ $estudios->curso2 }}">
+							<select id="id_curso2" name="curso2" class="form-control">
+							</select>
+							<!--<input type="text" class="form-control" id="id_curso2" name="curso2" value="{{ $estudios->curso2 }}">-->
 							<div class="boton checkbox-disabled">
 								<label>
 							<input id="boton-toggle" type="checkbox" data-toggle="toggle" data-on="Sí" data-off="No" data-style="ios" name="certificado2" @if ($estudios->certificado2 == 1)
-								{{-- expr --}}
+								
 								checked="checked"
 							@endif> ¿Certificación?
 							</label>
@@ -295,21 +303,42 @@
 					</div>
 					<div class="form-group col-4">
 							<label class="control-label" for="curso3" id="lbl_curso">Curso 3:</label>
-							<input type="text" class="form-control" id="id_curso3" name="curso3" value="{{ $estudios->curso3 }}">
+							<select id="id_curso3" name="curso3" class="form-control">
+							</select>
+							<!--<input type="text" class="form-control" id="id_curso3" name="curso3" value="{{ $estudios->curso3 }}">-->
 							<div class="boton checkbox-disabled">
 								<label>
 							<input id="boton-toggle" type="checkbox" data-toggle="toggle" data-on="Sí" data-off="No" data-style="ios" name="certificado3" @if ($estudios->certificado3 == 1)
-								{{-- expr --}}
+								
 								checked="checked"
 							@endif>
 							¿Certificación?
 							</label>
 						</div>
-					</div>
+					</div>--}}
 					<button type="submit" class="btn btn-success">Guardar</button>
 					
 					</form>
 			</div>
 		</div>
 	{{-- </div> --}}
+	<script type="text/javascript">
+		$(document).ready(function () {
+	        $.ajax({
+	         	type: "POST",
+	            data: {
+	            	"_token": $("meta[name='csrf-token']").attr("content")
+	            	},
+	            url:"/getCurso_Personas",
+
+	            success: function (data) {
+	                console.log(data);
+	                $("#id_curso1").html(data);
+	                $("#id_curso2").html(data);
+	                $("#id_curso3").html(data);
+	                
+	            }
+	    	});    
+		});
+	</script>
 @endsection

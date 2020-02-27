@@ -5,7 +5,7 @@
 	<div class="card">
 		<form role="form" method="POST" action="{{ route('oficinas.store') }}">
 			<div class="card-header">
-				<h1>Nueva Oficina </h1>
+				<h1>Nueva Tienda </h1>
 			</div>
 			<div class="card-body">
 				{{ csrf_field() }}

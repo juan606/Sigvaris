@@ -51,7 +51,6 @@
                     </a>
                     <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                         <a class="dropdown-item" href="{{url('empleados/create')}}"><span>Alta</span><i class="fa fa-plus float-right"></i></a>
-                        <a class="dropdown-item" href="{{route('certificaciones.index')}}"><span>Certificaciones</span><i class="fa fa-plus float-right"></i></a>
                         <a class="dropdown-item" href="{{ url('empleados') }}"><span>Buscar</span><i class="fa fa-search float-right"></i></a>
                     </div>
                 </li>    
@@ -123,7 +122,7 @@
             @if (Auth::user()->role->oficinas)
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown">
-                        Oficinas
+                        Tiendas
                     </a>
                     <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                         <a class="dropdown-item" href="{{route('oficinas.index')}}"><span>Buscar</span><i class="fa fa-search float-right"></i></a>

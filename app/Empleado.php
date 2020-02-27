@@ -85,7 +85,16 @@ class Empleado extends Model
     {
         return $this->hasMany('App\Venta');
     }
-
+    public function faltas(){
+        return $this->hasMany('App\EmpleadoFalta');
+    }
+    public function Cursos(){
+        return $this->hasMany('App\Curso');
+    }
+    public function permisos()
+    {
+        return $this->hasMany('App\EmpleadoPermiso');
+    }
     public function puesto()
     {
         return $this->datosLaborales()

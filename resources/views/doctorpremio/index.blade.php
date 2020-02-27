@@ -2,10 +2,10 @@
 @section('submodulos')
 
     <div class="row my-5">
-        <div class="col-4 px-5"><h4>Premios</h4></div>
+        <div class="col-4 px-5"><h4>Reconocimientos/Cargos</h4></div>
         <input id="submenu" type="hidden" name="submenu" value="nav-premios">
         <div class="col-4 px-5">
-            <a class="btn btn-success" href="{{ route('doctores.premios.create', ['doctor'=>$doctor]) }}"><i class="fas fa-plus"></i><strong> Crear Premio</strong></a>
+            <a class="btn btn-success" href="{{ route('doctores.premios.create', ['doctor'=>$doctor]) }}"><i class="fas fa-plus"></i><strong> Crear Reconocimientos/Cargos</strong></a>
         </div>  
     </div>
     <div class="row">

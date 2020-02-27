@@ -3,36 +3,44 @@
 namespace App\Http\Controllers\Empleado;
 
 use App\Empleado;
-use App\EmpleadosVacaciones;
+use App\EmpleadoPermiso;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use UxWeb\SweetAlert\SweetAlert as Alert;
 
-class EmpleadosVacacionesController extends Controller
+class EmpleadospermisosController extends Controller
 {
-    /**
+     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
     public function index(Empleado $empleado)
     {
-        //
-        $vacaciones = $empleado->vacaciones;
-        return view('empleadovacaciones.view',['empleado'=>$empleado, 'vacaciones'=>$vacaciones]);
+
+        $totalPermisosPorDia = 0;
+        $totalDiasPermitidos = 0;
+        $totalPermisosPorHora = 0;
+        $totalHorasPermitidas = 0;
+
+        $permisos = $empleado->permisos;
+        // dd($permisos);
+
+        foreach($permisos as $permiso){
+            if($permiso->tipopermiso == 'dia'){
+                $totalPermisosPorDia += 1;
+                $totalDiasPermitidos += $permiso->diastotales;
+            }
+            if($permiso->tipopermiso == 'hora'){
+                $totalPermisosPorHora += 1;
+                $totalHorasPermitidas += $permiso->horastotales;
+            }
+        }
+
+        return view('empleadovacaciones.permiso',compact('empleado','permisos','totalPermisosPorDia','totalDiasPermitidos','totalPermisosPorHora','totalHorasPermitidas'));
     }
 
-    public function indexVacaciones()
-    {
-        //
-        //$vacaciones = $empleado->vacaciones;
-        return view('empleadovacaciones.vacacionesusuario');
-    }
-    public function indexPermisosFaltas()
-    {
-        //
-        //$vacaciones = $empleado->vacaciones;
-        return view('empleadovacaciones.faltapermisousuario');
-    }
+    
     
     /**
      * Show the form for creating a new resource.
@@ -42,7 +50,7 @@ class EmpleadosVacacionesController extends Controller
     public function create(Empleado $empleado)
     {
         //
-        $vacaciones = new EmpleadosVacaciones;
+        //$vacaciones = new EmpleadosVacaciones;
         // $edit = false;
         // return view('empleadosvacaciones.');
     }
@@ -53,20 +61,12 @@ class EmpleadosVacacionesController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request, Empleado $empleado)
+    public function store(Empleado $empleado, Request $request)
     {
-        //
-        $vacacion = EmpleadosVacaciones::create($request->all());
-        return redirect()->route('empleados.vacaciones.index',['empleado'=>$empleado]);
-
-    }
-
-    public function storeVacaciones(Request $request)
-    {
-        //
-        $vacacion = EmpleadosVacaciones::create($request->all());
-        return view('empleadovacaciones.vacacionesusuario');
-
+        $permiso = new EmpleadoPermiso($request->all());
+        $empleado->permisos()->save($permiso);
+        Alert::success('Información Agregada', 'Se ha registrado correctamente la información');
+        return redirect()->route('empleados.permisos.index',['empleado'=>$empleado]);
     }
     /**
      * Display the specified resource.

@@ -2,7 +2,7 @@
 @section('submodulos')
 
     <div class="row my-5">
-        <div class="col-4 px-5"><h4>Premios</h4></div>
+        <div class="col-4 px-5"><h4>Reconocimientos/Cargos</h4></div>
         <input id="submenu" type="hidden" name="submenu" value="nav-premios">
     </div>
     <div class="row">

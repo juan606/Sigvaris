@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Empleado;
 
 use App\Empleado;
 use App\EmpleadosEstudios;
+use App\Curso;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
@@ -23,7 +24,9 @@ class EmpleadosEstudiosController extends Controller
             return redirect()->route('empleados.estudios.create',['empleado'=>$empleado]);
         } else {
             # code...
-            return view('empleadoestudios.view',['empleado'=>$empleado, 'estudios'=>$estudios]);
+            $cursos = Curso::where('id_empleado',$empleado->id)->get();
+            return view('certificaciones.index',['empleado'=>$empleado, 'estudios'=>$estudios,'cursos'=> $cursos]);
+            //return view('empleadoestudios.view',['empleado'=>$empleado, 'estudios'=>$estudios]);
         }
         
     }
@@ -91,7 +94,9 @@ class EmpleadosEstudiosController extends Controller
         }
         // dd($estudios);
         $estudios->save();
-        return redirect()->route('empleados.estudios.index',['empleado'=>$empleado,'estudios'=>$estudios]);
+        $cursos = Curso::where('id_empleado',$empleado->id)->get();
+        return view('certificaciones.index',['empleado'=>$empleado, 'estudios'=>$estudios,'cursos'=> $cursos]);
+        //return redirect()->route('empleados.estudios.index',['empleado'=>$empleado,'estudios'=>$estudios]);
     }
 
     /**
@@ -168,7 +173,9 @@ class EmpleadosEstudiosController extends Controller
         }
         // dd($estudios);
         $estudios->save();
-        return redirect()->route('empleados.estudios.index',['empleado'=>$empleado,'estudios'=>$estudios]);
+        $cursos = Curso::where('id_empleado',$empleado->id)->get();
+        return view('certificaciones.index',['empleado'=>$empleado, 'estudios'=>$estudios,'cursos'=> $cursos]);
+        //return redirect()->route('empleados.estudios.index',['empleado'=>$empleado,'estudios'=>$estudios]);
     }
 
     /**
@@ -180,5 +187,14 @@ class EmpleadosEstudiosController extends Controller
     public function destroy(Empleado $empleado)
     {
         //
+    }
+    public function getCurso_Personas()
+    {
+        $cursos=Curso::where('tipo',"Persona")->get();
+        $html="<option > </option>";
+        foreach ($cursos as $curso) {
+            $html.='<option value="'.$curso->nombre.'">'.$curso->nombre.'</option>';
+        }
+        return $html;
     }
 }

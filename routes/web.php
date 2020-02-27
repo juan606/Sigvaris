@@ -35,16 +35,27 @@ Route::resource('empleados.datoslaborales','Empleado\EmpleadosDatosLabController
 Route::resource('empleados.estudios','Empleado\EmpleadosEstudiosController');
 Route::resource('empleados.emergencias','Empleado\EmpleadosEmergenciasController');
 Route::resource('empleados.vacaciones','Empleado\EmpleadosVacacionesController');
+Route::resource('empleados.faltasDH','Empleado\EmpleadosfaltasDHController');
+Route::post('empleados/faltas/actualizar','Empleado\EmpleadoFaltaController@actualizar')->name('empleados.faltas.actualizar');
+Route::resource('empleados.permisos','Empleado\EmpleadospermisosController');
 Route::resource('empleados.faltas','Empleado\EmpleadosFaltasAdministrativasController');
 
+Route::get('vacaciones','Empleado\EmpleadosVacacionesController@indexVacaciones')->name('vacaciones');
+Route::get('permisosFaltas','Empleado\EmpleadosVacacionesController@indexPermisosFaltas')->name('PermisosFaltas');
 // METAS
 Route::resource('metas','MetaController');
 
 // CERTIFICACIONES
-route::resource('certificaciones', 'Certificacion\CertificacionController');
+route::resource('empleados.certificaciones', 'Empleado\CertificacionController');
+route::resource('oficinas.certificaciones', 'Oficina\CertificacionController');
+
 
 Route::get('empleados/{empleado}/EmpledoBaja','Empleado\EmpleadoBajaController@create');
 Route::post('empleados/{empleado}/EmpledoBaja/store','Empleado\EmpleadoBajaController@store');
+Route::post('newVacaciones','Empleado\EmpleadosVacacionesController@storeVacaciones')->name("newVacaciones");
+Route::post('SerchEmpleado','Empleado\EmpleadoController@SerchEmpleado');
+Route::post('getCurso_Personas','Empleado\EmpleadosEstudiosController@getCurso_Personas');
+
 
 Route::get('getfaltas','Falta\FaltaController@getFaltas');
 Route::resource('faltas','Falta\FaltaController', ['except'=>'show']);

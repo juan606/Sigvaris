@@ -188,4 +188,8 @@ class EmpleadoController extends Controller
             
         return response()->json($empleadosFitters, 200);
     }
+    public function SerchEmpleado(Request $request)
+    {
+        return Empleado::where('id',$request->input('id'))->first();
+    }
 }

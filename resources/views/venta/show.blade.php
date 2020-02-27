@@ -31,7 +31,7 @@
                     </div>
                     @if ($venta->oficina_id)
                     <div class="col-4 form-group">
-                        <label class="control-label">Oficina:</label>
+                        <label class="control-label">Tienda:</label>
                         <input type="text" class="form-control" value="{{$venta->oficina->nombre}}" readonly="">
                     </div>
                     @endif

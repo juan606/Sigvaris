@@ -76,7 +76,7 @@
                                 </label>
                             </li>
                             <li class="list-group-item">
-                                Oficinas
+                                Tiendas
                                 <label class="switch ">
                                     <input type="checkbox" name="permisos[oficinas]" value="1" class="success">
                                     <span class="slider"></span>
