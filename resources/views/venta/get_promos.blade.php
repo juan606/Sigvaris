@@ -10,20 +10,10 @@
         	    	Monto minimo de compra: {{ $promocion->compra_min }}$ por un descuento de: {{ $promocion->descuento_de }}
         	    	@break
         	    @case('C')
-        	    	Descuento por cumpleaños: {{ $promocion->descuento_de }}{{ $promocion->unidad_descuento }}
+                    Convenio con descuento de {{ $promocion->unidad_descuento }} {{ $promocion->descuento_de }} en cada compra 
+        	    	{{--Descuento por cumpleaños: {{ $promocion->descuento_de }}{{ $promocion->unidad_descuento }}  --}}
         	    	@break
-        	    @case('D')
-        	    	Monto minimo de prendas: {{$promocion->compra_min}} por un descuento de {{$promocion->descuento_de}}{{$promocion->unidad_descuento}}
-        	    	@break
-        	    @case('E')
-        	    	Monto minimo de prendas: {{$promocion->compra_min}} por {{$promocion->descuento_de}} {{$promocion->unidad_descuento}}
-        	    	@break
-        	    @case('F')
-        	    	Descuento de empleado: {{$promocion->descuento_de}}{{$promocion->unidad_descuento}}
-                    @break
-                @case('H')
-                    Monto minimo de compra: {{$promocion->compra_min}} por un descuento de {{$promocion->descuento_de}}{{$promocion->unidad_descuento}}
-                    @break
+        	    
         	
         	    {{-- @default
         	            Default case... --}}

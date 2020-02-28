@@ -101,27 +101,175 @@
 <div class="container">
 	<div class="card">
         
-        <form class="" action="{{route('descuentos.store')}}" method="post">
+        
             <div class="card-header">
                 <h1>Nuevo Descuento</h1>
             </div>
             <div class="card-body">    
-                {{ csrf_field() }}
+                
                 <div class="row">
-                    <div class="form-group col-3">
-                        <label for="nombre">Nombre *</label>
-                        <input type="text" class="form-control" name="nombre" id="nombre" required="">
-                    </div>
-                    <div class="form-group col-3">
-                        <label for="inicio">De: *</label>
-                        <input type="date" class="form-control" name="inicio" id="inicio" required="">
-                    </div>
-                    <div class="form-group col-3">
-                        <label for="fin">A: *</label>
-                        <input type="date" step="0.01" name="fin" class="form-control" id="fin" required="">
+                    <div class="form-group col-2 text-center">
+                    </div> 
+                    <div class="form-group col-8 text-center">
+                        <label class="" for="fin">Tipo de descuento: </label>
+                        <select class="form-control" name="tipo" id="tipo"  required="">  
+                                <option value="">Seleccionar ...</option>      
+                                <option value="A">mayor / igual que ____  prendas</option>
+                                <option value="B">mayor / igual que ____  dinero</option>
+                                <option value="C">convenios</option>
+                        </select>
                     </div>   
                 </div>
-                <label>Tipo: </label>
+                
+                
+                <div id="tipoA" style="display:none;">
+                    <form class="" action="{{route('descuentos.store')}}" method="post">
+                        {{ csrf_field() }}
+                        <input type="text" class="form-control" name="tipoDes"  value="A" style="display:none;">
+                        <input type="text" class="form-control" name="unidad_compra"  value="Prendas" style="display:none;">
+                        <div class="row">
+                            <div class="form-group col-4">
+                                <label for="nombre">Nombre *</label>
+                                <input type="text" class="form-control" name="nombre" required="">
+                            </div>
+                            <div class="form-group col-4">
+                                <label for="inicio">De: *</label>
+                                <input type="date" class="form-control" name="inicio"  required="">
+                            </div>
+                            <div class="form-group col-4">
+                                <label for="fin">A: *</label>
+                                <input type="date" step="0.01" name="fin" class="form-control"required="">
+                            </div>   
+                        </div>
+                        <div class="row">
+                            <div class="col-4">
+                                <div class="form-group">
+                                    <label>Compra minima de prendas: </label>
+                                    <input type="number" class="form-control" name="compra_min" id="compra_min">
+                                </div>
+                            </div>
+                            <div class="col-4 pl-0">
+                                <label>Unidad de descuento: </label>
+                                <select class="form-control" name="unidad_descuento" id="unidad_descuento"  required="">        
+                                        <option value="">Seleccionar ...</option>  
+                                        <option value="Pesos">$</option>
+                                        <option value="Procentaje">%</option>
+                                        <option value="sigCompra">sigPesos en la siguiente compra</option>
+                                        <option value="Pieza">Pieza Gratis</option>
+                                </select>
+                            </div>
+                            <div class="col-4 pl-0" style="display:none;" id="Des">
+                                <label style="display:none;" id="Des_Por" >Porcentaje de descuento: </label>
+                                <label style="display:none;" id="Des_Pes">Pesos de descuento: </label>
+                                <label style="display:none;" id="Des_sigCom" >sigPesos en la siguiente compra: </label>
+                                <input type="number" class="form-control" name="descuento_de" id="descuento_de" value="0" required="">
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-3 pt-4 m-auto">
+                                <button type="submit" class="btn btn-success btn-md btn-block">Agregar</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div id="tipoB" style="display:none;">
+                    <form class="" action="{{route('descuentos.store')}}" method="post">
+                        {{ csrf_field() }}
+                        <input type="text" class="form-control" name="tipoDes"  value="B" style="display:none;">
+                        <input type="text" class="form-control" name="unidad_compra"  value="Pesos" style="display:none;">
+                        <div class="row">
+                            <div class="form-group col-4">
+                                <label for="nombre">Nombre *</label>
+                                <input type="text" class="form-control" name="nombre" required="">
+                            </div>
+                            <div class="form-group col-4">
+                                <label for="inicio">De: *</label>
+                                <input type="date" class="form-control" name="inicio" required="">
+                            </div>
+                            <div class="form-group col-4">
+                                <label for="fin">A: *</label>
+                                <input type="date" step="0.01" name="fin" class="form-control" required="">
+                            </div>   
+                        </div>
+                        <div class="row">
+                            <div class="col-4">
+                                <div class="form-group">
+                                    <label>Monto minimo de compra: </label>
+                                    <input type="number" class="form-control" name="compra_min" id="compra_minB">
+                                </div>
+                            </div>
+                            <div class="col-4 pl-0">
+                                <label>Unidad de descuento: </label>
+                                <select class="form-control" name="unidad_descuento" id="unidad_descuentoB"  required="">        
+                                        <option value="">Seleccionar ...</option>  
+                                        <option value="Pesos">$</option>
+                                        <option value="Procentaje">%</option>
+                                        <option value="sigCompra">sigPesos en la siguiente compra</option>
+                                        <option value="Pieza">Pieza Gratis</option>
+                                </select>
+                            </div>
+                            <div class="col-4 pl-0" style="display:none;" id="DesB">
+                                <label style="display:none;" id="Des_PorB" >Porcentaje de descuento: </label>
+                                <label style="display:none;" id="Des_PesB">Pesos de descuento: </label>
+                                <label style="display:none;" id="Des_sigComB" >sigPesos en la siguiente compra: </label>
+                                <input type="number" class="form-control" name="descuento_de" id="descuento_deB" value="0" required="">
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-3 pt-4 m-auto">
+                                <button type="submit" class="btn btn-success btn-md btn-block">Agregar</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div id="tipoC" style="display:none;">
+                    <form class="" action="{{route('descuentos.store')}}" method="post">
+                        {{ csrf_field() }}
+                        <input type="text" class="form-control" name="tipoDes"  value="C" style="display:none;">
+                        <input type="number" class="form-control" name="compra_min"  value="0" style="display:none;">
+                        <input type="text" class="form-control" name="unidad_compra"  value="0" style="display:none;">
+                        <div class="row">
+                            <div class="form-group col-4">
+                                <label for="nombre">Nombre *</label>
+                                <input type="text" class="form-control" name="nombre" required="">
+                            </div>
+                            <div class="form-group col-4">
+                                <label for="inicio">De: *</label>
+                                <input type="date" class="form-control" name="inicio" required="">
+                            </div>
+                            <div class="form-group col-4">
+                                <label for="fin">A: *</label>
+                                <input type="date" step="0.01" name="fin" class="form-control" required="">
+                            </div>   
+                        </div>
+                        <div class="row">
+                            <div class="col-2 pl-0">
+                            </div>
+                            <div class="col-4 pl-0">
+                                <label>Unidad de descuento: </label>
+                                <select class="form-control" name="unidad_descuento" id="unidad_descuentoC"  required="">        
+                                        <option value="">Seleccionar ...</option>  
+                                        <option value="Pesos">$</option>
+                                        <option value="Procentaje">%</option>
+                                        <option value="sigCompra">sigPesos en la siguiente compra</option>
+                                        <option value="Pieza">Pieza Gratis</option>
+                                </select>
+                            </div>
+                            <div class="col-4 pl-0" style="display:none;" id="DesC">
+                                <label style="display:none;" id="Des_PorC" >Porcentaje de descuento: </label>
+                                <label style="display:none;" id="Des_PesC">Pesos de descuento: </label>
+                                <label style="display:none;" id="Des_sigComC" >sigPesos en la siguiente compra: </label>
+                                <input type="number" class="form-control" name="descuento_de" id="descuento_deC" value="0" required="">
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-3 pt-4 m-auto text-center">
+                                <button type="submit" class="btn btn-success btn-md btn-block">Agregar</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                {{--<label>Tipo: </label>
                 <div class="row">
                     <div class="col-4">
                         <div class="form-group">
@@ -315,7 +463,7 @@
                                     </tr>
                                 </thead>
                                 <tbody id="tbody_productos">
-                                    {{-- <div id="tbody_productos"></div> --}}
+                                    <div id="tbody_productos"></div> 
                                 </tbody>
                             </table>
                         </div>
@@ -324,15 +472,15 @@
                     <div class="col-3 pt-4 m-auto">
                         <button type="submit" class="btn btn-success btn-md btn-block">Agregar</button>
                     </div>
-                </div>
+                </div>--}}
             </div>
-        </form>
+        
     </div>
 </div>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
 <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.js"></script>
 <script type="text/javascript" src="https://cdn.datatables.net/1.10.19/js/dataTables.bootstrap4.min.js"></script>
-<script type="text/javascript">
+{{--<script type="text/javascript">
     $(document).ready(function(){
         $('#table-productos').DataTable({
             "language": {
@@ -471,5 +619,97 @@
     function quitarProducto(p){
         $(p).remove();
     }
+</script>--}}
+<script type="text/javascript">
+        $(document).ready(function(){
+            $('#tipo').change(function() {
+                if ($('#tipo').val()=='A') {
+                    $('#tipoA').show();
+                    $('#tipoB').hide();
+                    $('#tipoC').hide();
+                }else if ($('#tipo').val()=='B') {
+                    $('#tipoA').hide();
+                    $('#tipoB').show();
+                    $('#tipoC').hide();
+                }else if ($('#tipo').val()=='C') {
+                    $('#tipoA').hide();
+                    $('#tipoB').hide();
+                    $('#tipoC').show();
+                }
+            });
+            $('#unidad_descuento').change(function() {
+                if ($('#unidad_descuento').val()=='Procentaje') {
+                    $('#Des').show();
+                    $('#Des_Por').show();
+                    $('#Des_Pes').hide();
+                    $('#Des_sigCom').hide();                    
+                }else if ($('#unidad_descuento').val()=='Pesos') {
+                    $('#Des').show();
+                    $('#Des_Por').hide();
+                    $('#Des_Pes').show();
+                    $('#Des_sigCom').hide();
+                }else if ($('#unidad_descuento').val()=='sigCompra') {
+                    $('#Des').show();
+                    $('#Des_Por').hide();
+                    $('#Des_Pes').hide();
+                    $('#Des_sigCom').show();
+                }else {
+                    $('#Des').hide();
+                    $('#Des_Por').hide();
+                    $('#Des_Pes').hide();
+                    $('#Des_sigCom').hide();
+                    $('#descuento_de').val(0);
+                }
+            });
+            $('#unidad_descuentoB').change(function() {
+                if ($('#unidad_descuentoB').val()=='Procentaje') {
+                    $('#DesB').show();
+                    $('#Des_PorB').show();
+                    $('#Des_PesB').hide();
+                    $('#Des_sigComB').hide();                    
+                }else if ($('#unidad_descuentoB').val()=='Pesos') {
+                    $('#DesB').show();
+                    $('#Des_PorB').hide();
+                    $('#Des_PesB').show();
+                    $('#Des_sigComB').hide();
+                }else if ($('#unidad_descuentoB').val()=='sigCompra') {
+                    $('#DesB').show();
+                    $('#Des_PorB').hide();
+                    $('#Des_PesB').hide();
+                    $('#Des_sigComB').show();
+                }else {
+                    $('#DesB').hide();
+                    $('#Des_PorB').hide();
+                    $('#Des_PesB').hide();
+                    $('#Des_sigComB').hide();
+                    $('#descuento_deB').val(0);
+                }
+            });
+            $('#unidad_descuentoC').change(function() {
+                if ($('#unidad_descuentoC').val()=='Procentaje') {
+                    $('#DesC').show();
+                    $('#Des_PorC').show();
+                    $('#Des_PesC').hide();
+                    $('#Des_sigComC').hide();                    
+                }else if ($('#unidad_descuentoC').val()=='Pesos') {
+                    $('#DesC').show();
+                    $('#Des_PorC').hide();
+                    $('#Des_PesC').show();
+                    $('#Des_sigComC').hide();
+                }else if ($('#unidad_descuentoC').val()=='sigCompra') {
+                    $('#DesC').show();
+                    $('#Des_PorC').hide();
+                    $('#Des_PesC').hide();
+                    $('#Des_sigComC').show();
+                }else {
+                    $('#DesC').hide();
+                    $('#Des_PorC').hide();
+                    $('#Des_PesC').hide();
+                    $('#Des_sigComC').hide();
+                    $('#descuento_deC').val(0);
+                    
+                }
+            });
+        });
 </script>
 @endsection

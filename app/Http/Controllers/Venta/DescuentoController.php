@@ -59,7 +59,10 @@ class DescuentoController extends Controller
     public function store(Request $request)
     {
         $descuento = Descuento::create($request->all());
-        if($request->tipoA)
+        $Promocion = Promocion::create(['tipo'=>$request->tipoDes, 'compra_min'=>$request->compra_min, 'unidad_compra'=>$request->unidad_compra,
+                                        'descuento_de'=>$request->descuento_de, 'unidad_descuento'=>$request->unidad_descuento, 
+                                        'descuento_id'=>$descuento->id]);
+        /**if($request->tipoA)
         {
             $promoA=Promocion::create(['tipo'=>'A', 'compra_min'=>$request->compra_minA, 'unidad_compra'=>'prendas',
                                         'descuento_de'=>$request->descuento_deA, 'unidad_descuento'=>'prendas', 
@@ -116,7 +119,7 @@ class DescuentoController extends Controller
                                         'descuento_id'=>$descuento->id]);
             
         }
-
+        */
         return redirect()->route('descuentos.index');
     }
 
@@ -242,6 +245,7 @@ class DescuentoController extends Controller
     {
         //
          $descuento->delete();
+         
          return view('venta.descuentos.descuentos', ['descuentos'=>Descuento::get()]);
     }
 
@@ -252,6 +256,7 @@ class DescuentoController extends Controller
 
     public function getDescuento(Promocion $promocion,Request $request)
     {
+       // dd($request);
       //   $response = array(
       //     'status' => 'success',
       //     'subtotal' => $request->subtotal,
@@ -259,253 +264,162 @@ class DescuentoController extends Controller
       //     'total_productos'=>$request->total_productos
       // );
       // return response()->json($response);
-
-        // return $promocion->tipo;
+        //promocion tipo A -> minimo de prendas 
+        //promocion tipo B -> monto minimo
+        //promocion tipo C -> Convenio
+        $response=array();
         switch ($promocion->tipo) {
             case 'A':
-                if($request->total_productos>=$promocion->compra_min)
-                {
-                    $product=[];//Id del producto, su cantidad esta en el mismo index de $cantidad_p, si precio esta en el mismo index de $precio
-                    $cantidad_p=[];
-                    $precio=[];
-                    $barato=[];
-                    $verificar=1;                    
-                    foreach ($request->productos_id as $i => $producto)
-                    {
-                        foreach ($product as $j=>$p)
-                        {
-                            if($p==$producto)
-                            {
-                                $verificar=0;
-                                $cantidad_p[$j]+=$request->cantidad_id[$i];
-                            }
-                        }
-                        if($verificar)
-                        {
-                            array_push($product,$producto);
-                            array_push($cantidad_p,$request->cantidad_id[$i]);
-                        }
-                    }
-                    foreach ($product as $i => $p)
-                    {
-                        array_push($precio,Producto::find($p)->precio_publico_iva);
-                    }
-                    $barato=$precio;
-                    $regalado=$promocion->descuento_de-$promocion->compra_min;
-                    $productos=$request->total_productos;
-                    $pagar=0;
-                    $gratis=0;
-                    while ($productos>=$promocion->compra_min) {
-                        $pagar+=$promocion->compra_min;
-                        $productos-=$promocion->compra_min;
-                        if($productos>=$regalado)
-                        {
-                            $gratis+=$regalado;
-                            $productos-=$regalado;    
-                        }
-                        else
-                        {
-                            $gratis+=$productos;
-                            $productos=0;
-                        }
-                    }
-                    $pagar+=$productos;
-                    sort($barato);
-                    $verificar=0;
-                    $total=0;
-                    foreach ($barato as $b)
-                    {
-                        foreach ($precio as $i => $pr)
-                        {
-                            if ($b==$pr)
-                            {
-                                if($cantidad_p[$i]>=$gratis)
-                                {
-                                    $total+=$gratis*$pr;
-                                    $verificar=1;
-                                }
-                                else
-                                {
-                                    $total+=$cantidad_p[$i]*$pr;
-                                    $gratis-=$cantidad_p[$i];
+                if ($request->total_productos>=$promocion->compra_min) {
+                    switch ($promocion->unidad_descuento) {
+                        case 'Pesos':
+                            $response=array(
+                                'status'=>1,
+                                'sigpesos'=>0,
+                                'total'=>$promocion->descuento_de
+                            );
+                            break;
+                        case 'Procentaje':
+                            $response=array(
+                                'status'=>1,
+                                'sigpesos'=>0,
+                                'total'=>$request->subtotal*$promocion->descuento_de
+                            );
+                            break;
+                        case 'sigCompra':
+                            $response=array(
+                                'status'=>1,
+                                'sigpesos'=>0,
+                                'total'=>0,
+                                'sigCom'=>$promocion->descuento_de
+                            );
+                            break;
+                         case 'Pieza':
+                            $CostoProductoBarato=0;
+                            foreach ($productos_id as $producto_id) {
+                                if($CostoProductoBarato<Producto::where('id',$producto_id)->first("precio_publico")){
+                                    $CostoProductoBarato=Producto::where('id',$producto_id)->first("precio_publico");
                                 }
                             }
-                            if($verificar)
-                                break;
-                        }
-                        if($verificar)
+                            $response=array(
+                                'status'=>1,
+                                'sigpesos'=>0,
+                                'total'=>$CostoProductoBarato
+                            );
+                            break;
+                        default:
+                            $response=array(
+                                'status'=>1,
+                                'sigpesos'=>0,
+                                'total'=>0
+                            );
                             break;
                     }
-                    $response=array(
-                        'status'=>1,
-                        'sigpesos'=>0,
-                        'total'=>$total,
-                        'product'=>$product,
-                        'cantidad_p'=>$cantidad_p,
-                        'precio'=>$precio,
-                        'barato'=>$barato
-                    );
-
                 }
-                else
-                {
-                    $response=array('status'=>0);
-                }
-                
-            break;
+                break;
             case 'B':
-                if($promocion->compra_min<$request->subtotal)
-                {
-                    if ($promocion->unidad_descuento=='%') 
-                    {
-                        $total=($request->subtotal*($promocion->descuento_de/100));
+            if ($request->subtotal>=$promocion->compra_min) {
+                    switch ($promocion->unidad_descuento) {
+                        case 'Pesos':
+                            $response=array(
+                                'status'=>1,
+                                'sigpesos'=>0,
+                                'total'=>$promocion->descuento_de
+                            );
+                            break;
+                        case 'Procentaje':
+                            $response=array(
+                                'status'=>1,
+                                'sigpesos'=>0,
+                                'total'=>$request->subtotal*$promocion->descuento_de
+                            );
+                            break;
+                        case 'sigCompra':
+                            $response=array(
+                                'status'=>1,
+                                'sigpesos'=>0,
+                                'total'=>0,
+                                'sigCom'=>$promocion->descuento_de
+                            );
+                            break;
+                         case 'Pieza':
+                            $CostoProductoBarato=0;
+                            foreach ($productos_id as $producto_id) {
+                                if($CostoProductoBarato<Producto::where('id',$producto_id)->first("precio_publico")){
+                                    $CostoProductoBarato=Producto::where('id',$producto_id)->first("precio_publico");
+                                }
+                            }
+                            $response=array(
+                                'status'=>1,
+                                'sigpesos'=>0,
+                                'total'=>$CostoProductoBarato
+                            );
+                            break;
+                        default:
+                            $response=array(
+                                'status'=>1,
+                                'sigpesos'=>0,
+                                'total'=>0
+                            );
+                            break;
                     }
-                    else
-                    {
-                        $total=$promocion->descuento_de;
-                    }
-                    $response=array(
-                        'status'=>1,
-                        'sigpesos'=>0,
-                        'total'=>$total
-                    );
                 }
-                else
-                {
-                    $response=array('status'=>0);
-                }
-            break;
-
+                break;
             case 'C':
-                $paciente=Paciente::find($request->paciente_id);
-                $f_i=date("z",strtotime($promocion->descuento->inicio));
-                $f_f=date("z",strtotime($promocion->descuento->fin));
-                $f_birth=date("z",strtotime($paciente->nacimiento));
-                if($f_i<$f_birth && $f_birth<$f_f)
-                {
-                     if ($promocion->unidad_descuento=='%') 
-                    {
-                        $total=($request->subtotal*($promocion->descuento_de/100));
+             switch ($promocion->unidad_descuento) {
+                        case 'Pesos':
+                            $response=array(
+                                'status'=>1,
+                                'sigpesos'=>0,
+                                'total'=>$promocion->descuento_de
+                            );
+                            break;
+                        case 'Procentaje':
+                            $response=array(
+                                'status'=>1,
+                                'sigpesos'=>0,
+                                'total'=>$request->subtotal*$promocion->descuento_de
+                            );
+                            break;
+                        case 'sigCompra':
+                            $response=array(
+                                'status'=>1,
+                                'sigpesos'=>0,
+                                'total'=>0,
+                                'sigCom'=>$promocion->descuento_de
+                            );
+                            break;
+                         case 'Pieza':
+                            $CostoProductoBarato=0;
+                            foreach ($productos_id as $producto_id) {
+                                if($CostoProductoBarato<Producto::where('id',$producto_id)->first("precio_publico")){
+                                    $CostoProductoBarato=Producto::where('id',$producto_id)->first("precio_publico");
+                                }
+                            }
+                            $response=array(
+                                'status'=>1,
+                                'sigpesos'=>0,
+                                'total'=>$CostoProductoBarato
+                            );
+                            break;
+                        default:
+                            $response=array(
+                                'status'=>1,
+                                'sigpesos'=>0,
+                                'total'=>0
+                            );
+                            break;
                     }
-                    else
-                    {
-                        $total=$promocion->descuento_de;
-                    }
-                    $response=array(
-                        'status'=>1,
-                        'sigpesos'=>0,
-                        'total'=>$total
-                    ); 
-                }
-                else
-                {
-                    $response=array('status'=>0);
-                }
-            break;
-
-            case 'D':
-                if($request->total_productos>=$promocion->compra_min)
-                {
-                     if ($promocion->unidad_descuento=='%') 
-                    {
-                        $total=($request->subtotal*($promocion->descuento_de/100));
-                    }
-                    else
-                    {
-                        $total=$promocion->descuento_de;
-                    }
-                    $response=array(
-                        'status'=>1,
-                        'sigpesos'=>0,
-                        'total'=>$total
-                    ); 
-                }
-                else
-                {
-                     $response=array('status'=>0);
-                }
-            break;
-
-            case 'E':
-                if($request->total_productos>=$promocion->compra_min)
-                {
-                    // $sigpesos=Paciente::find($request->paciente_id)->ventas->last()->sigpesos;
-                    // if(!$sigpesos)
-                    // {
-                        $sigpesos=0;
-                    //}
-                    $productos=$request->total_productos;
-                    while ($productos>=$promocion->compra_min) {
-                        // $pagar+=$promocion->compra_min;
-                        $productos-=$promocion->compra_min;
-                        $sigpesos+=$promocion->descuento_de;                        
-                    }
-                    $response=array(
-                    'status'=>1,                    
-                    'sigpesos'=>$sigpesos,
-                    'total'=>0
-                ); 
-
-                }
-                else
-                {
-                    $response=array('status'=>0);
-                }
-
-            break;
-
-            case 'F':
-                if ($promocion->unidad_descuento=='%') 
-                {
-                    $total=($request->subtotal*($promocion->descuento_de/100));
-                }
-                else
-                {
-                    $total=$promocion->descuento_de;
-                }
-                $response=array(
-                    'status'=>1,
-                    'sigpesos'=>0,
-                    'total'=>$total
-                ); 
-            break;
-            case 'H':
-                if($promocion->compra_min<$request->subtotal)
-                {
-
-                    // $sigpesos=Paciente::find($request->paciente_id)->ventas->last()->sigpesos;
-                    // if(!$sigpesos)
-                    // {
-                        $sigpesos=$promocion->descuento_de;
-                    //}
-                    //$productos=$request->total_productos;
-                    //while ($productos>=$promocion->compra_min) {
-                        // $pagar+=$promocion->compra_min;
-                    //    $productos-=$promocion->compra_min;
-                    //    $sigpesos+=$promocion->descuento_de;                        
-                    //}
-                    $response=array(
-                    'status'=>2,                    
-                    'sigpesos'=>$sigpesos,
-                    'total'=>0
-                ); 
-
-                }
-                else
-                {
-                    $response=array('status'=>0);
-                }
-
-            break;
+                break;
             default:
-            echo "aqui entra";
                 $response=array(
                     'status'=>1,
                     'sigpesos'=>0,
                     'total'=>0
-                ); 
-            break;
-        }
+                );
+                break;
+            }
+
         return response()->json($response);
     }
 
