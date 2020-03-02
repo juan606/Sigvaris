@@ -166,6 +166,16 @@
                             </div>
                         </div>
                         <div class="row">
+                            <div class="col-4 pl-0">
+                                <label>Acepta sigPesos: </label>
+                                <select class="form-control" name="aceptSigPesos" id="aceptSigPesos"  required="">        
+                                        <option value="">Seleccionar ...</option>  
+                                        <option value="1">Si</option>
+                                        <option value="0">No</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="row">
                             <div class="col-3 pt-4 m-auto">
                                 <button type="submit" class="btn btn-success btn-md btn-block">Agregar</button>
                             </div>
@@ -216,6 +226,16 @@
                             </div>
                         </div>
                         <div class="row">
+                            <div class="col-4 pl-0">
+                                <label>Acepta sigPesos: </label>
+                                <select class="form-control" name="aceptSigPesos" id="aceptSigPesos"  required="">        
+                                        <option value="">Seleccionar ...</option>  
+                                        <option value="1">Si</option>
+                                        <option value="0">No</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="row">
                             <div class="col-3 pt-4 m-auto">
                                 <button type="submit" class="btn btn-success btn-md btn-block">Agregar</button>
                             </div>
@@ -260,6 +280,16 @@
                                 <label style="display:none;" id="Des_PesC">Pesos de descuento: </label>
                                 <label style="display:none;" id="Des_sigComC" >sigPesos en la siguiente compra: </label>
                                 <input type="number" class="form-control" name="descuento_de" id="descuento_deC" value="0" required="">
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-4 pl-0">
+                                <label>Acepta sigPesos: </label>
+                                <select class="form-control" name="aceptSigPesos" id="aceptSigPesos"  required="">        
+                                        <option value="">Seleccionar ...</option>  
+                                        <option value="1">Si</option>
+                                        <option value="0">No</option>
+                                </select>
                             </div>
                         </div>
                         <div class="row">

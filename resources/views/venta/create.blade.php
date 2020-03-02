@@ -164,24 +164,30 @@
 
                                     {{-- PROMOCIONES Y DESCUENTOS --}}
                                     <div class="row">
-                                            {{-- INPUT DESCUENTO --}}
-                                            <div class="col-12 col-sm-6 col-md-4">
-                                                    <label for="descuento_id" class="text-uppercase text-muted">Descuento</label>
-                                                    <select class="form-control" name="descuento_id" id="descuento_id" >
-                                                        <option value="">Selecciona...</option>
-                                                        @foreach ($descuentos as $descuento)
-                                                            <option value="{{$descuento->id}}">{{$descuento->nombre}}</option>
-                                                        @endforeach
-                                                    </select>                            
-                                            </div>
-                                            {{-- INPUT PROMOCIÓN --}}
-                                            <div class="col-12 col-sm-6 col-md-4 form-group">
-                                                <label for="promocion_id" class="text-uppercase text-muted">Promocion</label>
-                                                <select class="form-control" name="promocion_id" id="promocion_id">
-                                                    <option value="">Selecciona...</option>                               
-                                                </select>
-                                            </div>
+                                        {{-- INPUT DESCUENTO --}}
+                                        <div class="col-12 col-sm-6 col-md-4 form-group">
+                                                <label for="descuento_id" class="text-uppercase text-muted">Descuento</label>
+                                                <select class="form-control" name="descuento_id" id="descuento_id" >
+                                                    <option value="">Selecciona...</option>
+                                                    @foreach ($descuentos as $descuento)
+                                                        <option value="{{$descuento->id}}">{{$descuento->nombre}}</option>
+                                                    @endforeach
+                                                </select>                            
                                         </div>
+                                        {{-- INPUT PROMOCIÓN --}}
+                                        <div class="col-12 col-sm-6 col-md-4 form-group">
+                                            <label for="promocion_id" class="text-uppercase text-muted">Promocion</label>
+                                            <select class="form-control" name="promocion_id" id="promocion_id">
+                                                <option value="">Selecciona...</option>                               
+                                            </select>
+                                        </div>
+                                        <div class="col-12 col-sm-6 col-md-4 form-group">
+                                            
+                                            <label for="" class="text-uppercase text-muted">Sigpesos a usar: </label>
+                                            
+                                            <input type="number" class="form-control" name="sigpesos_usar" id="sigpesos_usar" value="0" min="0" step="0.01" >
+                                        </div>
+                                    </div>
                                     {{-- Pagos Y tarjeta --}}
                                     <div class="row">
                                         {{-- INPUT Tipo de pago --}}
@@ -257,12 +263,7 @@
                                             <input type="number" class="form-control" name="sigpesos" id="sigpesos" value="0" min="0" step="0.01" readonly="">
                                         </div>
                                         {{-- INPUT SIGPESOS A USAR --}}
-                                        <div class="col-12 col-sm-6 col-md-4 mt-2">
-                                            
-                                            <label for="" class="text-uppercase text-muted">Sigpesos a usar: </label>
-                                            
-                                            <input type="number" class="form-control" name="sigpesos_usar" id="sigpesos_usar" value="0" min="0" step="0.01" readonly="">
-                                        </div>
+                                        
                                         {{-- INPUT SUBTOTAL --}}
                                         <div class="col-12 col-sm-6 col-md-4 mt-2">
                                             
@@ -386,14 +387,14 @@
                 url:"{{ url('/obtener_sigpesos') }}/"+pacienteId,
                 type:'GET',
                 success: function(res){
-                    if (!isNaN(res)&&res!="") {
+                /*    if (!isNaN(res)&&res!="") {
                         var sigpesos=$('#sigpesos_usar').val(parseInt(res));
                     console.log('sigpesos peticione4444',res);
                 }else{             
                     res=0;       
                     var sigpesos=$('#sigpesos_usar').val(parseInt(res));
                     console.log('sigpesos peticion5555',res);
-                }
+                }*/
                 }
 
             });
@@ -423,7 +424,17 @@
     }
 
     $(document).ready(function () {
-        
+        $('#sigpesos_usar').change(function(){
+             var subtotal=parseFloat($('#subtotal').val());
+            var iva=parseFloat($('#iva').val());
+            var des=parseFloat($('#descuento').val());
+            var sigpesos=parseInt($('#sigpesos_usar').val());
+            var aux=subtotal+iva-des-sigpesos;
+
+            $('#total').val(aux.toFixed(2));
+            console.log('TOTAL ACTUALIZADO',$('#total').val());
+         });
+
         $('#tipoPago').change(function(){  
             console.log('Entra');
             if ($('#tipoPago').val()==2){
@@ -496,7 +507,7 @@
 
 
     $(document).ready(function(){
-
+        
         $('#descuento_id').change(function(){            
             var id=$('#descuento_id').val();
             $('#descuento').val(0);
@@ -513,7 +524,7 @@
                 dataType:'html',
                 success: function(res){
                     $('#promocion_id').html(res);
-
+                    $('#sigpesos_usar').prop("disabled", false);
                 }
             });
         });
@@ -585,18 +596,26 @@
                                 $('#total').val(0);
                             }
                         }
+                        if (res.aceptsp==0) {
+                            $('#sigpesos_usar').val(0);
+                            $('#sigpesos_usar').prop("disabled", true);
+                            
+                        }else if (res.aceptsp==1) {
+                            $('#sigpesos_usar').prop("disabled", false);
+                        }
                         //$('#total').val()
                     }
                     else
                     {
                         swal("No aplica el descuento");
                         $('#promocion_id option:eq(0)').prop('selected',true);
+                        $('#sigpesos_usar').prop("disabled", false);
                     }
                 },
                 error: function(e){
                     alert('Error');
                     console.log(e);
-                    
+                    $('#sigpesos_usar').prop("disabled", false);
                 }
 
             });
@@ -715,7 +734,7 @@
             url:"{{ url('/obtener_sigpesos') }}/"+pacienteId,
             type:'GET',
             success: function(res){
-                 console.log('sigpesos peticion198711',res);
+                /* console.log('sigpesos peticion198711',res);
                 if (!isNaN(res)&&res!="") {
                     var sigpesos=$('#sigpesos_usar').val(parseInt(res));
                     console.log('sigpesos peticion00',res);
@@ -723,7 +742,7 @@
                     res=0;       
                     var sigpesos=$('#sigpesos_usar').val(parseInt(res));
                     console.log('sigpesos peticion111',res);
-                }
+                }*/
             }
 
         });
@@ -753,7 +772,7 @@
    
     $(document).ready(function(){
 
-        
+
         const pacienteId = {{$paciente->id}};
 
         const nombrePaciente = "{{ $paciente->nombre }}";
@@ -775,14 +794,14 @@
             url:"{{ url('/obtener_sigpesos') }}/"+pacienteId,
             type:'GET',
             success: function(res34){   
-                if (!isNaN(res34)&&res34!="") {
+                /*if (!isNaN(res34)&&res34!="") {
                     var sigpesos=$('#sigpesos_usar').val(parseInt(res34));
                     console.log('sigpesos peticion00',res34);
                 }else{             
                     res34=0;       
                     var sigpesos=$('#sigpesos_usar').val(0);
                     console.log('sigpesos peticion1199',0);
-                }
+                }*/
             }
 
         });

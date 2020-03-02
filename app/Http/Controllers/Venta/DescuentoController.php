@@ -276,6 +276,7 @@ class DescuentoController extends Controller
                             $response=array(
                                 'status'=>1,
                                 'sigpesos'=>0,
+                                'aceptsp'=>$promocion->aceptSigPesos,
                                 'total'=>$promocion->descuento_de
                             );
                             break;
@@ -283,6 +284,7 @@ class DescuentoController extends Controller
                             $response=array(
                                 'status'=>1,
                                 'sigpesos'=>0,
+                                'aceptsp'=>$promocion->aceptSigPesos,
                                 'total'=>$request->subtotal*$promocion->descuento_de
                             );
                             break;
@@ -290,6 +292,7 @@ class DescuentoController extends Controller
                             $response=array(
                                 'status'=>1,
                                 'sigpesos'=>0,
+                                'aceptsp'=>$promocion->aceptSigPesos,
                                 'total'=>0,
                                 'sigCom'=>$promocion->descuento_de
                             );
@@ -304,6 +307,7 @@ class DescuentoController extends Controller
                             $response=array(
                                 'status'=>1,
                                 'sigpesos'=>0,
+                                'aceptsp'=>$promocion->aceptSigPesos,
                                 'total'=>$CostoProductoBarato
                             );
                             break;
@@ -311,6 +315,7 @@ class DescuentoController extends Controller
                             $response=array(
                                 'status'=>1,
                                 'sigpesos'=>0,
+                                'aceptsp'=>$promocion->aceptSigPesos,
                                 'total'=>0
                             );
                             break;
@@ -324,6 +329,7 @@ class DescuentoController extends Controller
                             $response=array(
                                 'status'=>1,
                                 'sigpesos'=>0,
+                                'aceptsp'=>$promocion->aceptSigPesos,
                                 'total'=>$promocion->descuento_de
                             );
                             break;
@@ -331,6 +337,7 @@ class DescuentoController extends Controller
                             $response=array(
                                 'status'=>1,
                                 'sigpesos'=>0,
+                                'aceptsp'=>$promocion->aceptSigPesos,
                                 'total'=>$request->subtotal*$promocion->descuento_de
                             );
                             break;
@@ -338,6 +345,7 @@ class DescuentoController extends Controller
                             $response=array(
                                 'status'=>1,
                                 'sigpesos'=>0,
+                                'aceptsp'=>$promocion->aceptSigPesos,
                                 'total'=>0,
                                 'sigCom'=>$promocion->descuento_de
                             );
@@ -352,6 +360,7 @@ class DescuentoController extends Controller
                             $response=array(
                                 'status'=>1,
                                 'sigpesos'=>0,
+                                'aceptsp'=>$promocion->aceptSigPesos,
                                 'total'=>$CostoProductoBarato
                             );
                             break;
@@ -359,6 +368,7 @@ class DescuentoController extends Controller
                             $response=array(
                                 'status'=>1,
                                 'sigpesos'=>0,
+                                'aceptsp'=>$promocion->aceptSigPesos,
                                 'total'=>0
                             );
                             break;
@@ -371,6 +381,7 @@ class DescuentoController extends Controller
                             $response=array(
                                 'status'=>1,
                                 'sigpesos'=>0,
+                                'aceptsp'=>$promocion->aceptSigPesos,
                                 'total'=>$promocion->descuento_de
                             );
                             break;
@@ -378,6 +389,7 @@ class DescuentoController extends Controller
                             $response=array(
                                 'status'=>1,
                                 'sigpesos'=>0,
+                                'aceptsp'=>$promocion->aceptSigPesos,
                                 'total'=>$request->subtotal*$promocion->descuento_de
                             );
                             break;
@@ -386,6 +398,7 @@ class DescuentoController extends Controller
                                 'status'=>1,
                                 'sigpesos'=>0,
                                 'total'=>0,
+                                'aceptsp'=>$promocion->aceptSigPesos,
                                 'sigCom'=>$promocion->descuento_de
                             );
                             break;
@@ -399,6 +412,7 @@ class DescuentoController extends Controller
                             $response=array(
                                 'status'=>1,
                                 'sigpesos'=>0,
+                                'aceptsp'=>$promocion->aceptSigPesos,
                                 'total'=>$CostoProductoBarato
                             );
                             break;
@@ -406,6 +420,7 @@ class DescuentoController extends Controller
                             $response=array(
                                 'status'=>1,
                                 'sigpesos'=>0,
+                                'aceptsp'=>$promocion->aceptSigPesos,
                                 'total'=>0
                             );
                             break;
@@ -415,6 +430,7 @@ class DescuentoController extends Controller
                 $response=array(
                     'status'=>1,
                     'sigpesos'=>0,
+                    'aceptsp'=>$promocion->aceptSigPesos,
                     'total'=>0
                 );
                 break;

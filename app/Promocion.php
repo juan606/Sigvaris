@@ -14,7 +14,8 @@ class Promocion extends Model
 		'unidad_compra',
 		'descuento_de',
 		'unidad_descuento',
-		'descuento_id'
+		'descuento_id',
+        'aceptSigPesos'
     ];
 
     public function descuento(){
