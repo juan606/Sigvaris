@@ -63,13 +63,15 @@ Route::resource('niveles', 'Nivel\NivelController');
 
 
 Route::post('getPacientes_nombre','Paciente\PacienteController@getPacienteNombre');
+//Route::post('crms/index', 'Paciente\PacienteCrmController@indexWithFind')->name('crms.indexWithFind');
 
 Route::resource('pacientes', 'Paciente\PacienteController');
 // Route::get('pacientes','Paciente\PacienteController@index');
 Route::resource('pacientes.tallas', 'Paciente\PacienteTallaController');
 Route::resource('crm', 'Paciente\PacienteCrmController');
+//Route::get('crm/index', 'Paciente\PacienteCrmController@index')->name('crm.index');
 Route::post('crm_especifico','Paciente\PacienteCrmController@getCrm')->name('crm_especifico');
-Route::post('crm/index', 'Paciente\PacienteCrmController@indexWithFind')->name('crm.indexWithFind');
+
 Route::get('pacientes/{paciente}/crm', 'Paciente\PacienteCrmController@getCrmCliente')->name('getCrmsPorCliente');
 Route::resource('pacientes.tutores', 'Paciente\PacienteTutorController');
 Route::get('getDoctores','Doctor\DoctorController@getDoctores');
@@ -187,6 +189,7 @@ Route::post('Devolucion_Damage','Venta\DamageController@Devolucion_Damage');
 
 
 Route::get('pruebas','Prueba\PruebaController@index');
+Route::get('pruebasJC','Prueba\PruebaController@CrmVentasTotales');
 
 
 // APIS

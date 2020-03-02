@@ -262,7 +262,7 @@
         </div>
         <div class="card-body">
         
-            <form action="{{route('crm.indexWithFind')}}" method="POST" id="formBusuqeda">
+            <form action="{{route('crm.index')}}" method="GET" id="formBusuqeda">
                 @csrf
                 <div class="row">
                     <div class="col-12 col-sm-6 col-md-4">
@@ -340,6 +340,7 @@
                     
                 </tbody>
             </table>
+            {{ $crms->links() }}
             <div class="tablaUsuario_Crm" id="tablaUsuario_Crm" style="display: none;" >
                  <h4>C.R.M. Historial</h4>
                 <table class="table table-striped table-bordered table-hover" id="tablaPacientes">

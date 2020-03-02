@@ -7,7 +7,7 @@ use App\Paciente;
 use ErrorException;
 use Excel;
 use UxWeb\SweetAlert\SweetAlert as Alert;
-
+use Carbon\Carbon;
 use App\Doctor;
 use App\Hospital;
 use App\Venta;
@@ -42,73 +42,68 @@ class StoreExcelPacientesService
             }
             
             
-            if (isset($row[9])) {
-                $Hospital= array(
-                    'nombre' => $row[9],
-                    'etiqueta' => $row[9][0],
-                );
-                Hospital::updateOrCreate($Hospital,$Hospital);
-            }
+            
 
                 # code...
             
             if (isset($ID_Doctor)) {
                 $Paciente= array(
                 'nombre' => $row[2],
-                'materno' => $row[3],
-                'paterno' => $row[4],
+                'materno' => $row[4],
+                'paterno' => $row[3],
                 //'nacimiento' => $row[3],
-                'rfc' => $row[30],
-                'celular' => $row[41],
-                'telefono' => $row[40],
-                'mail' => $row[39],
+                'rfc' => $row[19],
+                'celular' => $row[29],
+                'telefono' => $row[30],
+                'mail' => $row[28],
                 'doctor_id' => $ID_Doctor,
                 'nivel_id' => 1,
                 'oficina_id' => 1,
                 //'homoclave' => $row[11],
-                'created_at' => date('Y-m-d h:m:s'),
-                'updated_at' => date('Y-m-d h:m:s'),
+                //'created_at' => date('Y-m-d h:m:s'),
+                //'updated_at' => date('Y-m-d h:m:s'),
             );
             }else{
                 $Paciente= array(
                 'nombre' => $row[2],
-                'materno' => $row[3],
-                'paterno' => $row[4],
+                'materno' => $row[4],
+                'paterno' => $row[3],
                 //'nacimiento' => $row[3],
-                'rfc' => $row[30],
-                'celular' => $row[41],
-                'telefono' => $row[40],
-                'mail' => $row[39],
+                'rfc' => $row[19],
+                'celular' => $row[29],
+                'telefono' => $row[30],
+                'mail' => $row[28],
                 //'id_doctor' => $ID_Doctor,
                 'nivel_id' => 1,
                 'oficina_id' => 1,
                 //'homoclave' => $row[11],
-                'created_at' => date('Y-m-d h:m:s'),
-                'updated_at' => date('Y-m-d h:m:s'),
+                //'created_at' => date('Y-m-d h:m:s'),
+                //'updated_at' => date('Y-m-d h:m:s'),
             );
             }
             
-            $P=Paciente::updateOrCreate((['nombre' => $row[2],'materno' => $row[3],'paterno' => $row[4]]),$Paciente);
+            $P=Paciente::updateOrCreate((['nombre' => $row[2],'materno' => $row[4],'paterno' => $row[3]]),$Paciente);
             $Precio_public=0;
             $Precio_public_iva=0;
-            for ($i=0; $i <16 ; $i++) { 
-                if ( Producto::where('sku',$row[13+$i])->exists()) {
-                    $Precio_public+=Producto::where('sku',$row[13+$i])->value('precio_publico');
-                    $Precio_public_iva +=Producto::where('sku',$row[13+$i])->value('precio_publico_iva');
+            for ($i=0; $i <8 ; $i++) { 
+                if ( Producto::where('sku',$row[11+$i])->exists()) {
+                    $Precio_public+=Producto::where('sku',$row[11+$i])->value('precio_publico');
+                    $Precio_public_iva +=Producto::where('sku',$row[11+$i])->value('precio_publico_iva');
                 }
             }
             if ($Precio_public>0) {
                     $Venta= array(
                         'paciente_id'=>$P['id'],
-                        'fecha'=> date('Y-m-d h:m:s'),
+                        'fecha'=> Carbon::instance(\PhpOffice\PhpSpreadsheet\Shared\Date::excelToDateTimeObject($row[1])),
                         'subtotal' => $Precio_public,
                         'total' => $Precio_public_iva,
                         'oficina_id' => 1,
                         'empleado_id' => 1,
-
+                        'tipoPago' =>0
                     );
-                    $V=Venta::updateOrCreate($Venta,$Venta);
-                     for ($i=0; $i < 16 ; $i++) {
+                    $V=Venta::updateOrCreate(['paciente_id'=>$P['id'],'subtotal' => $Precio_public,'total' => $Precio_public_iva,'empleado_id' => 1],$Venta);
+                  
+                     /*for ($i=0; $i < 16 ; $i++) {
                      if ( Producto::where('sku',$row[13+$i])->exists()) { 
                         $V->productos()->attach(
                             Producto::where('sku',$row[13+$i])->value('id'),array('cantidad'=>1,
@@ -118,6 +113,7 @@ class StoreExcelPacientesService
                         ));
                         }
                     }
+
                     if (isset($row[31])) {
                         $Factura= array(
                         'venta_id'=>$V['id'],
@@ -139,7 +135,7 @@ class StoreExcelPacientesService
                         'updated_at' => date('Y-m-d h:m:s')
                         );
                         Factura::updateOrCreate($Factura,$Factura);
-                    }
+                    }*/
                     
                 
                 }

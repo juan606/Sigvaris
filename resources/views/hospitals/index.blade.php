@@ -28,7 +28,7 @@
 					<tr class="info">
 						<th>ID</th>
 						<th>Nombre</th>
-						<th>Etiqueta</th>
+						<th>Departamento / Area</th>
 						<th>Operacion</th>
 					</tr>
 				</thead>

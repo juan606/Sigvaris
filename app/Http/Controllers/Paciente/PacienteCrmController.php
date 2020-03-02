@@ -31,12 +31,47 @@ class PacienteCrmController extends Controller
             return redirect('/');
         });
     }
-    public function index()
+    public function index(request $request)
     {
+        $crms = Crm::with('paciente');
+        if ($request->fechaInicioBusqueda) {
+            $crms = $crms->where('fecha_aviso', '>=', $request->fechaInicioBusqueda);
+             
+        }
+
+        if ($request->fechaFinBusqueda) {
+            $crms = $crms->where('fecha_aviso', '<=', $request->fechaFinBusqueda);
+
+        }
+       
+         
+        $crms = $crms->paginate(10);
+        if ($request->fechaInicioBusqueda) {
+            $crms->appends(['fechaInicioBusqueda' => $request->fechaInicioBusqueda]);
+        }
+
+        if ($request->fechaFinBusqueda) {
+           $crms->appends(['fechaFinBusqueda' => $request->fechaFinBusqueda]);
+        }
+       
+        
+        
         $estados = Estado::get();
         $pacientes = Paciente::get();
-        $crms = Crm::get();
+
         return view('crm.index', ['crms' => $crms, 'pacientes' => $pacientes, 'estados' => $estados]);
+        /*$estados = Estado::get();
+        $pacientes = Paciente::get();
+        $crms = Crm::paginate(10);
+        if ($request->fechaInicioBusqueda) {
+            $crms->appends(['fechaInicioBusqueda' => $request->fechaInicioBusqueda]);
+        }
+
+        if ($request->fechaFinBusqueda) {
+           $crms->appends(['fechaFinBusqueda' => $request->fechaFinBusqueda]);
+        }
+        return view('crm.index', ['crms' => $crms, 'pacientes' => $pacientes, 'estados' => $estados]);
+        */
     }
 
     public function indexWithFind(FindCrmRequest $request)
@@ -44,14 +79,26 @@ class PacienteCrmController extends Controller
         $crms = Crm::with('paciente');
         if ($request->fechaInicioBusqueda) {
             $crms = $crms->where('fecha_aviso', '>=', $request->fechaInicioBusqueda);
+             
         }
 
         if ($request->fechaFinBusqueda) {
             $crms = $crms->where('fecha_aviso', '<=', $request->fechaFinBusqueda);
+
+        }
+       
+         
+        $crms = $crms->paginate(10);
+        if ($request->fechaInicioBusqueda) {
+            $crms->appends(['fechaInicioBusqueda' => $request->fechaInicioBusqueda]);
         }
 
-        $crms = $crms->get();
-
+        if ($request->fechaFinBusqueda) {
+           $crms->appends(['fechaFinBusqueda' => $request->fechaFinBusqueda]);
+        }
+       
+        
+        
         $estados = Estado::get();
         $pacientes = Paciente::get();
 

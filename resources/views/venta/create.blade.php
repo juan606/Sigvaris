@@ -206,8 +206,8 @@
                                             <label for="banco" class="text-uppercase text-muted">Banco</label>
                                             <select class="form-control" name="banco" id="banco">
                                                 <option value="">Selecciona...</option> 
-                                                <option value="SANTANDER">SANTANDER</option> 
-                                                <option value="AMEX">AMEX</option>                          
+                                                <option value="SANTANDER">Banco</option> 
+                                                <option value="AMEX">Amex</option>                          
                                             </select>
                                         </div>
                                         {{-- INPUT numeros de  tarjeta --}}
@@ -387,14 +387,14 @@
                 url:"{{ url('/obtener_sigpesos') }}/"+pacienteId,
                 type:'GET',
                 success: function(res){
-                /*    if (!isNaN(res)&&res!="") {
+                   if (!isNaN(res)&&res!="") {
                         var sigpesos=$('#sigpesos_usar').val(parseInt(res));
                     console.log('sigpesos peticione4444',res);
                 }else{             
                     res=0;       
                     var sigpesos=$('#sigpesos_usar').val(parseInt(res));
                     console.log('sigpesos peticion5555',res);
-                }*/
+                }
                 }
 
             });
@@ -734,7 +734,7 @@
             url:"{{ url('/obtener_sigpesos') }}/"+pacienteId,
             type:'GET',
             success: function(res){
-                /* console.log('sigpesos peticion198711',res);
+                 console.log('sigpesos peticion198711',res);
                 if (!isNaN(res)&&res!="") {
                     var sigpesos=$('#sigpesos_usar').val(parseInt(res));
                     console.log('sigpesos peticion00',res);
@@ -742,7 +742,7 @@
                     res=0;       
                     var sigpesos=$('#sigpesos_usar').val(parseInt(res));
                     console.log('sigpesos peticion111',res);
-                }*/
+                }
             }
 
         });
@@ -794,14 +794,14 @@
             url:"{{ url('/obtener_sigpesos') }}/"+pacienteId,
             type:'GET',
             success: function(res34){   
-                /*if (!isNaN(res34)&&res34!="") {
+                if (!isNaN(res34)&&res34!="") {
                     var sigpesos=$('#sigpesos_usar').val(parseInt(res34));
                     console.log('sigpesos peticion00',res34);
                 }else{             
                     res34=0;       
                     var sigpesos=$('#sigpesos_usar').val(0);
                     console.log('sigpesos peticion1199',0);
-                }*/
+                }
             }
 
         });

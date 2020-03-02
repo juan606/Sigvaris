@@ -19,7 +19,7 @@
 							required autofocus>
 					</div>
 					<div class="form-group col-6">
-						<label class="control-label" for="etiqueta">Etiqueta:</label>
+						<label class="control-label" for="etiqueta">Departamento / Area:</label>
 						<input type="text" class="form-control" id="etiqueta" name="etiqueta"
 							value="{{ $hospital->etiqueta }}" required>
 					</div>

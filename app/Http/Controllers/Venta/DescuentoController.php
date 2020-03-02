@@ -443,7 +443,7 @@ class DescuentoController extends Controller
     {
         //dd(isset($paciente->nacimiento));
         if (isset($paciente->nacimiento)) {
-            if (\Carbon\Carbon::parse($paciente->nacimiento)->diffInDays(\Carbon\Carbon::parse(date('Y-m-d')))==0) {
+            if (\Carbon\Carbon::parse($paciente->nacimiento)->month==\Carbon\Carbon::now()->month) {
                 # code...
                 $sigpesosCumpleaños=300;
             }else{
