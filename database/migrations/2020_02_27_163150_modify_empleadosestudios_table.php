@@ -15,7 +15,7 @@ class ModifyEmpleadosestudiosTable extends Migration
     {
         //
          Schema::table('empleadosestudios', function (Blueprint $table) {
-            $table->string('curso1')->nullable();
+            //$table->string('curso1')->nullable();
         });
     }
 
