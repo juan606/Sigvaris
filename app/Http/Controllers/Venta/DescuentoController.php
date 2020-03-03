@@ -61,7 +61,7 @@ class DescuentoController extends Controller
         $descuento = Descuento::create($request->all());
         $Promocion = Promocion::create(['tipo'=>$request->tipoDes, 'compra_min'=>$request->compra_min, 'unidad_compra'=>$request->unidad_compra,
                                         'descuento_de'=>$request->descuento_de, 'unidad_descuento'=>$request->unidad_descuento, 
-                                        'descuento_id'=>$descuento->id]);
+                                        'descuento_id'=>$descuento->id,'aceptSigPesos'=>$request->aceptSigPesos]);
         /**if($request->tipoA)
         {
             $promoA=Promocion::create(['tipo'=>'A', 'compra_min'=>$request->compra_minA, 'unidad_compra'=>'prendas',
