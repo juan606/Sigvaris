@@ -69,7 +69,10 @@ class Paciente extends Model
     {
         return $this->belongsTo('App\Oficina');
     }
-
+    public function expediente()
+    {
+        return $this->hasOne('App\PacientesExpedientes');
+    }
     /**
      * Collections from relationship
      */

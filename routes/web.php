@@ -9,6 +9,11 @@ Route::get('/', function () {
     return view('auth.login',['oficinas'=>$oficinas]);
 });
 
+Route::get('/expedientes/{pacientes}/{file}', function ($pacientes, $file) {
+    return Storage::response("public/expedientes/$pacientes/$file");
+});
+Route::resource('pacientes.expediente','Paciente\PacienteExpedienteController');
+
 Route::get('inicio', 'InicioController@index')->name('inicio');
 // Route::get('/login', function(){echo
 // "hello"});
