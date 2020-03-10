@@ -18,7 +18,7 @@
                         <select type="select" class="form-control" name="hospital_id" id="hospital">
 							<option value="">Sin Definir</option>
 							@foreach ($hospitals as $hospital)
-								<option value="{{ $hospital->id }}">{{ $hospital->etiqueta }}/{{ $hospital->nombre }}</option>
+								<option value="{{ $hospital->id }}">{{ $hospital->nombre }}/{{ $hospital->etiqueta }}</option>
 							@endforeach
 						</select>
                     </div>

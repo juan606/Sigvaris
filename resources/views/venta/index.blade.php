@@ -27,13 +27,13 @@
                     <tr>
                         <td>{{$venta->id}}</td>
                         <td>{{$venta->paciente->fullname}}</td>
-                        <td>{{$venta->total}}</td>
+                        <td>${{number_format($venta->total, 2)}}</td>
                         @if($venta->descuento)
                             <td>{{$venta->descuento->nombre}}</td>
                         @else
                             <td></td>
                         @endif
-                        <td>{{$venta->fecha}}</td>
+                        <td>{{\Carbon\Carbon::parse($venta->fecha)->format('m/d/Y')}}</td>
                         <td>
                             <div class="row">
                                 <div class="col-auto pr-2">

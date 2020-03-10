@@ -4,21 +4,20 @@
 	<form role="form" id="form-cliente" method="POST" action="{{ route('proveedores.update', ['proveedore' => $proveedore]) }}" name="form">
 		{{ csrf_field() }}
 		<input type="hidden" name="_method" value="PUT">
-		<div role="application" class="panel panel-group" >
-			<div class="panel-default">
-				<div class="panel-heading">
+		<div role="application" class="card" >
+				<div class="card-header">
 					<div class="row">
 						<div class="col-4">
-							<h4>Datos del Proveedor:&nbsp;<small><small><i class="fa fa-asterisk" aria-hidden="true"></i>Campos Requeridos</small></small></h4>
+							<h4>Datos del proveedor:<br>&nbsp;<small><small><i class="fa fa-asterisk" aria-hidden="true"></i>Campos Requeridos</small></small></h4>
 						</div>
 						<div class="col-4 text-center">
-							<a class="btn btn-success" href="{{ route('proveedores.create')}}">
+							<a class="btn btn-info" href="{{ route('proveedores.create')}}">
 								<strong>Agregar Proveedor</strong>
 							</a>
 						</div>
 					</div>
 				</div>
-				<div class="panel-body">
+				<div class="card-body">
 					<div class="row">
 	  					<div class="form-group col-3">
 	    					<label class="control-label" for="tipopersona"><i class="fa fa-asterisk" aria-hidden="true"></i>Tipo de Persona:</label>
@@ -81,15 +80,15 @@
 					<a href="{{ route('proveedores.datosbancarios.index', ['proveedore'=>$proveedore]) }}" role="presentation" tabindex="-1" class="nav-link" id="ui-id-4">Datos Bancarios:</a>
 				</li>
 			</ul>
-			<div class="panel panel-default">
-				<div class="panel-heading">
+			<div class="card ">
+				<div class="card-header">
 					<div class="row">
 						<div class="col-4">
 							<h5>Dirección Física:&nbsp;<small><small><i class="fa fa-asterisk" aria-hidden="true"></i>Campos Requeridos</small></small></h5>
 						</div>
 					</div>
 				</div>
-				<div class="panel-body">
+				<div class="card-body">
 					<div class="row">
 						<div class="form-group col-3">
 	    					<label class="control-label" for="calle"><small><small><i class="fa fa-asterisk" aria-hidden="true"></i></small></small> Calle:</label>

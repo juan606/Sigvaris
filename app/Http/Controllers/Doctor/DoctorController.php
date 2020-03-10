@@ -138,6 +138,16 @@ class DoctorController extends Controller
         return view('doctor.options', ['doctores'=>$doctores]);
     }
     
+    public function getDoctoresTable(Request $request){
+        $doctores = Doctor::where('activo', '!=', '0');
+        $doctores = $doctores
+                            ->where('nombre',"like",$request->input('nombre')."%") 
+                            ->orwhere('apellidopaterno',"like",$request->input('nombre')."%")
+                            ->orwhere('apellidomaterno',"like",$request->input('nombre')."%")
+                            ->get();
+        return view('doctor.optionstable', ['doctores'=>$doctores]);
+    }
+
     public function borrar(Doctor $doctor)
     {
  //        echo "<script language='javascript'> swal({

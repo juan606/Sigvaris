@@ -76,11 +76,14 @@ Route::resource('pacientes.tallas', 'Paciente\PacienteTallaController');
 Route::resource('crm', 'Paciente\PacienteCrmController');
 //Route::get('crm/index', 'Paciente\PacienteCrmController@index')->name('crm.index');
 Route::post('crm_especifico','Paciente\PacienteCrmController@getCrm')->name('crm_especifico');
+Route::post('crm.storePaciente','Paciente\PacienteCrmController@storePaciente')->name('crm.storePaciente');
 
 Route::get('pacientes/{paciente}/crm', 'Paciente\PacienteCrmController@getCrmCliente')->name('getCrmsPorCliente');
 Route::resource('pacientes.tutores', 'Paciente\PacienteTutorController');
 Route::get('getDoctores','Doctor\DoctorController@getDoctores');
+Route::get('getDoctoresTable','Doctor\DoctorController@getDoctoresTable');
 Route::post('getTabla_modalidad', 'Paciente\PacienteCrmController@getCrmClienteCrm')->name('getTabla_modalidad');
+Route::post('getTabla_modalidad_ventas', 'Paciente\PacienteCrmController@getTabla_modalidad_ventas')->name('getTabla_modalidad_ventas');
 //FACTURAS
 Route::resource('facturas','Paciente\FacturaController');
 Route::get('ventas_from/{paciente}','Paciente\FacturaController@getVentas');

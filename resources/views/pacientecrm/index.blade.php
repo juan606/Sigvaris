@@ -15,7 +15,7 @@
                         <strong>Crear <i class="fa fa-plus"></i></strong>
                     </button>
 
-                    <form id="crear_crm" name="crear_crm" action="{{route('crm.store')}}" method="POST">
+                    <form id="crear_crm" name="crear_crm" action="{{route('crm.storePaciente')}}" method="POST">
                         {{ csrf_field() }}
                         <input type="hidden" name="paciente_id" value="{{$paciente->id}}">
                         <div class="modal fade bd-example-modal-lg" id="crear_crm_modal" tabindex="-1" role="dialog"
@@ -35,11 +35,11 @@
                                             </div>
                                             <div class="form-group col-4">
                                                 <label for="fecha_aviso">✱Fecha aviso</label>
-                                                <input type="date" class="form-control" name="fecha_aviso" required="">
+                                                <input type="date" class="form-control" name="fecha_aviso" id="fecha1" required="">
                                             </div>
                                             <div class="form-group col-4">
                                                 <label for="fecha_contacto">✱Fecha contacto</label>
-                                                <input type="date" class="form-control" name="fecha_contacto" required="">
+                                                <input type="date" class="form-control" name="fecha_contacto" id="fecha2" required="">
                                             </div>
                                         </div>
                                         <div class="form-row">
@@ -105,7 +105,7 @@
                                             <div class="form-group col-4">
                                                 <label for="actual">Fecha actual</label>
                                                 <input type="date" class="form-control" id="actual"
-                                                    value="" readonly="">
+                                                    value="{{ Carbon\Carbon::now()->format('Y-m-d') }}" readonly="">
                                             </div>
                                             <div class="form-group col-4">
                                                 <label for="fecha_aviso">Fecha aviso</label>
@@ -121,7 +121,7 @@
                                         <div class="form-row">
                                             <div class="form-group col-4">
                                                 <label for="forma_contacto">Forma de contacto</label>
-                                                <input type="text" class="form-control" id="forma_contacto"
+                                                <input type="text" class="form-control" id="forma_contacto_ver"
                                                     name="forma_contacto" value="" readonly="">
                                             </div>
                                             <div class="form-group col-4">
@@ -187,7 +187,7 @@
                         <td>{{$crm->estado->nombre}}</td>
                         <td>{{$crm->hora}}</td>
                         <td>
-                            <button type="button" onclick="mostrarCrm('{{$crm}}')" class="btn btn-primary">Ver</button>
+                            <button type="button" onclick="mostrarCrm('{{$crm}}')" data-toggle="modal" data-target="#ver_crm_modal" class="btn btn-primary">Ver</button>
                         </td>
                     </tr>
                     @endforeach
@@ -202,9 +202,14 @@
 </div>
 <script>
     $(document).ready(function(){
+
         $('#cerrar_ver_crm_modal').click(function(){
             $('#ver_crm_modal').modal('hide');
         });
+        $('#fecha1').change(function(event) {
+            $('#fecha2').attr("min", $('#fecha1').val());
+        });
+        
     });
 function mostrarCrm(data){
     var crm = JSON.parse(data);
@@ -213,10 +218,14 @@ function mostrarCrm(data){
     $('#comentarios').val(crm.comentarios);
     $('#fecha_aviso').val(crm.fecha_aviso);
     $('#fecha_contacto').val(crm.fecha_contacto);
-    $('#forma_contacto').val(crm.forma_contacto);
+    $('#forma_contacto_ver').val(crm.forma_contacto);
     $('#estado').val(crm.estado.nombre);
     $('#hora').val(crm.hora);
-    $('#ver_crm_modal').modal('show');
+    //$('#ver_crm_modal').modal('show');
+    /*$('#my-ver_crm_modal').modal({
+        show: 'true'
+    });*/
 }
 </script>
+
 @endsection

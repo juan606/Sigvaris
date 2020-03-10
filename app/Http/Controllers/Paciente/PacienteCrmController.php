@@ -6,6 +6,7 @@ use App\Crm;
 use App\Estado;
 use UxWeb\SweetAlert\SweetAlert as Alert;
 use App\Paciente;
+use App\Venta;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\FindCrmRequest;
@@ -58,8 +59,8 @@ class PacienteCrmController extends Controller
         
         $estados = Estado::get();
         $pacientes = Paciente::get();
-
-        return view('crm.index', ['crms' => $crms, 'pacientes' => $pacientes, 'estados' => $estados]);
+        $ventas =Venta::get();
+        return view('crm.index', ['crms' => $crms, 'pacientes' => $pacientes, 'estados' => $estados,'ventas' => $ventas]);
         /*$estados = Estado::get();
         $pacientes = Paciente::get();
         $crms = Crm::paginate(10);
@@ -132,6 +133,20 @@ class PacienteCrmController extends Controller
         }
     }
 
+    public function storePaciente(Request $request)
+    {
+        //$request->input('paciente_id')=$request->input('paciente_id1');
+        $crm = Crm::create($request->all());
+        if ($crm) {
+            Alert::success('Crm registrado subido correctamente.');
+            $estados = Estado::get();
+            $paciente= Paciente::where('id',$request->input('paciente_id'))->get();
+            return view('pacientecrm.index', ['paciente' => $paciente[0], 'estados' => $estados]);
+        } else {
+            Alert::error('Error al registrar crm.');
+            return redirect()->back();
+        }
+    }
     /**
      * Display the specified resource.
      *
@@ -182,6 +197,42 @@ class PacienteCrmController extends Controller
         $estados = Estado::get();
         return view('pacientecrm.index', ['paciente' => $paciente, 'estados' => $estados]);
     }
+    
+    public function getTabla_modalidad_ventas(Request $request)
+    {
+        $paciente = Paciente::where('id',$request->input('id'))->get();
+        //var_dump($request->input('id'));
+        $VentaCliente = Venta::where('paciente_id',$request->input('id'))->get();
+        
+        //dd($crmsCli);
+        //$tablaUsuario = array( );
+        $tablaUsuario="";
+        foreach ($VentaCliente as $Venta) {
+            /**array_push ($tablaUsuario,[$request->input('nombre'), $crm->created_at ? $crm->created_at->format('d-m-Y') : null,$crm['fecha_aviso']
+                                       ,$crm['fecha_contacto'],$crm['forma_contacto'],$crm->estado['nombre']
+                                       ,$crm['hora']]) ;**/
+
+            
+             $tablaUsuario.= '<tr class="active tupla">';
+            $tablaUsuario.= "<td >".$Venta['id']."</td>"; 
+            $tablaUsuario.= "<td >".$Venta->paciente->fullname."</td>";  
+            $tablaUsuario.= "<td >$".number_format($Venta->total, 2)."</td>"; 
+            if ($Venta->descuento) {
+                $tablaUsuario.= "<td >".$Venta->descuento->nombre."</td>";  
+            }else{
+                $tablaUsuario.= "<td ></td>";  
+            }    
+            
+            $tablaUsuario.= "<td >".\Carbon\Carbon::parse($Venta->fecha)->format('m/d/Y')."</td>";
+            $tablaUsuario.= "</tr>";
+        }
+        //dd($tablaUsuario);
+        //$tablaUsuario.="</table>";
+
+        //return array('data' => $tablaUsuario );
+        return $tablaUsuario;
+    }
+
      public function getCrmClienteCrm(Request $request)
     {
         $paciente = Paciente::where('id',$request->input('id'))->get();

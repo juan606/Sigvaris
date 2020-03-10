@@ -105,36 +105,38 @@
 
 				<div class="row">
 					{{-- Input nombre --}}
-					<div class="col-12 col-md-4">
+					<div class="col-12 col-md-3">
 							<div class="form-group">
 									<label class="control-label" for="nombrecontac1">Nombre:</label>
 									<input type="text" class="form-control" id="nombrecontac1" name="nombrecontac1" value="{{ $emergencias->nombrecontac1 }}">
 								  </div>
 					</div>
 					{{-- Input parentezco --}}
-					<div class="col-12 col-md-4">
+					<div class="col-12 col-md-3">
 							<div class="form-group">
 									<label class="control-label" for="parentescocontac1">Parentesco:</label>
 									<input type="text" class="form-control" id="parentescocontac1" name="parentescocontac1" value="{{ $emergencias->parentescocontac1 }}">
 								  </div>
 					</div>
 					{{-- Input telefono --}}
-					<div class="col-12 col-md-4">
+					<div class="col-12 col-md-3">
 							<div class="form-group">
 									<label class="control-label" for="telefonocontac1">Télefono:</label>
 									<input type="text" class="form-control" id="telefonocontac1" name="telefonocontac1" value="{{ $emergencias->telefonocontac1 }}">
 								  </div>
 					</div>
 					{{-- Input celular --}}
-					<div class="col-12 col-md-4">
+					<div class="col-12 col-md-3">
 						<div class="form-group">
 								<label class="control-label" for="movilcontac1">Telefono celular:</label>
 								<input type="text" class="form-control" id="movilcontac1" name="movilcontac1" value="{{ $emergencias->movilcontac1 }}">
 								</div>
 					</div>
-					
+
+				</div>
+				<div class="row">	
 					{{-- Input nombre --}}
-					<div class="col-12 col-md-4">
+					<div class="col-12 col-md-3">
 							<div class="form-group">
 									<label class="control-label" for="nombrecontac2">Nombre:</label>
 									<input type="text" class="form-control" id="nombrecontac2" name="nombrecontac2" value="{{ $emergencias->nombrecontac2 }}">
@@ -142,49 +144,51 @@
 					</div>
 					
 					{{-- Input parentezco --}}
-					<div class="col-12 col-md-4">
+					<div class="col-12 col-md-3">
 							<div class="form-group">
 									<label class="control-label" for="parentescocontac2">Parentesco:</label>
 									<input type="text" class="form-control" id="parentescocontac2" name="parentescocontac2" value="{{ $emergencias->parentescocontac2 }}">
 								  </div>
 					</div>
 					{{-- Input telefono --}}
-					<div class="col-12 col-md-4">
+					<div class="col-12 col-md-3">
 							<div class="form-group">
 									<label class="control-label" for="telefonocontac2">Télefono:</label>
 									<input type="text" class="form-control" id="telefonocontac2" name="telefonocontac2" value="{{ $emergencias->telefonocontac2 }}">
 								  </div>
 					</div>
 					{{-- Input celular --}}
-					<div class="col-12 col-md-4">
+					<div class="col-12 col-md-3">
 							<div class="form-group">
 									<label class="control-label" for="movilcontac2">Telefono celular:</label>
 									<input type="text" class="form-control" id="movilcontac2" name="movilcontac2" value="{{ $emergencias->movilcontac2 }}">
 								  </div>
 					</div>
+				</div>
+				<div class="row">
 					{{-- Input nombre--}}
-					<div class="col-12 col-md-4">
+					<div class="col-12 col-md-3">
 							<div class="form-group">
 									<label class="control-label" for="nombrecontac3">Nombre:</label>
 									<input type="text" class="form-control" id="nombrecontac3" name="nombrecontac3" value="{{ $emergencias->nombrecontac3 }}">
 								  </div>
 					</div>
 					{{-- input parentezco --}}
-					<div class="col-12 col-md-4">
+					<div class="col-12 col-md-3">
 							<div class="form-group">
 									<label class="control-label" for="parentescocontac3">Parentesco:</label>
 									<input type="text" class="form-control" id="parentescocontac3" name="parentescocontac3" value="{{ $emergencias->parentescocontac3 }}">
 								  </div>
 					</div>
 					{{-- Input telefeno --}}
-					<div class="col-12 col-md-4">
+					<div class="col-12 col-md-3">
 							<div class="form-group">
 									<label class="control-label" for="telefonocontac3">Télefono:</label>
 									<input type="text" class="form-control" id="telefonocontac3" name="telefonocontac3" value="{{ $emergencias->telefonocontac3 }}">
 								  </div>
 					</div>
 					{{-- Input celular --}}
-					<div class="col-12 col-md-4">
+					<div class="col-12 col-md-3">
 							<div class="form-group">
 									<label class="control-label" for="movilcontac3">Telefono celular:</label>
 									<input type="text" class="form-control" id="movilcontac3" name="movilcontac3" value="{{ $emergencias->movilcontac3 }}">

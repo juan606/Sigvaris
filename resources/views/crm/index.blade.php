@@ -292,9 +292,7 @@
                         <th>Creación</th>
                         <th>Fecha Aviso</th>
                         <th>Fecha Contacto</th>
-                        <th>Forma Contacto</th>
-                        <th>Estado</th>
-                        <th>Hora</th>
+                        <th>Ultima Venta</th>
                         <th>Detalle de Paciente</th>
                         <th>Historial</th>
                     </tr>
@@ -305,36 +303,38 @@
                     <h5>No hay ningún crm registrado</h5>
                     @else
                     @foreach($crms as $crm)
-                    <tr class="active tupla" >
-                        <td title="Has Click Aquì para ver o modificar" style="cursor: pointer"  id="crear_crm_boton"  data-toggle="modal" data-target="#ver_crm_modal" onclick="mostrarCrm('{{$crm}}','{{ $pacientes->find($crm->paciente_id) }}','{{ $estados->find($crm->estado_id) }}')">{{$crm->paciente['nombre']}}</td>
-                        <td title="Has Click Aquì para ver o modificar" style="cursor: pointer"  id="crear_crm_boton"  data-toggle="modal" data-target="#ver_crm_modal" onclick="mostrarCrm('{{$crm}}','{{ $pacientes->find($crm->paciente_id) }}','{{ $estados->find($crm->estado_id) }}')">{{$crm->created_at}}</td>
-                        <td title="Has Click Aquì para ver o modificar" style="cursor: pointer"  id="crear_crm_boton"  data-toggle="modal" data-target="#ver_crm_modal" onclick="mostrarCrm('{{$crm}}','{{ $pacientes->find($crm->paciente_id) }}','{{ $estados->find($crm->estado_id) }}')">{{$crm->fecha_aviso}}</td>
-                        <td title="Has Click Aquì para ver o modificar" style="cursor: pointer"  id="crear_crm_boton"  data-toggle="modal" data-target="#ver_crm_modal" onclick="mostrarCrm('{{$crm}}','{{ $pacientes->find($crm->paciente_id) }}','{{ $estados->find($crm->estado_id) }}')">{{$crm->fecha_contacto}}</td>
-                        <td title="Has Click Aquì para ver o modificar" style="cursor: pointer"  id="crear_crm_boton"  data-toggle="modal" data-target="#ver_crm_modal" onclick="mostrarCrm('{{$crm}}','{{ $pacientes->find($crm->paciente_id) }}','{{ $estados->find($crm->estado_id) }}')">{{$crm->forma_contacto}}</td>
-                        <td title="Has Click Aquì para ver o modificar" style="cursor: pointer"  id="crear_crm_boton"  data-toggle="modal" data-target="#ver_crm_modal" onclick="mostrarCrm('{{$crm}}','{{ $pacientes->find($crm->paciente_id) }}','{{ $estados->find($crm->estado_id) }}')">{{$crm->estado['nombre']}}</td>
-                        <td title="Has Click Aquì para ver o modificar" style="cursor: pointer"  id="crear_crm_boton"  data-toggle="modal" data-target="#ver_crm_modal" onclick="mostrarCrm('{{$crm}}','{{ $pacientes->find($crm->paciente_id) }}','{{ $estados->find($crm->estado_id) }}')">{{$crm->hora}}</td>
-                        <td>
-                                <a  class="btn btn-primary" href="{{route('pacientes.show', ['paciente'=>$pacientes->find($crm->paciente_id)])}}">
-                                <strong>Ver Paciente</strong>
-                            </a>
-                            {{--<button id="crear_crm_boton" type="button" class="btn btn-success" data-toggle="modal"
-                        data-target="#crear_crm_modal">
-                        <strong>Crear <i class="fa fa-plus"></i></strong>
-                    </button>
-                             <button id="crear_crm_boton" type="button" class="btn btn-primary" data-toggle="modal" data-target="#ver_crm_modal"onclick="mostrarCrm('{{$crm}}')">
-                                <button type="button" onclick="mostrarCrm('{{$crm}}')" class="btn btn-primary botonMostrarCrm">Ver</button> --}}
-                        </td>
-                        <td>
+                        @if($UltimaVenta=$ventas->where('paciente_id',$crm->paciente_id)->last())
+                       
+                        <tr class="active tupla" >
+                            <td title="Has Click Aquì para ver o modificar" style="cursor: pointer"  id="crear_crm_boton"  data-toggle="modal" data-target="#ver_crm_modal" onclick="mostrarCrm('{{$crm}}','{{ $pacientes->find($crm->paciente_id) }}','{{ $estados->find($crm->estado_id) }}')">{{$crm->paciente['nombre']}}</td>
+                            <td title="Has Click Aquì para ver o modificar" style="cursor: pointer"  id="crear_crm_boton"  data-toggle="modal" data-target="#ver_crm_modal" onclick="mostrarCrm('{{$crm}}','{{ $pacientes->find($crm->paciente_id) }}','{{ $estados->find($crm->estado_id) }}')">{{$crm->created_at}}</td>
+                            <td title="Has Click Aquì para ver o modificar" style="cursor: pointer"  id="crear_crm_boton"  data-toggle="modal" data-target="#ver_crm_modal" onclick="mostrarCrm('{{$crm}}','{{ $pacientes->find($crm->paciente_id) }}','{{ $estados->find($crm->estado_id) }}')">{{$crm->fecha_aviso}}</td>
+                            <td title="Has Click Aquì para ver o modificar" style="cursor: pointer"  id="crear_crm_boton"  data-toggle="modal" data-target="#ver_crm_modal" onclick="mostrarCrm('{{$crm}}','{{ $pacientes->find($crm->paciente_id) }}','{{ $estados->find($crm->estado_id) }}')">{{$crm->fecha_contacto}}</td>
+                            <td title="Has Click Aquì para ver o modificar" style="cursor: pointer"  id="crear_crm_boton"  data-toggle="modal" data-target="#ver_crm_modal" onclick="mostrarCrm('{{$crm}}','{{ $pacientes->find($crm->paciente_id) }}','{{ $estados->find($crm->estado_id) }}')">{{$UltimaVenta->fecha}}</td>
                             
-                            <button id="crear_crm_boton" type="button" class="btn btn-success" data-toggle="modal" onclick="generarHistorial('{{ $pacientes->find($crm->paciente_id) }}')"
-                        >
-                        <strong>Historial </strong>
-                    </button>    
-                            
-                            {{-- <button id="crear_crm_boton" type="button" class="btn btn-primary" data-toggle="modal" data-target="#ver_crm_modal"onclick="mostrarCrm('{{$crm}}')">
-                                <button type="button" onclick="mostrarCrm('{{$crm}}')" class="btn btn-primary botonMostrarCrm">Ver</button> --}}
-                        </td>
-                    </tr>
+                            <td>
+                                    <a  class="btn btn-primary" onclick="generarHistorialVentas('{{ $pacientes->find($crm->paciente_id) }}')">
+                                    <strong>Ver Historial de ventas</strong>
+                                </a>
+                                {{--<button id="crear_crm_boton" type="button" class="btn btn-success" data-toggle="modal"
+                            data-target="#crear_crm_modal">
+                            <strong>Crear <i class="fa fa-plus"></i></strong>
+                        </button>
+                                 <button id="crear_crm_boton" type="button" class="btn btn-primary" data-toggle="modal" data-target="#ver_crm_modal"onclick="mostrarCrm('{{$crm}}')">
+                                    <button type="button" onclick="mostrarCrm('{{$crm}}')" class="btn btn-primary botonMostrarCrm">Ver</button> --}}
+                            </td>
+                            <td>
+                                
+                                <button id="crear_crm_boton" type="button" class="btn btn-success" data-toggle="modal" onclick="generarHistorial('{{ $pacientes->find($crm->paciente_id) }}')"
+                            >
+                            <strong>Historial </strong>
+                        </button>    
+                                
+                                {{-- <button id="crear_crm_boton" type="button" class="btn btn-primary" data-toggle="modal" data-target="#ver_crm_modal"onclick="mostrarCrm('{{$crm}}')">
+                                    <button type="button" onclick="mostrarCrm('{{$crm}}')" class="btn btn-primary botonMostrarCrm">Ver</button> --}}
+                            </td>
+                        </tr>
+                        @endif
                     @endforeach
                     @endif
                     
@@ -359,7 +359,24 @@
 
                     </tbody>
                 </table>
-            </div>    
+            </div>   
+             <div class="tablaUsuario_Ventas" id="tablaUsuario_Ventas" style="display: none;" >
+                 <h4>Historial Ventas</h4>
+                <table class="table table-striped table-bordered table-hover" id="tablaPacientesV">
+                    <thead>
+                    <tr class="info">
+                        <th>Folio</th>
+                        <th>Cliente</th>
+                        <th>Total</th>
+                        <th>Descuento</th>
+                        <th>Fecha</th>
+                    </tr>
+                </thead>
+                    <tbody id="datostablasven">
+
+                    </tbody>
+                </table>
+            </div>  
         </div>
         <div class="card-footer">
   
@@ -517,8 +534,6 @@ $(document).on('click', '.botonMostrarCrm', function(){
     $('#ver_crm_modal').modal('show');
 });
 
-
-
     function generarHistorial(data1) {
       // Obtener la referencia del elemento body
       // Crea un elemento <table> y un elemento <tbody>
@@ -536,6 +551,27 @@ $(document).on('click', '.botonMostrarCrm', function(){
 
         success: function (data) {
                 $("#datostablas").html(data);
+        }
+    });
+ }
+
+    function generarHistorialVentas(data1) {
+      // Obtener la referencia del elemento body
+      // Crea un elemento <table> y un elemento <tbody>
+      //var crm = JSON.parse(data3);
+      $('#tablaUsuario_Ventas').show();
+      var paciente = JSON.parse(data1);
+      // Obtener la referencia del elemento body
+     $.ajax({
+        type: "POST",
+        data: {"_token": $("meta[name='csrf-token']").attr("content"),
+                       "id" : paciente.id,
+                       "nombre": paciente.nombre
+        },
+        url:"getTabla_modalidad_ventas",
+
+        success: function (data) {
+                $("#datostablasven").html(data);
         }
     });
 

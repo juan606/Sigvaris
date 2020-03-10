@@ -24,11 +24,7 @@
 				<form role="form" name="domicilio" id="form-cliente" method="POST" action="{{ route('proveedores.contacto.store', ['proveedore'=>$proveedore]) }}" name="form">
 					{{ csrf_field() }}
 					<input type="hidden" name="proveedor_id" value="{{$proveedore->id}}" required>
-					<div class="col-xs-offset-10">
-						<button type="submit" class="btn btn-success">
-					<strong>Guardar</strong>	</button>
 						
-					</div>	
 					<div class="row">
 						<div class="form-group col-3">
 	    					<label class="control-label" for="nombre"><i class="fa fa-asterisk" aria-hidden="true"></i> Nombre(s):</label>
@@ -92,7 +88,11 @@
 	  						<input type="email" class="form-control" id="email2" name="email2" value="">
 	  					</div>
 					</div>
-					
+					<div class="col-xs-offset-10">
+						<button type="submit" class="btn btn-success">
+					<strong>Guardar</strong>	</button>
+						
+					</div>
 				</form>
 			</div>
 	</div>

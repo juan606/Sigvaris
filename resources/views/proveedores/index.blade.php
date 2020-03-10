@@ -4,11 +4,11 @@
 <div class="card">
 	<div class="card-header">
 		<div class="row">
-			<div class="col-4">
+			<div class="col-6">
 				<h4>Proveedores:</h4>
 			</div>
-		   <div class="col-4 text-center">
-		   		<a class="btn btn-success" href="{{ route('proveedores.create') }}">
+		   <div class="col-6 text-center">
+		   		<a class="btn btn-info" href="{{ route('proveedores.create') }}">
 		        	<i class="fa fa-plus"></i><strong> Agregar Proveedor</strong>
 				</a>
 			</div>

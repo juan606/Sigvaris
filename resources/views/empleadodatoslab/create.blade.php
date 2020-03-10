@@ -36,7 +36,7 @@
 				<div class="form-group col-3">
 					<label class="control-label" for="contrato">Tipo de contrato:</label>
 					<div class="input-group">
-						<span class="input-group-addon" id="basic-addon3" onclick='getContratos()'><strong>⟳</strong></span>
+						<!--<span class="input-group-addon" id="basic-addon3" onclick='getContratos()'><strong>⟳</strong></span>-->
 						<select type="select" class="form-control" name="contrato_id" id="contrato_id">
 							<option id="" value="">Sin Definir</option>
 							@foreach ($contratos as $contrato)
@@ -48,7 +48,7 @@
 				<div class="form-group col-3">
 					<label class="control-label" for="area_id">Área:</label>
 					<div class="input-group">
-						<span class="input-group-addon" id="basic-addon3" onclick='getAreas()'><strong>⟳</strong></span>
+						<!--<span class="input-group-addon" id="basic-addon3" onclick='getAreas()'><strong>⟳</strong></span>-->
 						<select type="select" class="form-control" name="area_id" id="area_id">
 							<option value="">Sin Definir</option>
 							@foreach ($areas as $area)
@@ -60,7 +60,7 @@
 				<div class="form-group col-3">
 					<label class="control-label" for="puesto_id">Puesto:</label>
 					<div class="input-group">
-						<span class="input-group-addon" id="basic-addon3" onclick='getPuestos()'><strong>⟳</strong></span>
+						<!--<span class="input-group-addon" id="basic-addon3" onclick='getPuestos()'><strong>⟳</strong></span>-->
 						<select type="select" name="puesto_id" id="puesto_id" class="form-control" >
 							<option value="">Sin Definir</option>
 							@foreach ($puestos as $puesto)
@@ -157,7 +157,7 @@
 				<div class="col-3">
 					<label class="control-label" for="banco">Banco:</label>
 					<div class="input-group">
-						<span class="input-group-addon" id="basic-addon3" onclick='getBancos()'><strong>⟳</strong></span>
+						<!--<span class="input-group-addon" id="basic-addon3" onclick='getBancos()'><strong>⟳</strong></span>-->
 						<select class="form-control" type="select" name="banco" id="banco">
 							<option value="">Sin Definir</option>
 							@foreach ($bancos as $banco)<option id="{{ $banco->nombre }}" value="{{ $banco->nombre }}" @if ($datoslab->banco == $banco->nombre) selected="selected" @endif>{{ $banco->nombre }}</option>
@@ -194,7 +194,7 @@
 					<div class="col-3">
 						<label class="control-label" for="tipobaja_id">Tipo de Baja:</label>
 						<div class="input-group">
-							<span class="input-group-addon" id="basic-addon3" onclick='getBajas()'><strong>⟳</strong></span>
+							<!--<span class="input-group-addon" id="basic-addon3" onclick='getBajas()'><strong>⟳</strong></span>-->
 							<select class="form-control" type="select" name="tipobaja_id" id="tipobaja_id">
 								<option id="0" value="">No hay baja</option>
 								@foreach ($bajas as $baja)

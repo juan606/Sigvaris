@@ -54,7 +54,7 @@
 					{{-- Input quien lo reporto --}}
 					<div class="col-12 col-md-4">
 							<div class="form-group col-xs-4">
-									<label class="control-label" for="reporto">Quién lo reportó:</label>
+									<label class="control-label" for="reporto"> <i class="fa fa-asterisk" aria-hidden="true"></i>Quién lo reportó:</label>
 									<input type="text" class="form-control" id="reporto" name="reporto" required>
 							  </div>
 					</div>

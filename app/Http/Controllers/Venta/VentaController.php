@@ -142,6 +142,18 @@ class VentaController extends Controller
                     )
                 );
         $CRM->save();
+        $CRM = new Crm(
+                    array(
+                        'paciente_id' => $request->input('paciente_id'),
+                        'estado_id'   => 5,
+                        'hora'        => '00:00',
+                        'forma_contacto' => 'Telefono',
+                        'fecha_contacto' => Carbon::now()->addDays(8),
+                        'fecha_aviso' => Carbon::now()->addDays(8)
+
+                    )
+                );
+        $CRM->save();
         // REDIRIGIR A LAS VENTAS REALIZADAS
         return redirect()->route('ventas.index');
     }

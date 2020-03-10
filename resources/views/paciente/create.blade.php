@@ -74,8 +74,14 @@
                 <div class="form-group col-3">
                     <label for="doctor_id">Doctor que recomienda:</label>
                     <select class="form-control" name="doctor_id" id="doctor_id" required>
-                        <option value="">Seleccione</option>
+                        <option value="">Buscar..</option>
+                        <option value="otro">Otro..</option>
+                        
                     </select>
+                </div>
+                <div class="col-3 form-group" id="sech_doctor">
+                    <label class="control-label">Buscar:</label>
+                    <input type="text" name="sech_doctor" id="sech_doctor11" class="form-control">
                 </div>
                 <div class="col-3 form-group" id="otro_doctor">
                     <label class="control-label">Otro doctor nombre:</label>
@@ -83,8 +89,8 @@
                 </div>
             </div>
             {{-- Lista de doctores --}}
-            <h6 class="text-center">LISTA PARA ASIGNAR DOCTOR</h6>
-            <div class="row">
+            <h6 class="text-center" id="tablaDocTitulo">LISTA PARA ASIGNAR DOCTOR</h6>
+            <div class="row" id="tablaDoc">
                 <div class="col-12 col-md-2"></div>
                 <div class="col-12 col-md-8">
                         <div class="col-12">
@@ -98,20 +104,7 @@
                                                 <th>Acción</th>
                                             </tr>
                                         </thead>
-                                        <tbody>
-                                            @foreach($doctores as $key => $doctor)
-                                                <tr>
-                                                    <td>{{$key+1}}</td>
-                                                    <td>{{$doctor->nombre}}</td>
-                                                    <td>{{$doctor->apellidopaterno}}</td>
-                                                    <td>{{$doctor->apellidomaterno}}</td>
-                                                    <td>
-                                                        <button type="button" class="btn btn-success asignar" id-doctor={{$doctor->id}}>
-                                                            Asignar
-                                                        </button>
-                                                    </td>
-                                                </tr>
-                                            @endforeach
+                                        <tbody id="cuerpTable">
                                         </tbody>
                                         
                                         </table>
@@ -151,10 +144,24 @@
 <script src="https://code.jquery.com/jquery-3.3.1.js"></script>    
 <script src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
 <script src="https://cdn.datatables.net/1.10.19/js/dataTables.bootstrap4.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
 <script>
     $(document).ready(function() {
-        $('#listaEmpleados').DataTable();
-    } );
+        //$('#listaEmpleados').DataTable();
+        $('#sech_doctor11').change(function () {
+            $.ajax({
+                url: "/getDoctoresTable/",
+                type: "GET",
+                data: {"_token": $("meta[name='csrf-token']").attr("content"),
+                               "nombre" : $('#sech_doctor11').val()
+                        },
+                dataType: "html",
+            }).done(function (resultado) {
+                $("#cuerpTable").html(resultado);
+            });
+        });
+     
+    });
 </script>
 
 <script>
@@ -185,11 +192,19 @@ $('#otro_doctor').hide();
         if($(this).val() == 'otro'){
             $(this).attr('name', 'doctor_id_falsa');
             $('#otro_doctor').show();
+            
+            $('#tablaDocTitulo').hide();
+            $('#sech_doctor').hide();
+            $('#tablaDoc').hide();
             $('#otro_doctor').find('input').val('');
             $('#otro_doctor').find('input').attr('required', 'true');
         }else{
             $(this).attr('name', 'doctor_id');
             $('#otro_doctor').hide();
+
+            $('#tablaDocTitulo').show();
+            $('#sech_doctor').show();
+            $('#tablaDoc').show();
             $('#otro_doctor').find('input').val('');
             $('#otro_doctor').find('input').removeAttr('required');
         }
@@ -199,19 +214,22 @@ $('#otro_doctor').hide();
             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
         }
     });
-    $.ajax({
+    /**$.ajax({
         url: "{{ url('/getDoctores') }}",
         type: "GET",
         dataType: "html",
     }).done(function (resultado) {
         $("#doctor_id").html(resultado);
-    });
+    });**/
 
 
-$('.asignar').click( function(){
+
+$(document).on('click', '.asignar', function(event) {
     const doctor_id = $(this).attr('id-doctor');
+    const doctor_nombre = $(this).attr('nom');
+    $('#doctor_id').append("<option value='"+doctor_id+"' >"+doctor_nombre+"</option>");
     $('#doctor_id').val(doctor_id);
-} );
-
+    /* Act on the event */
+});
 </script>
 @endsection

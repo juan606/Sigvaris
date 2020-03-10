@@ -19,10 +19,17 @@
 		</ul>
 	</div>
 	<div class="card">
-		<div class="card-header"><h5>Vacaciones:
-		&nbsp;&nbsp;&nbsp;&nbsp; <i class="fa fa-asterisk" aria-hidden="true"></i>Campos Requeridos</h5></div>
+		<div class="card-header">
+			<h5>Vacaciones:
+				&nbsp;&nbsp;&nbsp;&nbsp;
+				@if(isset($empleado->datosLaborales()->first()->fechacontratacion))
+			 	<i class="fa fa-asterisk" aria-hidden="true"></i>Campos Requeridos
+			 	@endif
+			</h5>
+		</div>
 		<div class="card-body">
 			{{-- <div class="col-xs-12 offset-md-2 mt-3"> --}}
+				@if(isset($empleado->datosLaborales()->first()->fechacontratacion))
 					<div class="row">
 						{{-- Fecha inicio vacaciones --}}						
 						<div class="col-12 col-md-4">
@@ -119,8 +126,18 @@
 						</div>
 					@endif
 					
-				
-			
+				@else
+					<div class="row">
+							{{-- Fecha inicio vacaciones --}}
+							<div class="col-12 col-md-12">
+								<div class="form-group">
+									<h4> NO HAY FECHA DE CONTRATACION, FAVOR DE INCLUIR FECHA PARA PERMITIR VACACIONES</h4>
+								</div>
+							</div>
+							
+						</div>
+
+				@endif
 			
 
 		</div>

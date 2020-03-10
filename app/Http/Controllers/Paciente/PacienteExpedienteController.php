@@ -27,9 +27,15 @@ class PacienteExpedienteController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create(Paciente $paciente)
+    public function create(Request $request,Paciente $paciente)
     {
-        return view('pacineteexpediente.create', ['paciente' => $paciente]);
+        
+        if ($request->input('Actualizar')!=null) {
+            return view('pacineteexpediente.create', ['paciente' => $paciente,'expediente' => $paciente->expediente]);
+        }else{
+            return view('pacineteexpediente.create', ['paciente' => $paciente]);
+        }
+        
     }
 
     /**
@@ -40,9 +46,7 @@ class PacienteExpedienteController extends Controller
      */
     public function store(Request $request, Paciente $paciente)
     {
-        if ($request->receta && $request->file('receta')->isValid()) {
-            $receta = explode("/",$request->receta->storeAs('expedientes/'.$paciente->id, 'receta.'.$request->receta->extension(), 'public'));
-        }
+       
         if ($request->aviso_privacidad && $request->file('aviso_privacidad')->isValid()) {
             $aviso_privacidad = explode("/",$request->aviso_privacidad->storeAs('expedientes/'.$paciente->id, 'aviso_privacidad.'.$request->aviso_privacidad->extension(), 'public'));
         }
@@ -53,13 +57,26 @@ class PacienteExpedienteController extends Controller
             $inapam = explode("/",$request->inapam->storeAs('expedientes/'.$paciente->id, 'inapam.'.$request->inapam->extension(), 'public'));
         }
 
-
-        $expediente = PacientesExpedientes::Create([
-            'paciente_id'=>$paciente->id,
-            'receta'=>$receta[2],
-            'aviso_privacidad'=>$aviso_privacidad[2],
-            'identificacion'=>$identificacion[2],
-            'inapam'=>$inapam[2]
+        if (!isset($aviso_privacidad)) {
+            $aviso_privacidad=null;
+        }else{
+            $aviso_privacidad=$aviso_privacidad[2];
+        }
+        if (!isset($identificacion)) {
+            $identificacion=null;
+        }else{
+            $identificacion=$identificacion[2];
+        }
+        if (!isset($inapam)) {
+            $inapam=null;
+        }else{
+             $inapam=='inapam.'.$request->inapam->extension();
+        }
+        $expediente = PacientesExpedientes::updateOrCreate(['paciente_id'=>$paciente->id],[
+            
+            'aviso_privacidad'=>$aviso_privacidad,
+            'identificacion'=>$identificacion,
+            'inapam'=>$inapam
         ]);
         Alert::success('Información Agregada', 'Se ha registrado correctamente la información');
         return view('pacineteexpediente.view',['paciente'=>$paciente,'expediente'=>$expediente]);

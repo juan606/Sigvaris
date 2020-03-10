@@ -177,4 +177,17 @@
 	</div>
 	</form>
 </div>
+<script type="text/javascript">
+	$(document).ready(function(){
+		$('#rfc').change(function(event) {
+			if ($('#rfc').val().length ==13 ){
+
+			}else{
+				alert("RFC Incorrecto");
+				$('#rfc').val("");
+			}
+		});
+	});
+	
+</script>
 @endsection

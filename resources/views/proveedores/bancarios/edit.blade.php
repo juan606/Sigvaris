@@ -1,67 +1,7 @@
-@extends('principal')
-@section('content')
-<div class="container" id="tab">
-	<form role="form" id="form-cliente" method="POST" action="{{ route('proveedores.datosbancarios.update', ['proveedore' => $proveedore, 'bancario' => $proveedore->datosBancarios->first()]) }}" name="form">
-		{{ csrf_field() }}
-		<input type="hidden" name="_method" value="PUT">
-		<div role="application" class="panel panel-group" >
-			<div class="panel-default">
-				<div class="panel-heading">
-					<div class="row">
-						<div class="col-sm-4">
-							<h4>Datos del Proveedor:</h4>
-						</div>
-						<div class="col-sm-4 text-center">
-							<a class="btn btn-success" href="{{ route('proveedores.create')}}">
-								<strong>Agregar Proveedor</strong>
-							</a>
-						</div>
-					</div>
-				</div>
-				<div class="panel-body">
-					<div class="row">
-	  					<div class="form-group col-sm-3">
-	    					<label class="control-label" for="tipopersona">Tipo de Persona:</label>
-	    					<dd>{{ $proveedore->tipopersona }}</dd>
-	  					</div>
-	  					<div class="form-group col-sm-3">
-	  						<label class="control-label" for="alias">Alias:</label>
-	  						<dd>{{ $proveedore->alias }}</dd>
-	  					</div>
-	  					<div class="form-group col-sm-3">
-	  						<label class="control-label" for="rfc">RFC:</label>
-	  						<dd>{{ $proveedore->rfc }}</dd>
-	  					</div>
-	  					<div class="form-group col-sm-3">
-	  						<label class="control-label" for="vendedor">Vendedor:</label>
-	  						<dd>{{ $proveedore->vendedor }}</dd>
-	  					</div>
-					</div>
-					@if ($proveedore->tipopersona == "Fisica")
-					<div class="row" id="perfisica">
-						<div class="form-group col-sm-3">
-	  						<label class="control-label" for="nombre">Nombre(s):</label>
-	  						<dd>{{ $proveedore->nombre }}</dd>
-	  					</div>
-	  					<div class="form-group col-sm-3">
-	  						<label class="control-label" for="apellidopaterno">Apellido Paterno:</label>
-	  						<dd>{{ $proveedore->apellidopaterno }}</dd>
-	  					</div>
-	  					<div class="form-group col-sm-3">
-	  						<label class="control-label" for="apellidomaterno">Apellido Materno:</label>
-	  						<dd>{{ $proveedore->apellidomaterno }}</dd>
-	  					</div>
-					</div>
-					@else
-					<div class="row" id="permoral">
-						<div class="form-group col-sm-3">
-	  						<label class="control-label" for="razonsocial">Razon Social:</label>
-	  						<dd>{{ $proveedore->razonsocial }}</dd>
-	  					</div>
-					</div>
-					@endif
-				</div>
-			</div>
+@extends('layouts.infoproveedor')
+@section('cliente')
+
+
 			<ul role="tablist" class="nav nav-pills">
 				<li class="nav-link">
 					<a href="{{ route('proveedores.show',['proveedore'=>$proveedore]) }}">Dirección Fìsica:</a>
@@ -79,6 +19,8 @@
 					<a class="nav-link active" href="#tab4">Datos Bancarios:</a>
 				</li>
 			</ul>
+				<form role="form" id="form-cliente" method="POST" action="{{ route('proveedores.datosbancarios.update', ['proveedore' => $proveedore, 'bancario' => $proveedore->datosBancarios->first()]) }}" name="form">
+		{{ csrf_field() }}
 			<div class="panel panel-default">
 				<div class="panel-heading">
 					<div class="row">
@@ -120,7 +62,6 @@
 					</div>
 				</div>
 			</div>
-		</div>
-	</form>
-</div>
+		</form>
+
 @endsection

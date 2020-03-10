@@ -32,18 +32,18 @@
                     <input value="{{$doctor->apellidomaterno}}" type="text" name="apellidomaterno" class="form-control">
                 </div>
                 <div class="col-3 form-group">
-                    <label class="control-label">✱Celular:</label>
-                    <input value="{{$doctor->celular}}" type="number" name="celular" class="form-control" required="">
+                    <label class="control-label">Celular:</label>
+                    <input value="{{$doctor->celular}}" type="number" name="celular" class="form-control" >
                 </div>
             </div>
             <div class="row">
                 <div class="col-3 form-group">
-                    <label class="control-label">✱Correo:</label>
+                    <label class="control-label">Correo:</label>
                     <input value="{{$doctor->mail}}" type="mail" name="mail" class="form-control">
                 </div>
                 <div class="col-3 form-group">
-                    <label class="control-label">✱Fecha nacimiento:</label>
-                    <input value="{{$doctor->nacimiento}}" type="date" name="nacimiento" class="form-control" required="">
+                    <label class="control-label">Fecha nacimiento:</label>
+                    <input value="{{$doctor->nacimiento}}" type="date" name="nacimiento" class="form-control" >
                 </div>
             </div>
             <div class="row">
