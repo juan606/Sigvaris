@@ -613,7 +613,7 @@
                     }
                 },
                 error: function(e){
-                    alert('Error');
+                    alert('No se aplicó la promoción');
                     console.log(e);
                     $('#sigpesos_usar').prop("disabled", false);
                 }

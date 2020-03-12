@@ -285,7 +285,7 @@ class DescuentoController extends Controller
                                 'status'=>1,
                                 'sigpesos'=>0,
                                 'aceptsp'=>$promocion->aceptSigPesos,
-                                'total'=>$request->subtotal*$promocion->descuento_de
+                                'total'=>$request->subtotal*($promocion->descuento_de/100)
                             );
                             break;
                         case 'sigCompra':
@@ -338,7 +338,7 @@ class DescuentoController extends Controller
                                 'status'=>1,
                                 'sigpesos'=>0,
                                 'aceptsp'=>$promocion->aceptSigPesos,
-                                'total'=>$request->subtotal*$promocion->descuento_de
+                                'total'=>$request->subtotal*($promocion->descuento_de/100)
                             );
                             break;
                         case 'sigCompra':
@@ -390,7 +390,7 @@ class DescuentoController extends Controller
                                 'status'=>1,
                                 'sigpesos'=>0,
                                 'aceptsp'=>$promocion->aceptSigPesos,
-                                'total'=>$request->subtotal*$promocion->descuento_de
+                                'total'=>$request->subtotal*($promocion->descuento_de/100)
                             );
                             break;
                         case 'sigCompra':
