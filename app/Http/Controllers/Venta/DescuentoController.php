@@ -298,7 +298,7 @@ class DescuentoController extends Controller
                             );
                             break;
                          case 'Pieza':
-                            $CostoProductoBarato=0;
+                            $CostoProductoBarato=999999999;
                             foreach ($request->input("productos_id") as $producto_id) {
                                 if($CostoProductoBarato>Producto::where('id',$producto_id)->value("precio_publico")){
                                     $CostoProductoBarato=Producto::where('id',$producto_id)->value("precio_publico");
@@ -351,7 +351,7 @@ class DescuentoController extends Controller
                             );
                             break;
                          case 'Pieza':
-                            $CostoProductoBarato=0;
+                            $CostoProductoBarato=999999999;
                             foreach ($request->input("productos_id") as $producto_id) {
                                 if($CostoProductoBarato>Producto::where('id',$producto_id)->value("precio_publico")){
                                     $CostoProductoBarato=Producto::where('id',$producto_id)->value("precio_publico");
@@ -403,7 +403,7 @@ class DescuentoController extends Controller
                             );
                             break;
                          case 'Pieza':
-                            $CostoProductoBarato=0;
+                            $CostoProductoBarato=999999999;
                             foreach ($request->input("productos_id") as $producto_id) {
                                 if($CostoProductoBarato>Producto::where('id',$producto_id)->value("precio_publico")){
                                     $CostoProductoBarato=Producto::where('id',$producto_id)->value("precio_publico");
