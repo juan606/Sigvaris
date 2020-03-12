@@ -216,12 +216,12 @@ class PacienteCrmController extends Controller
              $tablaUsuario.= '<tr class="active tupla">';
             $tablaUsuario.= "<td >".$Venta['id']."</td>"; 
             $tablaUsuario.= "<td >".$Venta->paciente->fullname."</td>";  
-            $tablaUsuario.= "<td >$".number_format($Venta->total, 2)."</td>"; 
-            if ($Venta->descuento) {
-                $tablaUsuario.= "<td >".$Venta->descuento->nombre."</td>";  
-            }else{
-                $tablaUsuario.= "<td ></td>";  
-            }    
+            $tablaUsuario.= "<td >$".number_format($Venta->total, 2)."</td>";
+            $tablaUsuario.= "<td >";
+            foreach ($Venta->productos as $Producto) {
+                 $tablaUsuario.= $Producto->descripcion."<br>";
+             } 
+             $tablaUsuario.= "</td >";
             
             $tablaUsuario.= "<td >".\Carbon\Carbon::parse($Venta->fecha)->format('m/d/Y')."</td>";
             $tablaUsuario.= "</tr>";

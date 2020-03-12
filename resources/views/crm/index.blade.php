@@ -293,8 +293,7 @@
                         <th>Fecha Aviso</th>
                         <th>Fecha Contacto</th>
                         <th>Ultima Venta</th>
-                        <th>Detalle de Paciente</th>
-                        <th>Historial</th>
+                        <th>Historial de Paciente</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -312,24 +311,21 @@
                             <td title="Has Click Aquì para ver o modificar" style="cursor: pointer"  id="crear_crm_boton"  data-toggle="modal" data-target="#ver_crm_modal" onclick="mostrarCrm('{{$crm}}','{{ $pacientes->find($crm->paciente_id) }}','{{ $estados->find($crm->estado_id) }}')">{{$crm->fecha_contacto}}</td>
                             <td title="Has Click Aquì para ver o modificar" style="cursor: pointer"  id="crear_crm_boton"  data-toggle="modal" data-target="#ver_crm_modal" onclick="mostrarCrm('{{$crm}}','{{ $pacientes->find($crm->paciente_id) }}','{{ $estados->find($crm->estado_id) }}')">{{$UltimaVenta->fecha}}</td>
                             
-                            <td>
+                            {{--<td>
                                     <a  class="btn btn-primary" onclick="generarHistorialVentas('{{ $pacientes->find($crm->paciente_id) }}')">
                                     <strong>Ver Historial de ventas</strong>
                                 </a>
-                                {{--<button id="crear_crm_boton" type="button" class="btn btn-success" data-toggle="modal"
+                                <button id="crear_crm_boton" type="button" class="btn btn-success" data-toggle="modal"
                             data-target="#crear_crm_modal">
                             <strong>Crear <i class="fa fa-plus"></i></strong>
                         </button>
                                  <button id="crear_crm_boton" type="button" class="btn btn-primary" data-toggle="modal" data-target="#ver_crm_modal"onclick="mostrarCrm('{{$crm}}')">
-                                    <button type="button" onclick="mostrarCrm('{{$crm}}')" class="btn btn-primary botonMostrarCrm">Ver</button> --}}
-                            </td>
-                            <td>
-                                
-                                <button id="crear_crm_boton" type="button" class="btn btn-success" data-toggle="modal" onclick="generarHistorial('{{ $pacientes->find($crm->paciente_id) }}')"
-                            >
-                            <strong>Historial </strong>
-                        </button>    
-                                
+                                    <button type="button" onclick="mostrarCrm('{{$crm}}')" class="btn btn-primary botonMostrarCrm">Ver</button> 
+                            </td>--}}
+                            <td class="text-center">
+                                <button id="crear_crm_boton" type="button" class="btn btn-success" data-toggle="modal" onclick="generarHistorial('{{ $pacientes->find($crm->paciente_id) }}')">
+                                    <strong>Ver Historial </strong>
+                                </button>    
                                 {{-- <button id="crear_crm_boton" type="button" class="btn btn-primary" data-toggle="modal" data-target="#ver_crm_modal"onclick="mostrarCrm('{{$crm}}')">
                                     <button type="button" onclick="mostrarCrm('{{$crm}}')" class="btn btn-primary botonMostrarCrm">Ver</button> --}}
                             </td>
@@ -368,7 +364,7 @@
                         <th>Folio</th>
                         <th>Cliente</th>
                         <th>Total</th>
-                        <th>Descuento</th>
+                        <th>Productos</th>
                         <th>Fecha</th>
                     </tr>
                 </thead>
@@ -551,6 +547,21 @@ $(document).on('click', '.botonMostrarCrm', function(){
 
         success: function (data) {
                 $("#datostablas").html(data);
+        }
+    });
+     $('#tablaUsuario_Ventas').show();
+      var paciente = JSON.parse(data1);
+      // Obtener la referencia del elemento body
+     $.ajax({
+        type: "POST",
+        data: {"_token": $("meta[name='csrf-token']").attr("content"),
+                       "id" : paciente.id,
+                       "nombre": paciente.nombre
+        },
+        url:"getTabla_modalidad_ventas",
+
+        success: function (data) {
+                $("#datostablasven").html(data);
         }
     });
  }
