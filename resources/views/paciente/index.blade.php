@@ -1,7 +1,93 @@
 @extends('principal')
 @section('content')
+<script type="text/javascript">
 
+	function confirmacion(doctor_id){
+		swal("¿Esta seguro de eliminar este paciente?", {
+  buttons: {
+  	Si: true,
+    cancel: "No",    
+  },
+})
+.then((value) => {
+  switch (value) {
+ 
+    case "Si":
+      swal({  
+  text: "El paciente se eliminara permanentemente",
+  icon: "warning",
+  buttons: true,
+  dangerMode: true,
+})
+.then((willDelete) => {
+  if (willDelete) {
+    swal("Se ha dado de baja al paciente", {
+      icon: "success",
+    });
+  	$("#form-doctor"+doctor_id).submit()
+  } else {
+    swal("Se ha cancelado la baja");
+  }
+});
+      break;     
+    
+  }
+});
+	}
+// 	function confirmacion(doctor_id){
+// 		swal({
+//   title: "¿Eliminar doctor?",
+//   text: "¿Estas seguro de eliminar este doctor?",
+//   icon: "warning",
+//   buttons: true,
+//   dangerMode: true,
+// })
+// .then((willDelete) => {
+//   if (willDelete) {
+//     swal("Poof! Your imaginary file has been deleted!", {
+//       icon: "success",
+//     });
+//   	$("#form-doctor"+doctor_id).submit()
+//   } else {
+//     swal("Your imaginary file is safe!");
+//   }
+// });
+// 	}
+</script>
+<script>
+	$(document).ready(function(){
+	// $('#tablaPacientes').DataTable();
+		$('.borrar').click(function()
+        {
+            //$('#confirm-delete').modal('show');
+           $('#deleteUserForm').attr('action', '/pacientes/' + $(this).attr('paciente-id'));
+        })
+	});
 
+</script>
+<div class="modal fade" id="confirm-delete" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">Eliminar paciente</h4>
+            </div>
+            <div class="modal-body">
+                <label>¿Estás seguro de eliminar el paciente?</label>
+            </div>
+            <div class="modal-footer">
+            	<form role="form" name="doctorborrar" id="deleteUserForm" method="POST"
+					 name="form">
+					{{ csrf_field() }}
+					{{ method_field('DELETE') }}
+					<button type="submit" class="btn btn-danger"><i
+							class="far fa-trash-alt"></i><strong> Si</strong></button>
+				</form>
+                <a class="btn btn-primary" data-dismiss="modal">No
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
 
 <div class="row">
 	<div class="col-12 col-lg-6">
@@ -95,12 +181,16 @@
 											Punto de venta</strong></a>
 
 								</div>
-								<div class="col pl-0">
-									<form role="form" name="doctorborrar" id="form-doctor" method="POST"
+								{{-- <button type="submit" class="btn btn-danger borrar" paciente-id="{{ $paciente->id }}" data-toggle="modal" data-target="#confirm-delete" >
+									<i class="far fa-trash-alt"></i>
+									<strong> Borrar</strong>
+								</button>--}}
+								 <div class="col pl-0">
+									<form role="form" name="doctorborrar" id="form-doctor{{ $paciente->id}}" method="POST"
 										action="{{ route('pacientes.destroy', ['paciente'=>$paciente]) }}" name="form">
 										{{ csrf_field() }}
 										{{ method_field('DELETE') }}
-										<button type="submit" class="btn btn-danger"><i
+										<button class="btn btn-danger " type="button" id="butonBorrar" onclick="confirmacion({{$paciente->id}})"><i
 												class="far fa-trash-alt"></i><strong> Borrar</strong></button>
 									</form>
 								</div>
@@ -116,12 +206,7 @@
 	</div>
 </div>
 </div>
-<script>
-	$(document).ready(function(){
-	// $('#tablaPacientes').DataTable();
-});
 
-</script>
 {{-- 
 <script type="text/javascript">
 	$(document).ready(function () {

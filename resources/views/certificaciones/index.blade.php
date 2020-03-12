@@ -1,7 +1,41 @@
 @extends('empleadoestudios.view')
 
 @section('infoempleadocurso')
+<script type="text/javascript">
 
+    function confirmacion(doctor_id){
+        swal("¿Esta seguro de eliminar este Certificado?", {
+  buttons: {
+    Si: true,
+    cancel: "No",    
+  },
+})
+.then((value) => {
+  switch (value) {
+ 
+    case "Si":
+      swal({  
+  text: "El Certificado se eliminara permanentemente",
+  icon: "warning",
+  buttons: true,
+  dangerMode: true,
+})
+.then((willDelete) => {
+  if (willDelete) {
+    swal("Se ha dado de baja el Certificado", {
+      icon: "success",
+    });
+    $("#form-curso"+doctor_id).submit()
+  } else {
+    swal("Se ha cancelado la baja");
+  }
+});
+      break;     
+    
+  }
+});
+    }
+</script>
 <div class="container">
     <div class="row">
         <div class="col-12">
@@ -44,10 +78,10 @@
                                     <td>{{$curso->instructor}}</td>
                                     <td>{{$curso->certificador}}</td>
                                     <td>
-                                          <form action="{{route('empleados.certificaciones.destroy',['empleado'=>$empleado,'id'=>$curso->id])}}" method="POST">
+                                          <form id="form-curso{{ $curso->id}}" action="{{route('empleados.certificaciones.destroy',['empleado'=>$empleado,'id'=>$curso->id])}}" method="POST">
                                             @csrf
                                             @method('DELETE')
-                                            <button type="submit" class="btn btn-danger rounded-0">Eliminar</button>
+                                            <button type="button" class="btn btn-danger rounded-0" id="butonBorrar" onclick="confirmacion({{$curso->id}})" >Eliminar</button>
                                         </form>
                                     </td>
                                 </tr>

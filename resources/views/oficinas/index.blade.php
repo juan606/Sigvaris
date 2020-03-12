@@ -1,5 +1,40 @@
 @extends('principal')
 @section('content')
+<script type="text/javascript">
+
+	function confirmacion(doctor_id){
+		swal("¿Esta seguro de eliminar esta tienda?", {
+  buttons: {
+  	Si: true,
+    cancel: "No",    
+  },
+})
+.then((value) => {
+  switch (value) {
+ 
+    case "Si":
+      swal({  
+  text: "La tienda se eliminara permanentemente",
+  icon: "warning",
+  buttons: true,
+  dangerMode: true,
+})
+.then((willDelete) => {
+  if (willDelete) {
+    swal("Se ha dado de baja la tienda", {
+      icon: "success",
+    });
+  	$("#form-tienda"+doctor_id).submit()
+  } else {
+    swal("Se ha cancelado la baja");
+  }
+});
+      break;     
+    
+  }
+});
+	}
+</script>
 <div class="container">
 	<div class="card">
 		<div class="card-header">
@@ -51,10 +86,10 @@
 								</a>
 							</div>
 							<div class="col-4">
-								<form role="form" method="POST" action="{{ route('oficinas.destroy',['oficina'=>$oficina]) }}">
+								<form id="form-tienda{{ $oficina->id}}" role="form" method="POST" action="{{ route('oficinas.destroy',['oficina'=>$oficina]) }}">
 									{{ csrf_field() }}
 									<input type="hidden" name="_method" value="DELETE">
-									<button type="submit" class="btn btn-danger" role="button">
+									<button type="button" class="btn btn-danger" role="button" id="butonBorrar" onclick="confirmacion({{$oficina->id}})">
 										<strong>
 											<i class="fa fa-trash"></i>
 										</strong>

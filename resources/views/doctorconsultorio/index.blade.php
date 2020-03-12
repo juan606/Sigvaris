@@ -1,6 +1,40 @@
 @extends('doctor.show')
 @section('submodulos')
+<script type="text/javascript">
 
+    function confirmacion(doctor_id){
+        swal("¿Esta seguro de eliminar el consultorio?", {
+  buttons: {
+    Si: true,
+    cancel: "No",    
+  },
+})
+.then((value) => {
+  switch (value) {
+ 
+    case "Si":
+      swal({  
+  text: "El consultorio se eliminara permanentemente",
+  icon: "warning",
+  buttons: true,
+  dangerMode: true,
+})
+.then((willDelete) => {
+  if (willDelete) {
+    swal("Se ha dado de baja el consultorio", {
+      icon: "success",
+    });
+    $("#form-consultorio"+doctor_id).submit()
+  } else {
+    swal("Se ha cancelado la baja");
+  }
+});
+      break;     
+    
+  }
+});
+    }
+</script>
     <div class="row my-5">
         <div class="col-4 px-5"><h4>Consultorios</h4></div>
         <input id="submenu" type="hidden" name="submenu" value="nav-consultorios">
@@ -37,10 +71,10 @@
                                 
                             </div>
                             <div class="col pl-0">
-                                <form role="form" name="consultorioborrar" id="form-consultorio" method="POST" action="{{ route('doctores.consultorios.destroy', ['doctor'=>$doctor, 'consultorio'=>$consultorio->id]) }}" name="form">
+                                <form role="form" name="consultorioborrar" id="form-consultorio{{$consultorio->id}}" method="POST" action="{{ route('doctores.consultorios.destroy', ['doctor'=>$doctor, 'consultorio'=>$consultorio->id]) }}" name="form">
                                     {{ csrf_field() }}
                                     {{ method_field('DELETE') }}
-                                    <button type="submit" class="btn btn-danger"><i class="far fa-trash-alt"></i><strong> Borrar</strong></button>
+                                    <button type="button" class="btn btn-danger" id="butonBorrar" onclick="confirmacion({{$consultorio->id}})"><i class="far fa-trash-alt"></i><strong> Borrar</strong></button>
                                 </form>
                             </div>
                         </div>
