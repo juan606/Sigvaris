@@ -713,7 +713,7 @@
    @if(!isset($paciente))
     $(document).on('click', '.botonSeleccionCliente', async function(){
         
-        const pacienteId = $(this).attr('pacienteId');
+        const pacienteId = $(this).attr('pacienteid');
 
         const nombrePaciente = $(`.nombrePaciente[pacienteId=${pacienteId}]`).html();
         const apellidosPaciente = $(`.apellidosPaciente[pacienteId=${pacienteId}]`).html();
