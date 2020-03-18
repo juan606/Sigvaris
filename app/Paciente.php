@@ -41,6 +41,11 @@ class Paciente extends Model
         return $this->hasMany('App\Crm');
     }
 
+    public function datoFiscal()
+    {
+        return $this->hasOne('App\DatoFiscal');
+    }
+
     public function tallas()
     {
         return $this->hasMany('App\Talla');
@@ -77,7 +82,8 @@ class Paciente extends Model
      * Collections from relationship
      */
 
-    public function productos(){
+    public function productos()
+    {
         return $this->ventas()->with('productos')->get()->pluck('productos')->flatten();
     }
 
@@ -86,12 +92,13 @@ class Paciente extends Model
         return $this->nombre . ' ' . $this->paterno . ' ' . $this->materno;
     }
 
-    public function totalProductos(){
-        $ventas = Venta::where('paciente_id',$this->id)->get();
+    public function totalProductos()
+    {
+        $ventas = Venta::where('paciente_id', $this->id)->get();
 
         $total_productos = 0;
-        foreach($ventas as $venta){
-            $total_productos+=count($venta->productos()->get());
+        foreach ($ventas as $venta) {
+            $total_productos += count($venta->productos()->get());
         }
 
         return $total_productos;
@@ -101,8 +108,8 @@ class Paciente extends Model
      * Scope methos
      */
 
-     public function scopeNoCompradores($query){
-            return $query->doesntHave('ventas');
-     }
-
+    public function scopeNoCompradores($query)
+    {
+        return $query->doesntHave('ventas');
+    }
 }

@@ -15,9 +15,9 @@ class ModifyPacientesExpedienteTable extends Migration
     {
         Schema::table('pacientes_expediente', function (Blueprint $table) {
             //
-            $table->string('receta')->unsigned()->nullable();
-            $table->string('identificacion')->unsigned()->nullable();
-            $table->string('inapam')->unsigned()->nullable();
+            $table->string('receta')->nullable();
+            $table->string('identificacion')->nullable();
+            $table->string('inapam')->nullable();
 
         });
     }

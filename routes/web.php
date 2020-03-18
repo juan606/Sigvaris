@@ -13,6 +13,7 @@ Route::get('/expedientes/{pacientes}/{file}', function ($pacientes, $file) {
     return Storage::response("public/expedientes/$pacientes/$file");
 });
 Route::resource('pacientes.expediente','Paciente\PacienteExpedienteController');
+Route::resource('pacientes.datos_fiscales','Paciente\PacienteDatosFiscalesController');
 
 Route::get('inicio', 'InicioController@index')->name('inicio');
 // Route::get('/login', function(){echo
@@ -86,6 +87,7 @@ Route::post('getTabla_modalidad', 'Paciente\PacienteCrmController@getCrmClienteC
 Route::post('getTabla_modalidad_ventas', 'Paciente\PacienteCrmController@getTabla_modalidad_ventas')->name('getTabla_modalidad_ventas');
 //FACTURAS
 Route::resource('facturas','Paciente\FacturaController');
+Route::post('facturas.download', 'Paciente\FacturaController@download')->name('facturas.download');
 Route::get('ventas_from/{paciente}','Paciente\FacturaController@getVentas');
 Route::get('get_paciente/{paciente}','Paciente\FacturaController@getPaciente');
 Route::get('get_promos/{descuento}','Venta\DescuentoController@getPromos');

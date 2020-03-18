@@ -6,9 +6,9 @@
 
 <div class="container">
     @if ($errors->any())
-        <div class="alert alert-danger">
-            {{$errors->first()}}
-        </div>
+    <div class="alert alert-danger">
+        {{$errors->first()}}
+    </div>
     @endif
     <div class="card">
         <div class="card-header">
@@ -28,28 +28,31 @@
             <div class="card-body">
                 <form role="form" id="form-cliente" method="POST" action="{{ route('ventas.store') }}" name="form">
                     {{ csrf_field() }}
-                    
+
                     <div class="row">
                         <div class="col-4 form-group">
                             <label class="control-label">Fitter:</label>
-                            @if (Auth::user()->id == 1 || Auth::user()->empleado->puesto->nombre != "fitter")                            
-                                <select name="empleado_id" id="empleado_id" class="form-control" required>
-                                    <option value="">Seleccionar</option>
-                                    @foreach ($empleadosFitter as $empleadoFitter)
-                                        <option value="{{$empleadoFitter->id}}">
-                                            {{$empleadoFitter->nombre}} {{$empleadoFitter->appaterno}} {{$empleadoFitter->apmaterno}}
-                                        </option>
-                                    @endforeach
-                                </select>
+                            @if (Auth::user()->id == 1 || Auth::user()->empleado->puesto->nombre != "fitter")
+                            <select name="empleado_id" id="empleado_id" class="form-control" required>
+                                <option value="">Seleccionar</option>
+                                @foreach ($empleadosFitter as $empleadoFitter)
+                                <option value="{{$empleadoFitter->id}}">
+                                    {{$empleadoFitter->nombre}} {{$empleadoFitter->appaterno}}
+                                    {{$empleadoFitter->apmaterno}}
+                                </option>
+                                @endforeach
+                            </select>
                             @else
-                            <input type="text" class="form-control" id="empleado_id" required readonly value="{{Auth::user()->empleado->id}}" style="display: none;">
-                             <input type="text" class="form-control"  required readonly value=" {{Auth::user()->empleado->nombre}} {{Auth::user()->empleado->appaterno}} {{Auth::user()->empleado->apmaterno}}">
+                            <input type="text" class="form-control" id="empleado_id" required readonly
+                                value="{{Auth::user()->empleado->id}}" style="display: none;">
+                            <input type="text" class="form-control" required readonly
+                                value=" {{Auth::user()->empleado->nombre}} {{Auth::user()->empleado->appaterno}} {{Auth::user()->empleado->apmaterno}}">
                             @endif
                         </div>
                     </div>
-                    
+
                     <hr>
-                    
+
                     {{-- TABLA DE PACIENTES --}}
                     @if (!isset($paciente))
                     <div class="row mb-4">
@@ -57,11 +60,11 @@
                             <div class="card rounded-0">
                                 <div class="card-header rounded-0">
                                     <div class="row">
-                                        <div class="col-sm-12 col-md-6" >
+                                        <div class="col-sm-12 col-md-6">
                                             <h3>Pacientes</h3>
                                         </div>
-                                        <div class="col-sm-12 col-md-6" >
-                                            <label>Buscar:<input type="search" id="BuscarPaciente"  >
+                                        <div class="col-sm-12 col-md-6">
+                                            <label>Buscar:<input type="search" id="BuscarPaciente">
                                             </label>
                                         </div>
                                     </div>
@@ -79,7 +82,7 @@
                                                 </tr>
                                             </thead>
                                             <tbody>
-                                                
+
                                             </tbody>
                                         </table>
                                     </div>
@@ -94,35 +97,35 @@
                             <div class="card rounded-0">
                                 <div class="card-header rounded-0">
                                     <div class="row">
-                                        <div class="col-sm-12 col-md-6" >
+                                        <div class="col-sm-12 col-md-6">
                                             <h3>Productos</h3>
                                         </div>
-                                        <div class="col-sm-12 col-md-6" >
-                                            <label>Buscar:<input type="search" id="BuscarProducto"  >
+                                        <div class="col-sm-12 col-md-6">
+                                            <label>Buscar:<input type="search" id="BuscarProducto">
                                             </label>
                                         </div>
                                     </div>
                                 </div>
-                                
-                                    
+
+
                                 <div class="card-body rounded-0">
                                     <div class="table-responsive">
-                                            <table class="table" id="productos">
-                                                    <thead>
-                                                        <tr>
-                                                            <th>SKU</th>
-                                                            <th>UPC</th>
-                                                            <th>swiss ID</th>
-                                                            <th>Producto</th>
-                                                            <th>Precio</th>
-                                                            <th>Precio con iva</th>
-                                                            <th>Agregar</th>
-                                                        </tr>
-                                                    </thead>
-                                                    <tbody>
-                                                        
-                                                    </tbody>
-                                                </table>
+                                        <table class="table" id="productos">
+                                            <thead>
+                                                <tr>
+                                                    <th>SKU</th>
+                                                    <th>UPC</th>
+                                                    <th>swiss ID</th>
+                                                    <th>Producto</th>
+                                                    <th>Precio</th>
+                                                    <th>Precio con iva</th>
+                                                    <th>Agregar</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+
+                                            </tbody>
+                                        </table>
                                     </div>
 
                                 </div>
@@ -130,7 +133,7 @@
                         </div>
                     </div>
 
-                    
+
 
                     {{-- DETALLES DE LA COMPRA --}}
                     <div class="row">
@@ -166,131 +169,151 @@
                                     <div class="row">
                                         {{-- INPUT DESCUENTO --}}
                                         <div class="col-12 col-sm-6 col-md-4 form-group">
-                                                <label for="descuento_id" class="text-uppercase text-muted">Descuento</label>
-                                                <select class="form-control" name="descuento_id" id="descuento_id" >
-                                                    <option value="">Selecciona...</option>
-                                                    @foreach ($descuentos as $descuento)
-                                                        <option value="{{$descuento->id}}">{{$descuento->nombre}}</option>
-                                                    @endforeach
-                                                </select>                            
+                                            <label for="descuento_id"
+                                                class="text-uppercase text-muted">Descuento</label>
+                                            <select class="form-control" name="descuento_id" id="descuento_id">
+                                                <option value="">Selecciona...</option>
+                                                @foreach ($descuentos as $descuento)
+                                                <option value="{{$descuento->id}}">{{$descuento->nombre}}</option>
+                                                @endforeach
+                                            </select>
                                         </div>
                                         {{-- INPUT PROMOCIÓN --}}
                                         <div class="col-12 col-sm-6 col-md-4 form-group">
-                                            <label for="promocion_id" class="text-uppercase text-muted">Promocion</label>
+                                            <label for="promocion_id"
+                                                class="text-uppercase text-muted">Promocion</label>
                                             <select class="form-control" name="promocion_id" id="promocion_id">
-                                                <option value="">Selecciona...</option>                               
+                                                <option value="">Selecciona...</option>
                                             </select>
                                         </div>
                                         <div class="col-12 col-sm-6 col-md-4 form-group">
-                                            
+
                                             <label for="" class="text-uppercase text-muted">Sigpesos a usar: </label>
-                                            
-                                            <input type="number" class="form-control" name="sigpesos_usar" id="sigpesos_usar" value="0" min="0" step="0.01" >
+
+                                            <input type="number" class="form-control" name="sigpesos_usar"
+                                                id="sigpesos_usar" value="0" min="0" step="0.01">
                                         </div>
                                     </div>
                                     {{-- Pagos Y tarjeta --}}
                                     <div class="row">
                                         {{-- INPUT Tipo de pago --}}
                                         <div class="col-12 col-sm-6 col-md-4">
-                                                <label for="tipoPago" class="text-uppercase text-muted">Tipo de pago</label>
-                                                <select class="form-control" name="tipoPago" id="tipoPago" >
-                                                    <option value="0">Selecciona...</option>
-                                                    <option value="1">Efectivo</option>
-                                                    <option value="2">Tajeta</option>
-                                                    <option value="3">Combinado</option>
-                                                </select>                            
+                                            <label for="tipoPago" class="text-uppercase text-muted">Tipo de pago</label>
+                                            <select class="form-control" name="tipoPago" id="tipoPago">
+                                                <option value="0">Selecciona...</option>
+                                                <option value="1">Efectivo</option>
+                                                <option value="2">Tajeta</option>
+                                                <option value="3">Combinado</option>
+                                            </select>
                                         </div>
                                         {{-- INPUT tarjeta --}}
-                                        
-                                        <div id="tar1" class="col-12 col-sm-6 col-md-4 form-group" style="display: none;">
+
+                                        <div id="tar1" class="col-12 col-sm-6 col-md-4 form-group"
+                                            style="display: none;">
                                             <label for="banco" class="text-uppercase text-muted">Banco</label>
                                             <select class="form-control" name="banco" id="banco">
-                                                <option value="">Selecciona...</option> 
-                                                <option value="SANTANDER">Banco</option> 
-                                                <option value="AMEX">Amex</option>                          
+                                                <option value="">Selecciona...</option>
+                                                <option value="SANTANDER">Banco</option>
+                                                <option value="AMEX">Amex</option>
                                             </select>
                                         </div>
                                         {{-- INPUT numeros de  tarjeta --}}
-                                        <div id="tar2" class="col-12 col-sm-6 col-md-4 form-group" style="display: none;">
-                                            <label for="" class="text-uppercase text-muted">Ultimos 4 digitos de tarjeta</label>
-                                            <input type="text" class="form-control" id="digitos_targeta" name="digitos_targeta" >
+                                        <div id="tar2" class="col-12 col-sm-6 col-md-4 form-group"
+                                            style="display: none;">
+                                            <label for="" class="text-uppercase text-muted">Ultimos 4 digitos de
+                                                tarjeta</label>
+                                            <input type="text" class="form-control" id="digitos_targeta"
+                                                name="digitos_targeta">
                                         </div>
-                                        
+
                                     </div>
                                     {{-- P --}}
                                     <div class="row">
-                                                                                {{-- INPUT numeros de  tarjeta --}}
-                                        <div id="tar4" class="col-12 col-sm-6 col-md-4 form-group" style="display: none;">
-                                            <label for="" class="text-uppercase text-muted">Monto de pago en efectivo</label>
-                                            <input type="text" class="form-control" id="PagoEfectivo" name="PagoEfectivo" >
+                                        {{-- INPUT numeros de  tarjeta --}}
+                                        <div id="tar4" class="col-12 col-sm-6 col-md-4 form-group"
+                                            style="display: none;">
+                                            <label for="" class="text-uppercase text-muted">Monto de pago en
+                                                efectivo</label>
+                                            <input type="text" class="form-control" id="PagoEfectivo"
+                                                name="PagoEfectivo">
                                         </div>
-                                        <div id="tar5" class="col-12 col-sm-6 col-md-4 form-group" style="display: none;">
-                                            <label for="" class="text-uppercase text-muted">Monto de pago con tarjeta</label>
-                                            <input type="text" class="form-control" id="PagoTarjeta" name="PagoTarjeta" >
+                                        <div id="tar5" class="col-12 col-sm-6 col-md-4 form-group"
+                                            style="display: none;">
+                                            <label for="" class="text-uppercase text-muted">Monto de pago con
+                                                tarjeta</label>
+                                            <input type="text" class="form-control" id="PagoTarjeta" name="PagoTarjeta">
                                         </div>
-                                        <div id="tar10" class="col-12 col-sm-6 col-md-4 form-group" style="display: none;">
+                                        <div id="tar10" class="col-12 col-sm-6 col-md-4 form-group"
+                                            style="display: none;">
                                             <label for="banco" class="text-uppercase text-muted">Pago a meses</label>
                                             <select class="form-control" name="mesesPago" id="banco">
-                                                <option value="0">Selecciona...</option> 
-                                                <option value="3">3 meses</option> 
-                                                <option value="6">6 meses</option>                          
+                                                <option value="0">Selecciona...</option>
+                                                <option value="3">3 meses</option>
+                                                <option value="6">6 meses</option>
                                             </select>
                                         </div>
                                     </div>
                                     <hr>
-                                    <input type="hidden" name="paciente_id" id="paciente_id"  required>
+                                    <input type="hidden" name="paciente_id" id="paciente_id" required>
                                     <div class="row">
                                         <div class="col-4 form-group">
                                             <label for="" class="text-uppercase text-muted">Paciente: </label>
-                                            <input type="text" class="form-control" id="inputNombrePaciente" required readonly>
+                                            <input type="text" class="form-control" id="inputNombrePaciente" required
+                                                readonly>
                                         </div>
                                         <div class="col-4 form-group">
                                             <label for="" class="text-uppercase text-muted">Fecha: </label>
-                                            <input type="date" name="fecha" class="form-control" readonly="" value="{{date('Y-m-d')}}"
-                                                required="">
+                                            <input type="date" name="fecha" class="form-control" readonly=""
+                                                value="{{date('Y-m-d')}}" required="">
                                         </div>
                                         <div class="col-4 form-group">
                                             <label for="" class="text-uppercase text-muted">Folio: </label>
-                                            <input type="number" name="precio" class="form-control" readonly="" value="{{$folio}}">
+                                            <input type="number" name="precio" class="form-control" readonly=""
+                                                value="{{$folio}}">
                                         </div>
                                     </div>
                                     <div class="row">
                                         {{-- INPUT SIGPESOS GANADOS --}}
                                         <div class="col-12 col-sm-6 col-md-4 mt-2">
-                                            
+
                                             <label for="" class="text-uppercase text-muted">Sigpesos ganados: </label>
-                                            
-                                            <input type="number" class="form-control" name="sigpesos" id="sigpesos" value="0" min="0" step="0.01" readonly="">
+
+                                            <input type="number" class="form-control" name="sigpesos" id="sigpesos"
+                                                value="0" min="0" step="0.01" readonly="">
                                         </div>
                                         {{-- INPUT SIGPESOS A USAR --}}
-                                        
+
                                         {{-- INPUT SUBTOTAL --}}
                                         <div class="col-12 col-sm-6 col-md-4 mt-2">
-                                            
+
                                             <label for="" class="text-uppercase text-muted">Subtotal: $</label>
-                                            
-                                            <input type="number" required="" class="form-control" name="subtotal" id="subtotal" value="0" min="1" step="0.01" readonly="">
+
+                                            <input type="number" required="" class="form-control" name="subtotal"
+                                                id="subtotal" value="0" min="1" step="0.01" readonly="">
                                         </div>
                                         {{-- INPUT DESCUENTO --}}
                                         <div class="col-12 col-sm-6 col-md-4 mt-2">
-                                            
+
                                             <label for="" class="text-uppercase text-muted">Descuento: $</label>
-                                            
-                                            <input type="number" required="" class="form-control" name="descuento" id="descuento" value="0" step="0.01" readonly="">
+
+                                            <input type="number" required="" class="form-control" name="descuento"
+                                                id="descuento" value="0" step="0.01" readonly="">
                                         </div>
                                         {{-- INPUT IVA --}}
                                         <div class="col-12 col-sm-6 col-md-4 mt-2">
-                                            
+
                                             <label for="" class="text-uppercase text-muted">Iva: $</label>
-                                            
-                                            <input type="number" required="" class="form-control" name="iva" id="iva" value="0" min="1" step="0.01" readonly="">
+
+                                            <input type="number" required="" class="form-control" name="iva" id="iva"
+                                                value="0" min="1" step="0.01" readonly="">
                                         </div>
                                         {{-- INPUT TOTAL --}}
                                         <div class="col-12 col-sm-6 col-md-4 mt-2">
-                                            
+
                                             <label for="" class="text-uppercase text-muted">Total: $ </label>
-                                            
-                                            <input type="number" required="" class="form-control" name="total" id="total" value="0" min="1" step="0.01" readonly>
+
+                                            <input type="number" required="" class="form-control" name="total"
+                                                id="total" value="0" min="1" step="0.01" readonly>
                                         </div>
                                     </div>
                                 </div>
@@ -298,39 +321,96 @@
                         </div>
                     </div>
 
-                    <hr>
 
+                    <div class="row mt-3">
+                        <div class="col-12">
+                            <p>
+                                <div class="custom-control custom-checkbox">
+                                    <input type="checkbox" class="custom-control-input" id="customCheck1"
+                                        data-toggle="collapse" href="#collapseExample" role="button"
+                                        aria-expanded="false" aria-controls="collapseExample">
+                                    <label class="custom-control-label" for="customCheck1">FACTURAR</label>
+                                </div>
+                            </p>
+                            <div class="collapse" id="collapseExample">
+                                <div class="card card-body">
+                                    <div class="row">
+                                        <div class="col-12 col-md-3 mt-3">
+                                            <label for="" class="text-uppercase text-muted">TIPO PERSONA</label>
+                                            <input type="text" class="form-control">
+                                        </div>
+                                        <div class="col-12 col-md-3 mt-3">
+                                            <label for="" class="text-uppercase text-muted">NOMBRE / RAZÓN
+                                                SOCIAL</label>
+                                            <input type="text" class="form-control">
+                                        </div>
+                                        <div class="col-12 col-md-3 mt-3">
+                                            <label for="" class="text-uppercase text-muted">RÉGIMEN FISCAL
+                                                SOCIAL</label>
+                                            <input type="text" class="form-control">
+                                        </div>
+                                        <div class="col-12 col-md-3 mt-3">
+                                            <label for="" class="text-uppercase text-muted">CORREO</label>
+                                            <input type="text" class="form-control">
+                                        </div>
+                                        <div class="col-12 col-md-3 mt-3">
+                                            <label for="" class="text-uppercase text-muted">RFC</label>
+                                            <input type="text" class="form-control">
+                                        </div>
+                                        <div class="col-12 col-md-3 mt-3">
+                                            <label for="" class="text-uppercase text-muted">CALLE</label>
+                                            <input type="text" class="form-control">
+                                        </div>
+                                        <div class="col-12 col-md-3 mt-3">
+                                            <label for="" class="text-uppercase text-muted">NUM. EXT</label>
+                                            <input type="text" class="form-control">
+                                        </div>
+                                        <div class="col-12 col-md-3 mt-3">
+                                            <label for="" class="text-uppercase text-muted">NUM. INT</label>
+                                            <input type="text" class="form-control">
+                                        </div>
+                                        <div class="col-12 col-md-3 mt-3">
+                                            <label for="" class="text-uppercase text-muted">NUM. INT</label>
+                                            <input type="text" class="form-control">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <hr>
                     {{-- BOTON GUARDAR --}}
                     <div class="row">
                         <div class="col-12">
-                            <button type="submit"  class="btn btn-success rounded-0">
+                            <button type="submit" class="btn btn-success rounded-0">
                                 <i class="fa fa-check"></i> Finalizar comprar
                             </button>
                         </div>
                     </div>
 
+            </div>
+
+
+
+            <div class="card-footer">
+                <div class="row">
+                    <div class="col-4 text-right text-danger">
+                        ✱Campos Requeridos.
                     </div>
+                </div>
+            </div>
 
-
-
-                    <div class="card-footer">
-                        <div class="row">
-                            <div class="col-4 text-right text-danger">
-                                ✱Campos Requeridos.
-                            </div>
-                        </div>
-                    </div>
-                    
-                </form>
+            </form>
             <div class="col-4 offset-4 text-center">
-{{--                 <form action="{{ route('pembayaran.print') }}" method="POST">                
-                    <input type="hidden" name="_token" class="form-control" value="{!! csrf_token() !!}"> --}}
-                    {{-- <button type="submit" name="submit" class="btn btn-info">Imprimir</button> --}}
+                {{--                 <form action="{{ route('pembayaran.print') }}" method="POST">
+                <input type="hidden" name="_token" class="form-control" value="{!! csrf_token() !!}"> --}}
+                {{-- <button type="submit" name="submit" class="btn btn-info">Imprimir</button> --}}
                 {{-- </form> --}}
             </div>
         </div>
     </div>
 </div>
+
 <script>
     function agregarProducto(p){
         let producto = JSON.parse($(p).val());
@@ -503,11 +583,9 @@
 </script>
 
 <script type="text/javascript">
-
-
-
     $(document).ready(function(){
-        
+      
+
         $('#descuento_id').change(function(){            
             var id=$('#descuento_id').val();
             $('#descuento').val(0);
@@ -768,10 +846,7 @@
 @if(isset($paciente))
 
 <script type="text/javascript">
-
-   
     $(document).ready(function(){
-
 
         const pacienteId = {{$paciente->id}};
 
@@ -817,6 +892,7 @@
             console.log('total',$('#sigpesos_usar').val())
         }
     });
+
    
 
 </script>
